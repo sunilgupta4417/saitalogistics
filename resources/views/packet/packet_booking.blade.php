@@ -9,7 +9,7 @@
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-12">
              <ul class="breadcrumb float-right p-0 mb-0">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('/home') }}"><i class="fas fa-home"></i> Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="#"> Operation Management</a></li>
                 <li class="breadcrumb-item"><span> Packet Booking</span></li>
              </ul>
@@ -404,6 +404,54 @@ $(document).ready(function() {
                $("#divisor").val(data.devisor).trigger('change');;
                $("#operation_remark").val(data.operation_remark);
                $("#accounting_remark").val(data.accounting_remark);
+            }else{
+               $("#id").val("");
+               $("#ref_no").val("");
+               $("#booking_date").val("");
+               $("#client_id").val("").trigger('change');
+               $("#consignor").val("");
+               $("#consignor_c_person").val("");
+               $("#consignor_address_1").val("");
+               $("#consignor_address_2").val("");
+               $("#consignor_address_3").val("");
+               $("#consignor_pin_code").val("");
+               $("#consignor_country").val("").trigger('change');
+               $("#consignor_state").val("");
+               $("#consignor_city").val("");
+               $("#consignor_mobile").val("");
+               $("#consignor_email").val("");
+               $("#consignor_pan").val("");
+               $("#consignor_gstin").val("");
+               $("#consignor_IEC").val("");
+               $("#consignor_aadhaar_no").val("");
+               $("#consignee").val("");
+               $("#consignee_cname").val("");
+               $("#consignee_address_1").val("");
+               $("#consignee_address_2").val("");
+               $("#consignee_address_3").val("");
+               $("#consignee_pincode").val("");
+               $("#consignee_country").val("").trigger('change');
+               $("#consignee_state").val("");
+               $("#consignee_city").val("");
+               $("#consignee_mobile").val("");
+               $("#consignee_email").val("");
+               $("#consignee_pan").val("");
+               $("#consignee_gstin").val("");
+               $("#consignee_iec").val("");
+               $("#consignee_aadhar_no").val("");
+               $("#packet_type").val("").trigger('change');
+               $("#payment_type").val("").trigger('change');
+               $("#invoice_no").val("");
+               $("#packet_detail").val("");
+               $("#pcs").val("");
+               $("#actual_weight").val("");
+               $("#vendor_weight").val("");
+               $("#vendor_packet_type").val("").trigger('change');
+               $("#total_value").val("");
+               $("#ddlCurrencyType").val("");
+               $("#divisor").val("").trigger('change');;
+               $("#operation_remark").val("");
+               $("#accounting_remark").val("");
             }
         },
       });

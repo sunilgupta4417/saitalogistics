@@ -11,8 +11,8 @@ body {
   color: #858585;
   font-weight: 400;
   font-family: 'Rubik';
-  src: url('Rubik-Medium.html') format('woff2'),
-      url('Rubik-Medium-2.html') format('woff');
+  src: url('Rubik-Medium.woff2') format('woff2'),
+      url('Rubik-Medium.woff') format('woff');
   font-style: normal;
   font-display: swap;
 }

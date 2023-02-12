@@ -167,10 +167,10 @@
                 <span>{{ auth()->user()->name }}</span>
               </a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="{{ url('/admin//user-profile') }}">My Profile</a>
+                <a class="dropdown-item" href="{{ url('/admin/user-profile') }}">My Profile</a>
                 {{-- <a class="dropdown-item" href="javascript:void(0);">Edit Profile</a> --}}
-                <a class="dropdown-item" href="{{ url('/admin//change-password') }}">Change Password</a>
-                <a class="dropdown-item" href="{{ url('/admin//website-setting') }}">Settings</a>
+                <a class="dropdown-item" href="{{ url('/admin/change-password') }}">Change Password</a>
+                <a class="dropdown-item" href="{{ url('/admin/website-setting') }}">Settings</a>
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                   @csrf
@@ -397,34 +397,34 @@
                </li>
               @endif
 
-              @php 
+             {{-- @php 
                 $account_menu = ['invoice','create-invoice'];
               @endphp
               @if(array_intersect($account_menu, $accessMenu))
                <li class="submenu">
                  <a href="javascript:void(0);" class="{{ in_array(Request::segment(2), $account_menu)?'subdrop':'' }}">
                   <i class="fa fa-users"></i>
-                   <span> Accounts </span>
+                   <span> Invoice </span>
                    <span class="menu-arrow"></span>
                  </a>
                  <ul class="list-unstyled" style="{{ in_array(Request::segment(2), $account_menu)?'':'display: none;' }}">
                     @if(in_array("create-invoice",$accessMenu))
                       <li class="{{ Request::segment(2)=='create-invoice'?'active':'' }}">
                           <a href="{{ url('/admin/create-invoice') }}">
-                              <span>Create Invoice</span>
+                              <span>Generate Bill</span>
                           </a>
                       </li>
                     @endif
                     @if(in_array("invoice",$accessMenu))
                       <li class="{{ Request::segment(2)=='invoice'?'active':'' }}">
                         <a href="{{ url('/admin/invoice') }}">
-                            <span>Invoice</span>
+                            <span>Print Bill</span>
                         </a>
                       </li>
                     @endif
                  </ul>
                </li>
-              @endif
+              @endif--}}
 
               @php 
                $setting_menu = ['website-setting','payment-history','user-profile','vendor-api-configuration'];
