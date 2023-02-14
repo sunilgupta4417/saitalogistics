@@ -19,7 +19,9 @@
        <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-12">
              <div class="card">
-               <form>
+             @include('message.error_validation')
+                <form action="{{route('shipment.save')}}" method="post" id="shipment_frm" name="shipment_frm">
+                @csrf
                    <div class="card-body">
                          <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                            <div class="row">
@@ -28,36 +30,51 @@
                                    <h3>Shipment Movement:</h3>
                                  </div>
                                </div>
+                               <?php
+                               $shipment_id  = isset($shipmentEdit->id) ? $shipmentEdit->id  :0;
+                               $awb_id = isset($shipmentEdit->awb_id) ? $shipmentEdit->awb_id  :0;
+                               $shipment_date = isset($shipmentEdit->shipment_date) ? date("d-m-Y",strtotime($shipmentEdit->shipment_date))  :NULL;
+                               $shipment_time = isset($shipmentEdit->shipment_time) ? $shipmentEdit->shipment_time  :NULL;
+                               $status = isset($shipmentEdit->status) ? $shipmentEdit->status  :NULL;
+                               $location = isset($shipmentEdit->location) ? $shipmentEdit->location  :NULL;
+                               $status_details = isset($shipmentEdit->status_details) ? $shipmentEdit->status_details  :NULL;
+                               ?>
                                 <div class="form-group col-md-6 col-12">
-                                      <label>AwbNo*</label>
-                                     <input class="form-control" type="text" placeholder="Enter AwbNo">
+                                      <label>AwbNo* {{$awb_id}}</label>
+                                      <input type="hidden" name="shipment_id" id="shipment_id" value="{{$shipment_id}}" />
+                                      <select class="form-control select" name="awb_id" id="awb_id" required>
+                                      <option value="">Select</option>
+                                      @foreach($packetbooking as $rowa)
+                                        <option value="{{$rowa->id}}" <?php echo ($awb_id==$rowa->id?'selected':'')?>>{{$rowa->awb_no}}</option>
+                                      @endforeach
+                                      </select>
                                 </div>
                                 <div class="form-group col-md-6 col-12">
                                       <label>Date*</label>
-                                     <input class="form-control datetimepicker-input datetimepicker" type="text" data-toggle="datetimepicker">
+                                     <input name="shipment_date" value="{{$shipment_date}}" required id="shipment_date" class="form-control datetimepicker-input datetimepicker" type="text" data-toggle="datetimepicker">
                                 </div>
                                 <div class="form-group col-md-6 col-12">
                                       <label>Time*</label>
-                                     <input class="form-control" type="text" placeholder="eg.23:59">
+                                     <input name="shipment_time" value="{{$shipment_time}}" required id="shipment_time" class="form-control" type="time" placeholder="eg.23:59">
                                 </div>
                                 <div class="form-group col-md-6 col-12">
                                      <label>Status*</label>
-                                     <select class="form-control select">
-                                        <option>--Select Status--</option>
-                                        <option value="DELIVERED">DELIVERED</option>
-                                        <option value="INTRANSIT">INTRANSIT</option>
-                                        <option value="PICKED UP">PICKED UP</option>
-                                        <option value="RTO">RTO</option>
-                                        <option value="UN-DELIVERED">UN-DELIVERED</option>
+                                     <select class="form-control select" name="status" id="status" required>
+                                        <option value="">--Select Status--</option>
+                                        <option value="DELIVERED" <?php echo ($status=='DELIVERED'?'selected':'') ?>>DELIVERED</option>
+                                        <option value="INTRANSIT" <?php echo ($status=='INTRANSIT'?'selected':'')  ?>>INTRANSIT</option>
+                                        <option value="PICKED UP" <?php echo ($status=='PICKED UP'?'selected':'')  ?>>PICKED UP</option>
+                                        <option value="RTO" <?php echo ($status=='RTO'?'selected':'')  ?>>RTO</option>
+                                        <option value="UN-DELIVERED" <?php echo ($status=='UN-DELIVERED'?'selected':'')  ?>>UN-DELIVERED</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6 col-12">
                                      <label>Location*</label>
-                                     <input class="form-control" type="text" placeholder="Enter Location">
+                                     <input class="form-control" value="{{$location}}" required name="location" id="location" type="text" placeholder="Enter Location">
                                 </div>
                                 <div class="form-group col-md-6 col-12">
                                      <label>Status Details*</label>
-                                     <input class="form-control" type="text" placeholder="Enter Status Details">
+                                     <input class="form-control" value="{{$status_details}}" required name="status_details" id="status_details" type="text" placeholder="Enter Status Details">
                                 </div>
                            </div>
                          </div>
@@ -67,7 +84,7 @@
                            <div class="page-btns">
                               <div class="form-group text-center custom-mt-form-group">
                               @if(checkAccess('shipment-movement','add_permission'))<button class="btn btn-primary mr-2" type="submit"><i class="fa fa-check"></i> Submit</button>@endif
-                                 <button class="btn btn-secondary orng-btn" type="reset"><i class="fa fa-dot-circle"></i> Reset</button>
+                                 <a href="{{route('shipment.movement')}}" class="btn btn-secondary orng-btn btn-sm"><i class="fa fa-dot-circle"></i> Reset</a>
                               </div>
                             </div>
                         </div>
@@ -77,7 +94,7 @@
                                  <div class="row">
                                  <div class="col-md-10">
                                     <div class="frm-heading">
-                                        <h3>Total Record(s) Found: 39</h3>
+                                        <h3>Total Record(s) Found: {{$shipment->total();}}</h3>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -99,7 +116,7 @@
                                              <thead>
                                                  <tr>
                                                  @if(checkAccess('shipment-movement','edit_permission'))<th>Edit</th>@endif
-                                                @if(checkAccess('shipment-movement','delete_permission')) <th>Delete</th>@endif
+                                                 @if(checkAccess('shipment-movement','delete_permission')) <th>Delete</th>@endif
                                                      <th>Booking Date</th>
                                                      <th>Consignee</th>
                                                      <th>AWB No.</th>
@@ -113,23 +130,26 @@
                                                  </tr>
                                              </thead>
                                              <tbody>
+                                                @foreach($shipment as $row)
                                                  <tr>
-                                                 @if(checkAccess('shipment-movement','edit_permission'))<td><a class="btn btn-primary" href="#"> <i class="fa fa-pencil-alt"></i></a></td>@endif
-                                                 @if(checkAccess('shipment-movement','delete_permission'))<td><a class="btn btn-primary" href="#"> <i class="fa fa-trash-alt"></i></a></td>@endif
+                                                 @if(checkAccess('shipment-movement','edit_permission'))<td><a class="btn btn-primary" href="{{route('shipment.movement')}}?id={{$row->id}}"> <i class="fa fa-pencil-alt"></i></a></td>@endif
+                                                 @if(checkAccess('shipment-movement','delete_permission'))<td><a class="btn btn-primary" href="{{route('shipment.delete',$row->id)}}" onclick="return confirm('Are you sure you want to delete this record?')"> <i class="fa fa-trash-alt"></i></a></td>@endif
                                                      <td>12-1-2023 10:20 PM </td>
+                                                     <td>{{$row->csn_consignor}}</td>
+                                                     <td>{{$row->awb_no}}</td>
+                                                     <td>{{$row->client_name}}</td>
+                                                     <td>{{$row->status}}</td>
                                                      <td></td>
-                                                     <td>ABCD123</td>
-                                                     <td>Sunil</td>
-                                                     <td>Pickup</td>
                                                      <td></td>
-                                                     <td></td>
-                                                     <td></td>
+                                                     <td>{{$row->csr_consignor}}</td>
+                                                     
                                                      <td>RC1232</td>
-                                                     <td>0123456789</td>
+                                                     <td>{{$row->csr_mobile_no}}</td>
                                                  </tr>
-                                                 
+                                                 @endforeach
                                                  </tbody>                                                           
                                              </table>
+                                             {{ $shipment->links()}}
                                      </div>
                                  </div>
                              </div>

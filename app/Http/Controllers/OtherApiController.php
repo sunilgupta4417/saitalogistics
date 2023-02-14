@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Country;
+use App\Models\PacketBooking;
+use App\Models\Shipment;
 use App\Models\Reason;
 use Auth;
 
@@ -21,9 +23,60 @@ class OtherApiController extends Controller
     }
 
     public function shipmentMovement(Request $request){
-        return view('other.shipment_movement');
+        $packetbooking = PacketBooking::select('id','awb_no')->get();
+        $shipment = Shipment::join('packet_bookings','packet_bookings.id','=','shipments.awb_id')
+        ->join('client_masters','client_masters.id','=','packet_bookings.client_id')
+        ->select('shipments.*','packet_bookings.awb_no','packet_bookings.csn_consignor',
+        'packet_bookings.csr_mobile_no','packet_bookings.csr_consignor',
+        'client_masters.client_name')
+        ->paginate(env('page_default_val'));
+        $id = $request->query('id',0);
+        $shipmentEdit = NULL;
+        if($id!=0){
+            $shipmentEdit = Shipment::select('*')->where('id',$id)->first();
+        }
+        return view('other.shipment_movement',compact('packetbooking','shipment','shipmentEdit'));
     }
-
+    public function shipmentSave(Request $request){
+        $this->validate($request,[
+            'awb_id'=>'required',
+            'shipment_date'=>'required',
+            'shipment_time'=>'required',
+            'status'=>'required',
+            'location'=>'required',
+            'status_details'=>'required',
+         ]);
+       $user = Auth::user(); 
+        if($request->shipment_id!=0){
+            $shipment = Shipment::find($request->shipment_id);
+            $msg = 'Shipment updated successfully!';
+        }else{
+            $shipment = new Shipment;
+            $shipment->created_by = $user->id;
+            $msg = 'Shipment added successfully!';
+        }
+       $shipment->awb_id = isset($request->awb_id) ? $request->awb_id : 0;
+       $shipment->shipment_date = isset($request->shipment_date) ? date("Y-m-d H:i:s",strtotime($request->shipment_date)) : NULL;
+       $shipment->shipment_time = isset($request->shipment_time) ? $request->shipment_time : NULL;
+       $shipment->status = isset($request->status) ? $request->status : NULL;
+       $shipment->location = isset($request->location) ? $request->location : NULL;
+       $shipment->status_details = isset($request->status_details) ? $request->status_details : NULL;
+       
+        $result = $shipment->save();
+        if($result){
+            return redirect()->back()->with('success',$msg);
+        }else{
+            return redirect()->back()->with('error','Something went wrong please try again!');
+        }
+    }
+    public function shipmentDelete($id){
+        $result = Shipment::where('id',$id)->delete();
+        if($result){
+            return redirect()->back()->with('success','Shipment deleted successfully!');
+        }else{
+            return redirect()->back()->with('error','Something went wrong please try again!');
+        } 
+    }
     public function podUpload(Request $request){
         return view('other.pod_upload');
     }
