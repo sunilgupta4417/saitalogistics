@@ -30,6 +30,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('search-packet-booking', [PacketBookingController::class, 'searchPacketBooking']);
 
     Route::get('import-packet', [PacketBookingController::class, 'importPacket']);
+    Route::post('import-packet-save', [PacketBookingController::class, 'importPacketSave'])->name('import.packet.save');
+
+    
     Route::get('booking-report', [PacketBookingController::class, 'bookingReport']);
     Route::get('manifest-report', [PacketBookingController::class, 'manifestReport']);
     Route::get('delivered-report', [PacketBookingController::class, 'deliveredReport']);

@@ -20,7 +20,8 @@
        <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-12">
              <div class="card">
-               <form>
+               <form action="{{route('import.packet.save')}}" method="post"  enctype="multipart/form-data">
+                  @csrf
                    <div class="card-body">
                          <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                            <div class="row">
@@ -38,7 +39,7 @@
                                 </div>
                                 <div class="form-group col-md-12 col-12">
                                    <label>File Name*</label>
-                                   <input type="file" class="form-control">
+                                   <input type="file" name="import_packet"  required accept=".xlsx" id="import_packet" class="form-control">
                                 </div>
                            </div>
                          </div>

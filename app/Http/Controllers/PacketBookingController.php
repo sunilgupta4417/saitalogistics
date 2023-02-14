@@ -6,6 +6,12 @@ use App\Models\PacketBooking;
 use App\Models\ClientMaster;
 use App\Models\Country;
 use Illuminate\Http\Request;
+use DB;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Reader\Exception;
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class PacketBookingController extends Controller
 {
@@ -142,6 +148,86 @@ class PacketBookingController extends Controller
 
     public function importPacket(Request $request){
         return view('packet.import_booking');
+    }
+    public function importPacketSave(Request $request){
+        $the_file = $request->file('import_packet');
+        try{
+            $spreadsheet = IOFactory::load($the_file->getRealPath());
+            $sheet        = $spreadsheet->getActiveSheet();
+            $row_limit    = $sheet->getHighestDataRow();
+            $column_limit = $sheet->getHighestDataColumn();
+            $row_range    = range( 2, $row_limit );
+            $column_range = range( 'F', $column_limit );
+            $startcount = 2;
+            $data = array();
+            foreach ( $row_range as $row ) {
+                $data[] = [
+                    'awb_no' => $sheet->getCell( 'A' . $row )->getValue(),
+                    'reference_no' => $sheet->getCell( 'B' . $row )->getValue(),
+                    'booking_date' => $sheet->getCell( 'C' . $row )->getValue(),
+                    'client_id' => $sheet->getCell( 'D' . $row )->getValue(),
+                    'csr_consignor' => $sheet->getCell( 'E' . $row )->getValue(),
+                    'csr_contact_person' => $sheet->getCell( 'F' . $row )->getValue(),
+                    'csr_address1' => $sheet->getCell( 'G' . $row )->getValue(),
+                    'csr_address2' => $sheet->getCell( 'H' . $row )->getValue(),
+                    'csr_address3' => $sheet->getCell( 'I' . $row )->getValue(),
+                    'csr_pincode' => $sheet->getCell( 'J' . $row )->getValue(),
+                    'csr_country_id' => $sheet->getCell( 'K' . $row )->getValue(),
+                    'csr_state_id' => $sheet->getCell( 'L' . $row )->getValue(),
+                    'csr_city_id' => $sheet->getCell( 'M' . $row )->getValue(),
+                    'csr_mobile_no' => $sheet->getCell( 'N' . $row )->getValue(),
+                    'csr_email_id' => $sheet->getCell( 'O' . $row )->getValue(),
+                    'csr_pan' => $sheet->getCell( 'P' . $row )->getValue(),
+                    'csr_gstin' => $sheet->getCell( 'Q' . $row )->getValue(),
+                    'csr_iec' => $sheet->getCell( 'R' . $row )->getValue(),
+                    'csr_aadharno' => $sheet->getCell( 'S' . $row )->getValue(),
+                    'csn_consignor' => $sheet->getCell( 'T' . $row )->getValue(),
+                    'csn_contact_person' => $sheet->getCell( 'U' . $row )->getValue(),
+                    'csn_address1' => $sheet->getCell( 'V' . $row )->getValue(),
+                    'csn_address2' => $sheet->getCell( 'W' . $row )->getValue(),
+                    'csn_address3' => $sheet->getCell( 'X' . $row )->getValue(),
+                    'csn_pincode' => $sheet->getCell( 'Y' . $row )->getValue(),
+                    'csn_country_id' => $sheet->getCell( 'Z' . $row )->getValue(),
+                    'csn_state_id' => $sheet->getCell( 'AA' . $row )->getValue(),
+                    'csn_city_id' => $sheet->getCell( 'AB' . $row )->getValue(),
+                    'csn_mobile_no' => $sheet->getCell( 'AC' . $row )->getValue(),
+                    'csn_email_id' => $sheet->getCell( 'AD' . $row )->getValue(),
+                    'csn_pan' => $sheet->getCell( 'AE' . $row )->getValue(),
+                    'csn_gstin' => $sheet->getCell( 'AF' . $row )->getValue(),
+                    'csn_iec' => $sheet->getCell( 'AG' . $row )->getValue(),
+                    'csn_aadharno' => $sheet->getCell( 'AH' . $row )->getValue(),
+                    'packet_type' => $sheet->getCell( 'AI' . $row )->getValue(),
+                    'payment_type' => $sheet->getCell( 'AJ' . $row )->getValue(),
+                    'invoice_no' => $sheet->getCell( 'AK' . $row )->getValue(),
+                    'packet_description' => $sheet->getCell( 'AL' . $row )->getValue(),
+                    'pcs_weight' => $sheet->getCell( 'AM' . $row )->getValue(),
+                    'actual_weight' => $sheet->getCell( 'AN' . $row )->getValue(),
+                    'vendor_weight' => $sheet->getCell( 'AO' . $row )->getValue(),
+                    'vendor_weight_type' => $sheet->getCell( 'AP' . $row )->getValue(),
+                    'total_weight' => $sheet->getCell( 'AQ' . $row )->getValue(),
+                    'currency' => $sheet->getCell( 'AR' . $row )->getValue(),
+                    'devisor' => $sheet->getCell( 'AS' . $row )->getValue(),
+                    'operation_remark' => $sheet->getCell( 'AT' . $row )->getValue(),
+                    'accounting_remark' => $sheet->getCell( 'AU' . $row )->getValue(),
+                    'created_by' => auth()->user()->id,
+                ];
+                // $data[] = [
+                //     'status' =>$sheet->getCell( 'A' . $row )->getValue(),
+                    
+                //     // 'Gender' => $sheet->getCell( 'B' . $row )->getValue(),
+                //     // 'Address' => $sheet->getCell( 'C' . $row )->getValue(),
+                //     // 'City' => $sheet->getCell( 'D' . $row )->getValue(),
+                //     // 'PostalCode' => $sheet->getCell( 'E' . $row )->getValue(),
+                //     // 'Country' =>$sheet->getCell( 'F' . $row )->getValue(),
+                // ];
+                $startcount++;
+            }
+            DB::table('packet_bookings')->insert($data);
+        } catch (Exception $e) {
+            $error_code = $e->errorInfo[1];
+            return back()->withErrors('There was a problem uploading the data!');
+        }
+        return back()->withSuccess('Great! Data has been successfully uploaded.');
     }
 
     public function bookingReport(Request $request){
