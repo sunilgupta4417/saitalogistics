@@ -14,14 +14,27 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-
+use PDF;
 class OtherApiController extends Controller
 {
    
     public function printAWBDocument(Request $request){
         return view('other.print_awb_document');
     }
-
+    public function printAwbDocPdf(Request $request){
+        // $data = [
+        //     'title' => 'Welcome to ItSolutionStuff.com',
+        //     'date' => date('m/d/Y')
+        // ];
+          
+        // $pdf = PDF::loadView('awb_invoice_print', $data);
+    
+        // // return $pdf->download('itsolutionstuff.pdf');
+        // echo public_path();
+        // exit;
+        
+        return view('pdf.awb_invoice_print');
+    }
     public function shipmentMovement(Request $request){
         $packetbooking = PacketBooking::select('id','awb_no')->get();
         $shipment = Shipment::join('packet_bookings','packet_bookings.id','=','shipments.awb_id')

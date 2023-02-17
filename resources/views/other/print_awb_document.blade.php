@@ -20,7 +20,8 @@
        <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-12">
              <div class="card">
-               <form>
+               <form action="{{route('print.awb.doc.pdf')}}" method="post">
+                  @csrf
                    <div class="card-body">
                          <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                            <div class="row">
