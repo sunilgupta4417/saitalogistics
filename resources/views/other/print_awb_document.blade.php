@@ -20,8 +20,8 @@
        <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-12">
              <div class="card">
-               <form action="{{route('print.awb.doc.pdf')}}" method="post">
-                  @csrf
+               <form action="{{route('print.awb.doc.pdf')}}" method="get">
+                 
                    <div class="card-body">
                          <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                            <div class="row">
@@ -41,7 +41,7 @@
                            <div class="page-btns">
                               <div class="form-group text-center custom-mt-form-group">
                                  <button class="btn btn-primary mr-2" type="submit"><i class="fa fa-print"></i> Invoice Print</button>
-                                 <button class="btn btn-primary mr-2" type="submit"><i class="fa fa-print"></i> Label Print</button>
+                                 <a class="btn btn-primary mr-2 btn-sm orng-btn" href="{{route('print.awb.label.pdf')}}"><i class="fa fa-print"></i> Label Print</a>
                                  <button class="btn btn-secondary orng-btn" type="reset"><i class="fa fa-dot-circle"></i> Reset</button>
                               </div>
                             </div>

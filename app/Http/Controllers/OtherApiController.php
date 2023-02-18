@@ -22,18 +22,38 @@ class OtherApiController extends Controller
         return view('other.print_awb_document');
     }
     public function printAwbDocPdf(Request $request){
+        $awb_no = 'awb001';
+        $invoiceData = PacketBooking::join('country','country.id','=','csr_country_id')
+        ->join('country as c','c.id','=','csn_country_id')
+        ->select('packet_bookings.*','country.country_name','c.country_name as csn_country_name')->where('awb_no',$awb_no)->first();
+        return view('pdf.awb_invoice_print',compact('invoiceData'));
+        exit;
         // $data = [
         //     'title' => 'Welcome to ItSolutionStuff.com',
         //     'date' => date('m/d/Y')
         // ];
           
-        // $pdf = PDF::loadView('awb_invoice_print', $data);
+        // $pdf = PDF::loadView('pdf.awb_label_print', $data);
     
-        // // return $pdf->download('itsolutionstuff.pdf');
-        // echo public_path();
-        // exit;
+        // return $pdf->download('packet_booking_label_print.pdf');
+        // // echo public_path();
+        // // exit;
+        // $data = Reason::all();
+        // // share data to view
+        // view()->share('other.print_awb_document',$data);
+        // $pdf = PDF::loadView('pdf_view', $data);
+        // // download PDF file with download method
+        // return $pdf->download('pdf_file.pdf');
+        // // return view('other.print_awb_document');
+    }
+    public function printAwblabelPdf(Request $request){
+        $awb_no = 'awb001';
+        $labelData = PacketBooking::join('country','country.id','=','csr_country_id')
+        ->join('country as c','c.id','=','csn_country_id')
+        ->join('client_masters','client_masters.id','=','packet_bookings.client_id')
+        ->select('packet_bookings.*','country.country_name','c.country_name as csn_country_name','client_masters.client_name')->where('awb_no',$awb_no)->first();
+        return view('pdf.awb_label_print',compact('labelData'));
         
-        return view('pdf.awb_invoice_print');
     }
     public function shipmentMovement(Request $request){
         $packetbooking = PacketBooking::select('id','awb_no')->get();
