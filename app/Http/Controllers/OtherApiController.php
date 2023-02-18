@@ -22,12 +22,19 @@ class OtherApiController extends Controller
         return view('other.print_awb_document');
     }
     public function printAwbDocPdf(Request $request){
-        $awb_no = 'awb001';
-        $invoiceData = PacketBooking::join('country','country.id','=','csr_country_id')
-        ->join('country as c','c.id','=','csn_country_id')
-        ->select('packet_bookings.*','country.country_name','c.country_name as csn_country_name')->where('awb_no',$awb_no)->first();
-        return view('pdf.awb_invoice_print',compact('invoiceData'));
-        exit;
+        $awb_no = $request->awbno;
+
+        $invoiceData = PacketBooking::select('packet_bookings.*','country.country_name','c.country_name as csn_country_name')
+        ->leftjoin('country','country.id','=','csr_country_id')
+        ->leftjoin('country as c','c.id','=','csn_country_id')
+        ->where('awb_no',$awb_no)->first();
+        
+        $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->download('awb_'.$awb_no.'_invoice.pdf');
+        
+        // return view('pdf.awb_invoice_print',compact('invoiceData'));
+        // exit;
         // $data = [
         //     'title' => 'Welcome to ItSolutionStuff.com',
         //     'date' => date('m/d/Y')

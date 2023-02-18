@@ -38,7 +38,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('delivered-report', [PacketBookingController::class, 'deliveredReport']);
 
     Route::get('print-awb-document', [OtherApiController::class, 'printAWBDocument']);
-    Route::get('print-awb-doc-pdf',[OtherApiController::class,'printAwbDocPdf'])->name('print.awb.doc.pdf');
+    Route::post('print-awb-doc-pdf',[OtherApiController::class,'printAwbDocPdf'])->name('print.awb.doc.pdf');
     Route::get('print-awb-label-pdf',[OtherApiController::class,'printAwbLabelPdf'])->name('print.awb.label.pdf');
     Route::get('shipment-movement', [OtherApiController::class, 'shipmentMovement'])->name('shipment.movement');
     Route::post('shipment-save', [OtherApiController::class, 'shipmentSave'])->name('shipment.save');

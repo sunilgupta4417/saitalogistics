@@ -20,8 +20,8 @@
        <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-12">
              <div class="card">
-               <form action="{{route('print.awb.doc.pdf')}}" method="get">
-                 
+               <form action="{{route('print.awb.doc.pdf')}}" method="post">
+                 @csrf
                    <div class="card-body">
                          <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                            <div class="row">
@@ -32,7 +32,7 @@
                                </div>
                                 <div class="form-group col-md-12 col-12">
                                    <label>Awb No.*</label>
-                                   <input type="text" class="form-control" placeholder="Awb No">
+                                   <input type="text" class="form-control" name="awbno" placeholder="Awb No">
                                 </div>
                            </div>
                          </div>

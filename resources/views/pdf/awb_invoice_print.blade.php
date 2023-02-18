@@ -12,14 +12,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   
     <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"> -->
-    <link rel="stylesheet" href="{{asset('admin/pdf/assets/css/app.min.css')}}">
-    <link rel="stylesheet" href="{{asset('admin/pdf/assets/css/style.css')}}"> 
+    <link rel="stylesheet" href="{{public_path('admin/pdf/assets/css/app.min.css')}}">
+    <link rel="stylesheet" href="{{public_path('admin/pdf/assets/css/style.css')}}"> 
     <style>
     </style>
   </head>
   <body>
 
-    <div class="invoice-container-wrap">
+    <div class="invoice-container-wrap" style="width: 100%;">
       <div class="invoice-container">
         <!-- First Slip Here Start -->
             <main>
@@ -30,14 +30,14 @@
                       <div class="col-auto">
                         <div class="header-logo">
                           <a href="index.html">
-                            <img src="{{asset('admin/pdf/assets/img/logo.png')}}" alt="Invce">
+                            <img src="{{public_path('admin/pdf/assets/img/logo.png')}}" alt="Invce">
                           </a>
                         </div>
                       </div>
                       <div class="col-auto">
                       	<div class="codebar">
     	                    <h1 class="big-title">CONSIGNMENT NOTE NUMBER SERVICE</h1>
-    	                    <img src="{{asset('admin/pdf/assets/img/codebar.png')}}" alt="" class="img-responsive">
+    	                    <img src="{{public_path('admin/pdf/assets/img/codebar.png')}}" alt="" class="img-responsive">
     	                    <p>{{$invoiceData->awb_no}}</p>
     	                </div>
                       </div>
@@ -67,7 +67,7 @@
                       </div>
                     </div>
                   </header>
-                  <div class="row justify-content-between mb-2">
+                  {{-- <div class="row justify-content-between mb-2">
                     <div class="col-auto">
                       <div class="invoice-left">
                         <p><b style="background: #000; color: #fff; padding: 4px; margin-right: 5px;">SHIPPER A/C:</b> <span>........</span></p>
@@ -148,7 +148,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> --}}
                   <table class="invoice-table">
                     <thead>
                       <tr>
@@ -219,7 +219,7 @@
                       <div class="col-auto">
                         <div class="codebar">
                           <h1 class="big-title">CONSIGNMENT NOTE NUMBER SERVICE</h1>
-                          <img src="{{asset('admin/pdf/assets/img/codebar.png')}}" alt="" class="img-responsive">
+                          <img src="{{public_path('admin/pdf/assets/img/codebar.png')}}" alt="" class="img-responsive">
                           <p>AWB001</p>
                       </div>
                       </div>
@@ -255,7 +255,7 @@
                       </div>
                     </div>
                   </header>
-                  <div class="row justify-content-between mb-2">
+                  {{-- <div class="row justify-content-between mb-2">
                     <div class="col-auto">
                       <div class="invoice-left">
                         <p><b style="background: #000; color: #fff; padding: 4px; margin-right: 5px;">SHIPPER A/C:</b> <span>........</span></p>
@@ -336,7 +336,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> --}}
                   <table class="invoice-table">
                     <thead>
                       <tr>
