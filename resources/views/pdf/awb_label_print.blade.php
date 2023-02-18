@@ -4,15 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Saitalogistics</title>
-    <meta name="author" content="Angfuzsoft">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="robots" content="INDEX,FOLLOW">
+   
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.png">
-    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-    <link rel="stylesheet" href="{{asset('admin/pdf/assets/css/app.min.css')}}">
-    <link rel="stylesheet" href="{{asset('admin/pdf/assets/css/style.css')}}">
-
+    <link rel="stylesheet" href="{{public_path('admin/pdf/assets/css/app.min.css')}}">
+    <link rel="stylesheet" href="{{public_path('admin/pdf/assets/css/style.css')}}">
   </head>
   <body>
     <div class="invoice-container-wrap">
@@ -25,7 +20,7 @@
                   <div class="col-auto">
                     <div class="header-logo">
                       <a href="index.html">
-                        <img src="{{asset('admin/pdf/assets/img/logo.png')}}" alt="Invce">
+                        <img src="{{public_path('admin/pdf/assets/img/logo.png')}}" alt="Invce">
                       </a>
                     </div>
                   </div>
@@ -40,7 +35,7 @@
                   <div class="row align-items-center">
                     <div class="col">
                       <div class="border-line">
-                        <img src="{{asset('admin/pdf/assets/img/bg/line_pattern.svg')}}" alt="line">
+                        <img src="{{public_path('admin/pdf/assets/img/bg/line_pattern.svg')}}" alt="line">
                       </div>
                     </div>
                   </div>
@@ -52,18 +47,17 @@
                     <p><b style="background: #000; color: #fff; padding: 4px; margin-right: 5px;">Client: </b> <span>{{$labelData->client_name}}</span></p>
                     <div class="sec-more-address">
                       <div class="more-iner-text">
-                          <table class="table-resposnive" id="iner-table">
+                          <table class="table-resposnive" id="iner-table1">
                             <thead>
                               <tr>
-                                <th>From :</th>
-                                <th>{{$labelData->csr_state_id}}</th>
+                                <th>From : {{$labelData->csr_state_id}}</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>{{$labelData->csr_consignor}}</td>
-                              </tr>
-                              <tr>
+                            <tr>
+                              <td>{{$labelData->csr_consignor}}</td>
+                            </tr>
+                            <tr>
                             <td>{{$labelData->csr_state_id}}</td>
                             </tr>
                             <tr>
@@ -86,11 +80,10 @@
                     <p><b style="background: #000; color: #fff; padding: 4px; margin-right: 5px;">DATE:</b> <span>{{date("d-M-Y",strtotime($labelData->booking_date))}}</span></p>
                     <div class="sec-more-address">
                       <div class="more-iner-text">
-                          <table class="table-resposnive" id="iner-table">
+                          <table class="table-resposnive" id="iner-table2">
                             <thead>
                               <tr>
-                                <th>To :</th>
-                                <th>{{$labelData->csn_state_id}}</th>
+                                <th>To: {{$labelData->csn_state_id}}</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -141,18 +134,14 @@
 
               <div class="awb-data">
                 <h3>AWB</h3>
-                <img src="{{asset('admin/pdf/assets/img/codebar.png')}}" alt="" class="img-responsive">
+                <img src="{{public_path('admin/pdf/assets/img/codebar.png')}}" alt="" class="img-responsive">
                 <b>{{$labelData->awb_no}}</b>
               </div>
-
               <div class="body-shape1"></div>
             </div>
-
           </div>
         </main>
       </div>
     </div>
-    
-
   </body>
 </html>

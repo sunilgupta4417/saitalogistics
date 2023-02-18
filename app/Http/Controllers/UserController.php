@@ -8,6 +8,7 @@ use App\Models\RoleManger;
 use Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 class UserController extends Controller
 {
     public function manageUser(Request $request){
@@ -81,6 +82,33 @@ class UserController extends Controller
     }
     public function changePassword(Request $request){
         return view('user.change_password');
+    }
+
+    public function changePasswordSave(Request $request)
+    {
+        $request->validate([
+        'new_password' => [
+            'required',
+            // 'confirmed',
+            Password::min(6)
+                
+                ->mixedCase()
+                ->letters()
+                ->numbers()
+                ->symbols()
+                ->uncompromised(),
+        ],
+        'conf_password' => 'required|same:new_password',
+        'old_password'=>'required',
+    ]);
+    $user = Auth::user();
+    if(!\Hash::check($request->old_password, $user->password)){
+        return redirect()->back()->with('error','Your current password does not matches with the password you provided. Please try again.');
+    }
+        $new_password = isset($request->new_password) ? Hash::make($request->new_password) : NULL;
+        $user->password = $new_password;
+        $user->save();
+        return redirect()->back()->with("success","Password changed successfully !");
     }
 
     public function paymentHistory(Request $request){

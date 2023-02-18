@@ -21,7 +21,7 @@
           <div class="col-lg-12 col-md-12 col-sm-12 col-12">
              <div class="card">
                @include('message.error_validation')
-               <form method="POST" action="{{ url('admin/save-packet-booking') }}" enctype="multipart/form-data" >
+               <form method="POST" name="packet_booking" id="packet_booking" action="{{ url('admin/save-packet-booking') }}" enctype="multipart/form-data" >
                   @csrf
                    <div class="card-body">
                          <div class="col-lg-12 col-md-12 col-sm-12 col-12">
@@ -329,13 +329,14 @@
                            <div class="page-btns">
                               <div class="form-group text-center custom-mt-form-group">
                               @if(checkAccess('packet-booking','add_permission'))<button class="btn btn-primary mr-2" type="submit"><i class="fa fa-check"></i> Submit</button>@endif
-                              <button class="btn btn-primary mr-2" type="button"><i class="fa fa-print"></i> Invoice Print</button>
-                                 <button class="btn btn-primary mr-2" type="button"><i class="fa fa-print"></i> Label Print</button>                              
+                              <button class="btn btn-primary mr-2 getVal" value="invoice" type="submit"><i class="fa fa-print"></i> Invoice Print</button>
+                                 <button class="btn btn-primary mr-2 getlabel" value="label" type="submit"><i class="fa fa-print"></i> Label Print</button>                              
                                  <button class="btn btn-secondary orng-btn" type="reset"><i class="fa fa-dot-circle"></i> Reset</button>
                               </div>
                             </div>
                         </div>
                      </div>
+                     <input type="hidden" name="print_type" id="print_type" />
                    </form></div>
                
              </div>
@@ -346,6 +347,17 @@
 
 @section('script')
 <script>
+   $(document).ready(function() {
+   $(".getVal").click(function () {
+      $('#print_type').val($('.getVal').val());
+      $('#packet_booking').attr('action', "{{route('print.awb.doc.pdf')}}")
+    });
+    $(".getlabel").click(function () {
+      $('#print_type').val($('.getlabel').val());
+      $('#packet_booking').attr('action', "{{route('print.awb.doc.pdf')}}")
+    });
+});
+
 $(document).ready(function() {
     $("#awb_no").on("blur",function(){
       var awb_no = $(this).val();

@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="form-group col-md-12 col-12">
                                    <label>File Name*</label>
-                                   <input type="file" name="import_packet"  required accept=".xlsx" id="import_packet" class="form-control">
+                                   <input type="file" name="import_packet"  accept=".xlsx" id="import_packet" class="form-control" required>
                                 </div>
                            </div>
                          </div>
@@ -47,8 +47,8 @@
                            <div class="page-btns">
                               <div class="form-group text-center custom-mt-form-group">
                                  
-                              @if(checkAccess('import-packet','import_permission'))<button class="btn btn-primary mr-2" type="submit"><i class="fa fa-file-import"></i> Import</button>@endif
-                                 <button class="btn btn-primary mr-2" type="submit"><i class="fa fa-download"></i> Download Format</button>
+                              @if(checkAccess('import-packet','import_permission'))<button value="invoice" class="getVal btn btn-primary mr-2" type="submit"><i class="fa fa-file-import"></i> Import</button>@endif
+                                 <a class="btn btn-primary mr-2 btn-sm orng-btn" href="{{asset('excel_demo/packet-booking-demo.xlsx')}}"><i class="fa fa-download"></i> Download Format</a>
                                  <button class="btn btn-secondary orng-btn" type="reset"><i class="fa fa-dot-circle"></i> Reset</button>
                               </div>
                             </div>

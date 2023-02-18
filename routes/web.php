@@ -77,6 +77,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('user-delete/{id}',[UserController::class, 'userMasterDelete'])->name('user.delete');
 
     Route::get('change-password', [UserController::class, 'changePassword']);
+    Route::post('change-password-save',[UserController::class,'changePasswordSave'])->name('change.password.save');
     Route::get('payment-history', [UserController::class, 'paymentHistory']);
     Route::get('user-profile', [UserController::class, 'userProfile']);
     Route::post('user-profile-update',[UserController::class, 'userProfileUpdate'])->name('user.profile.update');

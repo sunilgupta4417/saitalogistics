@@ -160,7 +160,9 @@ class PacketBookingController extends Controller
             $column_range = range( 'F', $column_limit );
             $startcount = 2;
             $data = array();
-            foreach ( $row_range as $row ) {
+            $check = array();
+            foreach ( $row_range as $key=>$row ) {
+                
                 $data[] = [
                     'awb_no' => $sheet->getCell( 'A' . $row )->getValue(),
                     'reference_no' => $sheet->getCell( 'B' . $row )->getValue(),
@@ -211,18 +213,10 @@ class PacketBookingController extends Controller
                     'accounting_remark' => $sheet->getCell( 'AU' . $row )->getValue(),
                     'created_by' => auth()->user()->id,
                 ];
-                // $data[] = [
-                //     'status' =>$sheet->getCell( 'A' . $row )->getValue(),
-                    
-                //     // 'Gender' => $sheet->getCell( 'B' . $row )->getValue(),
-                //     // 'Address' => $sheet->getCell( 'C' . $row )->getValue(),
-                //     // 'City' => $sheet->getCell( 'D' . $row )->getValue(),
-                //     // 'PostalCode' => $sheet->getCell( 'E' . $row )->getValue(),
-                //     // 'Country' =>$sheet->getCell( 'F' . $row )->getValue(),
-                // ];
+                $check=['awb_no'];
                 $startcount++;
             }
-            DB::table('packet_bookings')->insert($data);
+            PacketBooking::upsert($data,$check);
         } catch (Exception $e) {
             $error_code = $e->errorInfo[1];
             return back()->withErrors('There was a problem uploading the data!');

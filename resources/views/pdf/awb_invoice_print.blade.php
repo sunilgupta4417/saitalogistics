@@ -46,7 +46,7 @@
                       <div class="row align-items-center">
                         <div class="col">
                           <div class="border-line">
-                            <img src="pdf/assets/img/bg/line_pattern.svg" alt="line">
+                            <img src="{{public_path('pdf/assets/img/bg/line_pattern.svg')}}" alt="line">
                           </div>
                         </div>
                         <div class="col-auto">

@@ -20,7 +20,9 @@
        <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-12">
              <div class="card">
-               <form>
+               @include('message.error_validation')
+               <form action="{{route('change.password.save')}}" method="post" name="frn_password" id="frn_password">
+                  @csrf
                    <div class="card-body">
                          <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                            <div class="row">
@@ -40,22 +42,22 @@
                                 </div>
                                 <div class="form-group col-md-4 col-12">
                                    <label>Old Password*</label>
-                                   <input type="password" class="form-control" placeholder="Enter Old Password">
+                                   <input type="text" class="form-control" name="old_password" id="old_password" placeholder="Enter Old Password">
                                 </div>
                                 <div class="form-group col-md-4 col-12">
                                    <label>New Password*</label>
-                                   <input type="password" class="form-control" placeholder="Enter New Password">
+                                   <input type="text" class="form-control" maxlength="15"  name="new_password" id="new_password" placeholder="Enter New Password">
                                 </div>
                                 <div class="form-group col-md-4 col-12">
                                    <label>Confirm Password*</label>
-                                   <input type="password" class="form-control" placeholder="Enter Confirm Passwordd">
+                                   <input type="text" class="form-control" maxlength="15" name="conf_password" id="conf_password" placeholder="Enter Confirm Passwordd">
                                 </div>
                            </div>
                          </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                            <div class="page-btns">
                               <div class="form-group text-center custom-mt-form-group">
-                              @if(checkAccess('change-password','add_permission'))<button class="btn btn-primary mr-2" type="button"><i class="fa fa-check"></i> Save</button>@endif
+                              @if(checkAccess('change-password','add_permission'))<button class="btn btn-primary mr-2" type="submit"><i class="fa fa-check"></i> Save</button>@endif
                                  <button class="btn btn-secondary orng-btn" type="reset"><i class="fa fa-dot-circle"></i> Reset</button>
                               </div>
                             </div>

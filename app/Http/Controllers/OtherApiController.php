@@ -22,36 +22,30 @@ class OtherApiController extends Controller
         return view('other.print_awb_document');
     }
     public function printAwbDocPdf(Request $request){
-        $awb_no = $request->awbno;
-
-        $invoiceData = PacketBooking::select('packet_bookings.*','country.country_name','c.country_name as csn_country_name')
-        ->leftjoin('country','country.id','=','csr_country_id')
-        ->leftjoin('country as c','c.id','=','csn_country_id')
-        ->where('awb_no',$awb_no)->first();
-        
-        $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData'));
-        $pdf->setPaper('A4', 'landscape');
-        return $pdf->download('awb_'.$awb_no.'_invoice.pdf');
-        
-        // return view('pdf.awb_invoice_print',compact('invoiceData'));
-        // exit;
-        // $data = [
-        //     'title' => 'Welcome to ItSolutionStuff.com',
-        //     'date' => date('m/d/Y')
-        // ];
-          
-        // $pdf = PDF::loadView('pdf.awb_label_print', $data);
-    
-        // return $pdf->download('packet_booking_label_print.pdf');
-        // // echo public_path();
-        // // exit;
-        // $data = Reason::all();
-        // // share data to view
-        // view()->share('other.print_awb_document',$data);
-        // $pdf = PDF::loadView('pdf_view', $data);
-        // // download PDF file with download method
-        // return $pdf->download('pdf_file.pdf');
-        // // return view('other.print_awb_document');
+        $awb_no = $request->awb_no;
+        // dd($request->awb_no);
+        if($request->print_type=='invoice'){
+            $invoiceData = PacketBooking::select('packet_bookings.*','country.country_name','c.country_name as csn_country_name')
+            ->leftjoin('country','country.id','=','csr_country_id')
+            ->leftjoin('country as c','c.id','=','csn_country_id')
+            ->where('awb_no',$awb_no)->first();
+            // return view('pdf.awb_invoice_print',compact('invoiceData'));
+            $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData'));
+            $pdf->setPaper('A4', 'landscape');
+            // return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
+            return $pdf->download('awb_'.$awb_no.'_invoice.pdf');
+        }elseif($request->print_type=='label'){
+            $labelData = PacketBooking::join('country','country.id','=','csr_country_id')
+            ->join('country as c','c.id','=','csn_country_id')
+            ->join('client_masters','client_masters.id','=','packet_bookings.client_id')
+            ->select('packet_bookings.*','country.country_name','c.country_name as csn_country_name','client_masters.client_name')->where('awb_no',$awb_no)->first();
+            // return view('pdf.awb_label_print',compact('labelData'));
+            $pdf = PDF::loadView('pdf.awb_label_print', compact('labelData'));
+            $pdf->setPaper('A4', 'landscape');
+            // return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
+            return $pdf->download('awb_'.$awb_no.'_label.pdf');
+        }
+        return redirect()->back();
     }
     public function printAwblabelPdf(Request $request){
         $awb_no = 'awb001';
