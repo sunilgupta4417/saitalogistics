@@ -59,7 +59,7 @@ class PacketBookingController extends Controller
             'vendor_packet_type' => 'required',
             'total_value' => 'required',
             'ddlCurrencyType' => 'required',
-            'divisor' => 'required',
+            // 'divisor' => 'required',
             'accounting_remark' => 'required',
             'accounting_remark' => 'required',
          ]);

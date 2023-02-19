@@ -182,7 +182,7 @@
                     </div>
                     <div class="col-auto">
                         <div class="received-text">
-                        <h5>RECEIVED BY IT COMPANY</h5>
+                        <h5>RECEIVED BY {{$website['company_name']}}</h5>
                         <p class="mb-0">SIGNATURE <span>.........................</span></p>
                         <p class="mb-0">DATE <span>.........................</span></p>
                         <p class="mb-0">TIME <span>.........................</span></p>
@@ -190,7 +190,7 @@
                     </div>
                   </div>
                   <p class="invoice-note mt-3">
-                    THANKS FOR SHIPPING WITH IT COMPANY
+                    THANKS FOR SHIPPING WITH {{$website['company_name']}}
                   </p>
                   <div class="body-shape1"></div>
                 </div>
@@ -370,7 +370,7 @@
                     </div>
                     <div class="col-auto">
                         <div class="received-text">
-                        <h5>RECEIVED BY IT COMPANY</h5>
+                        <h5>RECEIVED BY {{$website['company_name']}}</h5>
                         <p class="mb-0">SIGNATURE <span>.........................</span></p>
                         <p class="mb-0">DATE <span>.........................</span></p>
                         <p class="mb-0">TIME <span>.........................</span></p>
@@ -378,7 +378,7 @@
                     </div>
                   </div>
                   <p class="invoice-note mt-3">
-                    THANKS FOR SHIPPING WITH IT COMPANY
+                    THANKS FOR SHIPPING WITH {{$website['company_name']}}
                   </p>
                   <div class="body-shape1"></div>
                 </div>

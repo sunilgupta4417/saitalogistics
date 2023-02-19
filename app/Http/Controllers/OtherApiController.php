@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Country;
 use App\Models\PacketBooking;
+use App\Models\WebsiteSetting;
 use App\Models\Shipment;
 use App\Models\Reason;
 use Auth;
@@ -24,15 +25,17 @@ class OtherApiController extends Controller
     public function printAwbDocPdf(Request $request){
         $awb_no = $request->awb_no;
         // dd($request->awb_no);
+        $website = WebsiteSetting::select()->get()->pluck('data_value','data_key')->toArray();;
         if($request->print_type=='invoice'){
             $invoiceData = PacketBooking::select('packet_bookings.*','country.country_name','c.country_name as csn_country_name')
             ->leftjoin('country','country.id','=','csr_country_id')
             ->leftjoin('country as c','c.id','=','csn_country_id')
             ->where('awb_no',$awb_no)->first();
+
             // return view('pdf.awb_invoice_print',compact('invoiceData'));
-            $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData'));
+            $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData','website'));
             $pdf->setPaper('A4', 'landscape');
-            // return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
+            return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
             return $pdf->download('awb_'.$awb_no.'_invoice.pdf');
         }elseif($request->print_type=='label'){
             $labelData = PacketBooking::join('country','country.id','=','csr_country_id')
@@ -40,7 +43,7 @@ class OtherApiController extends Controller
             ->join('client_masters','client_masters.id','=','packet_bookings.client_id')
             ->select('packet_bookings.*','country.country_name','c.country_name as csn_country_name','client_masters.client_name')->where('awb_no',$awb_no)->first();
             // return view('pdf.awb_label_print',compact('labelData'));
-            $pdf = PDF::loadView('pdf.awb_label_print', compact('labelData'));
+            $pdf = PDF::loadView('pdf.awb_label_print', compact('labelData','website'));
             $pdf->setPaper('A4', 'landscape');
             // return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
             return $pdf->download('awb_'.$awb_no.'_label.pdf');
@@ -69,7 +72,9 @@ class OtherApiController extends Controller
         if($id!=0){
             $shipmentEdit = Shipment::select('*')->where('id',$id)->first();
         }
-        return view('other.shipment_movement',compact('packetbooking','shipment','shipmentEdit'));
+        // Shipment Status From Reason Master
+        $reason = Reason::select('*')->where('isActive',1)->get();
+        return view('other.shipment_movement',compact('packetbooking','shipment','shipmentEdit','reason'));
     }
     public function shipmentSave(Request $request){
         $this->validate($request,[

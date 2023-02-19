@@ -33,7 +33,7 @@ class ClientMasterController extends Controller
     public function clientMasterSave(Request $request){
 
         $this->validate($request,[
-            'country_name'=>'required',
+            'country_id'=>'required',
             'client_name'=>'required',
             'client'=>'required',
             'address1'=>'required',
@@ -149,7 +149,36 @@ class ClientMasterController extends Controller
                         // echo 'ins';
                    }
                 }
-
+                if(isset($request->contact) && count($request->contact) > 0){
+                    foreach($request->contact as $contactItem){
+                  
+                        if(isset($contactItem['id']) && $contactItem['id'] > 0){
+                            if(!empty($contactItem['email_id'])){
+                                $updatecontact= [
+                                    'contact_person_name' => isset($contactItem['contact_person_name']) ? $contactItem['contact_person_name']: NULL,
+                                    'mobile_no' => isset($contactItem['mobile_no']) ? $contactItem['mobile_no']: NULL,
+                                    'email_id' => isset($contactItem['email_id']) ? $contactItem['email_id']: null,
+                                    ];   
+                                ClientcontactCharges::where('id',$contactItem['id'])->restore();
+                                ClientcontactCharges::where('id',$contactItem['id'])->update($updatecontact);   
+                            }
+                            // echo 'up;';
+                        }else{
+                            if(!empty($contactItem['email_id'])){
+                                $savecontactData = [
+                                    'client_id' => $result->id,
+                                    'contact_person_name' => isset($contactItem['contact_person_name']) ? $contactItem['contact_person_name']: NULL,
+                                    'mobile_no' => isset($contactItem['mobile_no']) ? $contactItem['mobile_no']: NULL,
+                                    'email_id' => isset($contactItem['email_id']) ? $contactItem['email_id']: null,
+                                    'created_at' => date('Y-m-d h:s:i'),
+                                    'updated_at' => date('Y-m-d h:s:i'),
+                                    ];   
+    
+                                ClientcontactCharges::create($savecontactData);
+                            }
+                       }
+                    }
+                }
                 // print_r($otherItem['id']); 
 
             }
@@ -222,5 +251,8 @@ class ClientMasterController extends Controller
         header("Content-Type: application/vnd.ms-excel");
         return redirect(url('/')."/export/".$fileName);
         exit;
+    }
+    public function testYajara(Request $request){
+        return view('client.yajaratest');
     }
 }

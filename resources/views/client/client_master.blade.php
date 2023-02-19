@@ -319,7 +319,7 @@
                                  </div>
                                  <div class="form-group col-md-3 col-12">
                                        <div class="plusing-btn">
-                                         
+                                       <button class="btn btn-danger deleteAdd btn-xs" tabindex="1" data-id="{{$i}}" type="button" title="Delete Head">Delete <i class="fa fa-trash"></i></button>
                                        </div>
                                  </div>
                                  @php
@@ -384,7 +384,7 @@
                            <div class="page-btns">
                               <div class="form-group text-center custom-mt-form-group">
                               @if(checkAccess('client-master','edit_permission'))<button class="btn btn-primary mr-2" type="submit"><i class="fa fa-check"></i> Save</button>@endif
-                              @if(checkAccess('client-master','import_permission'))   <a href="{{route('export.client.master')}}" class="btn btn-primary mr-2 btn-sm" type="button"><i class="fa fa-expand"></i> Export</a>@endif
+                              @if(checkAccess('client-master','import_permission'))<a href="{{route('export.client.master')}}" class="btn btn-primary mr-2 btn-sm" type="button"><i class="fa fa-expand"></i> Export</a>@endif
                               <a href="{{route('client.master')}}" class="btn btn-secondary orng-btn btn-sm" type="reset"><i class="fa fa-dot-circle"></i> Reset</a>
                               </div>
                             </div>
@@ -446,7 +446,7 @@
                                  <thead>
                                     <tr>
                                        @if(checkAccess('client-master','edit_permission'))<th>Edit</th>@endif
-                                       @if(checkAccess('client-master','delete_permission'))<th>Del</th>>@endif
+                                       @if(checkAccess('client-master','delete_permission'))<th>Del</th>@endif
                                        <th>Client Code</th>
                                        <th>Client Name</th>
                                        <!-- <th>Sales Person</th> -->
@@ -505,9 +505,9 @@
 
                         </div>
 
-                     </form></div>
+                     </form>
+                  </div>
                    </div>
-               
              </div>
           </div>
        </div>

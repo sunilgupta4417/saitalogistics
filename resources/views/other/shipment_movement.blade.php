@@ -40,7 +40,7 @@
                                $status_details = isset($shipmentEdit->status_details) ? $shipmentEdit->status_details  :NULL;
                                ?>
                                 <div class="form-group col-md-6 col-12">
-                                      <label>AwbNo* {{$awb_id}}</label>
+                                      <label>AwbNo*</label>
                                       <input type="hidden" name="shipment_id" id="shipment_id" value="{{$shipment_id}}" />
                                       <select class="form-control select" name="awb_id" id="awb_id" required>
                                       <option value="">Select</option>
@@ -61,11 +61,9 @@
                                      <label>Status*</label>
                                      <select class="form-control select" name="status" id="status" required>
                                         <option value="">--Select Status--</option>
-                                        <option value="DELIVERED" <?php echo ($status=='DELIVERED'?'selected':'') ?>>DELIVERED</option>
-                                        <option value="INTRANSIT" <?php echo ($status=='INTRANSIT'?'selected':'')  ?>>INTRANSIT</option>
-                                        <option value="PICKED UP" <?php echo ($status=='PICKED UP'?'selected':'')  ?>>PICKED UP</option>
-                                        <option value="RTO" <?php echo ($status=='RTO'?'selected':'')  ?>>RTO</option>
-                                        <option value="UN-DELIVERED" <?php echo ($status=='UN-DELIVERED'?'selected':'')  ?>>UN-DELIVERED</option>
+                                        @foreach($reason as $row)
+                                            <option value="{{$row->reason_text}}" <?php echo ($status==$row->reason_text?'selected':'') ?>>{{$row->reason_text}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6 col-12">
@@ -142,7 +140,6 @@
                                                      <td></td>
                                                      <td></td>
                                                      <td>{{$row->csr_consignor}}</td>
-                                                     
                                                      <td>RC1232</td>
                                                      <td>{{$row->csr_mobile_no}}</td>
                                                  </tr>

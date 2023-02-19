@@ -278,7 +278,7 @@
                                    
                                 </div>
                                
-                                <div class="form-group col-md-3 col-12">
+                                {{--<div class="form-group col-md-3 col-12">
                                    <label>Divisor*</label>
                                    <select class="form-control select" required name="divisor" id="divisor">
                                        <option>Select</option>
@@ -286,7 +286,7 @@
                                        <option value="6000">6000</option>
                                        <option value="4500">4500</option>
                                     </select>
-                                </div>
+                                </div>--}}
                                 
                            </div>
 

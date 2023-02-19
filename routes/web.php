@@ -65,7 +65,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('export-client-master', [ClientMasterController::class, 'exportClientMaster'])->name('export.client.master');
     Route::post('client-master-save',[ClientMasterController::class, 'clientMasterSave'])->name('client.master.save');
     Route::get('client-master-delete/{id}',[ClientMasterController::class, 'clientMasterDelete'])->name('client.master.delete');
-    
+
     Route::get('zone-master', [ZoneMasterController::class, 'zoneMaster'])->name('zone.master');
     Route::post('zone-master-save', [ZoneMasterController::class, 'zoneMasterSave'])->name('zone.master.save');
     Route::get('zone-master-delete/{id}', [ZoneMasterController::class, 'zoneMasterDelete'])->name('zone.master.delete');

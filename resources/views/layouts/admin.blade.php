@@ -459,11 +459,11 @@
                       </li>
                     @endif
                     @if(in_array("vendor-api-configuration",$accessMenu))
-                      <li class="{{ Request::segment(2)=='vendor-api-configuration'?'active':'' }}">
+                      {{--<li class="{{ Request::segment(2)=='vendor-api-configuration'?'active':'' }}">
                         <a href="{{ url('/admin/vendor-api-configuration') }}">
                             <span>Vendor API Configuratio</span>
                         </a>
-                      </li>
+                      </li>--}}
                     @endif
                  </ul>
                </li>
