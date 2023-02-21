@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PacketBooking;
 use App\Models\ClientMaster;
+use App\Models\vendorMaster;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use DB;
@@ -225,7 +226,72 @@ class PacketBookingController extends Controller
     }
 
     public function bookingReport(Request $request){
-        return view('packet.booking_report');
+        // dd($request);
+        $client = ClientMaster::select('client_name','id')->get();
+
+        $vendor = vendorMaster::select('name','id')->get();
+        $var = '';
+        $client_id = isset($request->client_id) ? $request->client_id : 0;
+        $vendor_id= isset($request->vendor) ? $request->vendor : 0;
+        $consignee = isset($request->consignee) ? $request->consignee : NULL;
+        $startdate =isset($request->startdate) ? $request->startdate : NULL;
+        $enddate =isset($request->enddate) ? $request->enddate : NULL;
+        $awb_no = isset($request->awb_no) ? $request->awb_no : NULL;
+        $booking_status = isset($request->booking_status) ? $request->booking_status : NULL;
+        $destination = isset($request->destination) ? $request->destination : NULL;
+        $consignor = isset($request->consignor) ? $request->consignor : NULL;
+        $forwarding_no = isset($request->forwarding_no) ? $request->forwarding_no : NULL;
+        $csr_mobile= isset($request->csr_mobile) ? $request->csr_mobile : NULL;
+        $packetBook = PacketBooking::leftjoin('client_masters','client_masters.id','=','packet_bookings.client_id')
+       
+        ->select('packet_bookings.*','client_masters.client_name')
+        ->where(function ($sqlAdd) use ($startdate,$enddate){
+            if($startdate!=NULL && $enddate!=NULL){
+                $sqlAdd->where('booking_date','>=',$startdate)
+                ->where->where('booking_date','<=',$enddate);
+            }elseif($startdate!=NULL){
+                $sqlAdd->where('booking_date','>=',$startdate);
+            }elseif($enddate!=NULL){
+                $sqlAdd->where('booking_date','<=',$enddate);
+            }
+        })
+        ->where(function ($sqlAdd) use ($client_id,$vendor_id){
+            if($vendor_id!=0){
+                // $sqlAdd->where('client_id',$client_id);
+            }
+            if($client_id!=0){
+                $sqlAdd->where('client_id',$client_id);
+            }
+        })
+        ->where(function ($sqlAdd) use ($consignee,$booking_status,$destination,$consignor,$forwarding_no,$csr_mobile){
+            if($consignee!=NULL){
+                $sqlAdd->where('csn_consignor','LIKE','%'.$consignee.'%');
+            }
+            if($consignor!=NULL){
+                $sqlAdd->where('csr_consignor','LIKE','%'.$consignor.'%');
+            }
+            if($booking_status!=NULL){
+                // $sqlAdd->where('csn_consignor','LIKE','%'.$booking_status.'%');
+            }
+            if($destination!=NULL){
+                // $sqlAdd->where('csn_consignor','LIKE','%'.$booking_status.'%');
+            }
+            if($forwarding_no!=NULL){
+                // $sqlAdd->where('csn_consignor','LIKE','%'.$booking_status.'%');
+            }
+            if($csr_mobile!=NULL){
+                $sqlAdd->where('csr_mobile_no',$csr_mobile);
+            }
+
+        })
+        ->where(function ($sqlAdd) use ($awb_no){
+            if($awb_no!=NULL){
+                $sqlAdd->whereIn('awb_no',['$awb_no']);
+            }
+        })
+        
+        ->get();
+        return view('packet.booking_report',compact('client','vendor','packetBook'));
     }
 
     public function manifestReport(Request $request){
@@ -233,6 +299,7 @@ class PacketBookingController extends Controller
     }
 
     public function deliveredReport(Request $request){
+        
         return view('packet.delivered_report');
     }
     

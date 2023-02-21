@@ -34,7 +34,9 @@ class OtherApiController extends Controller
 
             // return view('pdf.awb_invoice_print',compact('invoiceData'));
             $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData','website'));
-            $pdf->setPaper('A4', 'landscape');
+            
+            // $pdf->setPaper('A4', 'landscape');
+            // $pdf->render();
             return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
             return $pdf->download('awb_'.$awb_no.'_invoice.pdf');
         }elseif($request->print_type=='label'){
