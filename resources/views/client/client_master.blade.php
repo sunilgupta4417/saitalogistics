@@ -294,6 +294,7 @@
                            @if($OtherCharges)
                           
                               @foreach($OtherCharges as $key =>$value)
+                              <div class="row col-lg-12 col-md-12 col-sm-12 col-12" id="dynamic_{{ $i }}">
                                  <div class="form-group col-md-3 col-12">
                                     <label>Charge Type*</label>
                                     <input type="hidden" name="Other[{{$i}}][id]" value="{{$value->id}}">
@@ -322,6 +323,7 @@
                                        <button class="btn btn-danger deleteAdd btn-xs" tabindex="1" data-id="{{$i}}" type="button" title="Delete Head">Delete <i class="fa fa-trash"></i></button>
                                        </div>
                                  </div>
+                              </div>
                                  @php
                                  $i++
                                  @endphp
@@ -339,15 +341,15 @@
                                </div>
                                 <div class="form-group col-md-3 col-12">
                                  <label>Name*</label>
-                                   <input type="text" required name="contact[0][contact_person_name]" class="form-control" placeholder="Enter Contact Person">
+                                   <input type="text" name="contact[0][contact_person_name]" class="form-control" placeholder="Enter Contact Person">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
                                  <label>Mobile No*</label>
-                                   <input type="text" required name="contact[0][mobile_no]" class="form-control" placeholder="Enter Mobile No">
+                                   <input type="text" name="contact[0][mobile_no]" class="form-control" placeholder="Enter Mobile No">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
                                  <label>Email ID*</label>
-                                   <input type="text" required name="contact[0][email_id]" class="form-control" placeholder="Email ID">
+                                   <input type="text" name="contact[0][email_id]" class="form-control" placeholder="Email ID">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
                                      <div class="plusing-btn">
@@ -358,6 +360,35 @@
                                      </div>
                                 </div>
                            </div>
+                           @php $m=1; @endphp
+                           @if($clientContact!=null)
+                        @foreach($clientContact as $clientcontactItem)
+                           <div class="row" id="dynamic_contact_{{$m}}">
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-12" style="padding: 0px;">
+                                 <div class="form-group col-md-3 col-12" style="float: left;">
+                                    <label>Name*</label>
+                                    <input type="text" required name="contact[{{$m}}][contact_person_name]" value="{{ $clientcontactItem->contact_person_name }}" class="form-control" placeholder="Enter Contact Person">
+                                 </div>
+                                 <div class="form-group col-md-3 col-12" style="float: left;">
+                                    <label>Mobile No*</label>
+                                    <input type="text" required name="contact[{{$m}}][mobile_no]" value="{{ $clientcontactItem->mobile_no }}" class="form-control" placeholder="Enter Mobile No">
+                                 </div>
+                                 <div class="form-group col-md-3 col-12" style="float: left;">
+                                    <label>Email ID*</label>
+                                    <input type="text" required name="contact[{{$m}}][email_id]" value="{{ $clientcontactItem->email_id }}" class="form-control" placeholder="Email ID">
+                                 </div>
+                                 <div class="form-group col-md-3 col-12" style="float: left;">
+                                       <div class="plusing-btn">
+                                          <button class="btn btn-danger deleteAddContact btn-xs" tabindex="1" data-id="{{ $m }}" type="button" title="Delete Head">Delete <i class="fa fa-trash"></i></button>
+                                       </div>
+                                 </div>
+                              </div>
+                           </div>
+                           @php $m++; @endphp
+                        @endforeach
+                        @endif
+
+                           
                            <div id="dynamicAddFiledContact"></div>
                            <!-- <div class="row">
                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
@@ -512,7 +543,10 @@
           </div>
        </div>
 @endsection
-@php $i=1;$newJ = $i + 1; @endphp
+@php 
+   $newJ = $i + 1; 
+   $newmi = $m + 1;
+@endphp
 @section('script')
 <script>
    $( document ).ready(function() {
@@ -551,9 +585,9 @@ function GenrateHtml(addval) {
             '</button></div>';
 }
 $( document ).ready(function() {
-    var i = 1;
+    var mi = "{{ $newmi }}";
     $("#btnAddClientChargesDetails2").on("click",function(){
-      var addHml = GenrateHtmlClient(i);
+      var addHml = GenrateHtmlClient(mi);
       $("#dynamicAddFiledContact").append(addHml);
       i++;
    });
@@ -564,7 +598,7 @@ $( document ).ready(function() {
    });
 });
 function GenrateHtmlClient(addval){
-return '<div class="row"  id="dynamic_contact_'+addval+'"><div class="form-group col-md-3 col-12">'+
+return '<div class="row" id="dynamic_contact_'+addval+'"><div class="form-group col-md-3 col-12">'+
       '<label>Name*</label><input type="text" required name="contact['+addval+'][contact_person_name]" class="form-control" placeholder="Enter Contact Person"></div>'+
       '<div class="form-group col-md-3 col-12">'+
       '<label>Mobile No*</label><input type="text" required name="contact['+addval+'][mobile_no]" class="form-control" placeholder="Enter Mobile No"></div>'+
