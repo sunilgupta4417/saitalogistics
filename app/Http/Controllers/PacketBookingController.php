@@ -162,20 +162,34 @@ class PacketBookingController extends Controller
             $startcount = 2;
             $data = array();
             $check = array();
+
+
+            $clientData = ClientMaster::select('id','client_name')->get();
+            $countryData = Country::select('id','country_name')->get();
+            $clientArray = [];$countryArray = [];
+            foreach($clientData as $rowc){
+                $clientArray[strtolower($rowc->client_name)] = $rowc->id;
+            }
+            foreach($countryData as $rowct){
+                $countryArray[strtolower($rowct->country_name)] = $rowct->id;
+            }
             foreach ( $row_range as $key=>$row ) {
-                
+               
+                $client_id = $clientArray[strtolower($sheet->getCell( 'D' . $row )->getValue())];
+                $csrCountry = $countryArray[strtolower($sheet->getCell( 'K' . $row )->getValue())];
+                $csnCountry = $countryArray[strtolower($sheet->getCell( 'Z' . $row )->getValue())];
                 $data[] = [
                     'awb_no' => $sheet->getCell( 'A' . $row )->getValue(),
                     'reference_no' => $sheet->getCell( 'B' . $row )->getValue(),
                     'booking_date' => $sheet->getCell( 'C' . $row )->getValue(),
-                    'client_id' => $sheet->getCell( 'D' . $row )->getValue(),
+                    'client_id' =>$client_id,
                     'csr_consignor' => $sheet->getCell( 'E' . $row )->getValue(),
                     'csr_contact_person' => $sheet->getCell( 'F' . $row )->getValue(),
                     'csr_address1' => $sheet->getCell( 'G' . $row )->getValue(),
                     'csr_address2' => $sheet->getCell( 'H' . $row )->getValue(),
                     'csr_address3' => $sheet->getCell( 'I' . $row )->getValue(),
                     'csr_pincode' => $sheet->getCell( 'J' . $row )->getValue(),
-                    'csr_country_id' => $sheet->getCell( 'K' . $row )->getValue(),
+                    'csr_country_id' => $csrCountry,
                     'csr_state_id' => $sheet->getCell( 'L' . $row )->getValue(),
                     'csr_city_id' => $sheet->getCell( 'M' . $row )->getValue(),
                     'csr_mobile_no' => $sheet->getCell( 'N' . $row )->getValue(),
@@ -190,7 +204,7 @@ class PacketBookingController extends Controller
                     'csn_address2' => $sheet->getCell( 'W' . $row )->getValue(),
                     'csn_address3' => $sheet->getCell( 'X' . $row )->getValue(),
                     'csn_pincode' => $sheet->getCell( 'Y' . $row )->getValue(),
-                    'csn_country_id' => $sheet->getCell( 'Z' . $row )->getValue(),
+                    'csn_country_id' => $csnCountry,
                     'csn_state_id' => $sheet->getCell( 'AA' . $row )->getValue(),
                     'csn_city_id' => $sheet->getCell( 'AB' . $row )->getValue(),
                     'csn_mobile_no' => $sheet->getCell( 'AC' . $row )->getValue(),
@@ -234,20 +248,20 @@ class PacketBookingController extends Controller
         $client_id = isset($request->client_id) ? $request->client_id : 0;
         $vendor_id= isset($request->vendor) ? $request->vendor : 0;
         $consignee = isset($request->consignee) ? $request->consignee : NULL;
-        $startdate =isset($request->startdate) ? $request->startdate : NULL;
-        $enddate =isset($request->enddate) ? $request->enddate : NULL;
+        $startdate =isset($request->startdate) ? date("Y-m-d",strtotime($request->startdate)) : NULL;
+        $enddate =isset($request->enddate) ? date("Y-m-d",strtotime($request->enddate)) : NULL;
         $awb_no = isset($request->awb_no) ? $request->awb_no : NULL;
         $booking_status = isset($request->booking_status) ? $request->booking_status : NULL;
         $destination = isset($request->destination) ? $request->destination : NULL;
         $consignor = isset($request->consignor) ? $request->consignor : NULL;
         $forwarding_no = isset($request->forwarding_no) ? $request->forwarding_no : NULL;
         $csr_mobile= isset($request->csr_mobile) ? $request->csr_mobile : NULL;
+        
         $packetBook = PacketBooking::leftjoin('client_masters','client_masters.id','=','packet_bookings.client_id')
-       
         ->select('packet_bookings.*','client_masters.client_name')
         ->where(function ($sqlAdd) use ($startdate,$enddate){
             if($startdate!=NULL && $enddate!=NULL){
-                $sqlAdd->where('booking_date','>=',$startdate)
+                $sqlAdd->where('booking_date','>=',strtorime($startdate))
                 ->where->where('booking_date','<=',$enddate);
             }elseif($startdate!=NULL){
                 $sqlAdd->where('booking_date','>=',$startdate);
@@ -286,7 +300,8 @@ class PacketBookingController extends Controller
         })
         ->where(function ($sqlAdd) use ($awb_no){
             if($awb_no!=NULL){
-                $sqlAdd->whereIn('awb_no',['$awb_no']);
+                $array = explode(',', $awb_no);
+                $sqlAdd->whereIn('awb_no',$array);
             }
         })
         

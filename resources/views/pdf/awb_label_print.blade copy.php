@@ -6,27 +6,27 @@
     <title>Saitalogistics</title>
    
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.png">
-    <link rel="stylesheet" href="{{asset('admin/pdf/assets/css/app.min.css')}}">
-    <link rel="stylesheet" href="{{asset('admin/pdf/assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{public_path('admin/pdf/assets/css/app.min.css')}}">
+    <link rel="stylesheet" href="{{public_path('admin/pdf/assets/css/style.css')}}">
   </head>
-  <body  onload="window.print()">
+  <body>
     <div class="invoice-container-wrap">
       <div class="invoice-container">
         <main>
-          <div class="as-invoice invoice_style">
+          <div class="as-invoice invoice_style1">
             <div class="download-inner" id="download_section">
-              <header class="as-header header-layout">
+              <header class="as-header header-layout1">
                 <div class="row align-items-center justify-content-between">
                   <div class="col-auto">
                     <div class="header-logo">
                       <a href="index.html">
-                        <img src="{{asset('admin/pdf/assets/img/logo.png')}}" alt="Invce">
+                        <img src="{{public_path('admin/pdf/assets/img/logo.png')}}" alt="Invce">
                       </a>
                     </div>
                   </div>
                   <div class="col-auto">
                   	<div class="codebar">
-	                    <h1 class="big-title">{{$website['company_name']}}</h1>
+	                    <h1 class="big-title">IT COMPANY</h1>
 	                    <a href="#">sunilsingh.dhani@gmail.com</a>
 	                </div>
                   </div>
@@ -35,7 +35,7 @@
                   <div class="row align-items-center">
                     <div class="col">
                       <div class="border-line">
-                        <img src="{{asset('admin/pdf/assets/img/bg/line_pattern.svg')}}" alt="line">
+                        <img src="{{public_path('admin/pdf/assets/img/bg/line_pattern.svg')}}" alt="line">
                       </div>
                     </div>
                   </div>
@@ -47,7 +47,7 @@
                     <p><b style="background: #000; color: #fff; padding: 4px; margin-right: 5px;">Client: </b> <span>{{$labelData->client_name}}</span></p>
                     <div class="sec-more-address">
                       <div class="more-iner-text">
-                          <table class="table-resposnive" id="iner-table">
+                          <table class="table-resposnive" id="iner-table1">
                             <thead>
                               <tr>
                                 <th>From : {{$labelData->csr_state_id}}</th>
@@ -80,7 +80,7 @@
                     <p><b style="background: #000; color: #fff; padding: 4px; margin-right: 5px;">DATE:</b> <span>{{date("d-M-Y",strtotime($labelData->booking_date))}}</span></p>
                     <div class="sec-more-address">
                       <div class="more-iner-text">
-                          <table class="table-resposnive" id="iner-table">
+                          <table class="table-resposnive" id="iner-table2">
                             <thead>
                               <tr>
                                 <th>To: {{$labelData->csn_state_id}}</th>
@@ -134,7 +134,7 @@
 
               <div class="awb-data">
                 <h3>AWB</h3>
-                <img src="{{asset('admin/pdf/assets/img/codebar.png')}}" alt="" class="img-responsive">
+                <img src="{{public_path('admin/pdf/assets/img/codebar.png')}}" alt="" class="img-responsive">
                 <b>{{$labelData->awb_no}}</b>
               </div>
               <div class="body-shape1"></div>
