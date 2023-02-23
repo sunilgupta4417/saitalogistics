@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\WebController;
+use App\Http\Controllers\Frontend\AuthController;
+use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PacketBookingController;
 use App\Http\Controllers\OtherApiController;
@@ -12,12 +15,45 @@ use App\Http\Controllers\WebsiteSettingController;
 use App\Http\Controllers\VendorMainFestController;
 use App\Http\Controllers\RoleMangerController;
 
-Route::get('/', function () {
-    // return view('welcome');
-    return \File::get(public_path() . '/index.html');
-});
+
+
+//WEBSITE ROUTES
+Route::get('/', [WebController::class, 'index'])->name('home');
+Route::get('/about', [WebController::class, 'about'])->name('about');
+Route::get('/services', [WebController::class, 'services'])->name('services');
+Route::get('/tracking', [WebController::class, 'tracking'])->name('tracking');
+Route::get('/shipping', [WebController::class, 'shipping'])->name('shipping');
+Route::get('/support', [WebController::class, 'support'])->name('support');
+Route::get('/faq', [WebController::class, 'faq'])->name('faq');
+Route::get('/privacy-policy', [WebController::class, 'privacy_policy'])->name('privacy_policy');
+Route::get('/terms-condition', [WebController::class, 'terms_conditions'])->name('terms_conditions');
+Route::get('/user-login', [AuthController::class, 'login'])->name('user.login');
+Route::get('/user-logout', [AuthController::class, 'logout'])->name('user.logout');
+Route::get('/user-register', [AuthController::class, 'register'])->name('user.register');
+Route::post('/user/authenticate', [AuthController::class, 'authenticate']);
+Route::post('/user/register', [AuthController::class, 'store']);
+
+
+Route::group(['prefix' => 'user', 'middleware' => ['user:web']], function () {
+
+Route::get('/dashboard', [DashboardController::class, 'home'])->name('user.dashboard');
+Route::post('/profile/update', [DashboardController::class, 'update_profile']);
+Route::post('/profile/password', [DashboardController::class, 'update_password']);
+Route::get('/shipment/history', [DashboardController::class, 'get_shipment'])->name('user.get_shipment');
+Route::get('/shipment/create', [DashboardController::class, 'create_shipment'])->name('user.create_shipment');
+Route::post('/shipment/store', [DashboardController::class, 'store_shipment']);
+Route::get('/shipping/success', [DashboardController::class, 'shipping_success'])->name('user.shipping.success');
+
+
+});     
+
+
+
+
+
 
 Auth::routes();
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){

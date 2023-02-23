@@ -52,3 +52,19 @@ $('.testimonial-slider').slick({
 	
 
 }(jQuery));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

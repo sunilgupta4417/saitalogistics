@@ -1,0 +1,60 @@
+    <!-- NAVBAR
+    ================================================= -->
+    <div class="main-navigation main_menu " id="mainmenu-area">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="{{asset('assets/images/logo-white.png')}}" alt="Digicon" class="img-fluid">
+                </a>
+                <!-- Toggler -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="ti-menu-alt"></span>
+                </button>
+
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <!-- Links -->
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item ">
+                            <a href="{{ url('about') }}" class="nav-link js-scroll-trigger">About us</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{{ url('services') }}" class="nav-link js-scroll-trigger">Services</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{{ url('shipping') }}" class="nav-link js-scroll-trigger">Shipping</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{{ url('tracking') }}" class="nav-link js-scroll-trigger">Tracking</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{{ url('support') }}" class="nav-link">Support</a>
+                        </li>
+                    </ul>
+
+                     <ul class="list-inline header-contact float-lg-right">
+                        <li class="list-inline-item center-icons" id="head-icons">
+                           <a href="#" class="btn btn-solid-border btn-sm mb-lg-0 mb-2"><i class="fab fa-facebook-f"></i></a>
+                           <a href="#" class="btn btn-solid-border btn-sm mb-lg-0 mb-2"><i class="fab fa-twitter"></i></a>
+                           <a href="#" class="btn btn-solid-border btn-sm mb-lg-0 mb-2"><i class="fab fa-instagram"></i></a>
+                        </li> 
+                         @if( !Auth::check() ) 
+                        <li class="list-inline-item" id="head-icons">
+                          <a href="{{ url('user-login') }}" class="btn btn-main-2 btn-sm">Sign Up/Log In</a>
+                        </li> 
+                        @else
+                        <li class="list-inline-item" id="head-icons">
+                          <a href="{{ url('user/dashboard') }}" class="btn btn-main-2 btn-sm">My Dashboard</a>
+                        </li> 
+                        
+
+
+                        @endif
+                        <li class="list-inline-item">
+                          <img src="{{asset('assets/images/saita-icon.svg')}}" alt="" class="img-responsive">
+                        </li>
+                    </ul>
+                </div> <!-- / .navbar-collapse -->
+            </nav>
+        </div> <!-- / .container -->
+    </div>
