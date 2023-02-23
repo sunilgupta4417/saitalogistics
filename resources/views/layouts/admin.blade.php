@@ -440,7 +440,7 @@
                     @if(in_array("website-setting",$accessMenu))
                       <li class="{{ Request::segment(2)=='website-setting'?'active':'' }}">
                           <a href="{{ url('/admin/website-setting') }}">
-                              <span>Website Setting </span>
+                              <span>Company Profile</span>
                           </a>
                       </li>
                     @endif

@@ -69,7 +69,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('import-packet-save', [PacketBookingController::class, 'importPacketSave'])->name('import.packet.save');
 
     
-    Route::get('booking-report', [PacketBookingController::class, 'bookingReport']);
+    Route::get('booking-report', [PacketBookingController::class, 'bookingReport'])->name('booking.report');
     Route::get('manifest-report', [PacketBookingController::class, 'manifestReport']);
     Route::get('delivered-report', [PacketBookingController::class, 'deliveredReport']);
 

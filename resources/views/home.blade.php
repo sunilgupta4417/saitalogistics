@@ -29,7 +29,7 @@
           </span>
           <div class="dash-widget-info text-right">
             <span>BOOKING</span>
-            <h3>60,000</h3>
+            <h3>{{$booking->count()}}</h3>
           </div>
         </div>
       </div>

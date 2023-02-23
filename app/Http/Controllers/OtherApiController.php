@@ -32,21 +32,23 @@ class OtherApiController extends Controller
             ->leftjoin('country as c','c.id','=','csn_country_id')
             ->where('awb_no',$awb_no)->first();
 
-            // return view('pdf.awb_invoice_print',compact('invoiceData'));
-            $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData','website'));
-            $pdf->setPaper('A4', 'landscape');
-            return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
-            return $pdf->download('awb_'.$awb_no.'_invoice.pdf');
+            return view('pdf.awb_invoice_print',compact('invoiceData','website'));
+            // $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData','website'));
+            
+            // // $pdf->setPaper('A4', 'landscape');
+            // // $pdf->render();
+            // return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
+            // return $pdf->download('awb_'.$awb_no.'_invoice.pdf');
         }elseif($request->print_type=='label'){
             $labelData = PacketBooking::join('country','country.id','=','csr_country_id')
             ->join('country as c','c.id','=','csn_country_id')
             ->join('client_masters','client_masters.id','=','packet_bookings.client_id')
             ->select('packet_bookings.*','country.country_name','c.country_name as csn_country_name','client_masters.client_name')->where('awb_no',$awb_no)->first();
-            // return view('pdf.awb_label_print',compact('labelData'));
-            $pdf = PDF::loadView('pdf.awb_label_print', compact('labelData','website'));
-            $pdf->setPaper('A4', 'landscape');
-            // return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
-            return $pdf->download('awb_'.$awb_no.'_label.pdf');
+            return view('pdf.awb_label_print',compact('labelData','website'));
+            // $pdf = PDF::loadView('pdf.awb_label_print', compact('labelData','website'));
+            // $pdf->setPaper('A4', 'landscape');
+            // // return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
+            // return $pdf->download('awb_'.$awb_no.'_label.pdf');
         }
         return redirect()->back();
     }

@@ -23,12 +23,13 @@ class ClientMasterController extends Controller
         ->select('client_masters.*','country.country_name')->whereNull('deleted_at');
         $totalClient = $clientMaster->count();
         $clientMaster =$clientMaster->paginate(env('page_default_val'));
-        $client=null;$OtherCharges=null;
+        $client=null;$OtherCharges=null;$clientContact = null;
         if($editId!=0){
             $client = ClientMaster::select('*')->where('id',$editId)->first();
             $OtherCharges = ClientOtherCharges::select('*')->where('client_id',$editId)->get();
+            $clientContact =  ClientContactPerson::select('*')->where('client_id',$editId)->get();
         }
-        return view('client.client_master',compact('country','clientMaster','client','OtherCharges','totalClient'));
+        return view('client.client_master',compact('country','clientMaster','client','OtherCharges','totalClient','clientContact'));
     }
     public function clientMasterSave(Request $request){
 
@@ -113,6 +114,7 @@ class ClientMasterController extends Controller
         }else{
            
             $result = ClientMaster::where('id',$id)->update($insData);
+            
             ClientOtherCharges::where('client_id',$id)->delete();
             // dd($request->Other);
             if(isset($request->Other) && count($request->Other) > 0){
@@ -159,14 +161,14 @@ class ClientMasterController extends Controller
                                     'mobile_no' => isset($contactItem['mobile_no']) ? $contactItem['mobile_no']: NULL,
                                     'email_id' => isset($contactItem['email_id']) ? $contactItem['email_id']: null,
                                     ];   
-                                ClientcontactCharges::where('id',$contactItem['id'])->restore();
-                                ClientcontactCharges::where('id',$contactItem['id'])->update($updatecontact);   
+                                ClientContactPerson::where('id',$contactItem['id'])->restore();
+                                ClientContactPerson::where('id',$contactItem['id'])->update($updatecontact);   
                             }
                             // echo 'up;';
                         }else{
                             if(!empty($contactItem['email_id'])){
                                 $savecontactData = [
-                                    'client_id' => $result->id,
+                                    'client_id' => $id,
                                     'contact_person_name' => isset($contactItem['contact_person_name']) ? $contactItem['contact_person_name']: NULL,
                                     'mobile_no' => isset($contactItem['mobile_no']) ? $contactItem['mobile_no']: NULL,
                                     'email_id' => isset($contactItem['email_id']) ? $contactItem['email_id']: null,
@@ -174,7 +176,7 @@ class ClientMasterController extends Controller
                                     'updated_at' => date('Y-m-d h:s:i'),
                                     ];   
     
-                                ClientcontactCharges::create($savecontactData);
+                                ClientContactPerson::create($savecontactData);
                             }
                        }
                     }
