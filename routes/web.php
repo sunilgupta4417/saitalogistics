@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebsiteSettingController;
 use App\Http\Controllers\VendorMainFestController;
 use App\Http\Controllers\RoleMangerController;
+use App\Http\Controllers\CMSController;
 
 
 
@@ -142,4 +143,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 
     Route::get('user-permission/{id}', [userController::class, 'userPermission'])->name('user.user-permission');
     Route::post('user-permission', [userController::class, 'saveUserPermission'])->name('save.user-permission');
+
+
+    //CMS MENU
+    Route::get('cms/page/{name}', [CMSController::class, 'get_page']);
+    Route::post('cms/page/update', [CMSController::class, 'update_page'])->name('cms.page.update');
+
+
 });

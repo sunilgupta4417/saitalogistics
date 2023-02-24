@@ -43,8 +43,22 @@
                           <a href="{{ url('user-login') }}" class="btn btn-main-2 btn-sm">Sign Up/Log In</a>
                         </li> 
                         @else
+                        <li class="list-inline-item nav-item dropdown" id="head-icons">
+                        <a href="signup.html" class="nav-link dropdown-toggle" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}} <img src="assets/images/user2.png" alt=""><i class="fa fa-caret-down"></i></a>
+                            <div class="dropdown-menu" aria-labelledby="navbar3">
+                                 <a class="dropdown-item" href="{{ url('user/dashboard') }}">
+                                    My Profile
+                                </a>
+                                <a class="dropdown-item" href="{{ url('user/shipment/history') }}">
+                                    History
+                                </a> 
+                                <a class="dropdown-item" href="{{ url('user-logout') }}">
+                                    Sign Out
+                                </a> 
+                            </div>
+                     </li>
                         <li class="list-inline-item" id="head-icons">
-                          <a href="{{ url('user/dashboard') }}" class="btn btn-main-2 btn-sm">My Dashboard</a>
+                          <a href="" class="btn btn-main-2 btn-sm">My Dashboard</a>
                         </li> 
                         
 
