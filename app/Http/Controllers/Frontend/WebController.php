@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\CMS;
 
 class WebController extends Controller
 {
@@ -24,17 +25,20 @@ class WebController extends Controller
      */
     public function index()
     {
-        return view('frontend.landing.index');
+        $data['cms'] = CMS::where('page_name' , 'home')->first();
+        return view('frontend.landing.index' , $data);
     }
 
     public function about()
     {
-        return view('frontend.about.index');
+        $data['cms'] = CMS::where('page_name' , 'about')->first();
+        return view('frontend.about.index', $data);
     }
 
     public function services()
     {
-        return view('frontend.services.index');
+        $data['cms'] = CMS::where('page_name' , 'service')->first();
+        return view('frontend.services.index', $data);
     }
 
     public function shipping()
@@ -49,22 +53,26 @@ class WebController extends Controller
 
     public function support()
     {
-        return view('frontend.support.index');
+        $data['cms'] = CMS::where('page_name' , 'support')->first();
+        return view('frontend.support.index', $data);
     }
 
     public function faq()
     {
-        return view('frontend.faq.index');
+        $data['cms'] = CMS::where('page_name' , 'faq')->first();
+        return view('frontend.faq.index', $data);
     }
 
     public function terms_conditions()
     {
-        return view('frontend.terms.index');
+        $data['cms'] = CMS::where('page_name' , 'terms')->first();
+        return view('frontend.terms.index', $data);
     }
 
     public function privacy_policy()
     {
-        return view('frontend.privacy.index');
+        $data['cms'] = CMS::where('page_name' , 'privacy')->first();
+        return view('frontend.privacy.index', $data);
     }
 
     

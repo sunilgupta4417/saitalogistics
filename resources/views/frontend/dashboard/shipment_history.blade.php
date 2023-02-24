@@ -19,7 +19,7 @@
                                        <th>Sr. No.</th>
                                        <th>Waybill No.</th>
                                        <th>Date</th>
-                                       <th>Courier Type</th>
+                                       <th>Packet Type</th>
                                        <th>Receiver Name</th>
                                        <th>Receiver Email</th>
                                        <th>Payment Status</th>
@@ -33,9 +33,9 @@
                                        <td>{{$i}}</td>
                                        <td></td>
                                        <td>{{$ship->created_at}}</td>
-                                       <td>{{$ship->courier_type}}</td>
-                                       <td>{{$ship->R_name}}</td>
-                                       <td>{{$ship->R_email}}</td>
+                                       <td>{{$ship->packet_type}}</td>
+                                       <td>{{$ship->csn_consignor}}</td>
+                                       <td>{{$ship->csn_email_id}}</td>
                                        <td class="og-clr">Pending</td>
                                        <td class="view-btn"> <a href="#">View Details</a></td>
                                     </tr>

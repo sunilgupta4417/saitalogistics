@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Helpers\Common;
 use App\Models\{
     User,
-    Shipment
+    PacketBooking,
+    Country
     };
 use Illuminate\Support\Facades\{Artisan,
     Validator,
@@ -116,12 +117,13 @@ class DashboardController extends Controller
 
     public function get_shipment()
     {
-        $data['shipments'] = Shipment::where(['user_id' => auth()->user()->id])->get();
+        $data['shipments'] = PacketBooking::where(['client_id' => auth()->user()->id])->get();
         return view('frontend.dashboard.shipment_history', $data);
     }
 
     public function create_shipment()
     {
+        $data['country'] = Country::where(['isActive' => 1])->get();
         $data['user'] = User::where(['id' => auth()->user()->id])->first();
         return view('frontend.dashboard.shipment_create', $data);
 
@@ -209,48 +211,48 @@ class DashboardController extends Controller
                        $backImg = '';
                 }
             }
-        $shipment = new Shipment();
-        $shipment->user_id = auth()->user()->id;
-        $shipment->S_country = $request->S_country;
-        $shipment->S_name = $request->S_name;
-        $shipment->S_contact = $request->S_contact;
-        $shipment->S_address = $request->S_address;
-        $shipment->S_appartment = $request->S_appartment;
-        $shipment->S_department = $request->S_department;
-        $shipment->S_pincode = $request->S_pincode;
-        $shipment->S_city = $request->S_city;
-        $shipment->S_other = $request->S_other;
-        $shipment->S_default = $S_default;
-        $shipment->S_residential = $S_residential;
-        $shipment->S_email = $request->S_email;
-        $shipment->S_phone = $request->S_phone;
-        $shipment->S_idProof = $request->S_idProof;
-        $shipment->S_idFront = $frontImg;
-        $shipment->S_idBack = $backImg;
-        $shipment->R_country = $request->R_country;
-        $shipment->R_name = $request->R_name;
-        $shipment->R_contact = $request->R_contact;
-        $shipment->R_address = $request->R_address;
-        $shipment->R_appartment = $request->R_appartment;
-        $shipment->R_department = $request->R_department;
-        $shipment->R_pincode = $request->R_pincode;
-        $shipment->R_city = $request->R_city;
-        $shipment->R_other = $request->R_other;
-        $shipment->R_email = $request->R_email;
-        $shipment->R_phone = $request->R_phone;
-        $shipment->courier_type = $request->courier_type;
-        $shipment->weight = $request->weight;
-        $shipment->length = $request->length;
-        $shipment->width = $request->width;
-        $shipment->height = $request->height;
-        $shipment->dvalue = $request->dvalue;
-        $shipment->item_type = $request->item_type;
-        $shipment->shipping_charge = $request->shipping_charge;
-        $shipment->cpickup = $cpickup;
-        $shipment->cdrop = $cdrop;
-        $shipment->dpDate = $request->date;
-        $shipment->payment_gateway = 'no';
-        $shipment->payment_status = 'pending';
+        $shipment = new PacketBooking();
+        $shipment->client_id = auth()->user()->id;
+        $shipment->csr_country_id = $request->S_country;
+        $shipment->csr_consignor= $request->S_name;
+        $shipment->csr_contact_person = $request->S_contact;
+        $shipment->csr_address1 = $request->S_address;
+        $shipment->csr_address2 = $request->S_appartment;
+        $shipment->csr_address3 = $request->S_department;
+        $shipment->csr_pincode = $request->S_pincode;
+        $shipment->csr_city_id = $request->S_city;
+        //$shipment->S_other = $request->S_other;
+        //$shipment->S_default = $S_default;
+        //$shipment->S_residential = $S_residential;
+        $shipment->csr_email_id = $request->S_email;
+        $shipment->csr_mobile_no = $request->S_phone;
+        //$shipment->S_idProof = $request->S_idProof;
+        //$shipment->S_idFront = $frontImg;
+        //$shipment->S_idBack = $backImg;
+        $shipment->csn_country_id = $request->R_country;
+        $shipment->csn_consignor = $request->R_name;
+        $shipment->csn_contact_person = $request->R_contact;
+        $shipment->csn_address1 = $request->R_address;
+        $shipment->csn_address2 = $request->R_appartment;
+        $shipment->csn_address3 = $request->R_department;
+        $shipment->csn_pincode = $request->R_pincode;
+        $shipment->csn_city_id = $request->R_city;
+        //$shipment->R_other = $request->R_other;
+        $shipment->csn_email_id = $request->R_email;
+        $shipment->csn_mobile_no = $request->R_phone;
+        //$shipment->courier_type = $request->courier_type;
+        $shipment->pcs_weight = $request->weight;
+        //$shipment->length = $request->length;
+        //$shipment->width = $request->width;
+        //$shipment->height = $request->height;
+        //$shipment->dvalue = $request->dvalue;
+        $shipment->packet_type = $request->item_type;
+        //$shipment->shipping_charge = $request->shipping_charge;
+        //$shipment->cpickup = $cpickup;
+        //$shipment->cdrop = $cdrop;
+        //$shipment->dpDate = $request->date;
+        //$shipment->payment_gateway = 'no';
+        //$shipment->payment_status = 'pending';
         $shipment->save();
 
         return redirect('user/shipping/success'); 
