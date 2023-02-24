@@ -32,12 +32,12 @@ class OtherApiController extends Controller
             ->leftjoin('country as c','c.id','=','csn_country_id')
             ->where('awb_no',$awb_no)->first();
 
-            return view('pdf.awb_invoice_print',compact('invoiceData','website'));
-            // $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData','website'));
+            // return view('pdf.awb_invoice_print',compact('invoiceData','website'));
+            $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData','website'));
             
-            // // $pdf->setPaper('A4', 'landscape');
-            // // $pdf->render();
-            // return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
+            $pdf->setPaper('A4', 'landscape');
+            // $pdf->render();
+            return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
             // return $pdf->download('awb_'.$awb_no.'_invoice.pdf');
         }elseif($request->print_type=='label'){
             $labelData = PacketBooking::join('country','country.id','=','csr_country_id')

@@ -38,10 +38,10 @@
       <div class="clear"></div>
       <div class="div50" >
         <div style="padding-right:10px">
-      <p style="display: block; border: 2px solid #333; font-size: 15px; padding: 2px 0px; 
+          <p style="display: block; border: 2px solid #333; font-size: 15px; padding: 2px 0px; 
        margin-bottom: 10px;">
-      <b style="background: #000; font-family: sans-serif; color: #fff; padding:7px 6px ; margin-right: 5px;">Client:</b>
-      <span style="font-family: sans-serif;">{{$labelData->client_code}}</span>
+          <b style="background: #000; font-family: sans-serif; color: #fff; padding:7px 6px ; margin-right: 5px;">Client:</b>
+          <span style="font-family: sans-serif;">{{$labelData->client_code}}</span>
       </p>
         <table style="border:1px solid;">
           <thead >
@@ -132,7 +132,7 @@
         <img src="{{public_path('admin/pdf/assets/img/codebar.png')}}" alt=""
          style="display: block; margin: 5px auto;">
         <div class="clear"></div>
-        <b style="font-size: 14px; text-align: left; font-family:sans-serif;">AWB001</b>
+        <b style="font-size: 14px; text-align: left; font-family:sans-serif;">{{$labelData->awb_no}}</b>
         <div class="clear"></div>
         <div class="clear"></div>
         <div class="clear"></div>
