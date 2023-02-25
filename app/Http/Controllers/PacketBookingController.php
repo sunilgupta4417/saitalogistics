@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PacketBooking;
 use App\Models\ClientMaster;
-use App\Models\vendorMaster;
+use App\Models\VendorMaster;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use DB;
@@ -145,7 +145,7 @@ class PacketBookingController extends Controller
         $var = '';
         $client = ClientMaster::select('client_name','id')->get();
 
-        $vendor = vendorMaster::select('name','id')->get();
+        $vendor = VendorMaster::select('name','id')->get();
         $client_id = isset($request->client_id) ? $request->client_id : 0;
         $vendor_id= isset($request->vendor) ? $request->vendor : 0;
         $consignee = isset($request->consignee) ? $request->consignee : NULL;
@@ -465,7 +465,7 @@ class PacketBookingController extends Controller
         // dd($request);
         $client = ClientMaster::select('client_name','id')->get();
 
-        $vendor = vendorMaster::select('name','id')->get();
+        $vendor = VendorMaster::select('name','id')->get();
         $var = '';
         $client_id = isset($request->client_id) ? $request->client_id : 0;
         $vendor_id= isset($request->vendor) ? $request->vendor : 0;
