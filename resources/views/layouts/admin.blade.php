@@ -229,6 +229,11 @@
                               <span>Packet Booking</span>
                           </a>
                       </li>
+                      <li class="{{ Request::segment(2)=='packet-listing'?'active':'' }}">
+                          <a href="{{ url('/admin/packet-listing') }}">
+                              <span>Packet Listing</span>
+                          </a>
+                      </li>
                     @endif
                     @if(in_array("import-packet",$accessMenu))
                       <li class="{{ Request::segment(2)=='import-packet'?'active':'' }}">

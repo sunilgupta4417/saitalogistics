@@ -63,6 +63,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('user/unlink/{id}/{image}', [userController::class, 'unlink']);
 
     Route::get('packet-booking', [PacketBookingController::class, 'packetBooking']);
+    Route::get('packet-listing',[PacketBookingController::class,'packetListing'])->name('packet.listing');
+    Route::get('packet-view/{id}',[PacketBookingController::class,'packetView'])->name('packet.view');
+    Route::post('packet-listing-expo',[PacketBookingController::class,'packetListingExpo'])->name('packet.listing.expo');
+
     Route::post('save-packet-booking', [PacketBookingController::class, 'savePacketBooking']);
     Route::post('search-packet-booking', [PacketBookingController::class, 'searchPacketBooking']);
 

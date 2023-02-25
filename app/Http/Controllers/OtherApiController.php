@@ -125,11 +125,6 @@ class OtherApiController extends Controller
     }
 
     public function countryMaster(Request $request){
-
-      
-        
-
-
         $country = Country::select('*');
         $totalCoutry = $country->count();
         $country = $country->paginate(env('page_default_val'));
