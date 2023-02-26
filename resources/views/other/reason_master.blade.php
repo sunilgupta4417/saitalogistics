@@ -127,8 +127,8 @@
                                                 }
                                             ?>
                                             <tr>
-                                            @if(checkAccess('reason-master','add_permission'))<td><a class="btn btn-primary" href="#" data-toggle="modal" data-target="#myModal{{$row->id}}"> <i class="fa fa-pencil-alt"></i></a></td>@endif
-                                            @if(checkAccess('reason-master','add_permission'))<td><a class="btn btn-primary" href="{{route('reason.delete',$row->id)}}" onclick="return confirm('Are you sure you want to delete this record?')"> <i class="fa fa-trash-alt"></i></a></td>@endif
+                                            @if(checkAccess('reason-master','edit_permission'))<td><a class="btn btn-primary" href="#" data-toggle="modal" data-target="#myModal{{$row->id}}"> <i class="fa fa-pencil-alt"></i></a></td>@endif
+                                            @if(checkAccess('reason-master','delete_permission'))<td><a class="btn btn-primary" href="{{route('reason.delete',$row->id)}}" onclick="return confirm('Are you sure you want to delete this record?')"> <i class="fa fa-trash-alt"></i></a></td>@endif
                                                 <td>{{$row->reason_code}}</td>
                                                 <td>{{$row->reason_text}}</td>
                                                 <td>{{$isActive}}</td>
