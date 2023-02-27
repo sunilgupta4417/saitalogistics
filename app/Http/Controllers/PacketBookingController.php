@@ -161,8 +161,8 @@ class PacketBookingController extends Controller
         ->select('packet_bookings.*','client_masters.client_name')
         ->where(function ($sqlAdd) use ($startdate,$enddate){
             if($startdate!=NULL && $enddate!=NULL){
-                $sqlAdd->where('booking_date','>=',strtorime($startdate))
-                ->where->where('booking_date','<=',$enddate);
+                $sqlAdd->where('booking_date','>=',$startdate)
+                ->where('booking_date','<=',$enddate);
             }elseif($startdate!=NULL){
                 $sqlAdd->where('booking_date','>=',$startdate);
             }elseif($enddate!=NULL){
@@ -219,8 +219,8 @@ class PacketBookingController extends Controller
         ->select('packet_bookings.*','client_masters.client_name')
         ->where(function ($sqlAdd) use ($startdate,$enddate){
             if($startdate!=NULL && $enddate!=NULL){
-                $sqlAdd->where('booking_date','>=',strtorime($startdate))
-                ->where->where('booking_date','<=',$enddate);
+                $sqlAdd->where('booking_date','>=',$startdate)
+                ->where('booking_date','<=',$enddate);
             }elseif($startdate!=NULL){
                 $sqlAdd->where('booking_date','>=',$startdate);
             }elseif($enddate!=NULL){
@@ -483,8 +483,7 @@ class PacketBookingController extends Controller
         ->select('packet_bookings.*','client_masters.client_name')
         ->where(function ($sqlAdd) use ($startdate,$enddate){
             if($startdate!=NULL && $enddate!=NULL){
-                $sqlAdd->where('booking_date','>=',strtorime($startdate))
-                ->where->where('booking_date','<=',$enddate);
+                $sqlAdd->where('booking_date','>=',$startdate)->where('booking_date','<=',$enddate);
             }elseif($startdate!=NULL){
                 $sqlAdd->where('booking_date','>=',$startdate);
             }elseif($enddate!=NULL){
