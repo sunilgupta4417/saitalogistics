@@ -73,7 +73,7 @@
                            <div class="page-btns">
                               <div class="form-group text-center custom-mt-form-group">
                               @if(checkAccess('packet-booking','search_permission'))<button class="searchList btn btn-primary mr-2 " type="submit"><i class="fa fa-search"></i> Search</button>@endif
-                              @if(checkAccess('packet-booking','import_permission'))<button class="searchExpo btn btn-primary mr-2 " type="submit"><i class="fa fa-search"></i> Export</button>@endif
+                              @if(checkAccess('packet-booking','import_permission'))<button class="searchExpo btn btn-primary mr-2 " type="submit"><i class="fa fa-expand"></i> Export</button>@endif
                               <a href="{{route('packet.listing')}}" class="btn btn-secondary btn-sm orng-btn"><i class="fa fa-dot-circle"></i> Reset</a>
                               </div>
                             </div>
@@ -96,7 +96,7 @@
                              <div class="row">
                                 <div class="col-md-10">
                                     <div class="frm-heading">
-                                        <h3>Total Record(s) Found: {{$packetBook->count()}}</h3>
+                                        <h3>Total Record(s) Found: {{$packetBook->total()}}</h3>
                                     </div>
                                 </div>
                                
@@ -136,6 +136,9 @@
                                                  @endforeach
                                                  </tbody>                                                           
                                              </table>
+                                             <div class="float-right mt-3">
+                                                {{$packetBook->appends($_GET)->links()}}
+                                             </div>
                                      </div>
                                  </div>
                              </div>

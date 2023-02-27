@@ -67,9 +67,8 @@ class OtherApiController extends Controller
         $packetbooking = PacketBooking::select('id','awb_no')->get();
         $shipment = Shipment::join('packet_bookings','packet_bookings.id','=','shipments.awb_id')
         ->join('client_masters','client_masters.id','=','packet_bookings.client_id')
-        ->select('shipments.*','packet_bookings.awb_no','packet_bookings.csn_consignor',
-        'packet_bookings.csr_mobile_no','packet_bookings.csr_consignor',
-        'client_masters.client_name')
+        ->select('shipments.*','packet_bookings.awb_no','packet_bookings.booking_date','packet_bookings.csn_consignor',
+        'packet_bookings.csr_mobile_no','packet_bookings.csr_consignor','packet_bookings.csn_city_id','client_masters.client_name')
         ->paginate(env('page_default_val'));
         $id = $request->query('id',0);
         $shipmentEdit = NULL;

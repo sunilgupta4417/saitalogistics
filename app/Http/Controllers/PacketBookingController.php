@@ -191,7 +191,8 @@ class PacketBookingController extends Controller
                 $sqlAdd->whereIn('awb_no',$array);
             }
         })
-        ->get();
+        // ->get();
+        ->paginate(env('page_default_val'));
         return view('packet.packet_list',compact('vendor','client','packetBook'));
     }
 
@@ -525,8 +526,8 @@ class PacketBookingController extends Controller
                 $sqlAdd->whereIn('awb_no',$array);
             }
         })
-        
-        ->get();
+        // ->get();
+        ->paginate(env('page_default_val'));
         return view('packet.booking_report',compact('client','vendor','packetBook'));
     }
 
