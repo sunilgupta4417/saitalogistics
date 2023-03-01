@@ -66,7 +66,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('packet-listing',[PacketBookingController::class,'packetListing'])->name('packet.listing');
     Route::get('packet-view/{id}',[PacketBookingController::class,'packetView'])->name('packet.view');
     Route::post('packet-listing-expo',[PacketBookingController::class,'packetListingExpo'])->name('packet.listing.expo');
-
     Route::post('save-packet-booking', [PacketBookingController::class, 'savePacketBooking']);
     Route::post('search-packet-booking', [PacketBookingController::class, 'searchPacketBooking']);
 
@@ -152,6 +151,31 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     //CMS MENU
     Route::get('cms/page/{name}', [CMSController::class, 'get_page']);
     Route::post('cms/page/update', [CMSController::class, 'update_page'])->name('cms.page.update');
+
+    Route::get('cms/about', [CMSController::class, 'get_about']);
+    Route::get('cms/about/delete/{id}', [CMSController::class, 'delete_about']);
+    Route::post('cms/about/store', [CMSController::class, 'store_about'])->name('cms.about.store');
+    Route::post('cms/about/update', [CMSController::class, 'update_about'])->name('cms.about.update');
+
+    Route::get('cms/service', [CMSController::class, 'get_service']);
+    Route::get('cms/service/delete/{id}', [CMSController::class, 'delete_service']);
+    Route::post('cms/service/store', [CMSController::class, 'store_service'])->name('cms.service.store');
+    Route::post('cms/service/update', [CMSController::class, 'update_service'])->name('cms.service.update');
+
+    Route::get('cms/faq', [CMSController::class, 'get_faq']);
+    Route::get('cms/faq/delete/{id}', [CMSController::class, 'delete_faq']);
+    Route::post('cms/faq/store', [CMSController::class, 'store_faq'])->name('cms.faq.store');
+    Route::post('cms/faq/update', [CMSController::class, 'update_faq'])->name('cms.faq.update');
+
+
+    Route::get('cms/setting', [CMSController::class, 'get_setting']);
+    Route::post('cms/setting/update', [CMSController::class, 'update_setting'])->name('cms.setting.update');
+
+
+    Route::get('cms/home', [CMSController::class, 'get_home']);
+    Route::post('cms/home/update', [CMSController::class, 'update_home'])->name('cms.home.update');
+    Route::post('cms/home/update1', [CMSController::class, 'update_home1'])->name('cms.home.update1');
+    Route::post('cms/home/update2', [CMSController::class, 'update_home2'])->name('cms.home.update2');
 
 
 });

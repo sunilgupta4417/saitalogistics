@@ -486,17 +486,17 @@
                  </a>
                  <ul class="list-unstyled" style="{{ in_array(Request::segment(2), $cms_menu)?'':'display: none;' }}">
                       <li class="{{ Request::segment(2)=='home-page'?'active':'' }}">
-                          <a href="{{ url('/admin/cms/page/home') }}">
+                          <a href="{{ url('/admin/cms/home') }}">
                               <span>Home</span>
                           </a>
                       </li>
                       <li class="{{ Request::segment(2)=='about-page'?'active':'' }}">
-                          <a href="{{ url('/admin/cms/page/about') }}">
+                          <a href="{{ url('/admin/cms/about') }}">
                               <span>About Us</span>
                           </a>
                       </li>
                       <li class="{{ Request::segment(2)=='service-page'?'active':'' }}">
-                          <a href="{{ url('/admin/cms/page/service') }}">
+                          <a href="{{ url('/admin/cms/service') }}">
                               <span>Services</span>
                           </a>
                       </li>
@@ -511,15 +511,11 @@
                           </a>
                       </li>
                       <li class="{{ Request::segment(2)=='faq-page'?'active':'' }}">
-                          <a href="{{ url('/admin/cms/page/faq') }}">
+                          <a href="{{ url('/admin/cms/faq') }}">
                               <span>Faq</span>
                           </a>
                       </li>
-                      <li class="{{ Request::segment(2)=='general-page'?'active':'' }}">
-                          <a href="{{ url('/admin/cms/page/support') }}">
-                              <span>General Setting</span>
-                          </a>
-                      </li>
+                      
 
                     
                  </ul>

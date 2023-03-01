@@ -25,25 +25,30 @@ class WebController extends Controller
      */
     public function index()
     {
-        $data['cms'] = CMS::where('page_name' , 'home')->first();
+        $data['cms'] = CMS::where('page_name' , 'home-top')->first();
+        $data['cms1'] = CMS::where('page_name' , 'home-work')->get();
+        $data['cms2'] = CMS::where('page_name' , 'home-bottom')->first();
+
+        $data['service'] = CMS::where('page_name' , 'service')->get();
+        $data['about'] = CMS::where('page_name' , 'about')->get();
         return view('frontend.landing.index' , $data);
     }
 
     public function about()
     {
-        $data['cms'] = CMS::where('page_name' , 'about')->first();
+        $data['cms'] = CMS::where('page_name' , 'about')->get();
         return view('frontend.about.index', $data);
     }
 
     public function services()
     {
-        $data['cms'] = CMS::where('page_name' , 'service')->first();
+        $data['cms'] = CMS::where('page_name' , 'service')->get();
         return view('frontend.services.index', $data);
     }
 
     public function shipping()
     {
-        return view('frontend.landing.index');
+        return view('frontend.shipping.index');
     }
 
     public function tracking()
