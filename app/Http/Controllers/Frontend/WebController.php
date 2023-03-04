@@ -64,7 +64,8 @@ class WebController extends Controller
 
     public function faq()
     {
-        $data['cms'] = CMS::where('page_name' , 'faq')->first();
+        // $data['cms'] = CMS::where('page_name' , 'faq')->first();
+        $data['cms'] = CMS::where('page_name' , 'faq')->groupBy('page_image')->get();
         return view('frontend.faq.index', $data);
     }
 
