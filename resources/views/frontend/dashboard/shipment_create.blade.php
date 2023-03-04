@@ -29,13 +29,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Country</label>
-<select id="select-service" required name="S_country"> 
-<option label="Select a country ... " selected="selected" >Select a country ... </option>   
-@foreach($country as $ctr)
-<option value="{{$ctr->id}}" >{{$ctr->country_name}}</option>
-
-@endforeach
-</select>                                 
+                                                    <select id="select-service" required name="S_country"> 
+                                                    <option label="Select a country ... " selected="selected" >Select a country ... </option>   
+                                                    @foreach($country as $ctr)
+                                                    <option value="{{$ctr->id}}" >{{$ctr->country_name}}</option>
+                                                    @endforeach
+                                                    </select>                                 
                                                 
                                             </div>
                                             <div class="form-group">
@@ -110,12 +109,12 @@
 
                                             <div class="form-group">
                                                 <label>Upload KYC Id Image Front</label>
-                                                <input type="file" oninput="this.className = ''" name="S_kycFront" class="">
+                                                <input type="file" oninput="this.className = ''" accept=".jpg, .png, .jpeg, .heic" name="S_kycFront" class="">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Upload KYC Id Image Back</label>
-                                                <input type="file" oninput="this.className = ''" name="S_kycBack">
+                                                <input type="file" oninput="this.className = ''" accept=".jpg, .png, .jpeg, .heic" name="S_kycBack">
                                             </div>
                                         </div>
                                     </div>
@@ -133,9 +132,8 @@
                                                 <select id="select-service" required="" oninput="this.className = ''" name="R_country" id="rcountry">
                                                     <option></option>
                                                     @foreach($country as $ctr)
-<option value="{{$ctr->id}}" >{{$ctr->country_name}}</option>
-
-@endforeach
+                                                    <option value="{{$ctr->id}}" >{{$ctr->country_name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -196,7 +194,7 @@
                                                 <div class="form-group">
                                                     <label>Courier Type</label>
                                                     <select id="select-service" required="" oninput="this.className = ''" name="courier_type">
-                                                        <option></option>
+                                                        <option value=""></option>
                                                         <option value="Fedex">Fedex</option>
                                                         <option value="DHL">DHL</option>
                                                         
@@ -453,20 +451,15 @@
 @section('extra_body_scripts')
 <script>
      $('.tab-link').click( function() {
-     
      var tabID = $(this).attr('data-tab');
-     
      $(this).addClass('active').siblings().removeClass('active');
-     
      $('#tab-'+tabID).addClass('active').siblings().removeClass('active');
      });
     </script>
 
-
     <script>
         var currentTab = 0; // Current tab is set to be the first tab (0)
             showTab(currentTab); // Display the current tab
-            
             function showTab(n) {
               // This function will display the specified tab of the form...
               var x = document.getElementsByClassName("step");
@@ -500,9 +493,7 @@
               if(currentTab==5)
               {
                 $(".form-footer").hide();
-              }
-              else
-              {
+              }else{
                 $(".form-footer").show();
               }
               if(currentTab==4)
@@ -578,14 +569,12 @@
             }
     </script>
 
-    <script type="text/javascript"> 
-        function show1(){
+<script type="text/javascript"> 
+function show1(){
   document.getElementById('div1').style.display ='none';
 }
 function show2(){
   document.getElementById('div1').style.display = 'block';
 }
-    </script>
-
-
+</script>
 @endsection
