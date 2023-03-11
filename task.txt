@@ -1,0 +1,85 @@
+Date: 28-jan-2023
+Logistics
+Country Master design issue fixed 
+Create country migrations
+Add country details/
+Show Country
+Edit Country details
+Delete Country details
+Reason Master Design issue fixed
+Create Reason migration 
+Add reason details'
+Edit reason details
+Show reasons
+Delete Reasons
+
+--Packet Booking
+---Design issue fixed
+--MANIFEST TO VENDOR
+---Design issue fixed
+==SHIPMENT MOVEMENT
+---DEsign issue fixed
+===Client MAster
+----Design Issue fixed
+===Vendor Account Details
+----Design Issue fixed
+===Zone Master
+----Design Issue fixed
+===Booking Report
+----Design Issue fixed
+===Manifesh report 
+----Design issue fixed
+===Deliver Report
+----Design issue Fixed
+===Manage User
+----Design issue fixed
+===Create Invoice
+----Design issue fixed
+===Payment History 
+---Design issue fixed
+===Vendor API Configuration
+---Design issue fixed
+
+=================================================================
+30-Jan-23
+-->Create vendor master migration
+-->Save Vendor master 
+-->Validation
+-->Vendor Data show in list view
+==============================
+31-jan-2023
+-->Try to create addon using jquery
+-->Create vendor_service_types migration table
+-->Create "vendor_account_details" migration table
+-->02-fab-23
+--->vendor acccount details
+---->Model in property set
+--->Add new vendor account details
+--->Show list of vedor account Details
+
+
+==>03-fab-=23
+--->Vendor Account details Edit
+--->Vendor Account details delete
+--->Create Migration for Zone Master
+--->Add new zone master
+--->Edit Zone master
+--->Delete zone master
+--->Create migration for Website Settings and set data in model
+
+04-fab-23
+--->Website Settting module, delete image from the server
+--->Your Profile update
+-->User Master
+--->User migration fiedls add
+--->Add new User Master
+--->Edit user Master
+--->Delete user Master
+
+
+=>05-fab-23
+8to 
+Reset button working in mastes
+Website Setting bug fixed
+
+

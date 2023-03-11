@@ -1,0 +1,11 @@
+<svg id="connect_line" data-name="connect line" xmlns="http://www.w3.org/2000/svg" width="152" height="11" viewBox="0 0 152 11">
+  <path id="Line_1" data-name="Line 1" d="M.387,0H116.332" transform="translate(16.018 5.525)" fill="none" stroke="#b1b5c3" stroke-width="1" stroke-dasharray="4 8"/>
+  <g id="Ellipse_9" data-name="Ellipse 9" transform="translate(140)" fill="none" stroke="#b1b5c3" stroke-width="2" stroke-dasharray="0 0">
+    <ellipse cx="6" cy="5.5" rx="6" ry="5.5" stroke="none"/>
+    <ellipse cx="6" cy="5.5" rx="5" ry="4.5" fill="none"/>
+  </g>
+  <g id="Ellipse_9-2" data-name="Ellipse 9" fill="none" stroke="#b1b5c3" stroke-width="2" stroke-dasharray="0 0">
+    <circle cx="5.5" cy="5.5" r="5.5" stroke="none"/>
+    <circle cx="5.5" cy="5.5" r="4.5" fill="none"/>
+  </g>
+</svg>
