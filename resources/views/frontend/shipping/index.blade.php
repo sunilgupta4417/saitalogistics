@@ -93,8 +93,8 @@
                            </div>
                            <div class="col-lg-4">
                               <div class="form-group">
-                                 <label>Weight</label>
-                                  <input type="text" id="weight" name="weight" required>
+                                 <label>Width</label>
+                                  <input type="text" id="weight" name="width" required>
                               </div>
                            </div>
                            <div class="col-lg-4">
