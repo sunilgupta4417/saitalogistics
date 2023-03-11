@@ -24,6 +24,7 @@ Route::get('/about', [WebController::class, 'about'])->name('about');
 Route::get('/services', [WebController::class, 'services'])->name('services');
 Route::get('/tracking', [WebController::class, 'tracking'])->name('tracking');
 Route::get('/shipping', [WebController::class, 'shipping'])->name('shipping');
+Route::post('/shipping/rates', [WebController::class, 'shippingRates'])->name('shipping_rate');
 Route::get('/support', [WebController::class, 'support'])->name('support');
 Route::get('/faq', [WebController::class, 'faq'])->name('faq');
 Route::get('/privacy-policy', [WebController::class, 'privacy_policy'])->name('privacy_policy');

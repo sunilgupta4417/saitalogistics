@@ -81,5 +81,9 @@ class WebController extends Controller
         return view('frontend.privacy.index', $data);
     }
 
+    public function shippingRates(Request $request){
+        dd($request->all());
+    }
+
     
 }

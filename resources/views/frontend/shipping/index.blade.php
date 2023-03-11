@@ -15,18 +15,19 @@
                <div class="shipment-details">
                   <h3>Calculate Shipping</h3>
                    <div class="shipment-form" id="calculate-form">
-                     <form>
+                     <form id="rate_calcu" action="{{route('shipping_rate')}}" method="POST">
+                        @csrf
                         <div class="row">
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>Email ID</label>
-                                  <input type="text" id="email" required>
+                                  <input type="text" id="email" name="email" required>
                               </div>
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>Select Service</label>
-                                 <select id="select-service">
+                                 <select id="select-service" name="service_type">
                                     <option></option>
                                     <option value="Development">Development</option>
                                     <option value="Graphics">Graphics</option>
@@ -37,7 +38,7 @@
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>From Country</label>
-                                 <select id="select-service">
+                                 <select id="select-service" name="shipper_country">
                                     <option></option>
                                     <option value="Development">Development</option>
                                     <option value="Graphics">Graphics</option>
@@ -48,7 +49,7 @@
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>From State</label>
-                                 <select id="select-service">
+                                 <select id="select-service" name="shipper_state">
                                     <option></option>
                                     <option value="Development">Development</option>
                                     <option value="Graphics">Graphics</option>
@@ -58,8 +59,14 @@
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
+                                 <label>Shipper Postal Code</label>
+                                  <input type="text" id="shipper_postal" name="shipper_postal" required>
+                              </div>
+                           </div>
+                           <div class="col-lg-6">
+                              <div class="form-group">
                                  <label>To Country</label>
-                                 <select id="select-service">
+                                 <select id="select-service" name="recipient_country">
                                     <option></option>
                                     <option value="Development">Development</option>
                                     <option value="Graphics">Graphics</option>
@@ -70,7 +77,7 @@
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>To State</label>
-                                 <select id="select-service">
+                                 <select id="select-service" name="recipient_state">
                                     <option></option>
                                     <option value="Development">Development</option>
                                     <option value="Graphics">Graphics</option>
@@ -78,28 +85,34 @@
                                  </select>
                               </div>
                            </div>
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label>Recipient Postal Code</label>
+                                  <input type="text" id="recipient_postal" name="recipient_postal" required>
+                              </div>
+                           </div>
                            <div class="col-lg-4">
                               <div class="form-group">
                                  <label>Weight</label>
-                                  <input type="text" id="weight" required>
+                                  <input type="text" id="weight" name="weight" required>
                               </div>
                            </div>
                            <div class="col-lg-4">
                               <div class="form-group">
                                  <label>Length</label>
-                                  <input type="text" id="length" required>
+                                  <input type="text" id="length" name="length" required>
                               </div>
                            </div>
                            <div class="col-lg-4">
                               <div class="form-group">
                                  <label>Height</label>
-                                  <input type="text" id="height" required>
+                                  <input type="text" id="height" name="height" required>
                               </div>
                            </div>
                            <div class="col-lg-12">
                               <br>
                                  <div class="sub-btns text-center">
-                                    <a href="shipping-history.html" type="submit" class="btn">Get Estimation</a>
+                                    <button type="submit" class="btn">Get Estimation</button>
                                  </div>
                            </div>
                         </div>
