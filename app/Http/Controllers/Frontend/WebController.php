@@ -142,10 +142,16 @@ class WebController extends Controller
         $data = $array_data['SOAPENVBody'];
         $final_data = [];
         if(isset($data['RateReply']['RateReplyDetails']['RatedShipmentDetails']['0']['ShipmentRateDetail'])){
+            $final_data['DeliveryStation'] = $data['RateReply']['RateReplyDetails']['DeliveryStation'];
+            $final_data['DeliveryDayOfWeek'] = $data['RateReply']['RateReplyDetails']['DeliveryDayOfWeek'];
+            $final_data['ServiceType'] = $data['RateReply']['RateReplyDetails']['ServiceType'];
             $data = $data['RateReply']['RateReplyDetails']['RatedShipmentDetails']['0']['ShipmentRateDetail'];
             $final_data['fuel_surcharge'] = $data['FuelSurchargePercent'];
             $final_data['total_freight'] = $data['TotalBaseCharge']['Amount'];
             $final_data['total_fedex_charge'] = $data['TotalNetFedExCharge']['Amount'];
+            $final_data['TotalBillingWeightUnits'] = $data['TotalBillingWeight']['Units'];
+            $final_data['TotalBillingWeightValue'] = $data['TotalBillingWeight']['Value'];
+
         }
         return view('frontend.shipping.shipping-estimation-rates', compact('final_data'));
 

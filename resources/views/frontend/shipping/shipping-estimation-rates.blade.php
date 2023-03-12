@@ -19,7 +19,10 @@
                                        <th>Fuel Surcharge</th>
                                        <th>Freight Surcharge</th>
                                        <th>Total Charge</th>
-                                       <th>Currency</th>
+                                       <th>Delivery Day Of Week</th>
+                                       <th>Delivery Station</th>
+                                       <th>Service Type</th>
+                                       <th>Total Billing Weight</th>
                                     </tr>
                                  </thead>
                                  <tbody>
@@ -27,8 +30,10 @@
                                        <td >{{isset($final_data['fuel_surcharge'])?$final_data['fuel_surcharge']:"Incorrect Data"}} USD</td>
                                        <td>{{isset($final_data['total_freight'])?$final_data['total_freight']:"Incorrect Data"}} USD</td>
                                        <td>{{isset($final_data['total_fedex_charge'])?$final_data['total_fedex_charge']:"Incorrect Data"}} USD</td>
-                                       <td>USD</td>
-                                 
+                                       <td>{{isset($final_data['DeliveryDayOfWeek'])?$final_data['DeliveryDayOfWeek']:"Incorrect Data"}}</td>
+                                       <td>{{isset($final_data['DeliveryStation'])?$final_data['DeliveryStation']:"Incorrect Data"}}</td>
+                                       <td>{{isset($final_data['ServiceType'])?$final_data['ServiceType']:"Incorrect Data"}}</td>
+                                       <td>Units:{{isset($final_data['TotalBillingWeightUnits'])?$final_data['TotalBillingWeightUnits']:"Incorrect Data"}} <br/>Value:{{isset($final_data['TotalBillingWeightValue'])?$final_data['TotalBillingWeightValue']:"Incorrect Data"}}</td>
                                     </tr>
                                     
                                  </tbody>
