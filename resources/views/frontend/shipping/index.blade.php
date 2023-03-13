@@ -15,7 +15,8 @@
                <div class="shipment-details">
                   <h3>Calculate Shipping</h3>
                    <div class="shipment-form" id="calculate-form">
-                     <form id="rate_calcu" action="{{route('shipping_rate')}}" method="POST">
+                     <!-- <form id="rate_calcu" action="{{route('shipping_rate')}}" method="POST"> -->
+                     <form id="rate_calcu" action="javascript:void(0)">
                         @csrf
                         <div class="row">
                            <div class="col-lg-6">
@@ -94,7 +95,7 @@
                            <div class="col-lg-4">
                               <div class="form-group">
                                  <label>Width</label>
-                                  <input type="text" id="weight" name="width" required>
+                                  <input type="text" id="width" name="width" required>
                               </div>
                            </div>
                            <div class="col-lg-4">
@@ -112,7 +113,7 @@
                            <div class="col-lg-12">
                               <br>
                                  <div class="sub-btns text-center">
-                                    <button type="submit" class="btn">Get Estimation</button>
+                                    <button type="submit" id="submit_btn" class="btn">Get Estimation</button>
                                  </div>
                            </div>
                         </div>
@@ -121,15 +122,53 @@
                </div>
             </div>
 
-               <div class="col-lg-4 col-md-4">
+               <!-- <div class="col-lg-4 col-md-4">
                   <div class="create-right">
                      <h3>Create Your Shipment</h3>
                      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem.</p>
                      <img src="assets/images/creat-image.png" alt="" class="img-responsive">
                      <a href="shipping-history.html" class="btn btn-main-2"> Get Started</a>
                   </div>
-               </div>
+               </div> -->
 
+               <div class="col-lg-4 col-md-4" style="color: black;">
+                  <div class="create-right">
+                     <h3>Calculate Package Rates</h3>
+                     <b>Total Charge:<p id="total_charges"></p></b>
+                     <div class="col-12"><div>
+                     <span style="float: left;">Fuel Surcharge:</span>
+                     <span id="fuel_sercharge" style="float: right;"></span><br/></div></div>
+                     
+                     <div class="col-12"> <div>
+                     <span style="float: left;">Freight Surcharge:</span>
+                     <span id="freight_sercharge" style="float: right;"></span><br/>
+                     </div>            </div>        
+                     
+                     <div class="col-12">
+                     <div>
+                     <span style="float: left;">Day Of Delivery:</span>
+                     <span id="day_of_deli" style="float: right;"></span><br/>
+                     </div>      </div>               
+                     
+                     <div class="col-12">
+                     <div>
+                     <span style="float: left;">Delivery Station:</span>
+                     <span id="deli_station" style="float: right;"></span><br/>
+                     </div>  </div>
+                     <div class="col-12">
+                      <div>
+                     <span style="float: left;">Total Biling Units:</span>
+                     <span id="tlt_bl_wight" style="float: right;"></span><br/>
+                     </div></div>
+                     <div class="col-12">
+                     <div>
+                     <span style="float: left;">Service Type:</span>
+                      <span id="serv_type" style="float: right;"></span><br/>
+                      </div>      </div>               
+                      
+                      
+                  </div>
+               </div>
             </div>
          </div>
       </section>
@@ -227,4 +266,4 @@
                </div>
          </div>
       </section>
-@endsection
+   @endsection

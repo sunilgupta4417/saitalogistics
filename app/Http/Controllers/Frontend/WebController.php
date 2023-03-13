@@ -153,7 +153,8 @@ class WebController extends Controller
             $final_data['TotalBillingWeightValue'] = $data['TotalBillingWeight']['Value'];
 
         }
-        return view('frontend.shipping.shipping-estimation-rates', compact('final_data'));
+        // return view('frontend.shipping.shipping-estimation-rates', compact('final_data'));
+        return $final_data;
 
 
     }
