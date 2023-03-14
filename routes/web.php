@@ -24,6 +24,7 @@ Route::get('/about', [WebController::class, 'about'])->name('about');
 Route::get('/services', [WebController::class, 'services'])->name('services');
 Route::get('/tracking', [WebController::class, 'tracking'])->name('tracking');
 Route::get('/shipping', [WebController::class, 'shipping'])->name('shipping');
+Route::get('/shipping/state/{id}', [WebController::class, 'shippingStateList'])->name('shipping.states');
 Route::post('/shipping/rates', [WebController::class, 'shippingRates'])->name('shipping_rate');
 Route::get('/support', [WebController::class, 'support'])->name('support');
 Route::get('/faq', [WebController::class, 'faq'])->name('faq');
@@ -91,7 +92,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('country-list',[OtherApiController::class,'getCountryList'])->name('country.list');
     Route::get('country-delete/{id}',[OtherApiController::class,'countryDelete'])->name('country.delete');
     Route::post('country-update',[OtherApiController::class,'countryUpdate'])->name('country.update');
-    
+    //state
+    Route::get('state/{id}',[OtherApiController::class,'stateAll'])->name('state.all');
+    Route::post('state-save',[OtherApiController::class,'stateSave'])->name('state.save');
+    Route::get('state-delete/{id}',[OtherApiController::class,'stateDelete'])->name('state.delete');
+    Route::post('state-update',[OtherApiController::class,'stateUpdate'])->name('state.update');
+    Route::get('export-state',[OtherApiController::class,'exportState'])->name('export.state');
+
     Route::get('reason-master', [OtherApiController::class, 'reasonMaster']);
     Route::post('reason-save', [OtherApiController::class,'reasonSave'])->name('reason.save');
     Route::get('reason-delete/{id}',[OtherApiController::class,'reasonDelete'])->name('reason.delete');

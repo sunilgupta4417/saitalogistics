@@ -39,18 +39,18 @@
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>From Country</label>
-                                 <select id="select-service" name="shipper_country">
-                                    <option></option>
-                                    <option value="Development">Development</option>
-                                    <option value="Graphics">Graphics</option>
-                                    <option value="Mobile App">Mobile App</option>
+                                 <select id="select-service" class="from_country" name="shipper_country">
+                                    <option>Select Country</option>
+                                    @foreach($country as $cou)
+                                    <option value="{{$cou->id}}">{{$cou->country_name}}</option>
+                                    @endforeach
                                  </select>
                               </div>
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>From State</label>
-                                 <select id="select-service" name="shipper_state">
+                                 <select id="select-service" class="from_state" name="shipper_state">
                                     <option></option>
                                     <option value="Development">Development</option>
                                     <option value="Graphics">Graphics</option>
@@ -67,18 +67,18 @@
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>To Country</label>
-                                 <select id="select-service" name="recipient_country">
-                                    <option></option>
-                                    <option value="Development">Development</option>
-                                    <option value="Graphics">Graphics</option>
-                                    <option value="Mobile App">Mobile App</option>
+                                 <select id="select-service" class="to_country" name="recipient_country">
+                                 <option>Select Country</option>
+                                    @foreach($country as $cou)
+                                    <option value="{{$cou->id}}">{{$cou->country_name}}</option>
+                                    @endforeach
                                  </select>
                               </div>
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>To State</label>
-                                 <select id="select-service" name="recipient_state">
+                                 <select id="select-service" class="to_state" name="recipient_state">
                                     <option></option>
                                     <option value="Development">Development</option>
                                     <option value="Graphics">Graphics</option>

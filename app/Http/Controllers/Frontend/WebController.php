@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\CMS;
+use App\Models\Country;
+use App\Models\State;
 
 class WebController extends Controller
 {
@@ -48,7 +50,13 @@ class WebController extends Controller
 
     public function shipping()
     {
-        return view('frontend.shipping.index');
+        $country = Country::select('*')->get();
+        return view('frontend.shipping.index' , compact('country'));
+    }
+
+    public function shippingStateList($id){
+        $stateList = State::select('*')->where('country_id',$id)->get();
+        return $stateList;
     }
 
     public function tracking()
@@ -82,6 +90,7 @@ class WebController extends Controller
     }
 
     public function shippingRates(Request $request){
+        
         $key = 'Hom60U9PNrzwJFIV';
         $password = 'C3Y0uxHnOk0dCnd8y9ywn2V06';
         $account_number = '510087100';

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Country;
+use App\Models\State;
 use App\Models\PacketBooking;
 use App\Models\WebsiteSetting;
 use App\Models\Shipment;
@@ -299,6 +300,35 @@ class OtherApiController extends Controller
         exit;
     }
     
+    public function exportState(){
+        $states = State::select('*')->get();
+        $type = 'xlsx';
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'Id');
+        $sheet->setCellValue('B1', 'State Code');
+        $sheet->setCellValue('C1', 'State Name');
+       
+        $rows = 2;
+        $i=1;
+        foreach($states as $state){
+        $sheet->setCellValue('A' . $rows, $i++);
+        $sheet->setCellValue('B' . $rows, $state['state_code']);
+        $sheet->setCellValue('C' . $rows, $state['state_name']);
+        $rows++;
+        }
+        $fileName = "state-master.".$type;
+        if($type == 'xlsx') {
+        $writer = new Xlsx($spreadsheet);
+        } else if($type == 'xls') {
+        $writer = new Xls($spreadsheet);
+        }
+        $writer->save("export/".$fileName);
+        header("Content-Type: application/vnd.ms-excel");
+        return redirect(url('/')."/export/".$fileName);
+        exit;
+    }
+
     public function exportReason(){
         $reason = Reason::join('users','users.id','=','reason.created_by')
         ->select('reason.*','users.name')->get();
@@ -333,5 +363,63 @@ class OtherApiController extends Controller
         header("Content-Type: application/vnd.ms-excel");
         return redirect(url('/')."/export/".$fileName);
         exit;
+    }
+
+    public function stateAll($id){
+        $state = State::select('*')->where('country_id',$id)->get();
+        $totalState = $state->count();
+        
+        return view('other.state_master',compact('state','totalState','id'));
+    }
+
+    public function stateSave(Request $request){
+        $this->validate($request,[
+            'state_name'=>'required',
+            'state_code'=>'required',
+         ]);
+
+        $checkState = State::where('state_name',$request->state_name)
+        ->where('state_code',$request->state_code)->first();
+        if($checkState){
+            return redirect()->back()->with('error','This name is already exist!');
+        }
+        $insData = [
+            'country_id'=>isset($request->country_id) ? $request->country_id : NULL,
+            'state_name'=>isset($request->state_name) ? $request->state_name : NULL, 
+            'state_code'=>isset($request->state_code) ? $request->state_code : NULL,
+            'isActive'=>1,
+        ];
+        $result = State::create($insData);
+        if($result){
+            return redirect()->back()->with('success','State added successfully!');
+        }else{
+            return redirect()->back()->with('error','Something went wrong please try again!');
+        }
+    }
+
+    public function stateDelete($id){
+        $result = State::where('id',$id)->delete();
+        if($result){
+            return redirect()->back()->with('success','Record deleted successfully!');
+        }else{
+            return redirect()->back()->with('error','Something went wrong please try again!');
+        }
+    }
+
+    public function stateUpdate(Request $request){
+        $this->validate($request,[
+            'state_name'=>'required',
+            'state_code'=>'required',
+         ]);
+        $updateData = [
+            'state_name'=>isset($request->state_name) ? $request->state_name : NULL, 
+            'state_code'=>isset($request->state_code) ? $request->state_code : NULL,
+        ];
+        $result = State::where('id',$request->id)->update($updateData);
+        if($result){
+            return redirect()->back()->with('success','Record updated successfully!');
+        }else{
+            return redirect()->back()->with('error','Something went wrong please try again!');
+        }  
     }
 }
