@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="110" height="110" viewBox="0 0 110 110">
+  <g id="Play_video" data-name="Play video" transform="translate(-0.047 0.061)">
+    <circle id="Ellipse_5" data-name="Ellipse 5" cx="55" cy="55" r="55" transform="translate(0.047 -0.061)" fill="#fff"/>
+    <g id="Layer_2" data-name="Layer 2" transform="translate(14.29 15.242)">
+      <g id="play-circle" transform="translate(0 0)">
+        <rect id="Rectangle_18" data-name="Rectangle 18" width="82" height="83" transform="translate(-0.243 -0.304)" fill="#f56962" opacity="0"/>
+        <path id="Path_8" data-name="Path 8" d="M19.185,8.531A5.783,5.783,0,0,0,12.892,7.51a5.443,5.443,0,0,0-3.4,5.035V35.474a5.443,5.443,0,0,0,3.4,5.035,5.715,5.715,0,0,0,2.347.51,5.919,5.919,0,0,0,3.946-1.531L31.636,28.024a5.443,5.443,0,0,0,0-8.029Z" transform="translate(23.159 17.546)" fill="#ff5d21"/>
+      </g>
+    </g>
+  </g>
+</svg>
