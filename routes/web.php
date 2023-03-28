@@ -14,7 +14,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebsiteSettingController;
 use App\Http\Controllers\VendorMainFestController;
 use App\Http\Controllers\RoleMangerController;
-use App\Http\Controllers\CMSController;
 
 
 
@@ -24,8 +23,6 @@ Route::get('/about', [WebController::class, 'about'])->name('about');
 Route::get('/services', [WebController::class, 'services'])->name('services');
 Route::get('/tracking', [WebController::class, 'tracking'])->name('tracking');
 Route::get('/shipping', [WebController::class, 'shipping'])->name('shipping');
-Route::get('/shipping/state/{id}', [WebController::class, 'shippingStateList'])->name('shipping.states');
-Route::post('/shipping/rates', [WebController::class, 'shippingRates'])->name('shipping_rate');
 Route::get('/support', [WebController::class, 'support'])->name('support');
 Route::get('/faq', [WebController::class, 'faq'])->name('faq');
 Route::get('/privacy-policy', [WebController::class, 'privacy_policy'])->name('privacy_policy');
@@ -65,9 +62,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('user/unlink/{id}/{image}', [userController::class, 'unlink']);
 
     Route::get('packet-booking', [PacketBookingController::class, 'packetBooking']);
-    Route::get('packet-listing',[PacketBookingController::class,'packetListing'])->name('packet.listing');
-    Route::get('packet-view/{id}',[PacketBookingController::class,'packetView'])->name('packet.view');
-    Route::post('packet-listing-expo',[PacketBookingController::class,'packetListingExpo'])->name('packet.listing.expo');
     Route::post('save-packet-booking', [PacketBookingController::class, 'savePacketBooking']);
     Route::post('search-packet-booking', [PacketBookingController::class, 'searchPacketBooking']);
 
@@ -92,13 +86,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('country-list',[OtherApiController::class,'getCountryList'])->name('country.list');
     Route::get('country-delete/{id}',[OtherApiController::class,'countryDelete'])->name('country.delete');
     Route::post('country-update',[OtherApiController::class,'countryUpdate'])->name('country.update');
-    //state
-    Route::get('state/{id}',[OtherApiController::class,'stateAll'])->name('state.all');
-    Route::post('state-save',[OtherApiController::class,'stateSave'])->name('state.save');
-    Route::get('state-delete/{id}',[OtherApiController::class,'stateDelete'])->name('state.delete');
-    Route::post('state-update',[OtherApiController::class,'stateUpdate'])->name('state.update');
-    Route::get('export-state',[OtherApiController::class,'exportState'])->name('export.state');
-
+    
     Route::get('reason-master', [OtherApiController::class, 'reasonMaster']);
     Route::post('reason-save', [OtherApiController::class,'reasonSave'])->name('reason.save');
     Route::get('reason-delete/{id}',[OtherApiController::class,'reasonDelete'])->name('reason.delete');
@@ -154,36 +142,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 
     Route::get('user-permission/{id}', [userController::class, 'userPermission'])->name('user.user-permission');
     Route::post('user-permission', [userController::class, 'saveUserPermission'])->name('save.user-permission');
-
-
-    //CMS MENU
-    Route::get('cms/page/{name}', [CMSController::class, 'get_page']);
-    Route::post('cms/page/update', [CMSController::class, 'update_page'])->name('cms.page.update');
-
-    Route::get('cms/about', [CMSController::class, 'get_about']);
-    Route::get('cms/about/delete/{id}', [CMSController::class, 'delete_about']);
-    Route::post('cms/about/store', [CMSController::class, 'store_about'])->name('cms.about.store');
-    Route::post('cms/about/update', [CMSController::class, 'update_about'])->name('cms.about.update');
-
-    Route::get('cms/service', [CMSController::class, 'get_service']);
-    Route::get('cms/service/delete/{id}', [CMSController::class, 'delete_service']);
-    Route::post('cms/service/store', [CMSController::class, 'store_service'])->name('cms.service.store');
-    Route::post('cms/service/update', [CMSController::class, 'update_service'])->name('cms.service.update');
-
-    Route::get('cms/faq', [CMSController::class, 'get_faq']);
-    Route::get('cms/faq/delete/{id}', [CMSController::class, 'delete_faq']);
-    Route::post('cms/faq/store', [CMSController::class, 'store_faq'])->name('cms.faq.store');
-    Route::post('cms/faq/update', [CMSController::class, 'update_faq'])->name('cms.faq.update');
-
-
-    Route::get('cms/setting', [CMSController::class, 'get_setting']);
-    Route::post('cms/setting/update', [CMSController::class, 'update_setting'])->name('cms.setting.update');
-
-
-    Route::get('cms/home', [CMSController::class, 'get_home']);
-    Route::post('cms/home/update', [CMSController::class, 'update_home'])->name('cms.home.update');
-    Route::post('cms/home/update1', [CMSController::class, 'update_home1'])->name('cms.home.update1');
-    Route::post('cms/home/update2', [CMSController::class, 'update_home2'])->name('cms.home.update2');
-
-
 });

@@ -229,11 +229,6 @@
                               <span>Packet Booking</span>
                           </a>
                       </li>
-                      <li class="{{ Request::segment(2)=='packet-listing'?'active':'' }}">
-                          <a href="{{ url('/admin/packet-listing') }}">
-                              <span>Packet Listing</span>
-                          </a>
-                      </li>
                     @endif
                     @if(in_array("import-packet",$accessMenu))
                       <li class="{{ Request::segment(2)=='import-packet'?'active':'' }}">
@@ -473,53 +468,6 @@
                  </ul>
                </li>
               @endif
-
-              @php 
-               $cms_menu = ['home-page','about-page','service-page','privacy-page' ,'terms-page' ,'faq-page' ,'general-page'];
-              @endphp
-
-              <li class="submenu">
-                 <a href="javascript:void(0);" class="{{ in_array(Request::segment(2), $cms_menu)?'subdrop':'' }}">
-                  <i class="fa fa-cog"></i>
-                   <span> CMS MANAGEMENT </span>
-                   <span class="menu-arrow"></span>
-                 </a>
-                 <ul class="list-unstyled" style="{{ in_array(Request::segment(2), $cms_menu)?'':'display: none;' }}">
-                      <li class="{{ Request::segment(2)=='home-page'?'active':'' }}">
-                          <a href="{{ url('/admin/cms/home') }}">
-                              <span>Home</span>
-                          </a>
-                      </li>
-                      <li class="{{ Request::segment(2)=='about-page'?'active':'' }}">
-                          <a href="{{ url('/admin/cms/about') }}">
-                              <span>About Us</span>
-                          </a>
-                      </li>
-                      <li class="{{ Request::segment(2)=='service-page'?'active':'' }}">
-                          <a href="{{ url('/admin/cms/service') }}">
-                              <span>Services</span>
-                          </a>
-                      </li>
-                      <li class="{{ Request::segment(2)=='privacy-page'?'active':'' }}">
-                          <a href="{{ url('/admin/cms/page/privacy') }}">
-                              <span>Privacy Policy</span>
-                          </a>
-                      </li>
-                      <li class="{{ Request::segment(2)=='terms-page'?'active':'' }}">
-                          <a href="{{ url('/admin/cms/page/terms') }}">
-                              <span>Terms & Conditions</span>
-                          </a>
-                      </li>
-                      <li class="{{ Request::segment(2)=='faq-page'?'active':'' }}">
-                          <a href="{{ url('/admin/cms/faq') }}">
-                              <span>Faq</span>
-                          </a>
-                      </li>
-                      
-
-                    
-                 </ul>
-               </li>
              </ul>
            </div>
          </div>

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Country;
-use App\Models\State;
 use App\Models\PacketBooking;
 use App\Models\WebsiteSetting;
 use App\Models\Shipment;
@@ -33,24 +32,22 @@ class OtherApiController extends Controller
             ->leftjoin('country as c','c.id','=','csn_country_id')
             ->where('awb_no',$awb_no)->first();
 
-            // return view('pdf.awb_invoice_print',compact('invoiceData','website'));
-            $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData','website'));
+            return view('pdf.awb_invoice_print',compact('invoiceData','website'));
+            // $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData','website'));
             
-            $pdf->setPaper('A4', 'landscape');
-            // $pdf->render();
-            return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
+            // // $pdf->setPaper('A4', 'landscape');
+            // // $pdf->render();
+            // return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
             // return $pdf->download('awb_'.$awb_no.'_invoice.pdf');
         }elseif($request->print_type=='label'){
             $labelData = PacketBooking::join('country','country.id','=','csr_country_id')
             ->join('country as c','c.id','=','csn_country_id')
             ->join('client_masters','client_masters.id','=','packet_bookings.client_id')
-            ->select('packet_bookings.*','country.country_name','c.country_name as csn_country_name',
-            'client_masters.client_name','client_masters.client_code')
-            ->where('awb_no',$awb_no)->first();
-            // return view('pdf.awb_label_print',compact('labelData','website'));
-            $pdf = PDF::loadView('pdf.awb_label_print', compact('labelData','website'));
-            $pdf->setPaper('A4', 'landscape');
-             return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
+            ->select('packet_bookings.*','country.country_name','c.country_name as csn_country_name','client_masters.client_name')->where('awb_no',$awb_no)->first();
+            return view('pdf.awb_label_print',compact('labelData','website'));
+            // $pdf = PDF::loadView('pdf.awb_label_print', compact('labelData','website'));
+            // $pdf->setPaper('A4', 'landscape');
+            // // return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
             // return $pdf->download('awb_'.$awb_no.'_label.pdf');
         }
         return redirect()->back();
@@ -68,8 +65,9 @@ class OtherApiController extends Controller
         $packetbooking = PacketBooking::select('id','awb_no')->get();
         $shipment = Shipment::join('packet_bookings','packet_bookings.id','=','shipments.awb_id')
         ->join('client_masters','client_masters.id','=','packet_bookings.client_id')
-        ->select('shipments.*','packet_bookings.awb_no','packet_bookings.booking_date','packet_bookings.csn_consignor',
-        'packet_bookings.csr_mobile_no','packet_bookings.csr_consignor','packet_bookings.csn_city_id','client_masters.client_name')
+        ->select('shipments.*','packet_bookings.awb_no','packet_bookings.csn_consignor',
+        'packet_bookings.csr_mobile_no','packet_bookings.csr_consignor',
+        'client_masters.client_name')
         ->paginate(env('page_default_val'));
         $id = $request->query('id',0);
         $shipmentEdit = NULL;
@@ -125,6 +123,11 @@ class OtherApiController extends Controller
     }
 
     public function countryMaster(Request $request){
+
+      
+        
+
+
         $country = Country::select('*');
         $totalCoutry = $country->count();
         $country = $country->paginate(env('page_default_val'));
@@ -300,35 +303,6 @@ class OtherApiController extends Controller
         exit;
     }
     
-    public function exportState(){
-        $states = State::select('*')->get();
-        $type = 'xlsx';
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A1', 'Id');
-        $sheet->setCellValue('B1', 'State Code');
-        $sheet->setCellValue('C1', 'State Name');
-       
-        $rows = 2;
-        $i=1;
-        foreach($states as $state){
-        $sheet->setCellValue('A' . $rows, $i++);
-        $sheet->setCellValue('B' . $rows, $state['state_code']);
-        $sheet->setCellValue('C' . $rows, $state['state_name']);
-        $rows++;
-        }
-        $fileName = "state-master.".$type;
-        if($type == 'xlsx') {
-        $writer = new Xlsx($spreadsheet);
-        } else if($type == 'xls') {
-        $writer = new Xls($spreadsheet);
-        }
-        $writer->save("export/".$fileName);
-        header("Content-Type: application/vnd.ms-excel");
-        return redirect(url('/')."/export/".$fileName);
-        exit;
-    }
-
     public function exportReason(){
         $reason = Reason::join('users','users.id','=','reason.created_by')
         ->select('reason.*','users.name')->get();
@@ -363,63 +337,5 @@ class OtherApiController extends Controller
         header("Content-Type: application/vnd.ms-excel");
         return redirect(url('/')."/export/".$fileName);
         exit;
-    }
-
-    public function stateAll($id){
-        $state = State::select('*')->where('country_id',$id)->get();
-        $totalState = $state->count();
-        
-        return view('other.state_master',compact('state','totalState','id'));
-    }
-
-    public function stateSave(Request $request){
-        $this->validate($request,[
-            'state_name'=>'required',
-            'state_code'=>'required',
-         ]);
-
-        $checkState = State::where('state_name',$request->state_name)
-        ->where('state_code',$request->state_code)->first();
-        if($checkState){
-            return redirect()->back()->with('error','This name is already exist!');
-        }
-        $insData = [
-            'country_id'=>isset($request->country_id) ? $request->country_id : NULL,
-            'state_name'=>isset($request->state_name) ? $request->state_name : NULL, 
-            'state_code'=>isset($request->state_code) ? $request->state_code : NULL,
-            'isActive'=>1,
-        ];
-        $result = State::create($insData);
-        if($result){
-            return redirect()->back()->with('success','State added successfully!');
-        }else{
-            return redirect()->back()->with('error','Something went wrong please try again!');
-        }
-    }
-
-    public function stateDelete($id){
-        $result = State::where('id',$id)->delete();
-        if($result){
-            return redirect()->back()->with('success','Record deleted successfully!');
-        }else{
-            return redirect()->back()->with('error','Something went wrong please try again!');
-        }
-    }
-
-    public function stateUpdate(Request $request){
-        $this->validate($request,[
-            'state_name'=>'required',
-            'state_code'=>'required',
-         ]);
-        $updateData = [
-            'state_name'=>isset($request->state_name) ? $request->state_name : NULL, 
-            'state_code'=>isset($request->state_code) ? $request->state_code : NULL,
-        ];
-        $result = State::where('id',$request->id)->update($updateData);
-        if($result){
-            return redirect()->back()->with('success','Record updated successfully!');
-        }else{
-            return redirect()->back()->with('error','Something went wrong please try again!');
-        }  
     }
 }

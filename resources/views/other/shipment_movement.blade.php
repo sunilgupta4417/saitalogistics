@@ -132,13 +132,13 @@
                                                  <tr>
                                                  @if(checkAccess('shipment-movement','edit_permission'))<td><a class="btn btn-primary" href="{{route('shipment.movement')}}?id={{$row->id}}"> <i class="fa fa-pencil-alt"></i></a></td>@endif
                                                  @if(checkAccess('shipment-movement','delete_permission'))<td><a class="btn btn-primary" href="{{route('shipment.delete',$row->id)}}" onclick="return confirm('Are you sure you want to delete this record?')"> <i class="fa fa-trash-alt"></i></a></td>@endif
-                                                     <td>{{$row->booking_date}}</td>
+                                                     <td>12-1-2023 10:20 PM </td>
                                                      <td>{{$row->csn_consignor}}</td>
                                                      <td>{{$row->awb_no}}</td>
                                                      <td>{{$row->client_name}}</td>
                                                      <td>{{$row->status}}</td>
                                                      <td></td>
-                                                     <td>{{$row->csn_city_id}}</td>
+                                                     <td></td>
                                                      <td>{{$row->csr_consignor}}</td>
                                                      <td>RC1232</td>
                                                      <td>{{$row->csr_mobile_no}}</td>

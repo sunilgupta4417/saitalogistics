@@ -4,7 +4,7 @@
                         <div class="col-lg-3 col-md-3">
                               <div class="widget footer-widget mb-5 mb-lg-0">
                                     <img src="{{asset('assets/images/logo-dark.png')}}" alt="Digicon" class="img-fluid">
-                                    <p class="mt-3">Innovating global logistics through crypto.</p>
+                                    <p class="mt-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                               </div>
                         </div>
                         <div class="col-lg-2 col-md-2">
@@ -14,8 +14,9 @@
                                     <ul class="list-unstyled footer-links">
                                           <li><a href="{{ url('about') }}">About us</a></li>
                                           <li><a href="{{ url('services') }}">Services</a></li>
-                                          <li><a href="{{ url('shipping') }}">Shipping</a></li>
+                                          <li><a href="#">Shipping</a></li>
                                           <li><a href="{{ url('tracking') }}">Tracking</a></li>
+                                          <li><a href="{{ url('support') }}">Support</a></li>
                                     </ul>
                               </div>
                         </div>
@@ -40,7 +41,7 @@
                   <div class="row">
                         <div class="col-lg-6 col-md-8">
                               <div class="copyright">
-                                    <p>Copyright © Saitama Technology LLC, Dubai (UAE). All rights reserved.</p>
+                                    <p>Copyright © 2023 saith logistics. All rights reserved</p>
                               </div>
                         </div>
                         <div class="col-lg-6 col-md-4">

@@ -390,7 +390,7 @@ a:hover {
   display: block;
   visibility: hidden;
   opacity: 0;
-  top: 30px;
+  top: 120%;
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.05),
     -2px 0px 5px 1px rgba(0, 0, 0, 0.05);
   border: 0px;
@@ -401,10 +401,9 @@ a:hover {
 .nav-item.dropdown:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
+  top: 100%;
 }
-.nav-item.dropdown .dropdown-menu .dropdown-item:hover {
-    background: #eee;
-}
+
 .header-bar.fixed-header .main-navigation {
   position: fixed;
   left: 0;
@@ -1631,16 +1630,67 @@ iframe#youtubevideo {
   box-shadow: none;
 }
 
-#login-page form .form-group input:valid {
-  padding-left: 20px;
+.profile-box {
+    width: 50%;
 }
+.profile-box-heading-img h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+.profile-box-heading-img img {
+    margin-bottom: 20px;
+}
+.profile-change-icon {
+    position: absolute;
+    right: 40%;
+    margin-top: -45px;
+}
+.change-password a {
+    height: min-content;
+    background: #fff;
+    padding: 13px 30px 18px;
+    margin: 0 auto;
+    box-shadow: 0px 0px 99px #ff5d2115;
+    border-radius: 25px;
+    width: 100%;
+    display: block;
+}
+.change-password a span {
+    margin: 3px;
+    color: #ff5d21;
+    position: relative;
+    top: 3px;
+    margin-left: 40px;
+}
+.rht-arrows.img-responsive {
+    float: right;
+    margin: 10px;
+}
+.change-password {
+    margin: 80px 0 0;
+}
+.sign-btns a {
+    background: #fff;
+    margin-top: 40px;
+    border-color: #ff5d21;
+    box-shadow: none;
+    width: 20%;
+    color: #ff5d21;
+    font-size: 21px;
+    font-weight: normal;
+    border-radius: 2em;
+}
+.sign-btns a img {
+    width: 15%;
+    margin-right: 5px;
+}
+
 #tracking-wdh {
   width: auto !important;
 }
 #login-page .form-group i {
   position: absolute;
   color: #0000001f;
-  transform: translateX(25px) translateY(21px);
   font-size: 20px;
 }
 
@@ -1748,6 +1798,11 @@ iframe#youtubevideo {
   top: 0;
   color: #80808040;
 }
+.profile-page-start {
+    margin: 120px !important;
+}
+
+
 
 /* The container */
 .agreed-text .container {
@@ -2429,22 +2484,373 @@ iframe#youtubevideo {
     border-radius: 2em;
 }
 .create-right img {
-    margin: 30px 0 80px;
+    margin: 30px 0 40px;
 }
-.main_menu .container {
-    max-width: 1180px;
+.change-password-p .modal-dialog {
+    max-width: 700px;
+    margin: 150px auto;
 }
-.nav-item.dropdown .dropdown-menu .dropdown-item {
+.change-password-p #login-page {
+    margin: 0;
+    box-shadow: none;
+    padding: 0px 120px 20px;
+}
+.change-password-p #login-page .login-box {
+    box-shadow: none;
+    width: auto;
+    padding: 0;
+}
+.change-password-p #login-page .login-box {
+    box-shadow: none;
+    width: auto;
+    padding: 0;
+}
+.change-password-p #login-page .login-box img {
+    position: absolute;
+    left: 25px;
+    top: 20px;
+}
+.change-password-p .modal-header .close {
+    padding: 0;
+}
+.change-password-p .modal-header {
+    width: 100%;
+    display: block;
+    text-align: center;
+    border: none;
+    font-size: 60px;
+}
+.change-password-p .modal-header .modal-title {
+    font-size: 30px;
+    font-weight: 500;
+}
+.change-password-p .modal-content {
+    border-radius: 30px;
+}
+.change-password-p .modal-header button.close {
+    background: #fff;
+    padding: 5px 10px;
+    top: 10px;
+    position: absolute;
+    opacity: 1;
+    border-radius: 2em;
+    right: 6px;
+    color: #FF5D21;
+    font-weight: normal;
+}
+.change-password-p .modal-header button.close:hover {
+  opacity: 1;
+}
+
+/*===== Create New Shipment Css Start Here ====*/
+#where-from-page {
+    margin-top: 130px;
+}
+#signUpForm {
+  margin: 20px auto 0;
+}
+#signUpForm .form-header {
+    text-align: center;
+    box-shadow: 0px 0px 99px #ff5d2115;
+    border-radius: 25px;
     color: #000;
-    text-transform: capitalize;
-    font-size: 13px;
-    border-bottom: 1px solid #eee;
-    padding: 5px 15px;
+}
+#signUpForm .form-header .stepIndicator {
+  position: relative;
+  flex: 1;
+  padding: 15px;
+}
+#signUpForm .form-header .stepIndicator.active {
+    font-weight: normal;
+    color: #ff5d21 !important;
+}
+#signUpForm .form-header .stepIndicator.finish {
+  font-weight: 500;
+  color: #000;
+}
+#signUpForm .form-header .stepIndicator::before {
+    content: "";
+    position: absolute;
+    left: 100%;
+    bottom: 0;
+    z-index: 9;
+    width: 10px;
+    height: 10px;
+    top: 25px;
+    border-right: 1px solid #0000006e;
+    border-bottom: 1px solid #0000006e;
+    transform: rotate(315deg);
+}
+#signUpForm .form-header .stepIndicator.active::before {
+    border-right: 1px solid #0000006e;
+    border-bottom: 1px solid #0000006e;
+}
+.lasting::before {
+    display: none;
 }
 
-
-
-
+#signUpForm .form-header .stepIndicator.finish::after {
+  background-color: #009688;
+}
+#signUpForm .form-header .stepIndicator:last-child:after {
+  display: none;
+}
+#signUpForm input {
+    box-sizing: border-box;
+    margin: 0 1px;
+    width: 100%;
+    margin-top: 2px;
+    padding: 0 10px 0 25px;
+    border: 2px solid #00000012;
+    font-size: 16px;
+    color: #000;
+    transition: 1ms;
+    height: 45px;
+    border-radius: 33px;
+    display: block;
+}
+#signUpForm input:focus {
+  border: 1px solid #009688;
+  outline: 0;
+}
+#signUpForm input.invalid {
+  border: 1px solid #ffaba5;
+}
+#signUpForm .step {
+  display: none;
+}
+#signUpForm .form-footer {
+    overflow: auto;
+    gap: 20px;
+    text-align: center;
+}
+#signUpForm .form-footer button {
+    background-color: #ff5d21;
+    border: 1px solid #ff5d21 !important;
+    color: #ffffff;
+    padding: 12px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 2em;
+    flex: 1;
+    width: 20%;
+    margin-top: 5px;
+    margin-left: 20px;
+}
+#signUpForm .form-footer button:hover {
+  opacity: 0.8;
+}
+#signUpForm .form-footer #prevBtn {
+    background-color: #fff;
+    color: #000;
+    float: left;
+    border-radius: 0;
+    border: none !important;
+    text-align: left;
+    padding: 10px 0;
+}
+#signUpForm .form-footer #prevBtn img {
+    margin-right: 10px;
+}
+.maining-heading {
+    width: 100%;
+    display: block;
+    text-align: left;
+}
+.inter-form {
+    width: 100%;
+    margin: 30px 20px;
+    background: #fff;
+    padding: 30px;
+    box-shadow: 0px 0px 99px #ff5d2115;
+    border-radius: 25px;
+}
+.inter-form .form-group {
+    width: 31%;
+    display: inline-block;
+    margin: 15px 20px 25px 0;
+}
+.inter-form .form-group label {
+    color: #000;
+    margin-bottom: 5px;
+}
+#select-service {
+    box-sizing: border-box;
+    margin: 0 1px;
+    width: 100%;
+    margin-top: 2px;
+    padding: 0 10px 0 25px;
+    border: 2px solid #00000012;
+    font-size: 16px;
+    color: #000;
+    transition: 1ms;
+    height: 45px;
+    border-radius: 33px;
+    display: block;
+}
+.inter-form .form-group label.container p b {
+    color: #000;
+    font-size: 18px;
+    font-weight: 500;
+    position: relative;
+    top: -2px;
+}
+#cencalBtn {
+    background: transparent !important;
+    color: #ff5d21 !important;
+}
+#cencalBtn:hover {
+    background: #fff !important;
+    color: #000 !important;
+}
+.where-boxing {
+    width: 65%;
+    display: inline-block;
+}
+.step-image {
+    width: 35%;
+    float: right;
+}
+.where-boxing .form-group {
+    width: 44%;
+}
+.full-widthing {
+    width: 40% !important;
+}
+.pickup-details-iner {
+    margin: 40px 0;
+    position: relative;
+}
+.pickup-details-iner p {
+    color: #000;
+    margin-bottom: 0;
+    margin-top: 20px;
+}
+.pickup-details-iner b {
+    color: #000;
+    font-weight: 500;
+    margin-top: 6px;
+}
+.pickup-details-link a {
+    float: right;
+    color: #ff5d21;
+    text-decoration: underline;
+    margin-top: -140px;
+}
+.inter-form .agreed-text .container {
+    border: 1px solid #ff5d21;
+    border-radius: 2em;
+    padding: 7px 0 7px 45px;
+}
+.inter-form .agreed-text .checkmark {
+    top: 15px;
+    left: 15px;
+}
+.not-boarding .container {
+    border: none !important;
+}
+.not-boarding p {
+    margin-left: 0px;
+    margin-top: -6px;
+}
+.not-boarding span.checkmark {
+    top: 8px !important;
+}
+.edit-clss {
+    float: right;
+    margin-top: -52px;
+    color: #ff5d21;
+    text-decoration: underline;
+}
+.maing-address {
+    background: #ff5d210d;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.maing-address h4 {
+    font-size: 14px;
+}
+.maing-address p {
+    color: #000;
+    font-size: 14px;
+    margin-right: 100px;
+    margin-bottom: 7px;
+}
+.maing-address b {
+    color: #000;
+    font-weight: 500;
+}
+.what-details {
+    margin: 20px 10px 20px;
+}
+.what-detail-iner tbody td {
+    color: #000;
+    margin: 5px 0;
+    display: inline-block;
+    width: 45%;
+}
+.shipment-heading {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+}
+.paymment-right-details {
+    width: 34%;
+    float: right;
+    background: #ff5d210d;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 50px;
+}
+.paymment-right-details h3 {
+    font-size: 21px;
+    margin-bottom: 20px;
+}
+.paymment-right-details table {
+    width: 100%;
+}
+.paymment-right-details tbody {
+    color: #000;
+}
+.paymment-right-details tbody td {
+    padding: 4px 0;
+}
+.payment-successful {
+    width: 40%;
+    text-align: center;
+    margin: 40px auto;
+}
+.payment-successful h3 {
+    color: #000;
+    margin-top: 30px;
+}
+.payment-successful p {
+    color: #000;
+}
+.payment-btns {
+    text-align: center;
+}
+.payment-btns .down-btn {
+    display: inline-block;
+    border: 1px solid #ff5d21;
+    color: #ff5d21;
+    font-weight: 500;
+    padding: 12px 40px;
+    border-radius: 2em;
+}
+.payment-btns .done-btn {
+    margin-left: 20px;
+    display: inline-block;
+    border: 1px solid #ff5d21;
+    color: #fff;
+    font-weight: 500;
+    padding: 12px 90px;
+    border-radius: 2em;
+    background: #ff5d21;
+    margin-bottom: 20px;
+}
 
 /*-------========= Start Responsive Here ==========-------*/
 
@@ -2583,9 +2989,7 @@ iframe#youtubevideo {
 
 
 @media only screen and (max-width: 767px) {
-  .main_menu .container {
-      max-width: auto;
-  }
+  
   .navbar-toggler {
       background-color: #fff;
   }
@@ -2833,6 +3237,8 @@ iframe#youtubevideo {
 
 
 }
+
+
 
 
 
