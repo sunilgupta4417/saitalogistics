@@ -262,19 +262,39 @@ if($page) {
     public function get_home()
     {
         $data['page_content'] = CMS::where('page_name' , 'home-top')->first();
+        $data['page_content']->page_link = json_decode($data['page_content']->page_link);
         $data['page_content1'] = CMS::where('page_name' , 'home-work')->get();
         $data['page_content2'] = CMS::where('page_name' , 'home-bottom')->first();
+        $data['home_about'] = CMS::where('page_name' , 'home-about')->get();
+        $data['wcs'] = CMS::where('page_name' , 'home-about')->get();
         return view('cms.cms_home', $data);
     }
 
     public function update_home(Request $request)
     {
+        // dd($request->all());
         $content = CMS::find($request->id);
-        $imageName = $request->page_image;
+        if ($request->hasFile('page_image')) {
+            $image = $request->file('page_image');
+                     $imageName = rand(1111 , 9999).time().'.'.$image->extension();      
+                    $ext      = strtolower($image->extension());
+                    if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp' || $ext == 'svg')
+                    {
+                        $image->move(public_path('/assets/images/cms/'), $imageName);
+                        $content->page_image = $imageName;
+                    }
+                    else
+                    {
+                           $this->helper->one_time_message('error', 'Invalid Image Format!');
+                            return back();
+                    }
+            }
         $content->page_title = $request->page_title;
         $content->page_content = $request->page_content;
         $content->page_image = $imageName;
+        $content->page_link = json_encode($request->page_link);
         $content->save();
+        // dd($content);
         $this->helper->one_time_message('success', __('Home Section updated successfully!'));
         return redirect('admin/cms/home');  
     }
@@ -299,7 +319,7 @@ if($page) {
         }
         $content->page_title = $request->page_title1;
         $content->page_content = $request->page_content1;
-        $content->page_image = $imageName;
+        // $content->page_image = $imageName;
         $content->save();
 
         $content = CMS::find($request->id2);
@@ -321,7 +341,7 @@ if($page) {
         }
         $content->page_title = $request->page_title2;
         $content->page_content = $request->page_content2;
-        $content->page_image = $imageName;
+        // $content->page_image = $imageName;
         $content->save();
 
         $content = CMS::find($request->id3);
@@ -343,7 +363,7 @@ if($page) {
         }
         $content->page_title = $request->page_title3;
         $content->page_content = $request->page_content3;
-        $content->page_image = $imageName;
+        // $content->page_image = $imageName;
         $content->save();
 
         $content = CMS::find($request->id4);
@@ -365,12 +385,153 @@ if($page) {
         }
         $content->page_title = $request->page_title4;
         $content->page_content = $request->page_content4;
-        $content->page_image = $imageName;
+        // $content->page_image = $imageName;
         $content->save();
         $this->helper->one_time_message('success', __('Home Section updated successfully!'));
         return redirect('admin/cms/home');  
     }
     public function update_home2(Request $request)
+    {
+        $content = CMS::find($request->page_id);
+        // dd($request->all());
+        $imageName = '';
+        if ($request->hasFile('page_image')) {
+        $image = $request->file('page_image');
+                 $imageName = time().'.'.$image->extension();      
+                $ext      = strtolower($image->extension());
+                if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp' || $ext == 'svg')
+                {
+                    $image->move(public_path('/assets/images/cms/'), $imageName);
+                    // dd($image);
+                    // $content->page_image = $imageName;
+                }
+                else
+                {
+                       $this->helper->one_time_message('error', 'Invalid Image Format!');
+                        return back();
+                }
+        }
+        
+        $content->page_title = $request->page_title;
+        $content->page_content = $request->page_content;
+        $content->page_image = $imageName;
+        $content->page_link = $request->page_link;
+        // $content->page_status = $request->status;
+        $content->save();
+        $this->helper->one_time_message('success', __('Home Section updated successfully!'));
+        return redirect('admin/cms/home');  
+    }
+    public function updareWordClassServices(Request $request)
+    {
+        // dd($request->all());
+        $content = CMS::find($request->id1);
+        $imageName = '';
+        if ($request->hasFile('page_image1')) {
+        $image = $request->file('page_image1');
+                 $imageName = rand(1111 , 9999).time().'.'.$image->extension();      
+                $ext      = strtolower($image->extension());
+                if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp' || $ext == 'svg')
+                {
+                    $image->move(public_path('/assets/images/cms/'), $imageName);
+                    $content->page_image = $imageName;
+                }
+                else
+                {
+                       $this->helper->one_time_message('error', 'Invalid Image Format!');
+                        return back();
+                }
+        }
+        $content->page_title = $request->page_title1;
+        $content->page_content = $request->page_content1;
+        $content->page_link = $request->page_link1;
+        $content->save();
+
+        $content = CMS::find($request->id2);
+        $imageName = '';
+        if ($request->hasFile('page_image2')) {
+        $image = $request->file('page_image2');
+                 $imageName = rand(1111 , 9999).time().'.'.$image->extension();      
+                $ext      = strtolower($image->extension());
+                if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp' || $ext == 'svg')
+                {
+                    $image->move(public_path('/assets/images/cms/'), $imageName);
+                    $content->page_image = $imageName;
+                }
+                else
+                {
+                       $this->helper->one_time_message('error', 'Invalid Image Format!');
+                        return back();
+                }
+        }
+        $content->page_title = $request->page_title2;
+        $content->page_content = $request->page_content2;
+        $content->page_link = $request->page_link2;
+        $content->save();
+
+        $content = CMS::find($request->id3);
+        $imageName = '';
+        if ($request->hasFile('page_image3')) {
+        $image = $request->file('page_image3');
+                 $imageName = rand(1111 , 9999).time().'.'.$image->extension();      
+                $ext      = strtolower($image->extension());
+                if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp' || $ext == 'svg')
+                {
+                    $image->move(public_path('/assets/images/cms/'), $imageName);
+                    $content->page_image = $imageName;
+                }
+                else
+                {
+                       $this->helper->one_time_message('error', 'Invalid Image Format!');
+                        return back();
+                }
+        }
+        $content->page_title = $request->page_title3;
+        $content->page_content = $request->page_content3;
+        $content->page_link = $request->page_link3;
+        $content->save();
+
+        $this->helper->one_time_message('success', __('Home Section updated successfully!'));
+        return redirect('admin/cms/home');
+    }
+    public function get_home_about()
+    {
+        if(isset($_GET['id']))
+        {
+            $data['content'] = CMS::where('id' , $_GET['id'])->first();
+        }
+        $data['page_content'] = CMS::where('page_name' , 'home-about')->orderby('id' , 'Desc')->get();
+        return view('cms.cms_home_about', $data);
+    }
+    public function store_home_about(Request $request)
+    {
+        $content = new CMS();
+        $imageName = '';
+        if ($request->hasFile('page_image')) {
+        $image = $request->file('page_image');
+                 $imageName = time().'.'.$image->extension();     
+                $ext      = strtolower($image->extension());
+
+                if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp' || $ext == 'svg')
+                {
+                    $image->move(public_path('/assets/images/cms/'), $imageName);
+                }
+                else
+                {
+                       $this->helper->one_time_message('error', 'Invalid Image Format!');
+                        return back();
+                }
+            }
+        $content->page_name = 'about';
+        $content->page_title = $request->page_title;
+        $content->page_content = $request->page_content;
+        $content->page_image = $imageName;
+        $content->page_status = $request->status;
+        $content->save();
+        $this->helper->one_time_message('success', __('Section added successfully!'));
+        return redirect('admin/cms/home');  
+    }
+
+    public function update_home_about(Request $request)
     {
         $content = CMS::find($request->id);
         $imageName = '';
@@ -388,14 +549,13 @@ if($page) {
                        $this->helper->one_time_message('error', 'Invalid Image Format!');
                         return back();
                 }
-        }
+            }
         $content->page_title = $request->page_title;
         $content->page_content = $request->page_content;
-        $content->page_image = $imageName;
+
         $content->page_status = $request->status;
         $content->save();
-        $this->helper->one_time_message('success', __('Home Section updated successfully!'));
+        $this->helper->one_time_message('success', __('Section updated successfully!'));
         return redirect('admin/cms/home');  
     }
-    
 }

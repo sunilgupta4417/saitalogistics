@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Frontend\EmailController;
+use Illuminate\Support\Facades\Password;
 use App\Http\Helpers\Common;
 use App\Models\{
     User,
@@ -92,8 +93,8 @@ class AuthController extends Controller
                 {
                     DB::beginTransaction();
                     
-                                    
-                    $user = $this->user->createNewUser($request);
+                            $model =  new User;        
+                    $user = $model->createNewUser($request);
                     $subject = 'Notice for User Verification!';
                     $message = '<div style="padding:0!important;margin:0!important;display:block!important;min-width:100%!important;width:100%!important;background:#ffffff">
   <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
@@ -230,7 +231,7 @@ class AuthController extends Controller
   $message = str_replace('{verification_url}', url('user/verify', $user->token), $message);
                      try
                      {
-                       $this->email->sendEmail($user->email, $subject, $message);
+                    //    $this->email->sendEmail($user->email, $subject, $message);
 
                         DB::commit();
                         $this->helper->one_time_message('success', __('We sent you an activation code. Check your email and click on the link to verify.'));
@@ -256,7 +257,22 @@ class AuthController extends Controller
             }
         
     }
-
+    public function forgotPassword(){
+        return view('frontend.auth.forgetpassword');
+    }
+    public function forgetPasswordLink(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+        print_r($status);
+        die();
+        // $status === Password::RESET_LINK_SENT
+        //             ? back()->with(['status' => __($status)])
+        //             : back()->withErrors(['email' => __($status)]);
+        // print_r($status);
+    }
     public function logout()
     {
         Auth::guard('web')->logout();

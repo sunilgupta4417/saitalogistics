@@ -63,18 +63,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="change-password">
-                        <div class="col-md-12" style="float:left">
-                            <div class="col-md-4" style="float:left">
-                                <a href="#" data-toggle="modal" data-target="#myModal"> <img src="{{asset('assets/images/locking.png')}}" alt="" class="img-responsive"> <span>Change Password</span> <img src="assets/images/change-right-arrow.svg" alt="" class="rht-arrows img-responsive"></a>
-                            </div>
-                            <div class="col-md-4" style="float:left">
-                                <a href="{{ url('user/shipment/create') }}" > <img src="{{asset('assets/images/locking.png')}}" alt="" class="img-responsive"> <span>Create Shipment</span> <img src="assets/images/change-right-arrow.svg" alt="" class="rht-arrows img-responsive"></a>
-                            </div>
-                            <div class="col-md-4" style="float:left">
-                                <a href="{{ url('user/shipment/history') }}" > <img src="{{asset('assets/images/locking.png')}}" alt="" class="img-responsive"> <span>Shipment History</span> <img src="assets/images/change-right-arrow.svg" alt="" class="rht-arrows img-responsive"></a>
-                            </div> 
-                        </div>
-                        
+                        <a href="#" data-toggle="modal" data-target="#myModal"> <img src="{{asset('assets/images/locking.png')}}" alt="" class="img-responsive"> <span>Change Password</span> <img src="{{asset('assets/images/change-right-arrow.svg')}}" alt="" class="rht-arrows img-responsive"></a> 
                     </div>
                 </div>
                 <div class="col-md-12">

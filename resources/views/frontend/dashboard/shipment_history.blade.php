@@ -19,11 +19,10 @@
                                        <th>Sr. No.</th>
                                        <th>Waybill No.</th>
                                        <th>Date</th>
-                                       <th>Packet Type</th>
-                                       <th>Courier Type</th>
-                                       <th>Receiver Name</th>
-                                       <th>Receiver Email</th>
-                                       <th>Payment Status</th>
+                                       <th>Shipment Type</th>
+                                       <th>Qty</th>
+                                       <th>For</th>
+                                       <th>Status</th>
                                        <th>Action</th>
                                     </tr>
                                  </thead>
@@ -33,10 +32,10 @@
                                     <tr>
                                        <td>{{$i}}</td>
                                        <td></td>
-                                       <td>{{$ship->created_at}}</td>
-                                       <td>{{$ship->courier_type}}</td>
-                                       <td>{{$ship->R_name}}</td>
-                                       <td>{{$ship->R_email}}</td>
+                                       <td>{{ \Carbon\Carbon::parse($ship->created_at)->isoFormat('Do MMM YYYY') }}</td>
+                                       <td>{{$ship->packet_type}}</td>
+                                       <td>Qty</td>
+                                       <td>{{$ship->csn_city_id}}</td>
                                        <td class="og-clr">Pending</td>
                                        <td class="view-btn"> <a href="#">View Details</a></td>
                                     </tr>
