@@ -194,7 +194,7 @@
                         </div>
 
         
-
+ 
                         
                      </div>
                    </form>
@@ -349,7 +349,7 @@
     <div class="page-header">
        <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-             <h5 class="text-uppercase mb-0 mt-0 page-title">CMS About Master</h5>
+             <h5 class="text-uppercase mb-0 mt-0 page-title">CMS Home About Master</h5>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-12">
              <ul class="breadcrumb float-right p-0 mb-0">
@@ -398,7 +398,11 @@
                                      <label>Title*</label>
                                      <input class="form-control" value="{{(isset($content->page_title) ? $content->page_title : null)}}" type="text" name="page_title" id="name" required >
                                 </div>                  
-                                
+                                <div class="form-group col-md-4 col-12">
+                                   <input type="hidden" value="{{$content_id}}" name="id" id="id">
+                                     <label>Link*</label>
+                                     <input class="form-control" value="{{(isset($content->page_link) ? $content->page_link : null)}}" type="text" name="page_link" id="name" required >
+                                </div> 
                                
                                 <div class="form-group col-md-4 col-12">
                                      <label>Image*</label>
@@ -424,7 +428,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                            <div class="page-btns">
                               <div class="form-group text-center custom-mt-form-group">
-                                 @if(checkAccess('manage-users','add_permission'))<button class="btn btn-primary mr-2" type="submit"><i class="fa fa-check"></i> Save</button>@endif
+                                 <button class="btn btn-primary mr-2" type="submit"><i class="fa fa-check"></i> Save</button>
                                  
                                  <a class="btn btn-secondary orng-btn" style="font-size:inherit;" href="{{url('admin/cms/about')}}"><i class="fa fa-dot-circle"></i> Reset</a>
                               </div>

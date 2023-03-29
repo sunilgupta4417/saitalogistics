@@ -266,7 +266,7 @@ if($page) {
         $data['page_content1'] = CMS::where('page_name' , 'home-work')->get();
         $data['page_content2'] = CMS::where('page_name' , 'home-bottom')->first();
         $data['home_about'] = CMS::where('page_name' , 'home-about')->get();
-        $data['wcs'] = CMS::where('page_name' , 'home-about')->get();
+        $data['wcs'] = CMS::where('page_name', 'world-class-service')->get();
         return view('cms.cms_home', $data);
     }
 
@@ -521,8 +521,9 @@ if($page) {
                         return back();
                 }
             }
-        $content->page_name = 'about';
+        $content->page_name = 'home-about';
         $content->page_title = $request->page_title;
+        $content->page_link = $request->page_link;
         $content->page_content = $request->page_content;
         $content->page_image = $imageName;
         $content->page_status = $request->status;
@@ -551,11 +552,19 @@ if($page) {
                 }
             }
         $content->page_title = $request->page_title;
+        $content->page_link = $request->page_link;
         $content->page_content = $request->page_content;
 
         $content->page_status = $request->status;
         $content->save();
         $this->helper->one_time_message('success', __('Section updated successfully!'));
         return redirect('admin/cms/home');  
+    }
+    public function delete_home_about($id)
+    {
+        $content = CMS::find($id);
+        $content->delete();
+        $this->helper->one_time_message('success', __('Section Deleted successfully!'));
+        return redirect('admin/cms/home');
     }
 }

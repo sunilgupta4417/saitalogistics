@@ -190,5 +190,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('cms/home-about', [CMSController::class, 'get_home_about']);
     Route::post('cms/home-about/store', [CMSController::class, 'store_home_about'])->name('cms.home.about.store');
     Route::post('cms/home-about/update', [CMSController::class, 'update_home_about'])->name('cms.home.about.update');
-
+    Route::get('cms/home-about/delete/{id}', [CMSController::class, 'delete_home_about']);
 });

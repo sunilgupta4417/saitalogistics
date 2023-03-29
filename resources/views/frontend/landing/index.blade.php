@@ -214,7 +214,7 @@
                             <div class="blog-item mb-5 mb-lg-0">
                                 <img src="{{asset('assets/images/cms/'.$ser->page_image.'')}}" alt="" class="img-fluid">
                                 <div class="blog-item-content">
-                                    <h3 class="mt-3 mb-2"><a href="#" style="text-decoration: underline;">{{$ser->page_title}}</a></h3>
+                                    <h3 class="mt-3 mb-2"><a href="{{$ser->page_link}}" style="text-decoration: underline;">{{$ser->page_title}}</a></h3>
                                     
                                 </div>
                             </div>
