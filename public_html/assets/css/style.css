@@ -386,18 +386,25 @@ a:hover {
 }
 
 .nav-item.dropdown .dropdown-menu {
-  transition: all 300ms ease;
-  display: block;
-  visibility: hidden;
-  opacity: 0;
-  top: 120%;
-  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.05),
-    -2px 0px 5px 1px rgba(0, 0, 0, 0.05);
-  border: 0px;
-  padding: 0px;
-  position: absolute;
+    transition: all 300ms ease;
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    top: 120%;
+    box-shadow: 2px 2px 5px 1px rgb(0 0 0 / 5%), -2px 0px 5px 1px rgb(0 0 0 / 5%);
+    border: 0px;
+    padding: 0px;
+    position: absolute;
+    border-radius: 10px;
+    min-width: 135px;
+    margin: 10px 2px;
 }
-
+.nav-item.dropdown .dropdown-menu .dropdown-item {
+    color: #000;
+    padding: 7px 10px;
+    border-bottom: 1px solid #eee;
+    text-transform: capitalize;
+}
 .nav-item.dropdown:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
@@ -435,9 +442,10 @@ a:hover {
 }
 
 .dropdown-item:hover {
-  color: #fff;
-  text-decoration: none;
-  background-color: #172182;
+    color: #ff5d21 !important;
+    text-decoration: none;
+    border-radius: 6px;
+    background: transparent;
 }
 
 .header-contact {
@@ -456,6 +464,13 @@ a:hover {
   font-size: 14px;
   color: #fff;
   padding: 0 10px;
+}
+.header-contact a img {
+    margin: 0 5px;
+}
+.header-contact .fa.fa-caret-down {
+    color: #ff5d21;
+    font-size: 16px;
 }
 a.btn.btn-main-2.btn-sm {
   padding: 6px 15px;
@@ -676,7 +691,7 @@ a.btn.btn-main-2.btn-sm {
   background: #1bdbac;
 }
 .about-item {
-  margin-top: 90px;
+  margin-top: 50px;
 }
 .about-item h2 {
   margin-bottom: 15px;
@@ -1570,7 +1585,7 @@ iframe#youtubevideo {
   margin-bottom: 30px;
 }
 #margin-btm .about-item {
-  margin-left: 70px;
+  margin-left: 50px;
 }
 
 /*---- Login Page Css Start here -----*/
@@ -1632,6 +1647,11 @@ iframe#youtubevideo {
 
 .profile-box {
     width: 50%;
+    margin: 0 auto;
+    position: relative;
+}
+.profile-box-heading-img {
+    text-align: center;
 }
 .profile-box-heading-img h2 {
     font-size: 40px;
@@ -1691,6 +1711,7 @@ iframe#youtubevideo {
 #login-page .form-group i {
   position: absolute;
   color: #0000001f;
+  transform: translateX(25px) translateY(21px);
   font-size: 20px;
 }
 
@@ -2851,6 +2872,127 @@ iframe#youtubevideo {
     background: #ff5d21;
     margin-bottom: 20px;
 }
+#mainpopup .modal-dialog {
+    max-width: 70%;
+    margin: 80px auto;
+}
+#mainpopup .modal-header {
+    border: none;
+    position: absolute;
+    right: -5px;
+    background: #fff;
+    margin-top: -30px;
+    border-radius: 2em;
+    text-align: center;
+    padding: 4px 2px;
+    box-shadow: 1px 2px 10px #3333333d;
+}
+#mainpopup .modal-header button.close {
+    padding: 17px 25px 18px 10px;
+    color: #ff5d21;
+    opacity: 1;
+}
+
+.coming-text {
+    margin-top: 110px;
+}
+#mainpopup .modal-content {
+    padding: 20px 40px;
+    border-radius: 30px;
+}
+.coming-text h3 {
+    font-size: 28px;
+}
+.coming-text p {
+    font-size: 18px;
+    color: #808080bd;
+}
+.file-upload-wrapper {
+    position: relative;
+    width: 100%;
+    border: 2px solid #ff5d21 !important;
+    color: #ffffff;
+    padding: 0px;
+    height: 42px;
+    border-radius: 2em;
+}
+.file-upload-wrapper:after {
+    content: attr(data-text);
+    font-size: 18px;
+    position: absolute;
+    top: 0;
+    font-size: 13px;
+    left: 0;
+    background: transparent;
+    padding: 10px 15px;
+    display: block;
+    width: calc(100% - 40px);
+    pointer-events: none;
+    z-index: 20;
+    height: 40px;
+    line-height:18px;
+    color: #999;
+    border-radius: 5px 10px 10px 5px;
+    font-weight: 300;
+    border-radius: 2em;
+}
+.file-upload-wrapper:before {
+    content: 'Upload';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    display: inline-block;
+    background: #ff5d21;
+    color: #fff;
+    font-weight: 500;
+    z-index: 25;
+    font-size: 16px;
+    padding: 0 15px;
+    text-transform: uppercase;
+    pointer-events: none;
+    border-radius: 0 5px 5px 0;
+    border-radius: 2em;
+    padding: 5px 30px;
+    font-size: 14px;
+}
+ .file-upload-wrapper:hover:before {
+   background: #ff5d21;
+}
+ .file-upload-wrapper input {
+   opacity: 0;
+   z-index: 99;
+   height: 40px;
+   margin: 0;
+   padding: 0;
+   display: block;
+   cursor: pointer;
+   width: 100%;
+}
+ .sprucecss {
+   align-items: flex-start;
+   background-color: #000;
+   border-radius: 0.25rem;
+   box-shadow: 0 0 0.5rem #000;
+   color: #444;
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+   inset: auto auto 1rem 1rem;
+   line-height: 1.5;
+   max-width: 11rem;
+   padding: 1.5rem;
+   position: fixed;
+   text-decoration: none;
+}
+ .sprucecss img {
+   height: 1.5rem;
+   width: auto;
+}
+ 
+
+
+
+
 
 /*-------========= Start Responsive Here ==========-------*/
 
@@ -3232,11 +3374,54 @@ iframe#youtubevideo {
     float: inherit;
 }
 
-
-
+#mainpopup .modal-dialog {
+    max-width: 95%;
+}
+.coming-text {
+    margin-top: 0px;
+}
+.popup-image img {
+    width: 100%;
+}
+#signUpForm .form-header {
+    display: inherit !important;
+    padding: 10px;
+}
+#signUpForm .form-header .stepIndicator {
+    padding: 5px;
+    width: 48%;
+    display: inline-block;
+}
+#signUpForm .form-header .stepIndicator::before {
+    display: none;
+}
+.shipment-heading {
+    font-size: 23px;
+}
+.maining-heading h3 {
+    font-size: 23px;
+    text-align: center;
+}
+.inter-form .form-group {
+    width: 100%;
+}
+#signUpForm .form-footer button {
+    width: 80%;
+    margin: 10px;
+}
+.inter-form .form-group {
+    margin: 8px 10px 10px 0;
+}
+.file-upload-wrapper:after {
+    font-size: 8px;
+}
 
 
 }
+
+
+
+
 
 
 

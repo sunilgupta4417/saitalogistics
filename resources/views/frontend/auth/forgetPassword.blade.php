@@ -5,6 +5,12 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="login-box">
+					@if(Session::has('status'))
+						<div class="alert {{ Session::get('alert-class') }} text-center">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<strong>{{ Session::get('status') }}</strong>
+						</div>
+					@endif
 				        <h2>Forgot Password?</h2>
 				        <p class="enter-number">Enter Your Registered Email Id</p>
 				        <form method="POST" action="{{ route('user.forget.password.link') }}">

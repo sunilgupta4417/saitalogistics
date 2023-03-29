@@ -1,0 +1,16 @@
+<svg id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="76" height="75" viewBox="0 0 76 75">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_6" data-name="Rectangle 6" width="31.059" height="31.059" fill="#fff"/>
+    </clipPath>
+  </defs>
+  <rect id="icon_Background_" data-name="icon (Background)" width="76" height="75" rx="24" fill="#ff5d21"/>
+  <g id="Group_12" data-name="Group 12" transform="translate(22 22)">
+    <g id="Group_11" data-name="Group 11" clip-path="url(#clip-path)">
+      <path id="Path_35" data-name="Path 35" d="M27.671,0H3.386A3.391,3.391,0,0,0,0,3.388V27.671a3.391,3.391,0,0,0,3.386,3.388h15.47a1.109,1.109,0,0,0,0-2.218H3.386a1.17,1.17,0,0,1-1.168-1.169V3.388A1.17,1.17,0,0,1,3.386,2.218h15.47v8.874H12.2V6.655a1.109,1.109,0,1,0-2.218,0V11.38a1.933,1.933,0,0,0,1.931,1.931h7.23a1.934,1.934,0,0,0,1.931-1.931V2.218h6.6A1.171,1.171,0,0,1,28.84,3.388V27.671a1.171,1.171,0,0,1-1.169,1.169H24.4a1.109,1.109,0,0,0,0,2.218h3.268a3.391,3.391,0,0,0,3.388-3.388V3.388A3.391,3.391,0,0,0,27.671,0" fill="#fff"/>
+      <path id="Path_36" data-name="Path 36" d="M23.655,20.218a1.109,1.109,0,1,0,0-2.218H18.109a1.109,1.109,0,0,0,0,2.218Z" transform="translate(1.857 1.966)" fill="#fff"/>
+      <path id="Path_37" data-name="Path 37" d="M14,23.109a1.11,1.11,0,0,0,1.109,1.109h8.874a1.109,1.109,0,1,0,0-2.218H15.109A1.11,1.11,0,0,0,14,23.109" transform="translate(1.529 2.403)" fill="#fff"/>
+      <path id="Path_38" data-name="Path 38" d="M7.328,24.765a1.11,1.11,0,0,0,1.109-1.109V20.787l.325.325a1.109,1.109,0,1,0,1.568-1.568L8.112,17.325a1.112,1.112,0,0,0-1.568,0L4.325,19.543a1.109,1.109,0,0,0,1.568,1.568l.325-.325v2.868a1.11,1.11,0,0,0,1.109,1.109" transform="translate(0.437 1.857)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

@@ -258,20 +258,21 @@ class AuthController extends Controller
         
     }
     public function forgotPassword(){
-        return view('frontend.auth.forgetpassword');
+        return view('frontend.auth.forgetPassword');
     }
     public function forgetPasswordLink(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
-        print_r($status);
-        die();
-        // $status === Password::RESET_LINK_SENT
-        //             ? back()->with(['status' => __($status)])
-        //             : back()->withErrors(['email' => __($status)]);
-        // print_r($status);
+        if (!$user) {
+            return back()->with(['status' => 'User not found']);
+        } else {
+            $status = Password::sendResetLink(
+                $request->only('email')
+            );
+            return $status === Password::RESET_LINK_SENT
+                ? back()->with(['status' => __($status)])
+                : back()->withErrors(['email' => __($status)]);
+        }
     }
     public function logout()
     {

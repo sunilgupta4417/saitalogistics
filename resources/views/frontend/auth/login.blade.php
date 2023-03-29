@@ -30,7 +30,7 @@
                                 @endif
                             </div>
                             <div class="for-text">
-                                <a href="{{ url('forgot-password') }}" class="forgot">Forgot Password?</a>
+                                <a href="{{ url('user-forgot-password') }}" class="forgot">Forgot Password?</a>
                             </div>
                             <div class="sub-btns text-center">
                                 <button type="submit" class="btn">Login</button>
