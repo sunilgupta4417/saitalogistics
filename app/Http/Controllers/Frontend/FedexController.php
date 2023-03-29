@@ -2,13 +2,25 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Common;
 use App\Models\{
     User,
     Shipment
     };
+use FedEx\AddressValidationService\ComplexType;
+use FedEx\AddressValidationService\Request;
+use FedEx\AddressValidationService\SimpleType;
+// use FedEx\RateService\ComplexType;
+// use FedEx\RateService\Request;
+// use FedEx\RateService\SimpleType;
+use FedEx\ShipService;
+// use FedEx\ShipService\ComplexType;
+// use FedEx\ShipService\SimpleType;
+// use FedEx\TrackService\ComplexType;
+// use FedEx\TrackService\Request;
+// use FedEx\TrackService\SimpleType;
+// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Artisan,
     Validator,
     Session,
@@ -16,22 +28,6 @@ use Illuminate\Support\Facades\{Artisan,
     Auth,
     DB
 };
-
-use FedEx\RateService\Request;
-use FedEx\RateService\ComplexType;
-use FedEx\RateService\SimpleType;   
-
-use FedEx\TrackService\Request;
-use FedEx\TrackService\ComplexType;
-use FedEx\TrackService\SimpleType; 
-
-use FedEx\ShipService;
-use FedEx\ShipService\ComplexType;
-use FedEx\ShipService\SimpleType;
-
-use FedEx\AddressValidationService\Request;
-use FedEx\AddressValidationService\ComplexType;
-use FedEx\AddressValidationService\SimpleType;
 
 class FedexController extends Controller
 {

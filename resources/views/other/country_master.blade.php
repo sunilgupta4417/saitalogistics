@@ -79,6 +79,7 @@
                                        <table id="t1">
                                              <thead>
                                                 <tr>
+                                                   <th>Add State</th>
                                                 @if(checkAccess('country-master','edit_permission'))<th>Edit</th>@endif
                                                 @if(checkAccess('country-master','delete_permission'))<th>Delete</th>@endif
                                                    <th>Country Code</th>
@@ -88,6 +89,7 @@
                                              <tbody>
                                              @foreach($country as $row)
                                              <tr>
+                                             <td><a class="btn btn-primary" href="{{route('state.all',$row->id)}}" > <i class="fa fa-plus"></i></a></td>
                                              @if(checkAccess('country-master','edit_permission'))<td><a class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$row->id}}" href="#"> <i class="fa fa-pencil-alt"></i></a></td>@endif
                                              @if(checkAccess('country-master','delete_permission'))<td><a class="btn btn-primary" href="{{route('country.delete',$row->id)}}" onclick="return confirm('Are you sure you want to delete this record?')"> <i class="fa fa-trash-alt"></i></a></td>@endif
                                                 <td>{{$row->country_code}}</td>

@@ -20,8 +20,9 @@
        <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-12">
              <div class="card">
-               <form action="{{route('booking.report')}}" method="get" name="booking" id="booking">
+               
                    <div class="card-body">
+                   <form action="{{route('booking.report')}}" method="get" name="booking" id="booking">
                          <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                            <div class="row">
                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
@@ -110,17 +111,18 @@
                            <div class="page-btns">
                               <div class="form-group text-center custom-mt-form-group">
                               @if(checkAccess('booking-report','add_permission'))<button class="btn btn-primary mr-2" type="submit"><i class="fa fa-check"></i> Submit</button>@endif
-                              @if(checkAccess('booking-report','search_permission'))<button class="btn btn-primary mr-2" type="submit"><i class="fa fa-search"></i> Search</button>@endif
+                              @if(checkAccess('booking-report','search_permission'))<button class="btn btn-primary mr-2" type="submit"><i class="fa fa-expand"></i> Search</button>@endif
                               <a href="{{route('booking.report')}}" class="btn btn-secondary btn-sm orng-btn"><i class="fa fa-dot-circle"></i> Reset</a>
                               </div>
                             </div>
                         </div>
+                        </form>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                              <div class="bg-clr">
                              <div class="row">
                                 <div class="col-md-10">
                                     <div class="frm-heading">
-                                        <h3>Total Record(s) Found: {{$packetBook->count()}}</h3>
+                                        <h3>Total Record(s) Found: {{$packetBook->total()}}</h3>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -141,8 +143,8 @@
                                          <table>
                                              <thead>
                                                  <tr>
-                                                 @if(checkAccess('booking-report','edit_permission'))<th>Edit</th>@endif
-                                                 @if(checkAccess('booking-report','delete_permission')) <th>Delete</th>@endif
+                                                     <th>View</th>
+                                                     <th>Print</th>
                                                      <th>Booking Date</th>
                                                      <th>Consignee</th>
                                                      <th>AWB No.</th>
@@ -158,15 +160,20 @@
                                              <tbody>
                                                 @foreach($packetBook as $row)
                                                  <tr>
-                                                 @if(checkAccess('booking-report','edit_permission')) <td><a class="btn btn-primary" href="#"> <i class="fa fa-pencil-alt"></i></a></td>@endif
-                                                 @if(checkAccess('booking-report','delete_permission'))<td><a class="btn btn-primary" href="#"> <i class="fa fa-trash-alt"></i></a></td>@endif
+                                                    <td><a class="btn btn-primary" href="{{route('packet.view',$row->id)}}"> <i class="fa fa-eye"></i></a></td>
+                                                    <td><form action="{{route('print.awb.doc.pdf')}}" method="post" target="_blank">
+                                                        @csrf
+                                                            <input type="hidden" class="form-control" value="{{$row->awb_no}}" name="awb_no" placeholder="Awb No">
+                                                            <input type="hidden" class="form-control" value="invoice" name="print_type" id="print_type">
+                                                            <button class="btn btn-primary" type="submit"><i class="fa fa-print"></i></button></form>
+                                                        </td>
                                                      <td>{{$row->booking_date}} </td>
                                                      <td>{{$row->csn_consignor}}</td>
                                                      <td>{{$row->awb_no}}</td>
                                                      <td>{{$row->client_name}}</td>
                                                      <td>Pending</td>
                                                      <td>Vendor ??</td>
-                                                     <td>Destination ??</td>
+                                                     <td>{{$row->csn_city_id}}</td>
                                                      <td>{{$row->csr_consignor}}</td>
                                                      <td>RC1232??</td>
                                                      <td>{{$row->csr_mobile_no}}</td>
@@ -174,13 +181,16 @@
                                                  @endforeach
                                                  </tbody>                                                           
                                              </table>
+                                             <div class="float-right mt-3">
+                                             {{$packetBook->appends($_GET)->links()}}
+                                            </div>
                                      </div>
                                  </div>
                              </div>
 
                         </div>
                      </div>
-                   </form></div>
+                   </div>
                
              </div>
           </div>
