@@ -48,7 +48,11 @@ class AuthController extends Controller
             'email'    => 'required|email',
             'password' => 'required',
         ]);
-
+        $isUser = User::where('email', $request['email'])->where('role_id', 1)->first();
+        if (!$isUser) {
+            $this->helper->one_time_message('danger', 'Please Check Your Email/Password');
+            return redirect()->route('user.login');
+        }
             if (Auth::guard('web')->attempt(['email' => trim($request['email']), 'password' => trim($request['password'])]))
             {
                 return redirect()->route('user.dashboard');
