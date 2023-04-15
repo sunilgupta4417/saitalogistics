@@ -1,0 +1,73 @@
+@extends('layouts.admin')
+
+@section('content')
+<div class="content container-fluid">
+    <div class="page-header">
+       <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+             <h5 class="text-uppercase mb-0 mt-0 page-title">Shipment Rate</h5>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+             <ul class="breadcrumb float-right p-0 mb-0">
+                <li class="breadcrumb-item"><a href="{{ url('/home') }}"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="#"> Operation Management</a></li>
+                <li class="breadcrumb-item"><span> Shipment Rate</span></li>
+             </ul>
+          </div>
+       </div>
+    </div>
+    <div class="page-content">
+       <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+             <div class="card">
+               <form action="{{route('shipment.get.rate')}}" method="post">
+                  @csrf
+                   <div class="card-body">
+                         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                           <div class="row">
+                               <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                 <div class="frm-heading">
+                                   <h3>Get Shipment rates:</h3>
+                                 </div>
+                               </div>
+                                <div class="form-group col-md-6 col-12">
+                                   <label>Origin</label>
+                                   <input type="text" class="form-control" name="origin" value="Delhi" readonly id="origin">
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Destination</label>
+                                    <select class="form-control" name="destination" id="destination" required>
+                                        @foreach($country as $obj)
+                                        <option value="{{$obj->id}}">{{$obj->country}}</option>
+                                    @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                   <label>Mode</label>
+                                   <select class="form-control">
+                                        <option value="import" disabled>Import</option>
+                                        <option value="export">Export</option>
+                                   </select>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                   <label>weight</label>
+                                   <input type="text" name="weight" id="weight" class="form-control" required>
+                                </div>
+                           </div>
+                         </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                           <div class="page-btns">
+                              <div class="form-group text-center custom-mt-form-group"> 
+                                <button value="invoice" class="getVal btn btn-primary mr-2" type="submit"><i class="fa fa-file-import"></i> Submit</button>
+                                <button class="btn btn-secondary orng-btn" type="reset"><i class="fa fa-dot-circle"></i> Reset</button>
+                              </div>
+                            </div>
+                        </div>
+                     </div>
+                   </form>
+                  </div>
+             </div>
+          </div>
+       </div>
+    </div>
+@endsection

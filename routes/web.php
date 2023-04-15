@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\WebController;
+use App\Http\Controllers\Frontend\FedexController;
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\DashboardController;
+use App\Http\Controllers\Frontend\ShippingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PacketBookingController;
 use App\Http\Controllers\OtherApiController;
@@ -41,18 +43,17 @@ Route::post('/user/register', [AuthController::class, 'store']);
 
 Route::group(['prefix' => 'user', 'middleware' => ['web']], function () {
 
-Route::get('/dashboard', [DashboardController::class, 'home'])->name('user.dashboard');
-Route::post('/profile/update', [DashboardController::class, 'update_profile']);
-Route::post('/profile/password', [DashboardController::class, 'update_password']);
-Route::get('/shipment/history', [DashboardController::class, 'get_shipment'])->name('user.get_shipment');
-Route::get('/shipment/create', [DashboardController::class, 'create_shipment'])->name('user.create_shipment');
-Route::post('/shipment/store', [DashboardController::class, 'store_shipment']);
-Route::get('/shipping/success', [DashboardController::class, 'shipping_success'])->name('user.shipping.success');
+    Route::get('/dashboard', [DashboardController::class, 'home'])->name('user.dashboard');
+    Route::post('/profile/update', [DashboardController::class, 'update_profile']);
+    Route::post('/profile/password', [DashboardController::class, 'update_password']);
+    Route::get('/shipment/history', [DashboardController::class, 'get_shipment'])->name('user.get_shipment');
+    Route::get('/shipment/create', [DashboardController::class, 'create_shipment'])->name('user.create_shipment');
+    Route::post('/shipment/store', [DashboardController::class, 'store_shipment'])->name('user.store_shipment');
+    Route::get('/shipping/success', [DashboardController::class, 'shipping_success'])->name('user.shipping.success');
 
-
-});     
-
-
+});
+Route::post('/shipping/get-rates', [ShippingController::class, 'getRates']);
+Route::get('/token', [ShippingController::class, 'getRates']);
 
 
 
@@ -65,7 +66,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 
     Route::resource('user', userController::class);
     Route::get('user/unlink/{id}/{image}', [userController::class, 'unlink']);
-
+    Route::get('shipment-rate', [PacketBookingController::class, 'shipmentRate'])->name('shipment.rate');
+    Route::post('shipment-get-rate', [PacketBookingController::class, 'shipmentGetRate'])->name('shipment.get.rate');
     Route::get('packet-booking', [PacketBookingController::class, 'packetBooking']);
     Route::get('packet-listing',[PacketBookingController::class,'packetListing'])->name('packet.listing');
     Route::get('packet-view/{id}',[PacketBookingController::class,'packetView'])->name('packet.view');
@@ -192,3 +194,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('cms/home-about/update', [CMSController::class, 'update_home_about'])->name('cms.home.about.update');
     Route::get('cms/home-about/delete/{id}', [CMSController::class, 'delete_home_about']);
 });
+
+Route::get('/get_rate', [FedexController::class, 'get_rate']);

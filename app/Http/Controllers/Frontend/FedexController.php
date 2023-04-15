@@ -8,12 +8,12 @@ use App\Models\{
     User,
     Shipment
     };
-use FedEx\AddressValidationService\ComplexType;
-use FedEx\AddressValidationService\Request;
-use FedEx\AddressValidationService\SimpleType;
-// use FedEx\RateService\ComplexType;
-// use FedEx\RateService\Request;
-// use FedEx\RateService\SimpleType;
+// use FedEx\AddressValidationService\ComplexType;
+// use FedEx\AddressValidationService\Request;
+// use FedEx\AddressValidationService\SimpleType;
+use FedEx\RateService\ComplexType;
+use FedEx\RateService\Request;
+use FedEx\RateService\SimpleType;
 use FedEx\ShipService;
 // use FedEx\ShipService\ComplexType;
 // use FedEx\ShipService\SimpleType;
@@ -32,10 +32,18 @@ use Illuminate\Support\Facades\{Artisan,
 class FedexController extends Controller
 {
     protected $helper;
+    protected $FEDEX_KEY;
+    protected $FEDEX_PASSWORD;
+    protected $FEDEX_ACCOUNT_NUMBER;
+    protected $FEDEX_METER_NUMBER;
 
     public function __construct()
     {
         $this->helper       = new Common();
+        $this->FEDEX_KEY = '2e43a8cacdbe44efbd49e3521769f1d8';
+        $this->FEDEX_PASSWORD = 'mRzrmFjj2N8U1fLBTQYM30Muf';
+        $this->FEDEX_ACCOUNT_NUMBER = '510087100';
+        $this->FEDEX_METER_NUMBER = '256489637';
     }
     /**
      * Display a listing of the resource.
@@ -47,16 +55,16 @@ class FedexController extends Controller
         $rateRequest = new ComplexType\RateRequest();
 
         //authentication & client details
-        $rateRequest->WebAuthenticationDetail->UserCredential->Key = FEDEX_KEY;
-        $rateRequest->WebAuthenticationDetail->UserCredential->Password = FEDEX_PASSWORD;
-        $rateRequest->ClientDetail->AccountNumber = FEDEX_ACCOUNT_NUMBER;
-        $rateRequest->ClientDetail->MeterNumber = FEDEX_METER_NUMBER;
+        $rateRequest->WebAuthenticationDetail->UserCredential->Key = $this->FEDEX_KEY;
+        $rateRequest->WebAuthenticationDetail->UserCredential->Password = $this->FEDEX_PASSWORD;
+        $rateRequest->ClientDetail->AccountNumber = $this->FEDEX_ACCOUNT_NUMBER;
+        $rateRequest->ClientDetail->MeterNumber = $this->FEDEX_METER_NUMBER;
 
-        $rateRequest->TransactionDetail->CustomerTransactionId = 'testing rate service request';
+        $rateRequest->TransactionDetail->CustomerTransactionId = 'asdasasasas323232asdsa';
 
         //version
         $rateRequest->Version->ServiceId = 'crs';
-        $rateRequest->Version->Major = 31;
+        $rateRequest->Version->Major = 24;
         $rateRequest->Version->Minor = 0;
         $rateRequest->Version->Intermediate = 0;
 
@@ -107,7 +115,7 @@ class FedexController extends Controller
         $rateRequest->RequestedShipment->RequestedPackageLineItems[1]->GroupPackageCount = 1;
 
         $rateServiceRequest = new Request();
-        //$rateServiceRequest->getSoapClient()->__setLocation(Request::PRODUCTION_URL); //use production URL
+        // $rateServiceRequest->getSoapClient()->__setLocation(Request::PRODUCTION_URL); //use production URL
 
         $rateReply = $rateServiceRequest->getGetRatesReply($rateRequest); // send true as the 2nd argument to return the SoapClient's stdClass response.
 
@@ -123,7 +131,7 @@ class FedexController extends Controller
                 echo "<hr />";
             }
         }
-
+        echo "<pre>";
         var_dump($rateReply);
     }
 

@@ -136,9 +136,120 @@ class DashboardController extends Controller
         return view('frontend.dashboard.shipment_success', $data);
 
     }
+    public function get_token()
+    {
+        $curl = curl_init();
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => 'https://apis-sandbox.fedex.com/oauth/token',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => 'grant_type=client_credentials&client_id=' . env('FEDEX_ACCOUNT_APP_KEY') . '&client_secret=' . env('FEDEX_ACCOUNT_SECRET'),
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/x-www-form-urlencoded',
+                ),
+            )
+        );
 
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $JSOND = json_decode($response, true);
+        return $JSOND['access_token'];
+    }
     public function store_shipment(Request $request)
     {
+        // dd($request->all());
+        // $data = [
+        //     "labelResponseOptions" => "URL_ONLY",
+        //     "requestedShipment" => [
+        //         "shipper" => [
+        //             "contact" => [
+        //                 "personName" => $request->csr_contact_person,
+        //                 "phoneNumber" => 1234567890,
+        //                 "companyName" => "Shipper Company Name"
+        //             ],
+        //             "address" => [
+        //                 "streetLines" => [
+        //                     "SHIPPER STREET LINE 1"
+        //                 ],
+        //                 "city" => "HARRISON",
+        //                 "stateOrProvinceCode" => "AR",
+        //                 "postalCode" => 72601,
+        //                 "countryCode" => "US"
+        //             ]
+        //         ],
+        //         "recipients" => [
+        //             [
+        //                 "contact" => [
+        //                     "personName" => "RECIPIENT NAME",
+        //                     "phoneNumber" => 1234567890,
+        //                     "companyName" => "Recipient Company Name"
+        //                 ],
+        //                 "address" => [
+        //                     "streetLines" => [
+        //                         "RECIPIENT STREET LINE 1",
+        //                         "RECIPIENT STREET LINE 2"
+        //                     ],
+        //                     "city" => "Collierville",
+        //                     "stateOrProvinceCode" => "TN",
+        //                     "postalCode" => 38017,
+        //                     "countryCode" => "US"
+        //                 ]
+        //             ]
+        //         ],
+        //         "shipDatestamp" => "2023-04-15",
+        //         "serviceType" => "STANDARD_OVERNIGHT",
+        //         "packagingType" => "FEDEX_SMALL_BOX",
+        //         "pickupType" => "USE_SCHEDULED_PICKUP",
+        //         "blockInsightVisibility" => false,
+        //         "shippingChargesPayment" => [
+        //             "paymentType" => "SENDER"
+        //         ],
+        //         "shipmentSpecialServices" => [
+        //             "specialServiceTypes" => [
+        //                 "FEDEX_ONE_RATE"
+        //             ]
+        //         ],
+        //         "labelSpecification" => [
+        //             "imageType" => "PDF",
+        //             "labelStockType" => "PAPER_85X11_TOP_HALF_LABEL"
+        //         ],
+        //     ],
+        //     "accountNumber" => [
+        //         "value" => "510087100"
+        //     ]
+        // ];
+        // $curl = curl_init();
+
+        // curl_setopt_array(
+        //     $curl,
+        //     array(
+        //         CURLOPT_URL => 'https://apis-sandbox.fedex.com/ship/v1/shipments',
+        //         CURLOPT_RETURNTRANSFER => true,
+        //         CURLOPT_ENCODING => '',
+        //         CURLOPT_MAXREDIRS => 10,
+        //         CURLOPT_TIMEOUT => 0,
+        //         CURLOPT_FOLLOWLOCATION => true,
+        //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //         CURLOPT_CUSTOMREQUEST => 'POST',
+        //         CURLOPT_POSTFIELDS => json_encode($data),
+        //         CURLOPT_HTTPHEADER => array(
+        //             'Content-Type: application/json',
+        //             'Authorization: Bearer ' . $this->get_token(),
+        //         ),
+        //     )
+        // );
+
+        // $response = curl_exec($curl);
+
+        // curl_close($curl);
+        // \Log::info($response);
         if($request->S_address_type=='Default')
         {
             $S_default = 1;
@@ -222,14 +333,14 @@ class DashboardController extends Controller
         $shipment->csr_address3 = $request->S_department;
         $shipment->csr_pincode = $request->S_pincode;
         $shipment->csr_city_id = $request->S_city;
-        //$shipment->S_other = $request->S_other;
-        //$shipment->S_default = $S_default;
-        //$shipment->S_residential = $S_residential;
+        $shipment->S_other = $request->S_other;
+        $shipment->S_default = $S_default;
+        $shipment->S_residential = $S_residential;
         $shipment->csr_email_id = $request->S_email;
         $shipment->csr_mobile_no = $request->S_phone;
-        //$shipment->S_idProof = $request->S_idProof;
-        //$shipment->S_idFront = $frontImg;
-        //$shipment->S_idBack = $backImg;
+        $shipment->S_idProof = $request->S_idProof;
+        $shipment->S_idFront = $frontImg;
+        $shipment->S_idBack = $backImg;
         $shipment->csn_country_id = $request->R_country;
         $shipment->csn_consignor = $request->R_name;
         $shipment->csn_contact_person = $request->R_contact;
@@ -238,27 +349,24 @@ class DashboardController extends Controller
         $shipment->csn_address3 = $request->R_department;
         $shipment->csn_pincode = $request->R_pincode;
         $shipment->csn_city_id = $request->R_city;
-        //$shipment->R_other = $request->R_other;
+        $shipment->R_other = $request->R_other;
         $shipment->csn_email_id = $request->R_email;
         $shipment->csn_mobile_no = $request->R_phone;
-        //$shipment->courier_type = $request->courier_type;
+        $shipment->courier_type = $request->courier_type;
         $shipment->pcs_weight = $request->weight;
-        //$shipment->length = $request->length;
-        //$shipment->width = $request->width;
-        //$shipment->height = $request->height;
-        //$shipment->dvalue = $request->dvalue;
+        $shipment->length = $request->length;
+        $shipment->width = $request->width;
+        $shipment->height = $request->height;
+        $shipment->dvalue = $request->dvalue;
         $shipment->packet_type = $request->item_type;
-        //$shipment->shipping_charge = $request->shipping_charge;
-        //$shipment->cpickup = $cpickup;
-        //$shipment->cdrop = $cdrop;
-        //$shipment->dpDate = $request->date;
-        //$shipment->payment_gateway = 'no';
-        //$shipment->payment_status = 'pending';
+        $shipment->shipping_charge = $request->shipping_charge;
+        $shipment->cpickup = $cpickup;
+        $shipment->cdrop = $cdrop;
+        $shipment->dpDate = $request->date;
+        $shipment->payment_gateway = $request->payment_gateway;
+        $shipment->payment_status = 'pending';
         $shipment->save();
 
-        return redirect('user/shipping/success'); 
-
-
-
+        return redirect('user/shipping/success');
     }
 }

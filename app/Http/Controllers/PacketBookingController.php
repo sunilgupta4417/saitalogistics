@@ -6,6 +6,8 @@ use App\Models\PacketBooking;
 use App\Models\ClientMaster;
 use App\Models\VendorMaster;
 use App\Models\Country;
+use App\Models\ShippingZone;
+use App\Models\ZoneRate;
 use Illuminate\Http\Request;
 use DB;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -539,5 +541,16 @@ class PacketBookingController extends Controller
         
         return view('packet.delivered_report');
     }
-    
+    public function shipmentRate()
+    {
+        $country = ShippingZone::all();
+        return view('packet.shipment_rate', compact('country'));
+    }
+    public function shipmentGetRate(Request $request)
+    {
+
+        $count = ShippingZone::find($request->destination);
+        $zone = ZoneRate::select('zone_' . strtolower($count->fedex_zone))->where('weight', '1')->first();
+        dd(round($request->weight));
+    }
 }
