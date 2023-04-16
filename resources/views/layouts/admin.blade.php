@@ -223,6 +223,11 @@
                    <span class="menu-arrow"></span>
                  </a>
                  <ul class="list-unstyled" style="{{ in_array(Request::segment(2), $operation_menu)?'':'display: none;' }}">
+                    <li class="{{ Request::segment(2)=='packet-booking'?'active':'' }}">
+                          <a href="{{ route('shipment.rate') }}" >
+                              <span>Shipment calculation</span>
+                          </a>
+                      </li>
                     @if(in_array("packet-booking",$accessMenu))
                       <li class="{{ Request::segment(2)=='packet-booking'?'active':'' }}">
                           <a href="{{ url('/admin/packet-booking') }}">

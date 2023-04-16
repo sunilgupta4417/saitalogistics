@@ -63,6 +63,22 @@
                               </div>
                             </div>
                         </div>
+                        @if(session()->get('data'))
+                        @php 
+                            $data = session()->get('data');
+                        @endphp
+                            <div class="alert alert-success">
+                                <p><b>Origin : </b>{{$data['origin']}}</p>
+                                <p><b>Destination : </b>{{$data['destination']}}</p>
+                                <p><b>Weight : </b>{{$data['weight']}}</p>
+                                <p><b>Mode : </b>EXPORT</p>
+                                <br>
+                                <p><b>RATES Fedex : </b>{{$data['Fedex']['rate']}}</p>
+                                <p><b>RATES DHL : </b>{{$data['DHL']['rate']}}</p>
+                                <p><b>RATES UPS : </b>{{$data['UPS']['rate']}}</p>
+                                <p><b>RATES ARAMEX : </b>{{$data['AMX']['rate']}}</p>
+                            </div>
+                        @endif
                      </div>
                    </form>
                   </div>
