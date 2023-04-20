@@ -12,13 +12,37 @@ class ShipmentController extends Controller
         $index = ZoneRate::get();
         $data = [];
         foreach ($index as $value) {
+            $id = ['id' => $value->id];
             $weight = ['weight' => $value->weight];
             $carrierType = ['carrier_type' => $value->carrier_type];
             $zone = json_decode($value->rate, true);
-            $data[] = array_merge($weight, $carrierType, $zone);
+            $data[] = array_merge($id, $weight, $carrierType, $zone);
+        }
+        if (empty($zone)) {
+            $zone = [];
         }
         $zone = array_keys($zone);
+        // dd($data);
         return view('shipment.zone.index', compact('data', 'zone'));
+    }
+    public function ZoneEdit($id)
+    {
+        $zone = ZoneRate::find($id);
+        $carrierType = ['carrier_type' => $zone->carrier_type];
+        $weight = ['weight' => $zone->weight];
+        $zone = json_decode($zone->rate, true);
+        $data[] = array_merge($weight, $carrierType, $zone);
+        return view('shipment.zone.edit', compact('data'));
+    }
+    public function ZoneUpdate(Request $request)
+    {
+        $data = $request->all();
+        $update = ZoneRate::where('id', $request->id)->first();
+        $update->weight = $request->weight;
+        unset($data['_token'], $data['id'], $data['carrier_type'], $data['weight']);
+        $update->rate = json_encode($data);
+        $update->save();
+        return redirect()->route('zone.index')->with('success', 'Zone rates updated successfully');
     }
     public function ImportRates()
     {

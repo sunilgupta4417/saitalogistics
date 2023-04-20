@@ -195,6 +195,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('cms/home-about/delete/{id}', [CMSController::class, 'delete_home_about']);
 
     Route::get('zone-rate', [ShipmentController::class, 'ZoneIndex'])->name('zone.index');
+    Route::get('zone-edit/{id}', [ShipmentController::class, 'ZoneEdit'])->name('zone.edit');
+    Route::post('zone-update', [ShipmentController::class, 'ZoneUpdate'])->name('zone.update');
     Route::get('import-zone-rates', [ShipmentController::class, 'ImportRates'])->name('import.zone.rates');
     Route::post('doimport-zone-rates', [ShipmentController::class, 'DoImportRates'])->name('doimport.zone.rates');
     Route::get('export-zone-rates', [ShipmentController::class, 'ExportRates'])->name('export.zone.rates');
