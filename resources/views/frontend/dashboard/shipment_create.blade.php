@@ -65,8 +65,33 @@
                                                 <input type="text" name="S_city">
                                             </div>
                                             <div class="form-group">
-                                                <label>Other Address Information</label>
+                                                <label>State</label>
+                                                <input type="text" name="S_state">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Land Mark</label>
                                                 <input type="text" name="S_other">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>PAN</label>
+                                                <input type="text" name="S_pan">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>GSTIN</label>
+                                                <input type="text" name="S_gstin">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>IEC</label>
+                                                <input type="text" name="S_iec">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Aadhaar No</label>
+                                                <input type="text" name="S_aadhaar">
+                                            </div>
+
+                                            <div class="form-group">
+                                                &nbsp;
                                             </div>
 
                                             <div class="form-group agreed-text not-boarding">
@@ -168,7 +193,11 @@
                                                  <input type="text" name="R_city">
                                             </div>
                                             <div class="form-group">
-                                                <label>Other Address Information</label>
+                                                <label>State</label>
+                                                 <input type="text" name="R_state">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Landmark</label>
                                                 <input type="text" name="R_other">
                                             </div>
 
@@ -180,6 +209,23 @@
                                             <div class="form-group">
                                                 <label>Telephone</label>
                                                 <input type="text" name="R_phone">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>PAN</label>
+                                                <input type="text" name="R_pan">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>GSTIN</label>
+                                                <input type="text" name="R_gstin">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>IEC</label>
+                                                <input type="text" name="R_iec">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Aadhaar No</label>
+                                                <input type="text" name="R_aadhaar">
                                             </div>
 
                                         </div>
@@ -243,7 +289,6 @@
                                                         <option></option>
                                                         <option value="Fedex">Fedex</option>
                                                         <option value="DHL">DHL</option>
-                                                        
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -266,10 +311,10 @@
                                                     <label>Declared value</label>
                                                     <input type="text" name="dvalue">
                                                 </div>
-                                                <div class="form-group">
+                                                {{--<div class="form-group">
                                                     <label>Item type</label>
                                                     <input type="text" name="item_type">
-                                                </div>
+                                                </div>--}}
                                                 <div class="form-group">
                                                     <label>Shipping charges</label>
                                                     <input type="text" name="shipping_charge" readonly>

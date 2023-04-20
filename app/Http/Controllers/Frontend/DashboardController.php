@@ -365,6 +365,15 @@ class DashboardController extends Controller
         $shipment->dpDate = $request->date;
         $shipment->payment_gateway = $request->payment_gateway;
         $shipment->payment_status = 'pending';
+
+        $shipment->csr_state_id = $request->S_state;
+        $shipment->csn_state_id = $request->R_state;
+        $shipment->pcs_weight = $request->weight;
+        $shipment->length = $request->length;
+        $shipment->width = $request->width;
+        $shipment->dvalue = $request->dvalue;
+        $shipment->shipping_charge = $request->shipping_charge;
+
         $shipment->save();
 
         return redirect('user/shipping/success');

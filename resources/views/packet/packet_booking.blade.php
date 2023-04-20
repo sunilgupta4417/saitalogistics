@@ -69,11 +69,11 @@
                                    <input type="text" required name="consignor_address_1" id="consignor_address_1" class="form-control" placeholder="Enter Address1">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
-                                   <label>Address2*</label>
+                                   <label>Apartment / Suite / Unit / Building etc*</label>
                                    <input type="text" required name="consignor_address_2" id="consignor_address_2" class="form-control" placeholder="Enter Address2">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
-                                   <label>Address3*</label>
+                                   <label>Landmark*</label>
                                    <input type="text" required name="consignor_address_3" id="consignor_address_3" class="form-control" placeholder="Enter Address3">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
@@ -142,11 +142,11 @@
                                    <input type="text" required name="consignee_address_1" id="consignee_address_1" class="form-control" placeholder="Enter Address1">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
-                                   <label>Address2*</label>
+                                   <label>Apartment / Suite / Unit / Building etc*</label>
                                    <input type="text" required name="consignee_address_2" id="consignee_address_2" class="form-control" placeholder="Enter Address2">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
-                                   <label>Address3*</label>
+                                   <label>Landmark*</label>
                                    <input type="text" required name="consignee_address_3" id="consignee_address_3" class="form-control" placeholder="Enter Address3">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
@@ -199,15 +199,15 @@
                            <div class="row">
                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                                  <div class="frm-heading">
-                                   <h3>Packet Details</h3>
+                                   <h3>Packet & Weight Details</h3>
                                  </div>
                                </div>
                                 <div class="form-group col-md-3 col-12">
-                                 <label>Packet Type*</label>
+                                 <label>Courier Type*</label>
                                  <select class="form-control select" required name="packet_type" id="packet_type">
                                     <option>--Select Packet Type--</option>
-                                    <option>DOX</option>
-                                    <option>SPX</option>
+                                    <option value="Fedex">Fedex</option>
+                                    <option value="DHL">DHL</option>
                                  </select>
                                 </div>
                                 <div class="form-group col-md-3 col-12">
@@ -219,17 +219,47 @@
                                     <option value="CREDIT">CREDIT</option>
                                  </select>
                                 </div>
-                                <div class="form-group col-md-3 col-12">
+                                {{--<div class="form-group col-md-3 col-12">
                                    <label>Invoice No*</label>
                                    <input type="text" required name="invoice_no" id="invoice_no" class="form-control" placeholder="Enter Invoice No">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
                                    <label>Packet Description*</label>
                                    <input type="text" required name="packet_detail" id="packet_detail" class="form-control" placeholder="Enter Packet Description">
-                                </div>
+                                </div>--}}
+
+                             <div class="form-group col-md-3 col-12">
+                                 <label>Weight *</label>
+                                 <input type="text" name="pcs_weight" id="pcs_weight" required class="form-control" placeholder="Enter Weight">
+                             </div>
+                             <div class="form-group col-md-3 col-12">
+                                 <label>Length*</label>
+                                 <input type="text" name="length" id="length" required class="form-control" placeholder="Enter Length">
+                             </div>
+                             <div class="form-group col-md-3 col-12">
+                                 <label>Width*</label>
+                                 <input type="text" name="width" id="width" required class="form-control" placeholder="Enter Width">
+                             </div>
+                             <div class="form-group col-md-3 col-12">
+                                 <label>Height*</label>
+                                 <input type="text" name="height" id="height" required class="form-control" placeholder="Enter Height">
+                             </div>
+                             <div class="form-group col-md-3 col-12">
+                                 <label>Declared value*</label>
+                                 <input type="text" name="dvalue" id="dvalue" required class="form-control" placeholder="Enter Declared value">
+                             </div>
+                             {{--<div class="form-group col-md-3 col-12">
+                                 <label>Item type*</label>
+                                 <input type="text" name="item_type" required class="form-control" placeholder="Enter Item type">
+                             </div>--}}
+                             <div class="form-group col-md-3 col-12">
+                                 <label>Shipping charges*</label>
+                                 <input type="text" name="shipping_charge" id="shipping_charge" required class="form-control" placeholder="Enter Shipping charges">
+                             </div>
+
                            </div>
 
-                           <div class="row">
+                           {{--<div class="row">
                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                                  <div class="frm-heading">
                                    <h3>Weight Details</h3>
@@ -276,7 +306,7 @@
                                        </select>
                                    </div>
                                    
-                                </div>
+                                </div>--}}
                                
                                 {{--<div class="form-group col-md-3 col-12">
                                    <label>Divisor*</label>
@@ -416,6 +446,14 @@ $(document).ready(function() {
                $("#divisor").val(data.devisor).trigger('change');;
                $("#operation_remark").val(data.operation_remark);
                $("#accounting_remark").val(data.accounting_remark);
+
+               $("#pcs_weight").val(data.pcs_weight);
+               $("#length").val(data.length);
+               $("#width").val(data.width);
+               $("#height").val(data.height);
+               $("#dvalue").val(data.dvalue);
+               $("#shipping_charge").val(data.shipping_charge);
+               
             }else{
                $("#id").val("");
                $("#ref_no").val("");
@@ -464,6 +502,13 @@ $(document).ready(function() {
                $("#divisor").val("").trigger('change');;
                $("#operation_remark").val("");
                $("#accounting_remark").val("");
+
+               $("#pcs_weight").val("");
+               $("#length").val("");
+               $("#width").val("");
+               $("#height").val("");
+               $("#dvalue").val("");
+               $("#shipping_charge").val("");
             }
         },
       });
