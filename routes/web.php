@@ -17,6 +17,7 @@ use App\Http\Controllers\WebsiteSettingController;
 use App\Http\Controllers\VendorMainFestController;
 use App\Http\Controllers\RoleMangerController;
 use App\Http\Controllers\CMSController;
+use App\Http\Controllers\ShipmentController;
 
 
 
@@ -61,7 +62,6 @@ Route::get('/token', [ShippingController::class, 'getRates']);
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 
     Route::resource('user', userController::class);
@@ -193,6 +193,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('cms/home-about/store', [CMSController::class, 'store_home_about'])->name('cms.home.about.store');
     Route::post('cms/home-about/update', [CMSController::class, 'update_home_about'])->name('cms.home.about.update');
     Route::get('cms/home-about/delete/{id}', [CMSController::class, 'delete_home_about']);
+
+    Route::get('zone-rate', [ShipmentController::class, 'ZoneIndex'])->name('zone.index');
+    Route::get('import-zone-rates', [ShipmentController::class, 'ImportRates'])->name('import.zone.rates');
+    Route::post('doimport-zone-rates', [ShipmentController::class, 'DoImportRates'])->name('doimport.zone.rates');
+    Route::get('export-zone-rates', [ShipmentController::class, 'ExportRates'])->name('export.zone.rates');
 });
 
 Route::get('/get_rate', [FedexController::class, 'get_rate']);

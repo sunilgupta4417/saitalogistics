@@ -478,7 +478,28 @@
                  </ul>
                </li>
               @endif
-
+              @php 
+               $sipping_menu = ['shipment-rate','zone-rate', 'import-zone-rates'];
+              @endphp
+              <li class="submenu">
+                <a href="javascript:void(0);" class="{{ in_array(Request::segment(2), $sipping_menu)?'subdrop':'' }}">
+                  <i class="fas fa-truck"></i>
+                  <span>Shipping Master</span>
+                  <span class="menu-arrow"></span>
+                </a>
+                <ul class="list-unstyled" style="{{ in_array(Request::segment(2), $sipping_menu)?'':'display: none;' }}">
+                   <li class="{{ Request::segment(2)=='shipment-rate'?'active':'' }}">
+                      <a href="{{ route('shipment.rate') }}" >
+                          <span>Shipment calculation</span>
+                      </a>
+                  </li>
+                  <li class="{{ Request::segment(2)=='zone-rate' ? 'active' : (Request::segment(2)=='import-zone-rates' ? 'active' : '') }}">
+                    <a href="{{ route('zone.index') }}" >
+                        <span>Zone Management</span>
+                    </a>
+                </li>
+                </ul>
+              </li>  
               @php 
                $cms_menu = ['home-page','about-page','service-page','privacy-page' ,'terms-page' ,'faq-page' ,'general-page'];
               @endphp
