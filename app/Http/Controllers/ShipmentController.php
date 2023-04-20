@@ -9,7 +9,7 @@ class ShipmentController extends Controller
 {
     public function ZoneIndex()
     {
-        $index = ZoneRate::where('carrier_type', 'FEDEX')->get();
+        $index = ZoneRate::get();
         $data = [];
         foreach ($index as $value) {
             $weight = ['weight' => $value->weight];
