@@ -479,7 +479,7 @@
                </li>
               @endif
               @php 
-               $sipping_menu = ['shipment-rate','zone-rate', 'import-zone-rates'];
+               $sipping_menu = ['shipment-rate','zone-rate', 'import-zone-rates', 'view-carrier-zone'];
               @endphp
               <li class="submenu">
                 <a href="javascript:void(0);" class="{{ in_array(Request::segment(2), $sipping_menu)?'subdrop':'' }}">
@@ -493,7 +493,7 @@
                           <span>Shipment calculation</span>
                       </a>
                   </li>
-                  <li class="{{ Request::segment(2)=='zone-rate' ? 'active' : (Request::segment(2)=='import-zone-rates' ? 'active' : '') }}">
+                  <li class="{{ Request::segment(2)=='zone-rate' ? 'active' : (Request::segment(2)=='import-zone-rates' ? 'active' : (Request::segment(2)=='view-carrier-zone' ? 'active' : '')) }}">
                     <a href="{{ route('zone.index') }}" >
                         <span>Zone Management</span>
                     </a>

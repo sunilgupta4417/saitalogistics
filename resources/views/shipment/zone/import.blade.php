@@ -34,6 +34,7 @@
                                     <option value="DHL">DHL</option>
                                     <option value="UPS">UPS</option>
                                     <option value="ARAMAX">Aramex</option>
+                                    <option value="DPD">DPD</option>
                                 </select>
                             </div>
                             <div class="form-group">

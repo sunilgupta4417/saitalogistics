@@ -4,14 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ZoneRate;
+use App\Models\ShippingZone;
 
 class ShipmentController extends Controller
 {
     public function ZoneIndex()
     {
-        $index = ZoneRate::get();
+        $zones = ShippingZone::get();
+        $data['FEDEX'] = $zones->whereNotNull('fedex_zone')->count();
+        $data['DHL'] = $zones->whereNotNull('dhl_zone')->count();
+        $data['UPS'] = $zones->whereNotNull('ups_zone')->count();
+        $data['ARAMEX'] = $zones->whereNotNull('aramex_zone')->count();
+        $data['DPD'] = $zones->whereNotNull('dpd_zone')->count();
+        return view('shipment.zone.index', compact('data'));
+    }
+    public function CarrierZone($carrierType)
+    {
+        $zones = ZoneRate::where('carrier_type', $carrierType)->get();
         $data = [];
-        foreach ($index as $value) {
+        foreach ($zones as $value) {
             $id = ['id' => $value->id];
             $weight = ['weight' => $value->weight];
             $carrierType = ['carrier_type' => $value->carrier_type];
@@ -22,8 +33,7 @@ class ShipmentController extends Controller
             $zone = [];
         }
         $zone = array_keys($zone);
-        // dd($data);
-        return view('shipment.zone.index', compact('data', 'zone'));
+        return view('shipment.zone.zone_carrier', compact('data', 'zone'));
     }
     public function ZoneEdit($id)
     {

@@ -549,7 +549,7 @@ class PacketBookingController extends Controller
     }
     public function shipmentRate()
     {
-        $country = ShippingZone::limit(15)->get();
+        $country = ShippingZone::all();
         return view('packet.shipment_rate', compact('country'));
     }
     public function shipmentGetRate(Request $request)
@@ -557,32 +557,40 @@ class PacketBookingController extends Controller
         $res = [];
         $count = ShippingZone::find($request->destination);
 
-        $FEDEXzone = ZoneRate::where('carrier_type', 'FEDEX')->where('weight', $request->weight)->first();
-        $DHLzone = ZoneRate::where('carrier_type', 'DHL')->where('weight', $request->weight)->first();
-        $UPSzone = ZoneRate::where('carrier_type', 'UPS')->where('weight', $request->weight)->first();
-        $AMXzone = ZoneRate::where('carrier_type', 'ARAMAX')->where('weight', $request->weight)->first();
-        dd($FEDEXzone);
-        $FEDEXdata = json_decode($FEDEXzone->rate, true);
+        // $FEDEXzone = ZoneRate::where('carrier_type', 'FEDEX')->where('weight', '>=', $request->weight)->first();
+        $DHLzone = ZoneRate::where('carrier_type', 'DHL')->where('weight', '>=', $request->weight)->first();
+        $DPDzone = ZoneRate::where('carrier_type', 'DPD')->where('weight', '>=', $request->weight)->first();
+        // $UPSzone = ZoneRate::where('carrier_type', 'UPS')->where('weight', '>=', $request->weight)->first();
+        // $AMXzone = ZoneRate::where('carrier_type', 'ARAMAX')->where('weight', '>=', $request->weight)->first();
+        // dd($FEDEXzone->rate);
+        // $FEDEXdata = json_decode($FEDEXzone->rate, true);
         $DHLdata = json_decode($DHLzone->rate, true);
-        $UPSdata = json_decode($UPSzone->rate, true);
-        $AMXdata = json_decode($AMXzone->rate, true);
+        $DPDdata = json_decode($DPDzone->rate, true);
+        // $UPSdata = json_decode($UPSzone->rate, true);
+        // $AMXdata = json_decode($AMXzone->rate, true);
+        // dd($FEDEXdata);
 
-        // $res['origin'] = 'Delhi';
-        // $res['destination'] = $count->country;
-        // $res['weight'] = $request->weight;
-        // $res['Fedex']['rate'] = $FEDEXdata['zone_' . strtolower($count->fedex_zone)];
+        $res['origin'] = 'Germany';
+        $res['destination'] = $count->country;
+        $res['weight'] = $request->weight;
+        // $res['Fedex']['rate'] = $FEDEXdata['ZONE_' . $count->fedex_zone];
         // $res['Fedex']['zone'] = $count->fedex_zone;
 
-        // $res['DHL']['rate'] = $DHLdata['zone_' . $count->dhl_zone];
-        // $res['DHL']['zone'] = $count->dhl_zone;
+        $res['DHL']['rate'] = $DHLdata['ZONE_' . $count->dhl_zone];
+        $res['DHL']['zone'] = $count->dhl_zone;
+        if (isset($DPDdata['ZONE_' . $count->dpd_zone])) {
+            $res['DPD']['rate'] = $DPDdata['ZONE_' . $count->dpd_zone];
+            $res['DPD']['zone'] = $count->dpd_zone;
+        }
 
-        // $res['UPS']['rate'] = $UPSdata['zone_' . $count->ups_zone];
+        // $res['UPS']['rate'] = $UPSdata['ZONE_' . $count->ups_zone];
         // $res['UPS']['zone'] = $count->ups_zone;
 
-        // $res['AMX']['rate'] = $AMXdata['zone_' . $count->aramex_zone];
+        // $res['AMX']['rate'] = $AMXdata['ZONE_' . $count->aramex_zone];
         // $res['AMX']['zone'] = $count->aramex_zone;
-        // asort($res);
-        // array_reverse($res);
-        // return redirect()->back()->with('data', $res);
+        asort($res);
+        array_reverse($res);
+        // dd($res);
+        return redirect()->back()->with('data', $res);
     }
 }

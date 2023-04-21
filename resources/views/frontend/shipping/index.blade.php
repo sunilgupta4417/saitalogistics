@@ -15,14 +15,14 @@
                <div class="shipment-details">
                   <h3>Calculate Shipping</h3>
                    <div class="shipment-form" id="calculate-form">
-                     <!-- <form id="rate_calcu" action="{{route('shipping_rate')}}" method="POST"> -->
-                     <form id="rate_calcu" action="javascript:void(0)">
+                     <form action="{{route('shipping_rate')}}" method="POST">
+                        <!-- <form id="rate_calcu" action="javascript:void(0)"> -->
                         @csrf
                         <div class="row">
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>Email ID</label>
-                                  <input type="text" id="email" name="email" required>
+                                  <input type="text" id="email" name="email">
                               </div>
                            </div>
                            <div class="col-lg-6">
@@ -39,12 +39,7 @@
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>From Country</label>
-                                 <select id="select-service" class="from_country" name="shipper_country">
-                                    <option>Select Country</option>
-                                    @foreach($country as $cou)
-                                    <option value="{{$cou->id}}">{{$cou->country_name}}</option>
-                                    @endforeach
-                                 </select>
+                                 <input type="text" readonly value="Germany" class=""/>
                               </div>
                            </div>
                            <div class="col-lg-6">
@@ -61,16 +56,16 @@
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>Shipper Postal Code</label>
-                                  <input type="text" id="shipper_postal" name="shipper_postal" required>
+                                  <input type="text" id="shipper_postal" name="shipper_postal">
                               </div>
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>To Country</label>
-                                 <select id="select-service" class="to_country" name="recipient_country">
-                                 <option>Select Country</option>
+                                 <select id="select-service" class="to_country" name="recipient_country" required>
+                                 <option selected>Select Country</option>
                                     @foreach($country as $cou)
-                                    <option value="{{$cou->id}}">{{$cou->country_name}}</option>
+                                    <option value="{{$cou->id}}">{{$cou->country}}</option>
                                     @endforeach
                                  </select>
                               </div>
@@ -89,25 +84,31 @@
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>Recipient Postal Code</label>
-                                  <input type="text" id="recipient_postal" name="recipient_postal" required>
+                                  <input type="text" id="recipient_postal" name="recipient_postal">
                               </div>
                            </div>
-                           <div class="col-lg-4">
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label>Weight</label>
+                                  <input type="text" id="weight" name="weight">
+                              </div>
+                           </div>
+                           <div class="col-lg-6">
                               <div class="form-group">
                                  <label>Width</label>
-                                  <input type="text" id="width" name="width" required>
+                                  <input type="text" id="width" name="width">
                               </div>
                            </div>
-                           <div class="col-lg-4">
+                           <div class="col-lg-6">
                               <div class="form-group">
                                  <label>Length</label>
-                                  <input type="text" id="length" name="length" required>
+                                  <input type="text" id="length" name="length">
                               </div>
                            </div>
-                           <div class="col-lg-4">
+                           <div class="col-lg-6">
                               <div class="form-group">
                                  <label>Height</label>
-                                  <input type="text" id="height" name="height" required>
+                                  <input type="text" id="height" name="height">
                               </div>
                            </div>
                            <div class="col-lg-12">
@@ -133,8 +134,14 @@
 
                <div class="col-lg-4 col-md-4" style="color: black;">
                   <div class="create-right">
+                     @if(session()->get('max_rate'))
+                     @php 
+                           $data = session()->get('max_rate');
+                     @endphp
                      <h3>Calculate Package Rates</h3>
-                     <b>Total Charge:<p id="total_charges"></p></b>
+                     
+                     <b>Total Charge:<p id="total_charges">{{$data}}</p></b>
+                     @endif
                      <div class="col-12"><div>
                      <span style="float: left;">Fuel Surcharge:</span>
                      <span id="fuel_sercharge" style="float: right;"></span><br/></div></div>

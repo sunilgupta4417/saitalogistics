@@ -32,7 +32,7 @@
                                </div>
                                 <div class="form-group col-md-6 col-12">
                                    <label>Origin</label>
-                                   <input type="text" class="form-control" name="origin" value="Delhi" readonly id="origin">
+                                    <input type="text" class="form-control" name="origin" value="Germany" readonly id="origin">
                                 </div>
                                 <div class="form-group col-md-6 col-12">
                                     <label>Destination</label>
@@ -73,10 +73,21 @@
                                 <p><b>Weight : </b>{{$data['weight']}}</p>
                                 <p><b>Mode : </b>EXPORT</p>
                                 <br>
-                                <p><b>RATES Fedex : </b>{{$data['Fedex']['rate']}}</p>
-                                <p><b>RATES DHL : </b>{{$data['DHL']['rate']}}</p>
-                                <p><b>RATES UPS : </b>{{$data['UPS']['rate']}}</p>
-                                <p><b>RATES ARAMEX : </b>{{$data['AMX']['rate']}}</p>
+                                @if(isset($data['Fedex']))
+                                 <p><b>RATES Fedex : </b>{{$data['Fedex']['rate']}}</p>
+                                @endif
+                                @if(isset($data['DHL']))
+                                 <p><b>RATES DHL : </b>{{$data['DHL']['rate']}}</p>
+                                @endif
+                                @if(isset($data['UPS']))
+                                 <p><b>RATES UPS : </b>{{$data['UPS']['rate']}}</p>
+                                @endif
+                                @if(isset($data['AMX']))
+                                 <p><b>RATES ARAMEX : </b>{{$data['AMX']['rate']}}</p>
+                                @endif
+                                @if(isset($data['DPD']))
+                                 <p><b>RATES DPD : </b>{{$data['DPD']['rate']}}</p>
+                                @endif
                             </div>
                         @endif
                      </div>
