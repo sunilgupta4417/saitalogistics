@@ -74,19 +74,19 @@
                                 <p><b>Mode : </b>EXPORT</p>
                                 <br>
                                 @if(isset($data['Fedex']))
-                                 <p><b>RATES Fedex : </b>{{$data['Fedex']['rate']}}</p>
+                                 <p><b>RATES Fedex : </b><i class="fas fa-euro-sign"></i> {{$data['Fedex']['rate']}}</p>
                                 @endif
                                 @if(isset($data['DHL']))
-                                 <p><b>RATES DHL : </b>{{$data['DHL']['rate']}}</p>
+                                 <p><b>RATES DHL : </b><i class="fas fa-euro-sign"></i> {{$data['DHL']['rate']}}</p>
                                 @endif
                                 @if(isset($data['UPS']))
-                                 <p><b>RATES UPS : </b>{{$data['UPS']['rate']}}</p>
+                                 <p><b>RATES UPS : </b><i class="fas fa-euro-sign"></i> {{$data['UPS']['rate']}}</p>
                                 @endif
                                 @if(isset($data['AMX']))
-                                 <p><b>RATES ARAMEX : </b>{{$data['AMX']['rate']}}</p>
+                                 <p><b>RATES ARAMEX : </b><i class="fas fa-euro-sign"></i> {{$data['AMX']['rate']}}</p>
                                 @endif
                                 @if(isset($data['DPD']))
-                                 <p><b>RATES DPD : </b>{{$data['DPD']['rate']}}</p>
+                                 <p><b>RATES DPD : </b><i class="fas fa-euro-sign"></i> {{$data['DPD']['rate']}}</p>
                                 @endif
                             </div>
                         @endif

@@ -21,18 +21,12 @@
                         <div class="row">
                            <div class="col-lg-6">
                               <div class="form-group">
-                                 <label>Email ID</label>
-                                  <input type="text" id="email" name="email">
-                              </div>
-                           </div>
-                           <div class="col-lg-6">
-                              <div class="form-group">
-                                 <label>Select Service</label>
-                                 <select id="select-service" name="service_type">
+                                 <label>Packet type</label>
+                                 <select id="select-service" name="service_type" required>
                                     <option></option>
-                                    <option value="Development">Development</option>
-                                    <option value="Graphics">Graphics</option>
-                                    <option value="Mobile App">Mobile App</option>
+                                    <option value="Development">Envelope</option>
+                                    <option value="Graphics">Documents</option>
+                                    <option value="Mobile App">Non Documents</option>
                                  </select>
                               </div>
                            </div>
@@ -44,26 +38,9 @@
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
-                                 <label>From State</label>
-                                 <select id="select-service" class="from_state" name="shipper_state">
-                                    <option></option>
-                                    <option value="Development">Development</option>
-                                    <option value="Graphics">Graphics</option>
-                                    <option value="Mobile App">Mobile App</option>
-                                 </select>
-                              </div>
-                           </div>
-                           <div class="col-lg-6">
-                              <div class="form-group">
-                                 <label>Shipper Postal Code</label>
-                                  <input type="text" id="shipper_postal" name="shipper_postal">
-                              </div>
-                           </div>
-                           <div class="col-lg-6">
-                              <div class="form-group">
                                  <label>To Country</label>
                                  <select id="select-service" class="to_country" name="recipient_country" required>
-                                 <option selected>Select Country</option>
+                                 <option disabled>Select Country</option>
                                     @foreach($country as $cou)
                                     <option value="{{$cou->id}}">{{$cou->country}}</option>
                                     @endforeach
@@ -72,43 +49,8 @@
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
-                                 <label>To State</label>
-                                 <select id="select-service" class="to_state" name="recipient_state">
-                                    <option></option>
-                                    <option value="Development">Development</option>
-                                    <option value="Graphics">Graphics</option>
-                                    <option value="Mobile App">Mobile App</option>
-                                 </select>
-                              </div>
-                           </div>
-                           <div class="col-lg-6">
-                              <div class="form-group">
-                                 <label>Recipient Postal Code</label>
-                                  <input type="text" id="recipient_postal" name="recipient_postal">
-                              </div>
-                           </div>
-                           <div class="col-lg-6">
-                              <div class="form-group">
                                  <label>Weight</label>
-                                  <input type="text" id="weight" name="weight">
-                              </div>
-                           </div>
-                           <div class="col-lg-6">
-                              <div class="form-group">
-                                 <label>Width</label>
-                                  <input type="text" id="width" name="width">
-                              </div>
-                           </div>
-                           <div class="col-lg-6">
-                              <div class="form-group">
-                                 <label>Length</label>
-                                  <input type="text" id="length" name="length">
-                              </div>
-                           </div>
-                           <div class="col-lg-6">
-                              <div class="form-group">
-                                 <label>Height</label>
-                                  <input type="text" id="height" name="height">
+                                  <input type="text" id="weight" name="weight" required>
                               </div>
                            </div>
                            <div class="col-lg-12">
@@ -131,33 +73,34 @@
                      <a href="shipping-history.html" class="btn btn-main-2"> Get Started</a>
                   </div>
                </div> -->
-
+               @if(session()->get('max_rate'))
                <div class="col-lg-4 col-md-4" style="color: black;">
                   <div class="create-right">
-                     @if(session()->get('max_rate'))
+                     
                      @php 
-                           $data = session()->get('max_rate');
+                           $max_rate = session()->get('max_rate');
+                           $data = session()->get('data');
                      @endphp
                      <h3>Calculate Package Rates</h3>
                      
-                     <b>Total Charge:<p id="total_charges">{{$data}}</p></b>
-                     @endif
+                     <b>Total Charge:<p id="total_charges"><i class="fas fa-euro-sign"></i> {{$max_rate}}</p></b>
+                     
                      <div class="col-12"><div>
-                     <span style="float: left;">Fuel Surcharge:</span>
-                     <span id="fuel_sercharge" style="float: right;"></span><br/></div></div>
+                     <span style="float: left;">Origin:</span>
+                     <span id="fuel_sercharge" style="float: right;">{{$data['origin']}}</span><br/></div></div>
                      
                      <div class="col-12"> <div>
-                     <span style="float: left;">Freight Surcharge:</span>
-                     <span id="freight_sercharge" style="float: right;"></span><br/>
+                     <span style="float: left;">Destination:</span>
+                     <span id="freight_sercharge" style="float: right;">{{$data['destination']}}</span><br/>
                      </div>            </div>        
                      
                      <div class="col-12">
                      <div>
-                     <span style="float: left;">Day Of Delivery:</span>
-                     <span id="day_of_deli" style="float: right;"></span><br/>
+                     <span style="float: left;">Weight:</span>
+                     <span id="day_of_deli" style="float: right;">{{$data['weight']}}</span><br/>
                      </div>      </div>               
                      
-                     <div class="col-12">
+                     <!-- <div class="col-12">
                      <div>
                      <span style="float: left;">Delivery Station:</span>
                      <span id="deli_station" style="float: right;"></span><br/>
@@ -171,11 +114,12 @@
                      <div>
                      <span style="float: left;">Service Type:</span>
                       <span id="serv_type" style="float: right;"></span><br/>
-                      </div>      </div>               
+                      </div>      </div>                -->
                       
                       
                   </div>
                </div>
+               @endif
             </div>
          </div>
       </section>

@@ -111,9 +111,9 @@ class WebController extends Controller
         // $AMXdata = json_decode($AMXzone->rate, true);
         // dd($FEDEXdata);
 
-        // $res['origin'] = 'Germany';
-        // $res['destination'] = $count->country;
-        // $res['weight'] = $request->weight;
+        $data['origin'] = 'Germany';
+        $data['destination'] = $count->country;
+        $data['weight'] = $request->weight;
         // $res['Fedex']['rate'] = $FEDEXdata['ZONE_' . $count->fedex_zone];
         // $res['Fedex']['zone'] = $count->fedex_zone;
 
@@ -133,7 +133,7 @@ class WebController extends Controller
         array_reverse($res);
         $max_rate = max(array_column($res, 'rate'));
         // dd($res);
-        return redirect()->back()->with('max_rate', $max_rate);
+        return redirect()->back()->with('max_rate', $max_rate)->with('data', $data);
     }
     public function shippingRatesBK(Request $request)
     {
