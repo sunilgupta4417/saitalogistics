@@ -45,8 +45,8 @@
                                 <div class="form-group col-md-6 col-12">
                                    <label>Mode</label>
                                    <select class="form-control">
-                                        <option value="import" disabled>Import</option>
-                                        <option value="export">Export</option>
+                                        <!-- <option value="import" disabled>Import</option> -->
+                                        <option value="export" selected>Export</option>
                                    </select>
                                 </div>
                                 <div class="form-group col-md-6 col-12">
