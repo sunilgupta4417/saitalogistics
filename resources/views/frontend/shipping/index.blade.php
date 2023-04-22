@@ -87,10 +87,6 @@
                            $max_rate = session()->get('max_rate');
                            $data = session()->get('data');
                      @endphp
-                     <h3>Calculate Package Rates</h3>
-                     
-                     <b>Total Charge:<p id="total_charges"><i class="fas fa-euro-sign"></i> {{$max_rate}}</p></b>
-                     
                      <div class="col-12"><div>
                      <span style="float: left;">Origin:</span>
                      <span id="fuel_sercharge" style="float: right;">{{$data['origin']}}</span><br/></div></div>
@@ -104,8 +100,10 @@
                      <div>
                      <span style="float: left;">Weight:</span>
                      <span id="day_of_deli" style="float: right;">{{$data['weight']}}</span><br/>
-                     </div>      </div>               
+                     </div>      </div> <br>              
+                     <h3>Calculate Package Rates</h3>
                      
+                     <b>Total Charge:<p id="total_charges"><i class="fas fa-euro-sign"></i> {{$max_rate}}</p></b>
                      <!-- <div class="col-12">
                      <div>
                      <span style="float: left;">Delivery Station:</span>
