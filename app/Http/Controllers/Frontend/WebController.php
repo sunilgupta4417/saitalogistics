@@ -114,6 +114,7 @@ class WebController extends Controller
         $data['origin'] = 'Germany';
         $data['destination'] = $count->country;
         $data['weight'] = $request->weight;
+        $data['mode'] = 'Export';
         // $res['Fedex']['rate'] = $FEDEXdata['ZONE_' . $count->fedex_zone];
         // $res['Fedex']['zone'] = $count->fedex_zone;
 

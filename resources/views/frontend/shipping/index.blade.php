@@ -82,7 +82,7 @@
                @if(session()->get('max_rate'))
                <div class="col-lg-4 col-md-4" style="color: black;">
                   <div class="create-right">
-                     
+                     <h3>Calculate Package Rates</h3><br>
                      @php 
                            $max_rate = session()->get('max_rate');
                            $data = session()->get('data');
@@ -94,6 +94,10 @@
                      <div class="col-12"> <div>
                      <span style="float: left;">Destination:</span>
                      <span id="freight_sercharge" style="float: right;">{{$data['destination']}}</span><br/>
+                     </div>            </div>
+                     <div class="col-12"> <div>
+                     <span style="float: left;">Mode:</span>
+                     <span id="freight_sercharge" style="float: right;">{{$data['mode']}}</span><br/>
                      </div>            </div>        
                      
                      <div class="col-12">
@@ -101,9 +105,7 @@
                      <span style="float: left;">Weight:</span>
                      <span id="day_of_deli" style="float: right;">{{$data['weight']}}</span><br/>
                      </div>      </div> <br>              
-                     <h3>Calculate Package Rates</h3>
-                     
-                     <b>Total Charge:<p id="total_charges"><i class="fas fa-euro-sign"></i> {{$max_rate}}</p></b>
+                     <b>Total Charge:<p style="color: black;"><i class="fas fa-euro-sign"></i> {{$max_rate}}</p></b>
                      <!-- <div class="col-12">
                      <div>
                      <span style="float: left;">Delivery Station:</span>
