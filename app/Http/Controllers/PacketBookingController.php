@@ -578,10 +578,13 @@ class PacketBookingController extends Controller
 
         $res['DHL']['rate'] = $DHLdata['ZONE_' . $count->dhl_zone];
         $res['DHL']['zone'] = $count->dhl_zone;
-        // if (isset($DPDdata['ZONE_' . $count->dpd_zone])) {
-        $res['DPD']['rate'] = 'Nil';
-        $res['DPD']['zone'] = 'Nil';
-        // }
+        if (isset($DPDdata['ZONE_' . $count->dpd_zone])) {
+            $res['DPD']['rate'] = $DPDdata['ZONE_' . $count->dpd_zone];
+            $res['DPD']['zone'] = $count->dpd_zone;
+        } else {
+            $res['DPD']['rate'] = 'NIL';
+            $res['DPD']['zone'] = 'NIL';
+        }
 
         // $res['UPS']['rate'] = $UPSdata['ZONE_' . $count->ups_zone];
         // $res['UPS']['zone'] = $count->ups_zone;
