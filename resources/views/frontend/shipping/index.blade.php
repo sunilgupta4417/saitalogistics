@@ -30,6 +30,13 @@
                                  </select>
                               </div>
                            </div>
+                           <div class="col-md-6 col-12">
+                              <label>Mode</label>
+                              <select id="select-service">
+                                    <option value="import" disabled>Import</option>
+                                    <option value="export">Export</option>
+                              </select>
+                           </div>
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>From Country</label>
