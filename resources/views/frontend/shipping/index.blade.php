@@ -48,7 +48,15 @@
                                  <select id="select-service" class="to_country" name="recipient_country" required>
                                  <option disabled>Select Country</option>
                                     @foreach($country as $cou)
-                                    <option value="{{$cou->id}}">{{$cou->country}}</option>
+                                       @if(session()->get('max_rate'))
+                                          @php 
+                                             $max_rate = session()->get('max_rate');
+                                             $data = session()->get('data');
+                                          @endphp
+                                          <option value="{{$cou->id}}" {{$cou->country == $data['destination'] ? 'selected' : ''}}>{{$cou->country}}</option>
+                                       @else
+                                       <option value="{{$cou->id}}">{{$cou->country}}</option>
+                                       @endif
                                     @endforeach
                                  </select>
                               </div>

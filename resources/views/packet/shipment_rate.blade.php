@@ -38,8 +38,15 @@
                                     <label>Destination</label>
                                     <select class="form-control" name="destination" id="destination" required>
                                         @foreach($country as $obj)
-                                        <option value="{{$obj->id}}">{{$obj->country}}</option>
-                                    @endforeach
+                                         @if(session()->get('data'))
+                                          @php 
+                                             $data = session()->get('data');
+                                           @endphp
+                                          <option value="{{$obj->id}}" {{$obj->country == $data['destination'] ? 'selected' : ''}}>{{$obj->country}}</option>
+                                       @else
+                                          <option value="{{$obj->id}}">{{$obj->country}}</option>
+                                       @endif
+                                       @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6 col-12">
