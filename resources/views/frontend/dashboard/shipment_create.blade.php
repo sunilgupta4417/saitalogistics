@@ -858,7 +858,7 @@
         $('#to_address').html($('input[name=R_address]').val()+' , '+$('input[name=R_appartment]').val()+' , '+$('input[name=R_department]').val()+' , '+$('input[name=R_pincode]').val()+' , '+$('input[name=R_city]').val()+' , '+$('input[name=R_other]').val());
         $('#to_number').html($("input[name=R_contact]").val());
         
-        $('#update_going_address_modal').modal('hide');
+        $('#update_going_address_modal').modal('hide'); 
     });
     </script>
 
