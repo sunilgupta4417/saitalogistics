@@ -70,36 +70,42 @@ class ShipmentController extends Controller
         $arr = $this->csvToArray($filepath);
 
         for ($i = 0; $i < count($arr); $i++) {
+            
             $weight = $arr[$i]['Weight'];
-            unset($arr[$i]['Weight']);
+            $package_type = $arr[$i]['Package_type'];
+            // dd($package_type);
+            unset($arr[$i]['Weight'], $arr[$i]['Package_type']);
             $Edata = json_encode($arr[$i]);
             ZoneRate::updateOrCreate(
-                ['weight' => $weight, 'carrier_type' => $request->carrier],
+                ['weight' => $weight, 'package_type' => $package_type, 'carrier_type' => $request->carrier],
                 ['rate' => $Edata]
             );
         }
         return redirect()->route('zone.index')->with('success', 'Zone rates updated successfully');
     }
-    public function ExportRates()
+    public function ExportRates($carrier_type)
     {
-        $index = ZoneRate::get();
+        $index = ZoneRate::where('carrier_type', $carrier_type)->get();
+        // dd($index);
         $data = [];
         $columns = [];
         foreach ($index as $value) {
             $weight = ['weight' => $value->weight];
+            $package_type = ['package_type' => $value->package_type];
             $carrierType = ['carrier_type' => $value->carrier_type];
             $zone = json_decode($value->rate, true);
-            $data[] = array_merge($weight, $carrierType, $zone);
+            $data[] = array_merge($weight, $package_type, $carrierType, $zone);
             $columns = array_keys($zone);
         }
         array_unshift($columns, 'carrier_type');
+        array_unshift($columns, 'package_type');
         array_unshift($columns, 'weight');
         // dd($columns);
         $headers = array(
             'Content-Type' => 'text/csv'
         );
 
-        $filename = public_path("uploads/download.csv");
+        $filename = public_path("uploads/" . $carrier_type . ".csv");
         $handle = fopen($filename, 'w');
         fputcsv($handle, $columns);
 
@@ -107,6 +113,7 @@ class ShipmentController extends Controller
             $row = [];
             $row['weight'] = $obj['weight'];
             $row['carrier_type'] = $obj['carrier_type'];
+            $row['package_type'] = $obj['package_type'];
             foreach ($columns as $value) {
                 $row[$value] = $obj[$value];
             }
@@ -114,7 +121,7 @@ class ShipmentController extends Controller
         }
         fclose($handle);
 
-        return \Response::download($filename, "download.csv", $headers);
+        return \Response::download($filename, $carrier_type . ".csv", $headers);
     }
     function csvToArray($filename = '', $delimiter = ',')
     {

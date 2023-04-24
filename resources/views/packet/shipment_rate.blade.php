@@ -50,6 +50,15 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6 col-12">
+                                    <label>Packet type</label>
+                                    <select id="select-service" name="package_type" required class="form-control">
+                                       <option></option>
+                                       <option value="Envelope">Envelope</option>
+                                       <option value="Documents">Documents</option>
+                                       <option value="Non-Documents">Non Documents</option>
+                                    </select>
+                                 </div>
+                                <div class="form-group col-md-6 col-12">
                                    <label>Mode</label>
                                    <select class="form-control">
                                         <!-- <option value="import" disabled>Import</option> -->
@@ -74,6 +83,11 @@
                         @php 
                             $data = session()->get('data');
                         @endphp
+                        @if(isset($data['warning']))
+                        <div class="alert alert-warning">
+                           {{$data['warning']}}
+                        </div>
+                        @endif
                             <div class="alert alert-success">
                                 <p><b>Origin : </b>{{$data['origin']}}</p>
                                 <p><b>Destination : </b>{{$data['destination']}}</p>

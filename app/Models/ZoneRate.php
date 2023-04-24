@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ZoneRate extends Model
 {
     use HasFactory;
-    protected $fillable = ['weight', 'carrier_type', 'rate'];
+    protected $fillable = ['weight', 'package_type', 'carrier_type', 'rate'];
 
 }

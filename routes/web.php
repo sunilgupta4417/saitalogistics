@@ -200,7 +200,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('zone-update', [ShipmentController::class, 'ZoneUpdate'])->name('zone.update');
     Route::get('import-zone-rates', [ShipmentController::class, 'ImportRates'])->name('import.zone.rates');
     Route::post('doimport-zone-rates', [ShipmentController::class, 'DoImportRates'])->name('doimport.zone.rates');
-    Route::get('export-zone-rates', [ShipmentController::class, 'ExportRates'])->name('export.zone.rates');
+    Route::get('export-zone-rates/{carrier}', [ShipmentController::class, 'ExportRates'])->name('export.zone.rates');
 });
 
 Route::get('/get_rate', [FedexController::class, 'get_rate']);

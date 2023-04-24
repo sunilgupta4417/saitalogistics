@@ -22,11 +22,11 @@
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>Packet type</label>
-                                 <select id="select-service" name="service_type" required>
+                                 <select id="select-service" name="package_type" required>
                                     <option></option>
-                                    <option value="Development">Envelope</option>
-                                    <option value="Graphics">Documents</option>
-                                    <option value="Mobile App">Non Documents</option>
+                                    <option value="Envelope">Envelope</option>
+                                    <option value="Documents">Documents</option>
+                                    <option value="Non-Documents">Non Documents</option>
                                  </select>
                               </div>
                            </div>

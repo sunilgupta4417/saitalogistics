@@ -94,35 +94,50 @@ class WebController extends Controller
     }
     public function shippingRates(Request $request)
     {
-        // dd($request->all());
         $res = [];
         $count = ShippingZone::find($request->recipient_country);
-
         // $FEDEXzone = ZoneRate::where('carrier_type', 'FEDEX')->where('weight', '>=', $request->weight)->first();
-        $DHLzone = ZoneRate::where('carrier_type', 'DHL')->where('weight', '>=', $request->weight)->first();
-        $DPDzone = ZoneRate::where('carrier_type', 'DPD')->where('weight', '>=', $request->weight)->first();
+        $DHLzone = ZoneRate::where('package_type', $request->package_type)->where('carrier_type', 'DHL')->where('weight', '>=', $request->weight)->first();
+        $DPDzone = ZoneRate::where('package_type', 'NONE')->where('carrier_type', 'DPD')->where('weight', '>=', $request->weight)->first();
+        // dd($DHLzone, $DPDzone);
         // $UPSzone = ZoneRate::where('carrier_type', 'UPS')->where('weight', '>=', $request->weight)->first();
         // $AMXzone = ZoneRate::where('carrier_type', 'ARAMAX')->where('weight', '>=', $request->weight)->first();
         // dd($FEDEXzone->rate);
         // $FEDEXdata = json_decode($FEDEXzone->rate, true);
-        $DHLdata = json_decode($DHLzone->rate, true);
-        $DPDdata = json_decode($DPDzone->rate, true);
+        if (empty($DHLzone)) {
+            $max_W = ZoneRate::where('package_type', $request->package_type)->where('carrier_type', 'DHL')->max('weight');
+            $res['warning'] = 'maximum weight ' . $max_W . ' allowed for DHL ' . $request->package_type;
+        }
+        if (isset($DHLzone->rate)) {
+            $DHLdata = json_decode($DHLzone->rate, true);
+        }
+        if (isset($DPDzone->rate)) {
+            $DPDdata = json_decode($DPDzone->rate, true);
+        }
         // $UPSdata = json_decode($UPSzone->rate, true);
         // $AMXdata = json_decode($AMXzone->rate, true);
         // dd($FEDEXdata);
 
-        $data['origin'] = 'Germany';
-        $data['destination'] = $count->country;
-        $data['weight'] = $request->weight;
-        $data['mode'] = 'Export';
+        $res['origin'] = 'Germany';
+        $res['destination'] = $count->country;
+        $res['weight'] = $request->weight;
+        $res['mode'] = $request->mode;
         // $res['Fedex']['rate'] = $FEDEXdata['ZONE_' . $count->fedex_zone];
         // $res['Fedex']['zone'] = $count->fedex_zone;
+        if (isset($DHLdata['ZONE_' . $count->dhl_zone])) {
+            $res['DHL']['rate'] = $DHLdata['ZONE_' . $count->dhl_zone];
+            $res['DHL']['zone'] = $count->dhl_zone;
+        } else {
+            $res['DHL']['rate'] = 'NIL';
+            $res['DHL']['zone'] = 'NIL';
+        }
 
-        $res['DHL']['rate'] = $DHLdata['ZONE_' . $count->dhl_zone];
-        $res['DHL']['zone'] = $count->dhl_zone;
         if (isset($DPDdata['ZONE_' . $count->dpd_zone])) {
             $res['DPD']['rate'] = $DPDdata['ZONE_' . $count->dpd_zone];
             $res['DPD']['zone'] = $count->dpd_zone;
+        } else {
+            $res['DPD']['rate'] = 'NIL';
+            $res['DPD']['zone'] = 'NIL';
         }
 
         // $res['UPS']['rate'] = $UPSdata['ZONE_' . $count->ups_zone];
@@ -132,9 +147,11 @@ class WebController extends Controller
         // $res['AMX']['zone'] = $count->aramex_zone;
         asort($res);
         array_reverse($res);
-        $max_rate = max(array_column($res, 'rate'));
-        // dd($res);
-        return redirect()->back()->with('max_rate', $max_rate)->with('data', $data);
+        $numeric_rates = array_filter(array_column($res, 'rate'), 'is_numeric');
+        $max_rate = max($numeric_rates);
+        // print_r($res);
+        // exit;
+        return redirect()->back()->with('max_rate', $max_rate)->with('data', $res);
     }
     public function shippingRatesBK(Request $request)
     {

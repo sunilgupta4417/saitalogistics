@@ -23,7 +23,6 @@
                     <div class="container-fluid p-2">
                         <div class="float-right">
                             <a class="btn btn-info" href="{{ route('import.zone.rates')}}">Import</a>
-                            <a class="btn btn-info" href="{{ route('export.zone.rates')}}">Export</a>
                         </div>
                     </div>    
                     <div class="card-body">
@@ -44,6 +43,7 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('view.carrier.zone', $key) }}" class="btn-sm btn-info">View</a>
+                                            <a href="{{ route('export.zone.rates', $key) }}" class="btn-sm btn-info">Export</a>
                                         </td>
                                     </tr>
                                 @endforeach
