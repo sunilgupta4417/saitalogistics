@@ -2567,29 +2567,29 @@ iframe#youtubevideo {
 #where-from-page {
     margin-top: 130px;
 }
-#signUpForm {
+.signUpForm {
   margin: 20px auto 0;
 }
-#signUpForm .form-header {
+.signUpForm .form-header {
     text-align: center;
     box-shadow: 0px 0px 99px #ff5d2115;
     border-radius: 25px;
     color: #000;
 }
-#signUpForm .form-header .stepIndicator {
+.signUpForm .form-header .stepIndicator {
   position: relative;
   flex: 1;
   padding: 15px;
 }
-#signUpForm .form-header .stepIndicator.active {
+.signUpForm .form-header .stepIndicator.active {
     font-weight: normal;
     color: #ff5d21 !important;
 }
-#signUpForm .form-header .stepIndicator.finish {
+.signUpForm .form-header .stepIndicator.finish {
   font-weight: 500;
   color: #000;
 }
-#signUpForm .form-header .stepIndicator::before {
+.signUpForm .form-header .stepIndicator::before {
     content: "";
     position: absolute;
     left: 100%;
@@ -2602,7 +2602,7 @@ iframe#youtubevideo {
     border-bottom: 1px solid #0000006e;
     transform: rotate(315deg);
 }
-#signUpForm .form-header .stepIndicator.active::before {
+.signUpForm .form-header .stepIndicator.active::before {
     border-right: 1px solid #0000006e;
     border-bottom: 1px solid #0000006e;
 }
@@ -2610,13 +2610,13 @@ iframe#youtubevideo {
     display: none;
 }
 
-#signUpForm .form-header .stepIndicator.finish::after {
+.signUpForm .form-header .stepIndicator.finish::after {
   background-color: #009688;
 }
-#signUpForm .form-header .stepIndicator:last-child:after {
+.signUpForm .form-header .stepIndicator:last-child:after {
   display: none;
 }
-#signUpForm input {
+.signUpForm input {
     box-sizing: border-box;
     margin: 0 1px;
     width: 100%;
@@ -2630,22 +2630,22 @@ iframe#youtubevideo {
     border-radius: 33px;
     display: block;
 }
-#signUpForm input:focus {
+.signUpForm input:focus {
   border: 1px solid #009688;
   outline: 0;
 }
-#signUpForm input.invalid {
+.signUpForm input.invalid {
   border: 1px solid #ffaba5;
 }
-#signUpForm .step {
+.signUpForm .step {
   display: none;
 }
-#signUpForm .form-footer {
+.signUpForm .form-footer {
     overflow: auto;
     gap: 20px;
     text-align: center;
 }
-#signUpForm .form-footer button {
+.signUpForm .form-footer button {
     background-color: #ff5d21;
     border: 1px solid #ff5d21 !important;
     color: #ffffff;
@@ -2658,10 +2658,10 @@ iframe#youtubevideo {
     margin-top: 5px;
     margin-left: 20px;
 }
-#signUpForm .form-footer button:hover {
+.signUpForm .form-footer button:hover {
   opacity: 0.8;
 }
-#signUpForm .form-footer #prevBtn {
+.signUpForm .form-footer #prevBtn {
     background-color: #fff;
     color: #000;
     float: left;
@@ -2670,7 +2670,7 @@ iframe#youtubevideo {
     text-align: left;
     padding: 10px 0;
 }
-#signUpForm .form-footer #prevBtn img {
+.signUpForm .form-footer #prevBtn img {
     margin-right: 10px;
 }
 .maining-heading {
@@ -3383,16 +3383,16 @@ iframe#youtubevideo {
 .popup-image img {
     width: 100%;
 }
-#signUpForm .form-header {
+.signUpForm .form-header {
     display: inherit !important;
     padding: 10px;
 }
-#signUpForm .form-header .stepIndicator {
+.signUpForm .form-header .stepIndicator {
     padding: 5px;
     width: 48%;
     display: inline-block;
 }
-#signUpForm .form-header .stepIndicator::before {
+.signUpForm .form-header .stepIndicator::before {
     display: none;
 }
 .shipment-heading {
@@ -3405,7 +3405,7 @@ iframe#youtubevideo {
 .inter-form .form-group {
     width: 100%;
 }
-#signUpForm .form-footer button {
+.signUpForm .form-footer button {
     width: 80%;
     margin: 10px;
 }

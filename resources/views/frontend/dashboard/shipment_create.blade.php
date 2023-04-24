@@ -6,7 +6,7 @@
                 <div class="col-md-12">
                     <div class="where-from-design">
                         <h3 class="shipment-heading">Create New Shipment</h3>
-                        <form id="signUpForm" action="{{route('user.store_shipment')}}" method="POST" enctype='multipart/form-data'>
+                        <form id="signUpForm" action="{{route('user.store_shipment')}}" class="signUpForm" method="POST" enctype='multipart/form-data'>
                             @csrf
                               <!-- start step indicators -->
                               <div class="form-header d-flex">
@@ -260,15 +260,18 @@
                                                 <label>Drop off date</label>
                                                 <input  type="datetime-local" name="date">
                                             </div>
-                                            <div id="div1" class="hide">
+                                            <div id="div1" class="">
                                             <div class="pickup-details">
                                                 <div class="pickup-details-iner">
                                                 <h3>Pickup Address</h3>
-                                                <p>15 Colonial Street, Shakopee,mn, 55339 United States 55339</p>
-                                                <b>+1 45678976543</b>
-                                                    </div>
+                                                <div class="maing-address">
+                                                    <h4 id="pickup_from_name">Tayla Dhyll</h4>
+                                                    <p id="pickup_from_address">Unit 222, Rosden House 372 Old St, London, Greater London EC1 9AU, GB</p>
+                                                    <b id="pickup_from_number">+15678987645</b>
                                                     <div class="pickup-details-link">
-                                                        <a href="#">Edit</a>
+                                                        <a href="javascript:void(0);" class="edit_frm_ad_btn">Edit</a>
+                                                    </div>
+                                                </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -337,7 +340,7 @@
                                             <div class="col-md-6">
                                                 <div class="maining-heading">
                                                     <h3 class="mb-4">Where From</h3>
-                                                    <a href="#" class="edit-clss">Edit</a>
+                                                    <a href="javascript:void(0);" class="edit-clss edit_frm_ad_btn">Edit</a>
                                                 </div>
                                                 <div class="maing-address">
                                                     <h4 id="from_name">Tayla Dhyll</h4>
@@ -348,7 +351,7 @@
                                             <div class="col-md-6">
                                                 <div class="maining-heading">
                                                     <h3 class="mb-4">Where Going</h3>
-                                                    <a href="#" class="edit-clss">Edit</a>
+                                                    <a href="javascript:void(0);" class="edit-clss edit_go_ad_btn">Edit</a>
                                                 </div>
                                                 <div class="maing-address">
                                                     <h4 id="to_name">Tayla Dhyll</h4>
@@ -521,20 +524,120 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="update_from_address_modal" role="dialog" >
+            <div class="modal-dialog modal-lg vertical-align-center" style="margin-top: 80px;">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Shipping From Address</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body ">
+                    <div class="row">
+                        <div class="inter-form signUpForm">
+                            <div class="row mt-4">
+                                <label class="col-sm-3">Address</label>
+                                <input  class="col-sm-9" type="text" name="edit_S_address">
+                            </div>
+                            <div class="row mt-4">
+                                <label class="col-sm-3">Apartment / Suite / Unit / Building etc</label>
+                                <input  class="col-sm-9" type="text" name="edit_S_appartment">
+                            </div>
+                            <div class="row mt-4">
+                                <label class="col-sm-3">Department, C/D etc</label>
+                                <input  class="col-sm-9" type="text" name="edit_S_department">
+                            </div>
+                            <div class="row mt-4">
+                                <label class="col-sm-3">Postcode</label>
+                                <input  class="col-sm-9" type="number" name="edit_S_pincode">
+                            </div>
+                            <div class="row mt-4">
+                                <label class="col-sm-3">City</label>
+                                <input  class="col-sm-9" type="text" name="edit_S_city">
+                            </div>
+                            <div class="row mt-4">
+                                <label class="col-sm-3">State</label>
+                                <input  class="col-sm-9" type="text" name="edit_S_state">
+                            </div>
+                            <div class="row mt-4">
+                                <label class="col-sm-3">Land Mark</label>
+                                <input  class="col-sm-9" type="text" name="edit_S_other">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                    <button type="button" data-dismiss="modal" id="udt_frm_add" class="btn btn-info">Update</button>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal fade" id="update_going_address_modal" role="dialog" >
+            <div class="modal-dialog modal-lg vertical-align-center" style="margin-top: 80px;">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Shipping Going Address</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body ">
+                    <div class="row">
+                        <div class="inter-form signUpForm">
+                            <div class="row mt-4">
+                                <label class="col-sm-3">Address</label>
+                                <input  class="col-sm-9" type="text" name="edit_R_address">
+                            </div>
+                            <div class="row mt-4">
+                                <label class="col-sm-3">Apartment / Suite / Unit / Building etc</label>
+                                <input  class="col-sm-9" type="text" name="edit_R_appartment">
+                            </div>
+                            <div class="row mt-4">
+                                <label class="col-sm-3">Department, C/D etc</label>
+                                <input  class="col-sm-9" type="text" name="edit_R_department">
+                            </div>
+                            <div class="row mt-4">
+                                <label class="col-sm-3">Postcode</label>
+                                <input  class="col-sm-9" type="number" name="edit_R_pincode">
+                            </div>
+                            <div class="row mt-4">
+                                <label class="col-sm-3">City</label>
+                                <input  class="col-sm-9" type="text" name="edit_R_city">
+                            </div>
+                            <div class="row mt-4">
+                                <label class="col-sm-3">State</label>
+                                <input  class="col-sm-9" type="text" name="edit_R_state">
+                            </div>
+                            <div class="row mt-4">
+                                <label class="col-sm-3">Land Mark</label>
+                                <input  class="col-sm-9" type="text" name="edit_R_other">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                    <button type="button" data-dismiss="modal" id="udt_go_add" class="btn btn-info">Update</button>
+                </div>
+              </div>
+            </div>
+        </div>
     </section>
 @endsection
 
 @section('extra_body_scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
     $('input').keyup(function(){
         // console.log($("input[name=dropPickup]:checked").val());
         $('#from_name').html($("input[name=S_name]").val());
-        $('#from_address').html($('input[name=S_address]').val()+$('input[name=S_appartment]').val()+$('input[name=S_department]').val()+$('input[name=S_pincode]').val()+$('input[name=S_city]').val()+$('input[name=S_other]').val());
+        $('#from_address').html($('input[name=S_address]').val()+' , '+$('input[name=S_appartment]').val()+' , '+$('input[name=S_department]').val()+' , '+$('input[name=S_pincode]').val()+' , '+$('input[name=S_city]').val()+' , '+$('input[name=S_state]').val()+' , '+$('input[name=S_other]').val());
         $('#from_number').html($("input[name=S_contact]").val());
+        $('#pickup_from_name').html($("input[name=S_name]").val());
+        $('#pickup_from_address').html($('input[name=S_address]').val()+' , '+$('input[name=S_appartment]').val()+' , '+$('input[name=S_department]').val()+' , '+$('input[name=S_pincode]').val()+' , '+$('input[name=S_city]').val()+' , '+$('input[name=S_state]').val()+' , '+$('input[name=S_other]').val());
+        $('#pickup_from_number').html($("input[name=S_contact]").val());
         $('#to_name').html($("input[name=R_name]").val());
-        $('#to_address').html($('input[name=R_address]').val()+$('input[name=R_appartment]').val()+$('input[name=R_department]').val()+$('input[name=R_pincode]').val()+$('input[name=R_city]').val()+$('input[name=R_other]').val());
+        $('#to_address').html($('input[name=R_address]').val()+' , '+$('input[name=R_appartment]').val()+' , '+$('input[name=R_department]').val()+' , '+$('input[name=R_pincode]').val()+' , '+$('input[name=R_city]').val()+' , '+$('input[name=R_other]').val());
         $('#to_number').html($("input[name=R_contact]").val());
         $('#weight').html($("input[name=weight]").val());
         $('#dimensions').html($("input[name=width]").val()+' X '+$("input[name=height]").val()+' X '+$("input[name=length]").val());
@@ -697,6 +800,65 @@
         }
     $("form").on("change", ".file-upload-field", function(){ 
         $(this).parent(".file-upload-wrapper").attr("data-text",         $(this).val().replace(/.*(\/|\\)/, '') );
+    });
+
+    $('.edit_frm_ad_btn').click(function() {
+        $('input[name=edit_S_address]').val($('input[name=S_address]').val())
+        $('input[name=edit_S_appartment]').val($('input[name=S_appartment]').val())
+        $('input[name=edit_S_department]').val($('input[name=S_department]').val())
+        $('input[name=edit_S_pincode]').val($('input[name=S_department]').val())
+        $('input[name=edit_S_city]').val($('input[name=S_city]').val())
+        $('input[name=edit_S_state]').val($('input[name=S_state]').val())
+        $('input[name=edit_S_other]').val($('input[name=S_other]').val())
+
+        $('#update_from_address_modal').modal('show');
+    });
+
+    $('.edit_go_ad_btn').click(function() {
+        $('input[name=edit_R_address]').val($('input[name=R_address]').val())
+        $('input[name=edit_R_appartment]').val($('input[name=R_appartment]').val())
+        $('input[name=edit_R_department]').val($('input[name=R_department]').val())
+        $('input[name=edit_R_pincode]').val($('input[name=R_pincode]').val())
+        $('input[name=edit_R_city]').val($('input[name=R_city]').val())
+        $('input[name=edit_R_state]').val($('input[name=R_state]').val())
+        $('input[name=edit_R_other]').val($('input[name=R_other]').val())
+
+        $('#update_going_address_modal').modal('show');
+    });
+
+    $("#udt_frm_add").click(function(){
+        $('input[name=S_address]').val($('input[name=edit_S_address]').val())
+        $('input[name=S_appartment]').val($('input[name=edit_S_appartment]').val())
+        $('input[name=S_department]').val($('input[name=edit_S_department]').val())
+        $('input[name=S_pincode]').val($('input[name=edit_S_pincode]').val())
+        $('input[name=S_city]').val($('input[name=edit_S_city]').val())
+        $('input[name=S_state]').val($('input[name=edit_S_state]').val())
+        $('input[name=S_other]').val($('input[name=edit_S_other]').val())
+        
+        $('#from_name').html($("input[name=S_name]").val());
+        $('#from_address').html($('input[name=S_address]').val()+' , '+$('input[name=S_appartment]').val()+' , '+$('input[name=S_department]').val()+' , '+$('input[name=S_pincode]').val()+' , '+$('input[name=S_city]').val()+' , '+$('input[name=S_state]').val()+' , '+$('input[name=S_other]').val());
+        $('#from_number').html($("input[name=S_contact]").val());
+        $('#pickup_from_name').html($("input[name=S_name]").val());
+        $('#pickup_from_address').html($('input[name=S_address]').val()+' , '+$('input[name=S_appartment]').val()+' , '+$('input[name=S_department]').val()+' , '+$('input[name=S_pincode]').val()+' , '+$('input[name=S_city]').val()+' , '+$('input[name=S_state]').val()+' , '+$('input[name=S_other]').val());
+        $('#pickup_from_number').html($("input[name=S_contact]").val());
+        
+        $('#update_from_address_modal').modal('hide');
+    });
+
+    $("#udt_go_add").click(function(){
+        $('input[name=R_address]').val($('input[name=edit_R_address]').val())
+        $('input[name=R_appartment]').val($('input[name=edit_R_appartment]').val())
+        $('input[name=R_department]').val($('input[name=edit_R_department]').val())
+        $('input[name=R_pincode]').val($('input[name=edit_R_pincode]').val())
+        $('input[name=R_city]').val($('input[name=edit_R_city]').val())
+        $('input[name=R_state]').val($('input[name=edit_R_state]').val())
+        $('input[name=R_other]').val($('input[name=edit_R_other]').val())
+        
+        $('#to_name').html($("input[name=R_name]").val());
+        $('#to_address').html($('input[name=R_address]').val()+' , '+$('input[name=R_appartment]').val()+' , '+$('input[name=R_department]').val()+' , '+$('input[name=R_pincode]').val()+' , '+$('input[name=R_city]').val()+' , '+$('input[name=R_other]').val());
+        $('#to_number').html($("input[name=R_contact]").val());
+        
+        $('#update_going_address_modal').modal('hide'); 
     });
     </script>
 
