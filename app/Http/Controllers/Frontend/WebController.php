@@ -121,7 +121,7 @@ class WebController extends Controller
         $res['origin'] = 'Germany';
         $res['destination'] = $count->country;
         $res['weight'] = $request->weight;
-        $res['mode'] = $request->mode;
+        $res['mode'] = 'Export';
         // $res['Fedex']['rate'] = $FEDEXdata['ZONE_' . $count->fedex_zone];
         // $res['Fedex']['zone'] = $count->fedex_zone;
         if (isset($DHLdata['ZONE_' . $count->dhl_zone])) {
