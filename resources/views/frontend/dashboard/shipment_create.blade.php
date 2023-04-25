@@ -10,8 +10,8 @@
                             @csrf
                               <!-- start step indicators -->
                               <div class="form-header d-flex">
-                                    <span class="stepIndicator">Where From</span>
-                                    <span class="stepIndicator">Where Going</span>
+                                    <span class="stepIndicator">Origin</span>
+                                    <span class="stepIndicator">Destination</span>
                                     <span class="stepIndicator">How</span>
                                     <span class="stepIndicator">What</span>
                                     <span class="stepIndicator">Review</span>
@@ -29,12 +29,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Country</label>
-                                                <select id="select-service" name="S_country"> 
-                                                <option label="Select a country ... " selected="selected">Select a country ... </option>   
-                                                @foreach($country as $coun)
-                                                    <option value="{{$coun->country_code}}">{{$coun->country_name}}</option>
-                                                @endforeach
-                                                </select>                                                                                 
+                                                <input type="text" name="S_country" readonly value="Germany">                                                                           
                                             </div>
                                             <div class="form-group">
                                                 <label>Company Or Name</label>
@@ -160,7 +155,7 @@
                                                 <select id="select-service" required name="R_country">
                                                 <option label="Select a country ... " selected="selected">Select a country ... </option>  
                                                     @foreach($country as $coun)
-                                                    <option value="{{$coun->country_code}}">{{$coun->country_name}}</option>
+                                                    <option value="{{$coun->id}}">{{$coun->country}}</option>
                                                 @endforeach
                                                 </select>
                                             </div>
@@ -243,15 +238,15 @@
                                                 <label>Would you like to pickup your shipment?</label>
                                                 <label class="container">
                                                     <p><b>I'll Drop off shipment</b></p>
-                                                    <input type="radio" checked="checked" name="dropPickup" value="DROPOFF_AT_FEDEX_LOCATION" onclick="show1();">
+                                                    <input type="radio" checked="checked" name="dropPickup" value="DROPOFF" onclick="show1();">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
 
                                             <div class="form-group agreed-text full-widthing">
                                                 <label class="container">
-                                                    <p><b>Yes pickup my shipment</b></p>
-                                                    <input type="radio" name="dropPickup" value="CONTACT_FEDEX_TO_SCHEDULE" onclick="show2();">
+                                                    <p><b>appoint pickup date</b></p>
+                                                    <input type="radio" name="dropPickup" value="PICKUP" onclick="show2();">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
@@ -287,12 +282,13 @@
                                             </div>
                                             <div class="where-boxing">
                                                 <div class="form-group">
-                                                    <label>Courier Type</label>
-                                                    <select id="select-service" name="courier_type">
-                                                        <option></option>
-                                                        <option value="Fedex">Fedex</option>
-                                                        <option value="DHL">DHL</option>
-                                                    </select>
+                                                <label>Packet type</label>
+                                                <select id="select-service" name="package_type" required>
+                                                    <option></option>
+                                                    <option value="Envelope">Envelope</option>
+                                                    <option value="Documents">Documents</option>
+                                                    <option value="Non-Documents">Non Documents</option>
+                                                </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Weight</label>
@@ -710,28 +706,21 @@
                         'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                     }
                 });
-                courier_type = $("input[name=courier_type]").val();
-                dropPickup = $("input[name=dropPickup]").val();
-                dvalue = $("input[name=dvalue]").val();
-                S_pincode = $("input[name=S_pincode]").val();
-                R_pincode = $("input[name=R_pincode]").val();
-                S_country = $("select[name=S_country]").find(":selected").val();
+                package_type = $("select[name=package_type]").find(":selected").val();
                 R_country = $("select[name=R_country]").find(":selected").val();
                 weight = $("input[name=weight]").val();
                 length = $("input[name=length]").val();
                 width = $("input[name=width]").val();
                 height = $("input[name=height]").val();
+                const volumetricWeight = (length * width * height) / 6000;
+                const roundedWeight = Math.ceil(volumetricWeight);
+                if (weight < roundedWeight) {
+                    weight = roundedWeight;
+                }
                 var formData = {
-                    courier_type,
-                    S_pincode,
-                    R_pincode,
-                    S_country,
+                    package_type,
                     R_country,
                     weight,
-                    length,
-                    height,
-                    width,
-                    dropPickup
                 };
                 $.ajax({
                     type: 'post',
@@ -743,15 +732,14 @@
                         if(res.errors){
                             $('#nextBtn').prop('disabled', true);
                             currentTab = 3;
-                            alert(res.errors[0].message);
+                            alert(res.errors);
                             // return false;
                         }else {
                             $('#nextBtn').prop('disabled', false);
                             $('#nextBtn').html('Continue');
-                            $('input[name=shipping_charge]').val(res.output.rateReplyDetails[0].ratedShipmentDetails[0].totalNetFedExCharge)
+                            $('input[name=shipping_charge]').val(res.rate)
                             // return false
                         }
-                        console.log(res.output.rateReplyDetails[0].ratedShipmentDetails[0].totalNetFedExCharge);
                     },
                     error: function (res) {
                         $('#nextBtn').html('Continue');
@@ -767,9 +755,10 @@
               x = document.getElementsByClassName("step");
               y = x[currentTab].getElementsByTagName("input");
               // A loop that checks every input field in the current tab:
+              const notRequired = ['S_other', 'S_pan', 'S_gstin', 'S_iec', 'S_aadhaar', 'R_pan' ,'R_gstin', 'R_iec', 'R_aadhaar'];
               for (i = 0; i < y.length; i++) {
                 // If a field is empty...
-                if (y[i].value == "") {
+                if (y[i].value == ""  && !notRequired.includes(y[i].name)) {
                   // add an "invalid" class to the field:
                   y[i].className += " invalid";
                   // and set the current valid status to false

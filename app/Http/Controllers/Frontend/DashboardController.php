@@ -8,7 +8,7 @@ use App\Http\Helpers\Common;
 use App\Models\{
     User,
     PacketBooking,
-    Country
+    ShippingZone
     };
 use Illuminate\Support\Facades\{Artisan,
     Validator,
@@ -124,7 +124,7 @@ class DashboardController extends Controller
 
     public function create_shipment()
     {
-        $data['country'] = Country::where(['isActive' => 1])->get();
+        $data['country'] = ShippingZone::all();
         $data['user'] = User::where(['id' => auth()->user()->id])->first();
         return view('frontend.dashboard.shipment_create', $data);
 
@@ -165,91 +165,6 @@ class DashboardController extends Controller
     public function store_shipment(Request $request)
     {
         // dd($request->all());
-        // $data = [
-        //     "labelResponseOptions" => "URL_ONLY",
-        //     "requestedShipment" => [
-        //         "shipper" => [
-        //             "contact" => [
-        //                 "personName" => $request->csr_contact_person,
-        //                 "phoneNumber" => 1234567890,
-        //                 "companyName" => "Shipper Company Name"
-        //             ],
-        //             "address" => [
-        //                 "streetLines" => [
-        //                     "SHIPPER STREET LINE 1"
-        //                 ],
-        //                 "city" => "HARRISON",
-        //                 "stateOrProvinceCode" => "AR",
-        //                 "postalCode" => 72601,
-        //                 "countryCode" => "US"
-        //             ]
-        //         ],
-        //         "recipients" => [
-        //             [
-        //                 "contact" => [
-        //                     "personName" => "RECIPIENT NAME",
-        //                     "phoneNumber" => 1234567890,
-        //                     "companyName" => "Recipient Company Name"
-        //                 ],
-        //                 "address" => [
-        //                     "streetLines" => [
-        //                         "RECIPIENT STREET LINE 1",
-        //                         "RECIPIENT STREET LINE 2"
-        //                     ],
-        //                     "city" => "Collierville",
-        //                     "stateOrProvinceCode" => "TN",
-        //                     "postalCode" => 38017,
-        //                     "countryCode" => "US"
-        //                 ]
-        //             ]
-        //         ],
-        //         "shipDatestamp" => "2023-04-15",
-        //         "serviceType" => "STANDARD_OVERNIGHT",
-        //         "packagingType" => "FEDEX_SMALL_BOX",
-        //         "pickupType" => "USE_SCHEDULED_PICKUP",
-        //         "blockInsightVisibility" => false,
-        //         "shippingChargesPayment" => [
-        //             "paymentType" => "SENDER"
-        //         ],
-        //         "shipmentSpecialServices" => [
-        //             "specialServiceTypes" => [
-        //                 "FEDEX_ONE_RATE"
-        //             ]
-        //         ],
-        //         "labelSpecification" => [
-        //             "imageType" => "PDF",
-        //             "labelStockType" => "PAPER_85X11_TOP_HALF_LABEL"
-        //         ],
-        //     ],
-        //     "accountNumber" => [
-        //         "value" => "510087100"
-        //     ]
-        // ];
-        // $curl = curl_init();
-
-        // curl_setopt_array(
-        //     $curl,
-        //     array(
-        //         CURLOPT_URL => 'https://apis-sandbox.fedex.com/ship/v1/shipments',
-        //         CURLOPT_RETURNTRANSFER => true,
-        //         CURLOPT_ENCODING => '',
-        //         CURLOPT_MAXREDIRS => 10,
-        //         CURLOPT_TIMEOUT => 0,
-        //         CURLOPT_FOLLOWLOCATION => true,
-        //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        //         CURLOPT_CUSTOMREQUEST => 'POST',
-        //         CURLOPT_POSTFIELDS => json_encode($data),
-        //         CURLOPT_HTTPHEADER => array(
-        //             'Content-Type: application/json',
-        //             'Authorization: Bearer ' . $this->get_token(),
-        //         ),
-        //     )
-        // );
-
-        // $response = curl_exec($curl);
-
-        // curl_close($curl);
-        // \Log::info($response);
         if($request->S_address_type=='Default')
         {
             $S_default = 1;
@@ -323,7 +238,24 @@ class DashboardController extends Controller
                        $backImg = '';
                 }
             }
+        // Available alpha caracters
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        // generate a pin based on 2 * 7 digits + a random character
+        $pin = mt_rand(1000000, 9999999)
+            . mt_rand(1000000, 9999999)
+            . $characters[rand(0, strlen($characters) - 1)];
+
+        // shuffle the result
+        $string = str_shuffle($pin);
+
         $shipment = new PacketBooking();
+        $shipment->awb_no = $string;
+        $shipment->booking_date = $request->date;
+        $shipment->csr_pan = $request->S_pan;
+        $shipment->csr_gstin = $request->S_gstin;
+        $shipment->csr_iec = $request->S_iec;
+        $shipment->csr_aadharno = $request->S_aadhaar;
         $shipment->client_id = auth()->user()->id;
         $shipment->csr_country_id = $request->S_country;
         $shipment->csr_consignor= $request->S_name;
@@ -349,6 +281,10 @@ class DashboardController extends Controller
         $shipment->csn_address3 = $request->R_department;
         $shipment->csn_pincode = $request->R_pincode;
         $shipment->csn_city_id = $request->R_city;
+        $shipment->csn_pan = $request->R_pan;
+        $shipment->csn_gstin = $request->R_gstin;
+        $shipment->csn_iec = $request->R_iec;
+        $shipment->csn_aadharno = $request->R_aadhaar;
         $shipment->R_other = $request->R_other;
         $shipment->csn_email_id = $request->R_email;
         $shipment->csn_mobile_no = $request->R_phone;
