@@ -8,22 +8,6 @@
                         <h3 class="shipment-heading">Create New Shipment</h3>
                         <form id="signUpForm" action="{{ url('user/shipment/store') }}" method="POST">
                             {{ csrf_field() }}
-                              <!-- start step indicators -->
-                              <div class="form-header d-flex">
-                                    <span class="stepIndicator">Where From</span>
-                                    <span class="stepIndicator">Where Going</span>
-                                    <span class="stepIndicator">What</span>
-                                    <span class="stepIndicator">How</span>
-                                    <span class="stepIndicator">Review</span>
-                                    <span class="stepIndicator">Payment</span>
-                                    <span class="stepIndicator lasting">Complete</span>
-                              </div>
-                              <!-- end step indicators -->
-
-                                <!-- Step1 -->
-
-
-                        
 
                                 <!-- Step7 -->
                                 <div class="step">

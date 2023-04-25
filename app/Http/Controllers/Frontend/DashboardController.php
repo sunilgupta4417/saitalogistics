@@ -281,10 +281,7 @@ class DashboardController extends Controller
         $shipment->csn_address3 = $request->R_department;
         $shipment->csn_pincode = $request->R_pincode;
         $shipment->csn_city_id = $request->R_city;
-        $shipment->csn_pan = $request->R_pan;
-        $shipment->csn_gstin = $request->R_gstin;
-        $shipment->csn_iec = $request->R_iec;
-        $shipment->csn_aadharno = $request->R_aadhaar;
+        $shipment->csn_tan_number = $request->R_tan;
         $shipment->R_other = $request->R_other;
         $shipment->csn_email_id = $request->R_email;
         $shipment->csn_mobile_no = $request->R_phone;
@@ -311,7 +308,7 @@ class DashboardController extends Controller
         $shipment->shipping_charge = $request->shipping_charge;
 
         $shipment->save();
-
+        
         return redirect('user/shipping/success');
     }
 }

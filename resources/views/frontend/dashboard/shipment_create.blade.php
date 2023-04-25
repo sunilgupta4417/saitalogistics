@@ -28,23 +28,23 @@
                                                 <h3 class="mb-4">Where Are You Shipment Form?</h3>
                                             </div>
                                             <div class="form-group">
-                                                <label>Country</label>
+                                                <label>Country*</label>
                                                 <input type="text" name="S_country" readonly value="Germany">                                                                           
                                             </div>
                                             <div class="form-group">
-                                                <label>Company Or Name</label>
+                                                <label>Company Or Name*</label>
                                                 <input type="text" name="S_name">
                                             </div>
                                             <div class="form-group">
-                                                <label>Contact</label>
+                                                <label>Contact Number*</label>
                                                 <input type="number" name="S_contact">
                                             </div>
                                             <div class="form-group">
-                                                <label>Address</label>
+                                                <label>Address*</label>
                                                 <input type="text" name="S_address">
                                             </div>
                                             <div class="form-group">
-                                                <label>Apartment / Suite / Unit / Building etc</label>
+                                                <label>Apartment / Suite / Unit / Building etc*</label>
                                                 <input type="text" name="S_appartment">
                                             </div>
                                             <div class="form-group">
@@ -52,15 +52,15 @@
                                                 <input type="text" name="S_department">
                                             </div>
                                             <div class="form-group">
-                                                <label>Postcode</label>
+                                                <label>Postcode*</label>
                                                 <input type="number" name="S_pincode">
                                             </div>
                                             <div class="form-group">
-                                                <label>City</label>
+                                                <label>City*</label>
                                                 <input type="text" name="S_city">
                                             </div>
                                             <div class="form-group">
-                                                <label>State</label>
+                                                <label>State*</label>
                                                 <input type="text" name="S_state">
                                             </div>
                                             <div class="form-group">
@@ -107,17 +107,17 @@
                                             <div class="form-group"></div>
 
                                             <div class="form-group">
-                                                <label>Email Id</label>
+                                                <label>Email Id*</label>
                                                 <input type="text" name="S_email">
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Telephone</label>
+                                                <label>Telephone*</label>
                                                 <input type="text" name="S_phone">
                                             </div>
 
                                             <div class="form-group">
-                                                <label>KYC Document</label>
+                                                <label>KYC Document*</label>
                                                 <select id="select-service" required name="S_idProof">
                                                     <option></option>
                                                     <option value="aadhar card">Aadhar Card</option>
@@ -127,14 +127,14 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Upload KYC Id Image Front</label>
+                                                <label>Upload KYC Id Image Front*</label>
                                                 <div class="file-upload-wrapper">
                                                   <input name="S_idFront" type="file" class="file-upload-field">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Upload KYC Id Image Back</label>
+                                                <label>Upload KYC Id Image Back*</label>
                                                 <div class="file-upload-wrapper">
                                                   <input name="S_idBack" type="file" class="file-upload-field" >
                                                 </div>
@@ -151,7 +151,7 @@
                                                 <h3 class="mb-4">Where Is Your Shipping Going?</h3>
                                             </div>
                                             <div class="form-group">
-                                                <label>Country</label>
+                                                <label>Country*</label>
                                                 <select id="select-service" required name="R_country">
                                                 <option label="Select a country ... " selected="selected">Select a country ... </option>  
                                                     @foreach($country as $coun)
@@ -160,19 +160,19 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label>Company Or Name</label>
+                                                <label>Company Or Name*</label>
                                                 <input type="text" name="R_name">
                                             </div>
                                             <div class="form-group">
-                                                <label>Contact</label>
+                                                <label>Contact Number*</label>
                                                 <input type="number" name="R_contact">
                                             </div>
                                             <div class="form-group">
-                                                <label>Address</label>
+                                                <label>Address*</label>
                                                 <input type="text" name="R_address">
                                             </div>
                                             <div class="form-group">
-                                                <label>Apartment / Suite / Unit / Building etc</label>
+                                                <label>Apartment / Suite / Unit / Building etc*</label>
                                                 <input type="text" name="R_appartment">
                                             </div>
                                             <div class="form-group">
@@ -180,15 +180,15 @@
                                                 <input type="text" name="R_department">
                                             </div>
                                             <div class="form-group">
-                                                <label>Postcode</label>
+                                                <label>Postcode*</label>
                                                 <input type="number" name="R_pincode">
                                             </div>
                                             <div class="form-group">
-                                                <label>City</label>
+                                                <label>City*</label>
                                                  <input type="text" name="R_city">
                                             </div>
                                             <div class="form-group">
-                                                <label>State</label>
+                                                <label>State*</label>
                                                  <input type="text" name="R_state">
                                             </div>
                                             <div class="form-group">
@@ -197,32 +197,19 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Email Id</label>
+                                                <label>Email Id*</label>
                                                 <input type="text" name="R_email">
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Telephone</label>
+                                                <label>Telephone*</label>
                                                 <input type="text" name="R_phone">
                                             </div>
 
                                             <div class="form-group">
-                                                <label>PAN</label>
-                                                <input type="text" name="R_pan">
+                                                <label>TAN Number</label>
+                                                <input type="text" name="R_tan">
                                             </div>
-                                            <div class="form-group">
-                                                <label>GSTIN</label>
-                                                <input type="text" name="R_gstin">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>IEC</label>
-                                                <input type="text" name="R_iec">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Aadhaar No</label>
-                                                <input type="text" name="R_aadhaar">
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -245,14 +232,14 @@
 
                                             <div class="form-group agreed-text full-widthing">
                                                 <label class="container">
-                                                    <p><b>appoint pickup date</b></p>
+                                                    <p><b>Yes pickup my shipment</b></p>
                                                     <input type="radio" name="dropPickup" value="PICKUP" onclick="show2();">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Drop off date</label>
+                                                <label>Appointment date and time</label>
                                                 <input  type="datetime-local" name="date">
                                             </div>
                                             <div id="div1" class="">
@@ -755,7 +742,7 @@
               x = document.getElementsByClassName("step");
               y = x[currentTab].getElementsByTagName("input");
               // A loop that checks every input field in the current tab:
-              const notRequired = ['S_other', 'S_pan', 'S_gstin', 'S_iec', 'S_aadhaar', 'R_pan' ,'R_gstin', 'R_iec', 'R_aadhaar'];
+              const notRequired = ['S_department','S_other', 'S_pan', 'S_gstin', 'S_iec', 'S_aadhaar', 'R_department', 'R_other','R_tan'];
               for (i = 0; i < y.length; i++) {
                 // If a field is empty...
                 if (y[i].value == ""  && !notRequired.includes(y[i].name)) {
