@@ -38,13 +38,9 @@
                            <a href="#" class="btn btn-solid-border btn-sm mb-lg-0 mb-2"><i class="fab fa-twitter"></i></a>
                            <a href="#" class="btn btn-solid-border btn-sm mb-lg-0 mb-2"><i class="fab fa-instagram"></i></a>
                         </li> 
-                         @if( !Auth::check() ) 
-                        <li class="list-inline-item" id="head-icons">
-                          <a href="{{ url('user-login') }}" class="btn btn-main-2 btn-sm">Sign Up/Log In</a>
-                        </li> 
-                        @else
+                        @if(Auth::check() && Auth::user()->role_id == 1 ) 
                         <li class="list-inline-item nav-item dropdown" id="head-icons">
-                        <a href="signup.html" class="nav-link dropdown-toggle" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}} <img src="assets/images/user2.png" alt=""><i class="fa fa-caret-down"></i></a>
+                            <a href="signup.html" class="nav-link dropdown-toggle" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}} <img src="{{asset('assets/images/user2.png')}}" alt=""><i class="fa fa-caret-down"></i></a>
                             <div class="dropdown-menu" aria-labelledby="navbar3">
                                  <a class="dropdown-item" href="{{ url('user/dashboard') }}">
                                     My Profile
@@ -56,10 +52,11 @@
                                     Sign Out
                                 </a> 
                             </div>
-                     </li> 
-                        
-
-
+                        </li> 
+                        @else
+                        <li class="list-inline-item" id="head-icons">
+                            <a href="{{ url('user-login') }}" class="btn btn-main-2 btn-sm">Sign Up/Log In</a>
+                        </li> 
                         @endif
                         <li class="list-inline-item">
                           <img src="{{asset('assets/images/saita-icon.svg')}}" alt="" class="img-responsive">

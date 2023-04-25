@@ -188,24 +188,9 @@
                                             <td>{{$packet->csn_email_id}}</td>
                                         </tr>
                                         <tr>
-                                            <th>PAN</th>
+                                            <th>TAN Number</th>
                                             <th >:</th>
-                                            <td>{{$packet->csn_pan}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>GSTIN</th>
-                                            <th >:</th>
-                                            <td>{{$packet->csn_gstin}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>IEC</th>
-                                            <th >:</th>
-                                            <td>{{$packet->csn_iec}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>AadhaarNo</th>
-                                            <th >:</th>
-                                            <td>{{$packet->csn_aadharno}}</td>
+                                            <td>{{$packet->csn_tan_number}}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="3" class="height-light">Packet Details</th>
@@ -234,7 +219,7 @@
                                             <th colspan="3" class="height-light">Weight Details</th>
                                         </tr>
                                         <tr>
-                                            <th>PCS</th>
+                                            <th>Package Weight</th>
                                             <th >:</th>
                                             <td>{{$packet->pcs_weight}}</td>
                                         </tr>
@@ -244,24 +229,19 @@
                                             <td>{{$packet->actual_weight}}</td>
                                         </tr>
                                         <tr>
-                                            <th>Vendor Weight</th>
-                                            <th >:</th>
-                                            <td>{{$packet->vendor_weight}}</td>
-                                        </tr>
-                                        <tr>
                                             <th>Packet Type</th>
                                             <th >:</th>
-                                            <td>{{$packet->vendor_weight_type}}</td>
+                                            <td>{{$packet->packet_type}}</td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <th>Total Value</th>
                                             <th >:</th>
                                             <td>{{$packet->total_weight}}</td>
-                                        </tr>
+                                        </tr> -->
                                         <tr>
                                             <th>Currency</th>
                                             <th >:</th>
-                                            <td>{{$packet->currency}}</td>
+                                            <td>$</td>
                                         </tr>
                                         <tr>
                                             <th colspan="3" class="height-light">Remarks</th>

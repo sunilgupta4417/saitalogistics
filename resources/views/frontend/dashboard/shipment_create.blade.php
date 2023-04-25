@@ -308,6 +308,7 @@
                                                 <div class="form-group">
                                                     <button type="button" class="btn btn-main-2 track-shipment-clr" id="get-rates">Get Rates</button>
                                                 </div>
+                                                <input type="hidden" name="actual_weight" id="actual_weight">
                                             </div>
                                             <div class="step-image">
                                                 <img src="{{asset('assets/images/step-img.png')}}" alt="" class="img-responsive">
@@ -702,7 +703,7 @@
                 const volumetricWeight = (length * width * height) / 6000;
                 const roundedWeight = Math.ceil(volumetricWeight);
                 if (weight < roundedWeight) {
-                    weight = roundedWeight;
+                    $('#actual_weight').val(roundedWeight)
                 }
                 var formData = {
                     package_type,
