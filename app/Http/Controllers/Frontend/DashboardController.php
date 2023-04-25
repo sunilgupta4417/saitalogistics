@@ -290,6 +290,7 @@ class DashboardController extends Controller
         $shipment->length = $request->length;
         $shipment->width = $request->width;
         $shipment->height = $request->height;
+        $shipment->actual_weight = $request->actual_weight;
         $shipment->dvalue = $request->dvalue;
         $shipment->packet_type = $request->package_type;
         $shipment->shipping_charge = $request->shipping_charge;
@@ -309,6 +310,6 @@ class DashboardController extends Controller
 
         $shipment->save();
 
-        // return redirect('user/shipping/success');
+        return redirect('user/shipping/success');
     }
 }

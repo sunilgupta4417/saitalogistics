@@ -672,7 +672,7 @@
                 // This function will figure out which tab to display
                 var x = document.getElementsByClassName("step");
                 // Exit the function if any field in the current tab is invalid:
-                if (n == 1 && !validateForm()) return false;
+                // if (n == 1 && !validateForm()) return false;
                 // Hide the current tab:
                 x[currentTab].style.display = "none";
                 // Increase or decrease the current tab by 1:
@@ -700,11 +700,13 @@
                 length = $("input[name=length]").val();
                 width = $("input[name=width]").val();
                 height = $("input[name=height]").val();
+                if (weight == "" || length == "" || width == "" || height == "") {
+                    alert('Please fill all field');
+                    return;
+                }
                 const volumetricWeight = (length * width * height) / 6000;
                 const roundedWeight = Math.ceil(volumetricWeight);
-                if (weight < roundedWeight) {
-                    $('#actual_weight').val(roundedWeight)
-                }
+                $('#actual_weight').val(roundedWeight);
                 var formData = {
                     package_type,
                     R_country,
@@ -717,10 +719,10 @@
                     dataType: 'json',
                     success: function (res) {
                         console.log(res)
-                        if(res.errors){
+                        if(res.error){
                             $('#nextBtn').prop('disabled', true);
                             currentTab = 3;
-                            alert(res.errors);
+                            alert(res.error);
                             // return false;
                         }else {
                             $('#nextBtn').prop('disabled', false);

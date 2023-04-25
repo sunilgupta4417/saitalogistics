@@ -46,32 +46,38 @@ class ShippingController extends Controller
         }
         if (isset($DHLzone->rate)) {
             $DHLdata = json_decode($DHLzone->rate, true);
-        }
-        if (isset($DPDzone->rate)) {
-            $DPDdata = json_decode($DPDzone->rate, true);
-        }
-        if (isset($DHLdata['ZONE_' . $count->dhl_zone])) {
-            $res['DHL']['rate'] = $DHLdata['ZONE_' . $count->dhl_zone];
-            $res['DHL']['zone'] = $count->dhl_zone;
+            if (isset($DHLdata['ZONE_' . $count->dhl_zone])) {
+                $res['DHL']['rate'] = $DHLdata['ZONE_' . $count->dhl_zone];
+                $res['DHL']['zone'] = $count->dhl_zone;
+            } else {
+                $res['DHL']['rate'] = 'NIL';
+                $res['DHL']['zone'] = 'NIL';
+            }
         } else {
             $res['DHL']['rate'] = 'NIL';
             $res['DHL']['zone'] = 'NIL';
         }
-
-        if (isset($DPDdata['ZONE_' . $count->dpd_zone])) {
-            $res['DPD']['rate'] = $DPDdata['ZONE_' . $count->dpd_zone];
-            $res['DPD']['zone'] = $count->dpd_zone;
+        if (isset($DPDzone->rate)) {
+            $DPDdata = json_decode($DPDzone->rate, true);
+            if (isset($DPDdata['ZONE_' . $count->dpd_zone])) {
+                $res['DPD']['rate'] = $DPDdata['ZONE_' . $count->dpd_zone];
+                $res['DPD']['zone'] = $count->dpd_zone;
+            } else {
+                $res['DPD']['rate'] = 'NIL';
+                $res['DPD']['zone'] = 'NIL';
+            }
         } else {
             $res['DPD']['rate'] = 'NIL';
             $res['DPD']['zone'] = 'NIL';
         }
+
         asort($res);
         array_reverse($res);
         $numeric_rates = array_filter(array_column($res, 'rate'), 'is_numeric');
-        $max_rate = max($numeric_rates);
-        if (empty($max_rate)) {
-            return response()->json(['error' => 'Service not available please contact customer support team']);
+        if (empty($numeric_rates)) {
+            return response()->json(['error' => 'Somethig is wrong, please try to change package type or connect customer support']);
         } else {
+            $max_rate = max($numeric_rates);
             return response()->json(['rate' => $max_rate]);
         }
 
