@@ -203,19 +203,19 @@ class DashboardController extends Controller
                 $filename = time() . '.' . $ext;
 
                 $dir1 = public_path('/assets/images/profile/' . $filename);
+            $frontImg = $filename;
+            // if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp')
+            // {
+            //     $img = Image::make($picture->getRealPath());
 
-                if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp')
-                {
-                    $img = Image::make($picture->getRealPath());
+            //     $img->resize(100, 100)->save($dir1);
 
-                    $img->resize(100, 100)->save($dir1);
-
-                  $frontImg = $filename;
-                }
-                else
-                {
-                       $frontImg = '';
-                }
+            //   $frontImg = $filename;
+            // }
+            // else
+            // {
+            //        $frontImg = '';
+            // }
             }
             if (isset($request->S_idBack))
             {
@@ -224,19 +224,19 @@ class DashboardController extends Controller
                 $filename = time() . '.' . $ext;
 
                 $dir1 = public_path('/assets/images/profile/' . $filename);
+            $backImg = $filename;
+            // if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp')
+            // {
+            //     $img = Image::make($picture->getRealPath());
 
-                if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp')
-                {
-                    $img = Image::make($picture->getRealPath());
+            //     $img->resize(100, 100)->save($dir1);
 
-                    $img->resize(100, 100)->save($dir1);
-
-                   $backImg = $filename;
-                }
-                else
-                {
-                       $backImg = '';
-                }
+            //    $backImg = $filename;
+            // }
+            // else
+            // {
+            //        $backImg = '';
+            // }
             }
         // Available alpha caracters
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
