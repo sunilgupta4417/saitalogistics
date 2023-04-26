@@ -15,7 +15,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request, $guard = null)
     {
-        if ($guard == 'web')
+        if ($guard == 'auth')
         {
             if (!Auth::check())
             {

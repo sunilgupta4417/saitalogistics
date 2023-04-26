@@ -17,14 +17,12 @@ class User
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if ($guard == 'web')
-        {
-            if (!Auth::check())
-            {
-                return \Redirect::guest('/user-login');
-            }
-        }
 
-        return $next($request);
+        if (Auth::check() && Auth::user()->role_id == '1') {
+            return $next($request);
+
+        }
+        return redirect('/user-login');
+
     }
 }

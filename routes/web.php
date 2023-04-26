@@ -42,7 +42,7 @@ Route::post('/user/authenticate', [AuthController::class, 'authenticate']);
 Route::post('/user/register', [AuthController::class, 'store']);
 
 
-Route::group(['prefix' => 'user', 'middleware' => ['web']], function () {
+Route::group(['prefix' => 'user', 'middleware' => ['user']], function () {
 
     Route::get('/dashboard', [DashboardController::class, 'home'])->name('user.dashboard');
     Route::post('/profile/update', [DashboardController::class, 'update_profile']);

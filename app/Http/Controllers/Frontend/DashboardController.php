@@ -125,7 +125,7 @@ class DashboardController extends Controller
     public function create_shipment()
     {
         $data['country'] = ShippingZone::all();
-        $data['user'] = User::where(['id' => auth()->user()->id])->first();
+        // $data['user'] = User::where(['id' => auth()->user()->id])->first();
         return view('frontend.dashboard.shipment_create', $data);
 
     }
@@ -297,7 +297,7 @@ class DashboardController extends Controller
         $shipment->cpickup = $cpickup;
         $shipment->cdrop = $cdrop;
         $shipment->dpDate = $request->date;
-        $shipment->payment_gateway = $request->payment_gateway;
+        $shipment->payment_gateway = 'payment_gateway';
         $shipment->payment_status = 'pending';
 
         $shipment->csr_state_id = $request->S_state;
