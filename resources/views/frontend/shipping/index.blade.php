@@ -137,9 +137,9 @@
                <div class="col-lg-4 col-md-4">
                   <div class="create-right">
                      <h3>Create Your Shipment</h3>
-                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem.</p>
+                     <p>Start booking a new shipment and pay with crypto.</p>
                      <img src="{{asset('assets/images/creat-image.png')}}" alt="" class="img-responsive">
-                     <a href="{{route('user.login')}}" class="btn btn-main-2"> Get Started</a>
+                     <a href="{{route('user.create_shipment')}}" class="btn btn-main-2"> Get Started</a>
                   </div>
                </div>
                @endif

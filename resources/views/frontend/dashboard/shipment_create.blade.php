@@ -278,23 +278,23 @@
                                                 </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Weight</label>
+                                                    <label>Weight KG</label>
                                                     <input type="text" name="weight">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Length</label>
+                                                    <label>Length CM</label>
                                                     <input type="text" name="length">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Width</label>
+                                                    <label>Width CM</label>
                                                     <input type="text" name="width">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Height</label>
+                                                    <label>Height CM</label>
                                                     <input type="text" name="height">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Declared value</label>
+                                                    <label>Declared value $</label>
                                                     <input type="text" name="dvalue">
                                                 </div>
                                                 {{--<div class="form-group">
@@ -302,7 +302,7 @@
                                                     <input type="text" name="item_type">
                                                 </div>--}}
                                                 <div class="form-group">
-                                                    <label>Shipping charges</label>
+                                                    <label>Shipping charges $</label>
                                                     <input type="text" name="shipping_charge" readonly>
                                                 </div>
                                                 <div class="form-group">
@@ -348,7 +348,7 @@
                                                     <div class="what-detail-iner">
                                                         <h3>What</h3>
                                                         <a href="#" class="edit-clss">Edit</a>
-                                                        <table>
+                                                        <table style="width: 50%;">
                                                             <tbody>
                                                                 <tr>
                                                                   <td>Weight</td>
@@ -499,7 +499,7 @@
                                 <!-- start previous / next buttons -->
                                 <div class="form-footer">
                                     <button type="button" id="prevBtn" onclick="nextPrev(-1)"><img src="assets/images/back-btn.svg" alt="" class="img-responsive"> Back</button>
-                                    <button type="button" id="cencalBtn">Cencal</button>
+                                    <button type="button" id="cencalBtn">Cancel</button>
                                     <button type="button" id="nextBtn" onclick="nextPrev(1)">Continue</button>
                                 </div>
                               <!-- end previous / next buttons -->
@@ -623,9 +623,9 @@
         $('#to_name').html($("input[name=R_name]").val());
         $('#to_address').html($('input[name=R_address]').val()+' , '+$('input[name=R_appartment]').val()+' , '+$('input[name=R_department]').val()+' , '+$('input[name=R_pincode]').val()+' , '+$('input[name=R_city]').val()+' , '+$('input[name=R_other]').val());
         $('#to_number').html($("input[name=R_contact]").val());
-        $('#weight').html($("input[name=weight]").val());
-        $('#dimensions').html($("input[name=width]").val()+' X '+$("input[name=height]").val()+' X '+$("input[name=length]").val());
-        $('#total_shipment_weight').html($("input[name=weight]").val());
+        $('#weight').html($("input[name=weight]").val() + " KG");
+        $('#dimensions').html($("input[name=width]").val()+' X '+$("input[name=height]").val()+' X '+$("input[name=length]").val()+ ' CM');
+        $('#total_shipment_weight').html($("input[name=weight]").val()+ ' KG');
         $('#packaging').html($("input[name=item_type]").val());
         $('#ship_type').html($("input[name=dropPickup]:checked").val());
         $('#shipment_date').html($("input[name=date]").val());
@@ -672,7 +672,7 @@
                 // This function will figure out which tab to display
                 var x = document.getElementsByClassName("step");
                 // Exit the function if any field in the current tab is invalid:
-                if (n == 1 && !validateForm()) return false;
+                // if (n == 1 && !validateForm()) return false;
                 // Hide the current tab:
                 x[currentTab].style.display = "none";
                 // Increase or decrease the current tab by 1:
