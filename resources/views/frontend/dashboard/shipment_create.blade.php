@@ -6,7 +6,7 @@
                 <div class="col-md-12">
                     <div class="where-from-design">
                         <h3 class="shipment-heading">Create New Shipment</h3>
-                        <form id="signUpForm" action="{{route('user.store_shipment')}}" class="signUpForm" method="POST" enctype='multipart/form-data'>
+                        <form id="signUpForm" class="signUpForm" enctype='multipart/form-data'>
                             @csrf
                               <!-- start step indicators -->
                               <div class="form-header d-flex">
@@ -645,6 +645,33 @@
             showTab(currentTab); // Display the current tab
             
             function showTab(n) {
+                if (n == 3) {
+                    // $('#nextBtn').prop('disabled', true);
+                } 
+                else if (n == 5) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        type: 'post',
+                        url: '{{route("user.store_shipment")}}',
+                        data:  new FormData($('#signUpForm')[0]),
+                        contentType: false,
+                        cache: false,
+                        processData:false,
+                        success: function (res) {
+                            alert('inserted recored id '+res.id)
+                            console.log(res)
+                        },
+                        error: function (res) {
+                            console.log(res)
+                        }
+                    });                
+                } else {
+                    $('#nextBtn').prop('disabled', false);
+                }
               // This function will display the specified tab of the form...
               var x = document.getElementsByClassName("step");
               x[n].style.display = "block";
@@ -660,11 +687,6 @@
                 document.getElementById("nextBtn").innerHTML = "Continue";
               }
               //... and run a function that will display the correct step indicator:
-              if (n ==3) {
-                    $('#nextBtn').prop('disabled', true);
-                }else {
-                    $('#nextBtn').prop('disabled', false);
-                }
               fixStepIndicator(n)
             }
             
@@ -672,17 +694,17 @@
                 // This function will figure out which tab to display
                 var x = document.getElementsByClassName("step");
                 // Exit the function if any field in the current tab is invalid:
-                if (n == 1 && !validateForm()) return false;
+                // if (n == 1 && !validateForm()) return false;
                 // Hide the current tab:
                 x[currentTab].style.display = "none";
                 // Increase or decrease the current tab by 1:
                 currentTab = currentTab + n;
                 // if you have reached the end of the form...
-                if (currentTab >= x.length) {
-                    // ... the form gets submitted:
-                    document.getElementById("signUpForm").submit();
-                    return false;
-                }
+                // if (currentTab >= x.length) {
+                //     // ... the form gets submitted:
+                //     document.getElementById("signUpForm").submit();
+                //     return false;
+                // }
                 // Otherwise, display the correct tab:
                 showTab(currentTab);
             }

@@ -164,7 +164,7 @@ class DashboardController extends Controller
     }
     public function store_shipment(Request $request)
     {
-        // dd($request->all());
+        // return response()->json($request->all());
         if($request->S_address_type=='Default')
         {
             $S_default = 1;
@@ -297,7 +297,7 @@ class DashboardController extends Controller
         $shipment->cpickup = $cpickup;
         $shipment->cdrop = $cdrop;
         $shipment->dpDate = $request->date;
-        $shipment->payment_gateway = 'payment_gateway';
+        $shipment->payment_gateway = 'none';
         $shipment->payment_status = 'pending';
 
         $shipment->csr_state_id = $request->S_state;
@@ -310,6 +310,6 @@ class DashboardController extends Controller
 
         $shipment->save();
 
-        return redirect('user/shipping/success');
+        return response()->json(['id' => $shipment->id]);
     }
 }
