@@ -1,29 +1,50 @@
 @extends('frontend.layouts.master')
-@section('page_content')
+@sec     tion('page_content')
 <?php $userData=auth()->user();?>
 <section id="where-from-page">
-        <div class="container">
+             <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="where-from-design">
+                         <div class="where-from-design">
                         <h3 class="shipment-heading">Create New Shipment</h3>
                         <form id="signUpForm" class="signUpForm" enctype='multipart/form-data'>
-                            @csrf
+                                 @csrf
                               <!-- start step indicators -->
                               <div class="form-header d-flex">
-                                    <span class="stepIndicator">Origin</span>
+                                         <span class="stepIndicator">Origin</span>
                                     <span class="stepIndicator">Destination</span>
                                     <span class="stepIndicator">How</span>
-                                    <span class="stepIndicator">What</span>
-                                    <span class="stepIndicator">Review</span>
-                                    <span class="stepIndicator">Payment</span>
-                                    <span class="stepIndicator lasting">Complete</span>
-                              </div>
+                               
+
+
+
+ 
+    
+
+     <s pan class="stepIndi
+    a
+tor">What</span>
+
+                           
+     
+        <span class="stepI
+ndicator">Review</span>
+                           
+     
+        <span class="stepI
+ndicator">Payment</span>
+                    
+                <span class="stepIndicator lasting">Complete</span>
+                          
+    </div>
                               <!-- end step indicators -->
+ 
+    
 
                                 <!-- Step1 -->
                                 <div class="step">
-                                    <div class="row">
+                          
+          <div class="row">
                                         <div class="inter-form">
                                             <div class="maining-heading">
                                                 <h3 class="mb-4">Where Are You Shipment Form?</h3>
@@ -447,7 +468,7 @@
                                                     <input type="text" name="CVV">
                                                 </div>*/?>
                                                 <div class="form-group">
-                                                    <button class="clickMeForPay" data-orderid="0"  data-user_email="test@gmail.com"  data-customerid="0"  data-shipping_charge="0" data-tax="0" data-total="0">Pay By PayMe</button>
+                                                    <input type="radio" checked="checked" class="clickMeForPayInput" data-orderid="0"  data-user_email="test@gmail.com"  data-customerid="0"  data-shipping_charge="0" data-tax="0" data-total="0">Pay By PayMe
                                                 </div>
                                             </div>
                                             <div class="paymment-right-details">
@@ -490,10 +511,10 @@
                                                 <h3>Payment Successful</h3>
                                                 <p>Your shipment has been successfully added Track with your order No. <b class="successOrderNumber">3456789098</b></p>
                                             </div>
-                                            <div class="payment-btns">
+                                            <?php /*<div class="payment-btns">
                                                 <a href="#" class="down-btn">Download Invoice</a>
                                                 <a href="#" class="done-btn">Done</a>
-                                            </div>
+                                            </div>*/?>
                                         </div>
                                     </div>
                                 </div>
@@ -503,6 +524,7 @@
                                     <button type="button" id="prevBtn" onclick="nextPrev(-1)"><img src="assets/images/back-btn.svg" alt="" class="img-responsive"> Back</button>
                                     <button type="button" id="cencalBtn">Cancel</button>
                                     <button type="button" id="nextBtn" onclick="nextPrev(1)">Continue</button>
+                                    <button type="button" class="clickMeForPay" style="display:none;">Pay By Payme</button>
                                 </div>
                               <!-- end previous / next buttons -->
                             </form>
@@ -628,52 +650,57 @@
             showSavedCardFeature:true,
             orderCurrency:orderCurrency,
             successHandler: async function(response) {
-                if(response.status=="ok"){
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                    $.ajax({
-                        type: 'post',
-                        url: '{{route("user.store_shipment_payment")}}',
-                        data: {status:response.status, response:response.response,id:response.response.orderid},
-                        cache: false,
-                        dataType:'JSON',
-                        success: function (res) {
+                console.log(response);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: '{{route("user.store_shipment_payment")}}',
+                    data: {status:response.status, response:response.response,id:response.response.orderid},
+                    cache: false,
+                    dataType:'JSON',
+                    success: function (res) {
+                        if(res.status=="ok"){
                             $(".form-footer button#nextBtn").trigger("click");
                             //console.log(res)
                             $(".payment-successful b.successOrderNumber").html(res.response.orderid);
-                            $(".form-footer").hide();
-                        },
-                        error: function (res) {
-                            console.log(res)
+                            $(".form-footer button#nextBtn").show();
+                            $(".form-footer button.clickMeForPay").remove();
+                        }else{
+                            $(".form-footer button#nextBtn").hide();
+                            $(".form-footer button.clickMeForPay").show();
                         }
-                    });
-                }
-                console.log(response);
+                    },
+                    error: function (res) {
+                        console.log(res)
+                    }
+                });
             },
             failedHandler: async function(response) {
                 console.log(response);
-
+                $(".form-footer button#nextBtn").hide();
+                $(".form-footer button.clickMeForPay").show();
             },
         };  
-        console.log(options); 
-        $(".form-footer").hide();     
+        console.log(options);     
         const epay=new Epay(options);
         epay.open(options);
     }
     $(document).ready(function(){
         $(".clickMeForPay").on("click",function(e){
             e.preventDefault();
-            const customerId=$(this).attr("data-customerid");
-            const userEmail=$(this).attr("data-user_email");
-            const orderID=$(this).attr("data-orderid");
-            const orderAmount=$(this).attr("data-total");
+            const customerId=$(".clickMeForPayInput").attr("data-customerid");
+            const userEmail=$(".clickMeForPayInput").attr("data-user_email");
+            const orderID=$(".clickMeForPayInput").attr("data-orderid");
+            const orderAmount=$(".clickMeForPayInput").attr("data-total");
             const orderCurrency="USD";
             const orderDescription=customerId+','+userEmail+','+orderID+','+orderAmount+','+orderCurrency;
             paymentOptions(customerId,userEmail,orderID,orderAmount,orderCurrency,orderDescription);
-        });
+        }); 
+
     });
 </script>
 <script>
@@ -710,10 +737,12 @@
             showTab(currentTab); // Display the current tab
             
             function showTab(n) {
+                console.log(n);
                 if (n == 3) {
                     // $('#nextBtn').prop('disabled', true);
-                } 
-                else if (n == 5) {
+                }else if (n == 5) {
+                    $(".form-footer button#nextBtn").hide();
+                    $(".form-footer button.clickMeForPay").show();
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -727,40 +756,40 @@
                         cache: false,
                         processData:false,
                         success: function (res) {
-                            $(".clickMeForPay").attr("data-orderid",res.id);
-                            $(".clickMeForPay").attr("data-user_email",res.user_email);
-                            $(".clickMeForPay").attr("data-customerid",res.client_id);
-                            $(".clickMeForPay").attr("data-shipping_charge",res.shipping_charge);
-                            $(".clickMeForPay").attr("data-tax",res.tax);
-                            $(".clickMeForPay").attr("data-total",res.total);
+                            $(".clickMeForPayInput").attr("data-orderid",res.id);
+                            $(".clickMeForPayInput").attr("data-user_email",res.user_email);
+                            $(".clickMeForPayInput").attr("data-customerid",res.client_id);
+                            $(".clickMeForPayInput").attr("data-shipping_charge",res.shipping_charge);
+                            $(".clickMeForPayInput").attr("data-tax",res.tax);
+                            $(".clickMeForPayInput").attr("data-total",res.total);
                             $('.paymment-right-details').find("td.subtotal").html("$"+res.shipping_charge);
                             $('.paymment-right-details').find("td.tax").html("$"+res.tax);
                             $('.paymment-right-details').find("td b.total").html("$"+res.total);
-                            console.log(res)
+                            console.log(res);
                         },
                         error: function (res) {
                             console.log(res)
                         }
                     });                
-                } else {
+                }else {
                     $('#nextBtn').prop('disabled', false);
                 }
-              // This function will display the specified tab of the form...
-              var x = document.getElementsByClassName("step");
-              x[n].style.display = "block";
-              //... and fix the Previous/Next buttons:
-              if (n == 0) {
+                // This function will display the specified tab of the form...
+                var x = document.getElementsByClassName("step");
+                x[n].style.display = "block";
+                //... and fix the Previous/Next buttons:
+                if (n == 0) {
                 document.getElementById("prevBtn").style.display = "none";
-              } else {
+                } else {
                 document.getElementById("prevBtn").style.display = "inline";
-              }
-              if (n == (x.length - 1)) {
+                }
+                if (n == (x.length - 1)) {
                 document.getElementById("nextBtn").innerHTML = "Submit";
-              } else {
+                } else {
                 document.getElementById("nextBtn").innerHTML = "Continue";
-              }
-              //... and run a function that will display the correct step indicator:
-              fixStepIndicator(n)
+                }
+                //... and run a function that will display the correct step indicator:
+                fixStepIndicator(n);
             }
             
             function nextPrev(n) {
