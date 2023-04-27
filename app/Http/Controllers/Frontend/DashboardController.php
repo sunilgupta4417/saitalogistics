@@ -196,13 +196,11 @@ class DashboardController extends Controller
             $cdrop = 0;
         }
         $backImg = $frontImg = '';
-        if (isset($request->S_idFront))
-            {
-                $picture = $request->S_idFront;
-                $ext      = strtolower($picture->getClientOriginalExtension());
-                $filename = time() . '.' . $ext;
-
-                $dir1 = public_path('/assets/images/profile/' . $filename);
+        if (isset($request->S_idFront)){
+            $picture = $request->S_idFront;
+            $ext      = strtolower($picture->getClientOriginalExtension());
+            $filename = time() . '.' . $ext;
+            $dir1 = public_path('/assets/images/profile/' . $filename);
             $frontImg = $filename;
             // if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp')
             // {
@@ -216,14 +214,14 @@ class DashboardController extends Controller
             // {
             //        $frontImg = '';
             // }
-            }
-            if (isset($request->S_idBack))
-            {
-                $picture = $request->S_idBack;
-                $ext      = strtolower($picture->getClientOriginalExtension());
-                $filename = time() . '.' . $ext;
+        }
+        if (isset($request->S_idBack))
+        {
+            $picture = $request->S_idBack;
+            $ext      = strtolower($picture->getClientOriginalExtension());
+            $filename = time() . '.' . $ext;
 
-                $dir1 = public_path('/assets/images/profile/' . $filename);
+            $dir1 = public_path('/assets/images/profile/' . $filename);
             $backImg = $filename;
             // if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp')
             // {
@@ -237,15 +235,12 @@ class DashboardController extends Controller
             // {
             //        $backImg = '';
             // }
-            }
+        }
         // Available alpha caracters
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         // generate a pin based on 2 * 7 digits + a random character
-        $pin = mt_rand(1000000, 9999999)
-            . mt_rand(1000000, 9999999)
-            . $characters[rand(0, strlen($characters) - 1)];
-
+        $pin = mt_rand(1000000, 9999999).mt_rand(1000000, 9999999).$characters[rand(0, strlen($characters) - 1)];
         // shuffle the result
         $string = str_shuffle($pin);
 
@@ -309,7 +304,32 @@ class DashboardController extends Controller
         $shipment->shipping_charge = $request->shipping_charge;
 
         $shipment->save();
-
-        return response()->json(['id' => $shipment->id]);
+        $responseData=array(
+            'id' => $shipment->id,
+            'user_email' => $shipment->csr_email_id,
+            'client_id' => $shipment->client_id,
+            'shipping_charge' => $shipment->shipping_charge,
+            'tax' =>0,
+            'total' => $shipment->shipping_charge
+        );
+        return response()->json($responseData);
     }
+
+    
+    public function store_shipment_payment(Request $request)
+    {
+        if($request->status=="ok"){
+            PacketBooking::where("id",$request->id)->update(["payment_gateway"=>"payme","payment_status"=>"processing","payment_type"=>"online","payment_response"=>$request->response]);
+        }else{
+            PacketBooking::where("id",$request->id)->update(["payment_gateway"=>"payme","payment_status"=>"pending","payment_type"=>"online","payment_response"=>$request->response]);
+        }
+        $responseData=array(
+            'id' => $request->id,
+            'response' => $request->response
+        );
+        return response()->json($responseData);
+    }
+
+
+    
 }

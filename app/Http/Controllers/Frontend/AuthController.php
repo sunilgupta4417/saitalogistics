@@ -235,7 +235,7 @@ class AuthController extends Controller
   $message = str_replace('{verification_url}', url('user/verify', $user->token), $message);
                      try
                      {
-                    //    $this->email->sendEmail($user->email, $subject, $message);
+                    $this->email->sendEmail($user->email, $subject, $message);
 
                         DB::commit();
                         $this->helper->one_time_message('success', __('We sent you an activation code. Check your email and click on the link to verify.'));

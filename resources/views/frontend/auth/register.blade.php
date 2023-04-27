@@ -16,7 +16,7 @@
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <i class="fa fa-user"></i>
-                                <input type="text" id="name" name="name" placeholder="Jhone Williams" required>
+                                <input type="text" id="name" name="name" placeholder="Name" required>
                             </div>
                             <div class="form-group select-code">
                                 <select name="code" id="select-code" >
@@ -26,7 +26,7 @@
                                     <option value="+94">+94</option>
                                 </select>
                                 <i class="fa fa-mobile"></i>
-                                <input type="text" id="mobile" name="mobile" placeholder="0 Mobile No" required>
+                                <input type="text" id="mobile" name="mobile" placeholder="Mobile No" required>
                             </div>
                             <div class="form-group">
                                 <i class="fa fa-user"></i>

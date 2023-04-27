@@ -1,5 +1,6 @@
 @extends('frontend.layouts.master')
 @section('page_content')
+<?php $userData=auth()->user();?>
 <section id="where-from-page">
         <div class="container">
             <div class="row">
@@ -33,56 +34,56 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Company Or Name*</label>
-                                                <input type="text" name="S_name">
+                                                <input type="text" name="S_name" value="Test">
                                             </div>
                                             <div class="form-group">
                                                 <label>Contact Number*</label>
-                                                <input type="number" name="S_contact">
+                                                <input type="number" name="S_contact" value="<?php echo $userData->mobile_no; ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label>Address*</label>
-                                                <input type="text" name="S_address">
+                                                <input type="text" name="S_address"  value="Test">
                                             </div>
                                             <div class="form-group">
                                                 <label>Apartment / Suite / Unit / Building etc*</label>
-                                                <input type="text" name="S_appartment">
+                                                <input type="text" name="S_appartment"  value="Test">
                                             </div>
                                             <div class="form-group">
                                                 <label>Department, C/D etc</label>
-                                                <input type="text" name="S_department">
+                                                <input type="text" name="S_department"  value="Test">
                                             </div>
                                             <div class="form-group">
                                                 <label>Postcode*</label>
-                                                <input type="number" name="S_pincode">
+                                                <input type="number" name="S_pincode"  value="89898">
                                             </div>
                                             <div class="form-group">
                                                 <label>City*</label>
-                                                <input type="text" name="S_city">
+                                                <input type="text" name="S_city" value="Test">
                                             </div>
                                             <div class="form-group">
                                                 <label>State*</label>
-                                                <input type="text" name="S_state">
+                                                <input type="text" name="S_state" value="Test">
                                             </div>
                                             <div class="form-group">
                                                 <label>Land Mark</label>
-                                                <input type="text" name="S_other">
+                                                <input type="text" name="S_other" value="Test">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>PAN</label>
-                                                <input type="text" name="S_pan">
+                                                <input type="text" name="S_pan" value="Test">
                                             </div>
                                             <div class="form-group">
                                                 <label>GSTIN</label>
-                                                <input type="text" name="S_gstin">
+                                                <input type="text" name="S_gstin" value="Test">
                                             </div>
                                             <div class="form-group">
                                                 <label>IEC</label>
-                                                <input type="text" name="S_iec">
+                                                <input type="text" name="S_iec" value="Test">
                                             </div>
                                             <div class="form-group">
                                                 <label>Aadhaar No</label>
-                                                <input type="text" name="S_aadhaar">
+                                                <input type="text" name="S_aadhaar" value="Test">
                                             </div>
 
                                             <div class="form-group">
@@ -108,18 +109,17 @@
 
                                             <div class="form-group">
                                                 <label>Email Id*</label>
-                                                <input type="text" name="S_email">
+                                                <input type="text" name="S_email" value="<?php echo $userData->email; ?>">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Telephone*</label>
-                                                <input type="text" name="S_phone">
+                                                <input type="text" name="S_phone"  value="<?php echo $userData->mobile_no; ?>">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>KYC Document*</label>
                                                 <select id="select-service" required name="S_idProof">
-                                                    <option></option>
                                                     <option value="aadhar card">Aadhar Card</option>
                                                     <option value="voter id card">Voter Id Card</option>
                                                     <option value="driving licence">Driving Licence</option>
@@ -161,54 +161,54 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Company Or Name*</label>
-                                                <input type="text" name="R_name">
+                                                <input type="text" name="R_name"  value="Test 2">
                                             </div>
                                             <div class="form-group">
                                                 <label>Contact Number*</label>
-                                                <input type="number" name="R_contact">
+                                                <input type="number" name="R_contact"  value="<?php echo $userData->mobile_no; ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label>Address*</label>
-                                                <input type="text" name="R_address">
+                                                <input type="text" name="R_address"  value="Test 2">
                                             </div>
                                             <div class="form-group">
                                                 <label>Apartment / Suite / Unit / Building etc*</label>
-                                                <input type="text" name="R_appartment">
+                                                <input type="text" name="R_appartment"  value="Test 2">
                                             </div>
                                             <div class="form-group">
                                                 <label>Department, C/D etc</label>
-                                                <input type="text" name="R_department">
+                                                <input type="text" name="R_department"  value="Test 2">
                                             </div>
                                             <div class="form-group">
                                                 <label>Postcode*</label>
-                                                <input type="number" name="R_pincode">
+                                                <input type="number" name="R_pincode"  value="545454">
                                             </div>
                                             <div class="form-group">
                                                 <label>City*</label>
-                                                 <input type="text" name="R_city">
+                                                 <input type="text" name="R_city"   value="Test 2">
                                             </div>
                                             <div class="form-group">
                                                 <label>State*</label>
-                                                 <input type="text" name="R_state">
+                                                 <input type="text" name="R_state"  value="Test 2">
                                             </div>
                                             <div class="form-group">
                                                 <label>Landmark</label>
-                                                <input type="text" name="R_other">
+                                                <input type="text" name="R_other"  value="Test 2">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Email Id*</label>
-                                                <input type="text" name="R_email">
+                                                <input type="text" name="R_email"  value="<?php echo $userData->email; ?>">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Telephone*</label>
-                                                <input type="text" name="R_phone">
+                                                <input type="text" name="R_phone"  value="<?php echo $userData->mobile_no; ?>">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>TAN Number</label>
-                                                <input type="text" name="R_tan">
+                                                <input type="text" name="R_tan"  value="Test 2">
                                             </div>
                                         </div>
                                     </div>
@@ -271,7 +271,6 @@
                                                 <div class="form-group">
                                                 <label>Packet type</label>
                                                 <select id="select-service" name="package_type" required>
-                                                    <option></option>
                                                     <option value="Envelope">Envelope</option>
                                                     <option value="Documents">Documents</option>
                                                     <option value="Non-Documents">Non Documents</option>
@@ -279,23 +278,23 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Weight KG</label>
-                                                    <input type="text" name="weight">
+                                                    <input type="text" name="weight"  value="0.3">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Length CM</label>
-                                                    <input type="text" name="length">
+                                                    <input type="text" name="length"  value="0.3">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Width CM</label>
-                                                    <input type="text" name="width">
+                                                    <input type="text" name="width"  value="0.3">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Height CM</label>
-                                                    <input type="text" name="height">
+                                                    <input type="text" name="height"  value="0.3">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Declared value $</label>
-                                                    <input type="text" name="dvalue">
+                                                    <input type="text" name="dvalue"  value="1000">
                                                 </div>
                                                 {{--<div class="form-group">
                                                     <label>Item type</label>
@@ -422,7 +421,7 @@
                                                 <h3 class="mb-4">Who Would You Like To Pay?</h3>
                                             </div>
                                             <div class="where-boxing">
-                                                <div class="form-group">
+                                                <?php /*<div class="form-group">
                                                     <label>Payment type</label>
                                                     <select id="select-service" name="payment_gateway" class="">
                                                         <option></option>
@@ -446,6 +445,9 @@
                                                 <div class="form-group">
                                                     <label>CVV</label>
                                                     <input type="text" name="CVV">
+                                                </div>*/?>
+                                                <div class="form-group">
+                                                    <button class="clickMeForPay" data-orderid="0"  data-user_email="test@gmail.com"  data-customerid="0"  data-shipping_charge="0" data-tax="0" data-total="0">Pay By PayMe</button>
                                                 </div>
                                             </div>
                                             <div class="paymment-right-details">
@@ -457,16 +459,16 @@
                                                           <td><b>Amount</b></td>
                                                         </tr>
                                                         <tr>
-                                                          <td>Total (2 Items)</td>
-                                                          <td>$22.22</td>
+                                                          <td>Subtotal</td>
+                                                          <td class="subtotal">$0.00</td>
                                                         </tr>
                                                         <tr>
                                                           <td>Tax & Duties</td>
-                                                          <td>$5.13</td>
+                                                          <td class="tax">$0.00</td>
                                                         </tr>
                                                         <tr>
                                                           <td><b>Payable Amount</b></td>
-                                                          <td><b>$ 27.53</b></td>
+                                                          <td><b class="total">$0.00</b></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -486,7 +488,7 @@
                                             <div class="payment-successful">
                                                 <img src="assets/images/successful.svg" alt="" class="img-responsive">
                                                 <h3>Payment Successful</h3>
-                                                <p>Your shipment has been successfully added Track with your Waybill No. <b>3456789098</b></p>
+                                                <p>Your shipment has been successfully added Track with your order No. <b class="successOrderNumber">3456789098</b></p>
                                             </div>
                                             <div class="payment-btns">
                                                 <a href="#" class="down-btn">Download Invoice</a>
@@ -610,7 +612,70 @@
 @section('extra_body_scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://epay.me/sdk/v2/stage-websdk.js"></script>
+<script>   
+    function paymentOptions(customerId,userEmail,orderID,orderAmount,orderCurrency,orderDescription){
+        const options = {
+            channelId: "WEB",
+            merchantType: "ECOMMS",
+            merchantId:"6447cf5a37cd07f8a9a59435",
+            customerId:customerId,
+            orderID:orderID,
+            orderDescription:orderDescription,
+            orderAmount:orderAmount,
+            userEmail:userEmail,
+            merchantLogo:"https://epay.me/assets/images/logo.png",
+            showSavedCardFeature:true,
+            orderCurrency:orderCurrency,
+            successHandler: async function(response) {
+                if(response.status=="ok"){
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        type: 'post',
+                        url: '{{route("user.store_shipment_payment")}}',
+                        data: {status:response.status, response:response.response,id:response.response.orderid},
+                        cache: false,
+                        dataType:'JSON',
+                        success: function (res) {
+                            $(".form-footer button#nextBtn").trigger("click");
+                            //console.log(res)
+                            $(".payment-successful b.successOrderNumber").html(res.response.orderid);
+                            $(".form-footer").hide();
+                        },
+                        error: function (res) {
+                            console.log(res)
+                        }
+                    });
+                }
+                console.log(response);
+            },
+            failedHandler: async function(response) {
+                console.log(response);
 
+            },
+        };  
+        console.log(options); 
+        $(".form-footer").hide();     
+        const epay=new Epay(options);
+        epay.open(options);
+    }
+    $(document).ready(function(){
+        $(".clickMeForPay").on("click",function(e){
+            e.preventDefault();
+            const customerId=$(this).attr("data-customerid");
+            const userEmail=$(this).attr("data-user_email");
+            const orderID=$(this).attr("data-orderid");
+            const orderAmount=$(this).attr("data-total");
+            const orderCurrency="USD";
+            const orderDescription=customerId+','+userEmail+','+orderID+','+orderAmount+','+orderCurrency;
+            paymentOptions(customerId,userEmail,orderID,orderAmount,orderCurrency,orderDescription);
+        });
+    });
+</script>
 <script>
     $('input').keyup(function(){
         // console.log($("input[name=dropPickup]:checked").val());
@@ -662,7 +727,15 @@
                         cache: false,
                         processData:false,
                         success: function (res) {
-                            alert('inserted recored id '+res.id)
+                            $(".clickMeForPay").attr("data-orderid",res.id);
+                            $(".clickMeForPay").attr("data-user_email",res.user_email);
+                            $(".clickMeForPay").attr("data-customerid",res.client_id);
+                            $(".clickMeForPay").attr("data-shipping_charge",res.shipping_charge);
+                            $(".clickMeForPay").attr("data-tax",res.tax);
+                            $(".clickMeForPay").attr("data-total",res.total);
+                            $('.paymment-right-details').find("td.subtotal").html("$"+res.shipping_charge);
+                            $('.paymment-right-details').find("td.tax").html("$"+res.tax);
+                            $('.paymment-right-details').find("td b.total").html("$"+res.total);
                             console.log(res)
                         },
                         error: function (res) {
@@ -694,7 +767,7 @@
                 // This function will figure out which tab to display
                 var x = document.getElementsByClassName("step");
                 // Exit the function if any field in the current tab is invalid:
-                // if (n == 1 && !validateForm()) return false;
+                if (n == 1 && !validateForm()) return false;
                 // Hide the current tab:
                 x[currentTab].style.display = "none";
                 // Increase or decrease the current tab by 1:

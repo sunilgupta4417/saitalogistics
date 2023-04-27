@@ -51,7 +51,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['user']], function () {
     Route::get('/shipment/create', [DashboardController::class, 'create_shipment'])->name('user.create_shipment');
     Route::post('/shipment/store', [DashboardController::class, 'store_shipment'])->name('user.store_shipment');
     Route::get('/shipping/success', [DashboardController::class, 'shipping_success'])->name('user.shipping.success');
-
+    Route::post('/shipment/payment', [DashboardController::class, 'store_shipment_payment'])->name('user.store_shipment_payment');
+    
 });
 Route::post('/shipping/get-rates', [ShippingController::class, 'getRates']);
 Route::get('/token', [ShippingController::class, 'getRates']);
@@ -62,7 +63,7 @@ Route::get('/token', [ShippingController::class, 'getRates']);
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 
     Route::resource('user', userController::class);
     Route::get('user/unlink/{id}/{image}', [userController::class, 'unlink']);
