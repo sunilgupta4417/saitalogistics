@@ -629,39 +629,42 @@
             showSavedCardFeature:true,
             orderCurrency:orderCurrency,
             successHandler: async function(response) {
-                if(response.status=="ok"){
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                    $.ajax({
-                        type: 'post',
-                        url: '{{route("user.store_shipment_payment")}}',
-                        data: {status:response.status, response:response.response,id:response.response.orderid},
-                        cache: false,
-                        dataType:'JSON',
-                        success: function (res) {
+                console.log(response);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: '{{route("user.store_shipment_payment")}}',
+                    data: {status:response.status, response:response.response,id:response.response.orderid},
+                    cache: false,
+                    dataType:'JSON',
+                    success: function (res) {
+                        if(res.status=="ok"){
                             $(".form-footer button#nextBtn").trigger("click");
                             //console.log(res)
                             $(".payment-successful b.successOrderNumber").html(res.response.orderid);
                             $(".form-footer button#nextBtn").show();
                             $(".form-footer button.clickMeForPay").remove();
-                        },
-                        error: function (res) {
-                            console.log(res)
+                        }else{
+                            $(".form-footer button#nextBtn").hide();
+                            $(".form-footer button.clickMeForPay").show();
                         }
-                    });
-                }
-                console.log(response);
+                    },
+                    error: function (res) {
+                        console.log(res)
+                    }
+                });
             },
             failedHandler: async function(response) {
                 console.log(response);
-
+                $(".form-footer button#nextBtn").hide();
+                $(".form-footer button.clickMeForPay").show();
             },
         };  
-        console.log(options); 
-        $(".form-footer").hide();     
+        console.log(options);     
         const epay=new Epay(options);
         epay.open(options);
     }
