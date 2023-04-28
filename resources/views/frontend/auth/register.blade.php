@@ -42,7 +42,7 @@
                             </div>
                             <div class="form-group agreed-text">
                                 <label class="container">
-                                    <p>I have agreed to <b>Terms & conditions</b> and <b>Privacy Policy</b></p>
+                                    <p>I have agreed to <b><a href="{{ url('terms-condition') }}">Terms & conditions</a></b> and<a href="{{ url('privacy-policy') }}">  <b>Privacy Policy</b></a></p>
                                     <input type="radio" name="privacy" required >
                                     <span class="checkmark"></span>
                                 </label>
