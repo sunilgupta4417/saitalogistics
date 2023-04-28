@@ -42,7 +42,7 @@
                             </div>
                             <div class="form-group select-code">
                                 <select name="phn_code" id="select-code">
-                                    <option value="+011" <?php echo ($user->phn_code=="+011")?"selected='selected'":"";?>>+011</option>
+                                    <option value="+91" <?php echo ($user->phn_code=="+91")?"selected='selected'":"";?>>+91</option>
                                     <option value="+92" <?php echo ($user->phn_code=="+92")?"selected='selected'":"";?>>+92</option>
                                     <option value="+93" <?php echo ($user->phn_code=="+93")?"selected='selected'":"";?>>+93</option>
                                     <option value="+94" <?php echo ($user->phn_code=="+94")?"selected='selected'":"";?>>+94</option>
