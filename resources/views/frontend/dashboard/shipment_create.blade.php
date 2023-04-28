@@ -34,56 +34,56 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Company Or Name*</label>
-                                                <input type="text" name="S_name" value="Test">
+                                                <input type="text" name="S_name" value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>Contact Number*</label>
-                                                <input type="number" name="S_contact" value="<?php echo $userData->mobile_no; ?>">
+                                                <input type="number" name="S_contact" value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>Address*</label>
-                                                <input type="text" name="S_address"  value="Test">
+                                                <input type="text" name="S_address"  value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>Apartment / Suite / Unit / Building etc*</label>
-                                                <input type="text" name="S_appartment"  value="Test">
+                                                <input type="text" name="S_appartment"  value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>Department, C/D etc</label>
-                                                <input type="text" name="S_department"  value="Test">
+                                                <input type="text" name="S_department"  value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>Postcode*</label>
-                                                <input type="number" name="S_pincode"  value="89898">
+                                                <input type="number" name="S_pincode"  value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>City*</label>
-                                                <input type="text" name="S_city" value="Test">
+                                                <input type="text" name="S_city" value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>State*</label>
-                                                <input type="text" name="S_state" value="Test">
+                                                <input type="text" name="S_state" value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>Land Mark</label>
-                                                <input type="text" name="S_other" value="Test">
+                                                <input type="text" name="S_other" value="">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>PAN</label>
-                                                <input type="text" name="S_pan" value="Test">
+                                                <input type="text" name="S_pan" value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>GSTIN</label>
-                                                <input type="text" name="S_gstin" value="Test">
+                                                <input type="text" name="S_gstin" value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>IEC</label>
-                                                <input type="text" name="S_iec" value="Test">
+                                                <input type="text" name="S_iec" value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>Aadhaar No</label>
-                                                <input type="text" name="S_aadhaar" value="Test">
+                                                <input type="text" name="S_aadhaar" value="">
                                             </div>
 
                                             <div class="form-group">
@@ -109,12 +109,12 @@
 
                                             <div class="form-group">
                                                 <label>Email Id*</label>
-                                                <input type="text" name="S_email" value="<?php echo $userData->email; ?>">
+                                                <input type="text" name="S_email" value="">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Telephone*</label>
-                                                <input type="text" name="S_phone"  value="<?php echo $userData->mobile_no; ?>">
+                                                <input type="text" name="S_phone"  value="">
                                             </div>
 
                                             <div class="form-group">
@@ -161,54 +161,54 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Company Or Name*</label>
-                                                <input type="text" name="R_name"  value="Test 2">
+                                                <input type="text" name="R_name"  value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>Contact Number*</label>
-                                                <input type="number" name="R_contact"  value="<?php echo $userData->mobile_no; ?>">
+                                                <input type="number" name="R_contact"  value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>Address*</label>
-                                                <input type="text" name="R_address"  value="Test 2">
+                                                <input type="text" name="R_address"  value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>Apartment / Suite / Unit / Building etc*</label>
-                                                <input type="text" name="R_appartment"  value="Test 2">
+                                                <input type="text" name="R_appartment"  value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>Department, C/D etc</label>
-                                                <input type="text" name="R_department"  value="Test 2">
+                                                <input type="text" name="R_department"  value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>Postcode*</label>
-                                                <input type="number" name="R_pincode"  value="545454">
+                                                <input type="number" name="R_pincode"  value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>City*</label>
-                                                 <input type="text" name="R_city"   value="Test 2">
+                                                 <input type="text" name="R_city"   value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>State*</label>
-                                                 <input type="text" name="R_state"  value="Test 2">
+                                                 <input type="text" name="R_state"  value="">
                                             </div>
                                             <div class="form-group">
                                                 <label>Landmark</label>
-                                                <input type="text" name="R_other"  value="Test 2">
+                                                <input type="text" name="R_other"  value="">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Email Id*</label>
-                                                <input type="text" name="R_email"  value="<?php echo $userData->email; ?>">
+                                                <input type="text" name="R_email"  value="">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Telephone*</label>
-                                                <input type="text" name="R_phone"  value="<?php echo $userData->mobile_no; ?>">
+                                                <input type="text" name="R_phone"  value="">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>TAN Number</label>
-                                                <input type="text" name="R_tan"  value="Test 2">
+                                                <input type="text" name="R_tan"  value="">
                                             </div>
                                         </div>
                                     </div>
@@ -278,23 +278,23 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Weight KG</label>
-                                                    <input type="text" name="weight"  value="0.3">
+                                                    <input type="text" name="weight"  value="">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Length CM</label>
-                                                    <input type="text" name="length"  value="0.3">
+                                                    <input type="text" name="length"  value="">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Width CM</label>
-                                                    <input type="text" name="width"  value="0.3">
+                                                    <input type="text" name="width"  value="">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Height CM</label>
-                                                    <input type="text" name="height"  value="0.3">
+                                                    <input type="text" name="height"  value="">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Declared value $</label>
-                                                    <input type="text" name="dvalue"  value="1000">
+                                                    <input type="text" name="dvalue"  value="">
                                                 </div>
                                                 {{--<div class="form-group">
                                                     <label>Item type</label>
@@ -628,40 +628,46 @@
             showSavedCardFeature:true,
             orderCurrency:orderCurrency,
             successHandler: async function(response) {
-                if(response.status=="ok"){
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                    $.ajax({
-                        type: 'post',
-                        url: '{{route("user.store_shipment_payment")}}',
-                        data: {status:response.status, response:response.response,id:response.response.orderid},
-                        cache: false,
-                        dataType:'JSON',
-                        success: function (res) {
-                            $(".form-footer button#nextBtn").trigger("click");
-                            //console.log(res)
-                            $(".payment-successful b.successOrderNumber").html(res.response.orderid);
-                            $(".form-footer").hide();
-                        },
-                        error: function (res) {
-                            console.log(res)
-                        }
-                    });
-                }
                 console.log(response);
+                afterPaymentAction(response,true);  
+                $(".form-footer").hide();              
             },
             failedHandler: async function(response) {
                 console.log(response);
-
+                afterPaymentAction(response,false);
             },
-        };  
-        console.log(options); 
-        $(".form-footer").hide();     
+        };     
         const epay=new Epay(options);
         epay.open(options);
+    }
+    function afterPaymentAction(response,type=true){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'post',
+            url: '{{route("user.store_shipment_payment")}}',
+            data: {status:response.status, response:response.response,id:response.response.orderid},
+            cache: false,
+            dataType:'JSON',
+            success: function (res) {
+                if((res.status=="ok") && (type==true)){
+                    $(".form-footer button#nextBtn").trigger("click");
+                    //console.log(res)
+                    $(".payment-successful b.successOrderNumber").html(res.response.orderid);
+                    $(".form-footer button#nextBtn").show();
+                    $(".form-footer button.clickMeForPay").remove();
+                }else{
+                    $(".form-footer button#nextBtn").hide();
+                    $(".form-footer button.clickMeForPay").show();
+                }
+            },
+            error: function (res) {
+                console.log(res)
+            }
+        });
     }
     $(document).ready(function(){
         $(".clickMeForPay").on("click",function(e){

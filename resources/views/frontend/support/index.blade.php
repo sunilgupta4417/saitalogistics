@@ -13,38 +13,38 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <input type="text" class="form-control" placeholder="Enter name here">
+                                                <label for="name">Name*</label>
+                                                <input type="text" class="form-control" placeholder="Enter name here" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <label for="phoneno">Phone No.</label>
-                                                <input type="text" class="form-control" placeholder="Enter phone no. here">
+                                                <label for="phoneno">Phone No.*</label>
+                                                <input type="number" class="form-control" placeholder="Enter phone no. here" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input type="text" class="form-control" placeholder="Organization Email Address">
+                                                <label for="email">Email*</label>
+                                                <input type="email" class="form-control" placeholder="Organization Email Address" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <label for="Company">Company</label>
-                                                <input type="text" class="form-control" placeholder="Organization name">
+                                                <label for="Company">Company*</label>
+                                                <input type="text" class="form-control" placeholder="Organization name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12">
                                             <div class="form-group">
                                                 <label for="message">Message</label>
-                                                <textarea type="text" class="form-control" placeholder="Explain your project here"></textarea>
+                                                <textarea type="text" class="form-control" placeholder="Explain your project here" required></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12">
                                             <div class="contact-btn">
                                                 <button type="submit" class="btn btn-default">Submit
-                                                    Details</button>
+                                                    </button>
                                             </div>
                                         </div>
                                     </div>

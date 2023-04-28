@@ -298,10 +298,10 @@ class DashboardController extends Controller
 
     public function store_shipment_payment(Request $request)
     {
-        if ($request->status == "ok") {
-            PacketBooking::where("id", $request->id)->update(["payment_gateway" => "payme", "payment_status" => "processing", "payment_type" => "online", "payment_response" => $request->response]);
-        } else {
-            PacketBooking::where("id", $request->id)->update(["payment_gateway" => "payme", "payment_status" => "pending", "payment_type" => "online", "payment_response" => $request->response]);
+        if(($request->status=="ok") && ($request->response["transt"]=="completed")){
+            PacketBooking::where("id",$request->id)->update(["payment_gateway"=>"payme","payment_status"=>"success","payment_type"=>"online","payment_response"=>$request->response]);
+        }else{
+            PacketBooking::where("id",$request->id)->update(["payment_gateway"=>"payme","payment_status"=>"failed","payment_type"=>"online","payment_response"=>$request->response]);
         }
         $responseData = array(
             'id' => $request->id,

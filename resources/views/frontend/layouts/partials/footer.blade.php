@@ -38,27 +38,31 @@
       <div class="footer-btm">
             <div class="container">
                   <div class="row">
-                        <div class="col-lg-6 col-md-8">
+                        <div class="col-lg-6 col-md-6">
                               <div class="copyright">
-                                    <p>Copyright © Saitama Technology LLC, Dubai (UAE). All rights reserved.</p>
+                                    <p>Copyright Saitama Technology LLC, Dubai (UAE). All rights reserved.</p>
                               </div>
                         </div>
-                        <div class="col-lg-6 col-md-4">
+                        <div class="col-lg-2 col-md-2"><a href="#"><img src="{{asset('assets/images/social-icon/saitama.png')}}" alt="" class="img-responsive"></a></div>
+                        <div class="col-lg-4 col-md-4">
                               <ul class="list-inline footer-socials text-lg-right mb-0">
                           <li class="list-inline-item">
                               <a href="#"><img src="{{asset('assets/images/social-icon/facebook.svg')}}" alt="" class="img-responsive"></a>
                           </li>
                           <li class="list-inline-item">
-                              <a href="#"><img src="{{asset('assets/images/social-icon/twitter.svg')}}" alt="" class="img-responsive"></a>
+                              <a href="https://twitter.com/SaitaLogistics" target="_blank"><img src="{{asset('assets/images/social-icon/twitter.svg')}}" alt="" class="img-responsive"></a>
                           </li>
                           <li class="list-inline-item">
-                              <a href="#"><img src="{{asset('assets/images/social-icon/instagram.svg')}}" alt="" class="img-responsive"></a>
+                              <a href="https://www.instagram.com/explore/tags/saitalogistics" target="_blank"><img src="{{asset('assets/images/social-icon/instagram.svg')}}" alt="" class="img-responsive"></a>
                           </li>
                           <li class="list-inline-item">
-                              <a href="#"><img src="{{asset('assets/images/social-icon/globe.svg')}}" alt="" class="img-responsive"></a>
+                              <a href="https://t.me/saitalogistics" target="_blank"><img src="{{asset('assets/images/social-icon/telegram.svg')}}" alt="" class="img-responsive"></a>
                           </li>
                           <li class="list-inline-item">
-                              <a href="#"><img src="{{asset('assets/images/social-icon/be.svg')}}" alt="" class="img-responsive"></a>
+                              <a href="https://www.reddit.com/r/SaitaLogistics" target="_blank"><img src="{{asset('assets/images/social-icon/reddit.svg')}}" alt="" class="img-responsive"></a>
+                          </li>
+                          <li class="list-inline-item">
+                              <a href="https://www.youtube.com/watch?v=FuMHgghmOvw" target="_blank"><img src="{{asset('assets/images/social-icon/youtube.svg')}}" alt="" class="img-responsive"></a>
                           </li>
                       </ul>
                         </div>
