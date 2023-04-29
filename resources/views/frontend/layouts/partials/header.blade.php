@@ -40,7 +40,14 @@
                         </li> 
                         @if(Auth::check() && Auth::user()->role_id == 0 ) 
                         <li class="list-inline-item nav-item dropdown" id="head-icons">
-                            <a href="signup.html" class="nav-link dropdown-toggle" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}} <img src="{{asset('assets/images/user2.png')}}" alt=""><i class="fa fa-caret-down"></i></a>
+                            <a href="#" class="nav-link dropdown-toggle" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}} 
+                                {{-- <img src="{{asset('assets/images/user2.png')}}" alt=""> --}}
+                                @if($user->profile_pic==NULL)
+                                    <img src="{{asset('assets/images/user2.png')}}" alt="">
+                                @else
+                                    <img src="{{asset('assets/images/profile/'.$user->profile_pic.'')}}" alt="" class="img-responsive" style="border-radius:50%" height="35" width="35">
+                                @endif
+                                <i class="fa fa-caret-down"></i></a>
                             <div class="dropdown-menu" aria-labelledby="navbar3">
                                  <a class="dropdown-item" href="{{ url('user/dashboard') }}">
                                     My Profile

@@ -23,7 +23,6 @@
                            <th>Date</th>
                            <th>Amount</th>
                            <th>Gateway</th>
-                           <th>Tokens</th>
                            <th>Status</th>
                            <th>View</th>
                         </tr>
@@ -32,18 +31,16 @@
                         <tr>
                            <td>202303050547057000000000</td>
                            <td>2023-03-05T05:47:00.000Z</td>
-                           <td>200.00</td>
-                           <td>PayBaba</td>
-                           <td>57142.85714</td>
-                           <td><b>Pending</b></td>
+                           <td>$ 200.00</td>
+                           <td>Epay</td>
+                           <td><b>Success</b></td>
                            <td class="view-btn"> <a href="view-transactions.html">View Details</a></td>
                         </tr>
                         <tr>
                            <td>202303050547057000000000</td>
                            <td>2023-03-05T05:47:00.000Z</td>
-                           <td>200.00</td>
-                           <td>PayBaba</td>
-                           <td>57142.85714</td>
+                           <td>$ 200.00</td>
+                           <td>Smart Contract</td>
                            <td><b>Pending</b></td>
                            <td class="view-btn"> <a href="view-transactions.html">View Details</a></td>
                         </tr>
