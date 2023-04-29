@@ -85,7 +85,7 @@ h6 a:hover {
 }
 
 a {
-  transition: all 0.45s ease |linear;
+  transition: all 0.45s ease linear;
 }
 
 p {
@@ -2661,7 +2661,7 @@ iframe#youtubevideo {
 .signUpForm .form-footer button:hover {
   opacity: 0.8;
 }
-.signUpForm .form-footer #prevBtn {
+/*.signUpForm .form-footer #prevBtn {
     background-color: #fff;
     color: #000;
     float: left;
@@ -2672,7 +2672,7 @@ iframe#youtubevideo {
 }
 .signUpForm .form-footer #prevBtn img {
     margin-right: 10px;
-}
+}*/
 .maining-heading {
     width: 100%;
     display: block;

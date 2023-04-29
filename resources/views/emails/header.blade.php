@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{{ $subject }}</title>
+        <title>SaitaLogistics</title>
     </head>
     <body>

@@ -26,7 +26,7 @@
                                     <div class="row">
                                         <div class="inter-form">
                                             <div class="maining-heading">
-                                                <h3 class="mb-4">Where Are You Shipment Form?</h3>
+                                                <h3 class="mb-4">Where Are You Shipment Origin?</h3>
                                             </div>
                                             <div class="form-group">
                                                 <label>Country*</label>
@@ -114,7 +114,7 @@
 
                                             <div class="form-group">
                                                 <label>Telephone*</label>
-                                                <input type="text" name="S_phone"  value="">
+                                                <input type="number" name="S_phone"  value="">
                                             </div>
 
                                             <div class="form-group">
@@ -148,15 +148,15 @@
                                     <div class="row">
                                         <div class="inter-form">
                                             <div class="maining-heading">
-                                                <h3 class="mb-4">Where Is Your Shipping Going?</h3>
+                                                <h3 class="mb-4">Where Is Your Shipping Destination?</h3>
                                             </div>
                                             <div class="form-group">
                                                 <label>Country*</label>
                                                 <select id="select-service" required name="R_country">
                                                 <option label="Select a country ... " selected="selected" disabled>Select a country ... </option>  
                                                     @foreach($country as $coun)
-                                                    <option value="{{$coun->id}}">{{$coun->country}}</option>
-                                                @endforeach
+                                                        <option value="{{$coun->id}}">{{$coun->country}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -203,7 +203,7 @@
 
                                             <div class="form-group">
                                                 <label>Telephone*</label>
-                                                <input type="text" name="R_phone"  value="">
+                                                <input type="number" name="R_phone"  value="">
                                             </div>
 
                                             <div class="form-group">
@@ -243,17 +243,17 @@
                                                 <input  type="datetime-local" name="date">
                                             </div>
                                             <div id="div1" class="">
-                                            <div class="pickup-details">
-                                                <div class="pickup-details-iner">
-                                                <h3>Pickup Address</h3>
-                                                <div class="maing-address">
-                                                    <h4 id="pickup_from_name">Tayla Dhyll</h4>
-                                                    <p id="pickup_from_address">Unit 222, Rosden House 372 Old St, London, Greater London EC1 9AU, GB</p>
-                                                    <b id="pickup_from_number">+15678987645</b>
-                                                    <div class="pickup-details-link">
-                                                        <a href="javascript:void(0);" class="edit_frm_ad_btn">Edit</a>
-                                                    </div>
-                                                </div>
+                                                <div class="pickup-details">
+                                                    <div class="pickup-details-iner">
+                                                        <h3>Pickup Address</h3>
+                                                        <div class="maing-address">
+                                                            <h4 id="pickup_from_name">xxxxx</h4>
+                                                            <p id="pickup_from_address">xxxxxxx</p>
+                                                            <b id="pickup_from_number">+xxxxxx</b>
+                                                            <div class="pickup-details-link">
+                                                                <a href="javascript:void(0);" class="edit_frm_ad_btn">Edit</a>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -322,52 +322,60 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="maining-heading">
-                                                    <h3 class="mb-4">Where From</h3>
+                                                    <h3 class="mb-4">Origin/Pickup</h3>
                                                     <a href="javascript:void(0);" class="edit-clss edit_frm_ad_btn">Edit</a>
                                                 </div>
                                                 <div class="maing-address">
-                                                    <h4 id="from_name">Tayla Dhyll</h4>
-                                                    <p id="from_address">Unit 222, Rosden House 372 Old St, London, Greater London EC1 9AU, GB</p>
-                                                    <b id="from_number">+15678987645</b>
+                                                    <h4 id="from_name">xxxxx</h4>
+                                                    <p id="from_address">xxxxx</p>
+                                                    <b id="from_number">+xxxxx</b>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="maining-heading">
-                                                    <h3 class="mb-4">Where Going</h3>
+                                                    <h3 class="mb-4">Destination</h3>
                                                     <a href="javascript:void(0);" class="edit-clss edit_go_ad_btn">Edit</a>
                                                 </div>
                                                 <div class="maing-address">
-                                                    <h4 id="to_name">Tayla Dhyll</h4>
-                                                    <p id="to_address">Unit 222, Rosden House 372 Old St, London, Greater London EC1 9AU, GB</p>
-                                                    <b id="to_number">+15678987645</b>
+                                                    <h4 id="to_name">xxxxx</h4>
+                                                    <p id="to_address">xxxxxx</p>
+                                                    <b id="to_number">+xxxxxx</b>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="what-details">
                                                     <div class="what-detail-iner">
                                                         <h3>What</h3>
-                                                        <a href="#" class="edit-clss">Edit</a>
+                                                        <?php /*<a href="#" class="edit-clss">Edit</a>*/ ?>
                                                         <table style="width: 50%;">
                                                             <tbody>
                                                                 <tr>
+                                                                  <td>Packet Type</td>
+                                                                  <td id="packetType">xxxx</td>
+                                                                </tr>
+                                                                <tr>
                                                                   <td>Weight</td>
-                                                                  <td id="weight">8.1 Lbs/3.67 Kgs</td>
+                                                                  <td id="weight">xxxx</td>
                                                                 </tr>
                                                                 <tr>
                                                                   <td>Dimensions</td>
-                                                                  <td id="dimensions">17X12X4 In.</td>
-                                                                </tr>
-                                                                <tr>
-                                                                  <td>Total Pieces</td>
-                                                                  <td>1</td>
+                                                                  <td id="dimensions">xxxx</td>
                                                                 </tr>
                                                                 <tr>
                                                                   <td>Total Shipment Weight</td>
-                                                                  <td id="total_shipment_weight">8.1 Lbs/3.67 Kgs</td>
+                                                                  <td id="total_shipment_weight">xxxx</td>
                                                                 </tr>
                                                                 <tr>
                                                                   <td>Packaging</td>
-                                                                  <td id="packaging">Your Packaging</td>
+                                                                  <td id="packaging">xxxxx</td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td>Declared Value</td>
+                                                                  <td id="declaredvalue">xxxxx</td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td>Shipping Charge</td>
+                                                                  <td id="shippingCharge">xxxxx</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -378,16 +386,15 @@
                                                 <div class="what-details">
                                                     <div class="what-detail-iner">
                                                         <h3>How</h3>
-                                                        <a href="#" class="edit-clss">Edit</a>
                                                         <table>
                                                             <tbody>
                                                                 <tr>
                                                                   <td>Type selected</td>
-                                                                  <td id="ship_type">I will drop it off</td>
+                                                                  <td id="ship_type">xxxxx</td>
                                                                 </tr>
                                                                 <tr>
                                                                   <td>Drop date</td>
-                                                                  <td id="shipment_date">22 Feb 2023</td>
+                                                                  <td id="shipment_date">xx xx xxxx</td>
                                                                 </tr>
                                                                 <!-- <tr>
                                                                   <td>Drop address</td>
@@ -402,7 +409,7 @@
                                                 <div class="what-details">
                                                     <div class="agreed-text not-boarding">
                                                         <label class="container">
-                                                            <p style="font-size:14px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley.</p>
+                                                            <p style="font-size:14px;">xxxxxx</p>
                                                             <input type="radio" name="radio">
                                                             <span class="checkmark"></span>
                                                         </label>
@@ -447,7 +454,7 @@
                                                     <input type="text" name="CVV">
                                                 </div>*/?>
                                                 <div class="form-group">
-                                                    <button class="clickMeForPay" data-orderid="0"  data-user_email="test@gmail.com"  data-customerid="0"  data-shipping_charge="0" data-tax="0" data-total="0">Pay By PayMe</button>
+                                                    <input type="radio" checked="checked" class="clickMeForPayInput" data-orderid="0"  data-user_email="test@gmail.com"  data-customerid="0"  data-shipping_charge="0" data-tax="0" data-total="0">Epay
                                                 </div>
                                             </div>
                                             <div class="paymment-right-details">
@@ -488,11 +495,7 @@
                                             <div class="payment-successful">
                                                 <img src="assets/images/successful.svg" alt="" class="img-responsive">
                                                 <h3>Payment Successful</h3>
-                                                <p>Your shipment has been successfully added Track with your order No. <b class="successOrderNumber">3456789098</b></p>
-                                            </div>
-                                            <div class="payment-btns">
-                                                <a href="#" class="down-btn">Download Invoice</a>
-                                                <a href="#" class="done-btn">Done</a>
+                                                <p>Your shipment has been successfully added Track with your order No. <b class="successOrderNumber">xxxxx</b></p>
                                             </div>
                                         </div>
                                     </div>
@@ -500,21 +503,19 @@
                                 
                                 <!-- start previous / next buttons -->
                                 <div class="form-footer">
-                                    <button type="button" id="prevBtn" onclick="nextPrev(-1)"><img src="assets/images/back-btn.svg" alt="" class="img-responsive"> Back</button>
-                                    <button type="button" id="cencalBtn">Cancel</button>
+                                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Back</button>
+                                    <?php /*<button type="button" id="cencalBtn">Cancel</button>*/?>
                                     <button type="button" id="nextBtn" onclick="nextPrev(1)">Continue</button>
+                                    <button type="button" class="clickMeForPay" style="display:none;">Pay By Epay</button>
                                 </div>
                               <!-- end previous / next buttons -->
                             </form>
-                    </div>
-                </div>
             </div>
-        </div>
         <div class="modal fade" id="update_from_address_modal" role="dialog" >
             <div class="modal-dialog modal-lg vertical-align-center" style="margin-top: 80px;">
               <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Update Shipping From Address</h4>
+                    <h4 class="modal-title">Update Shipping Origin Address</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body ">
@@ -653,11 +654,11 @@
             cache: false,
             dataType:'JSON',
             success: function (res) {
-                if((res.status=="ok") && (type==true)){
+                if((res.status=="ok") && (res.response.transt=="completed")){
                     $(".form-footer button#nextBtn").trigger("click");
                     //console.log(res)
                     $(".payment-successful b.successOrderNumber").html(res.response.orderid);
-                    $(".form-footer button#nextBtn").show();
+                    $(".form-footer button#nextBtn").hide();
                     $(".form-footer button.clickMeForPay").remove();
                 }else{
                     $(".form-footer button#nextBtn").hide();
@@ -700,186 +701,190 @@
         $('#packaging').html($("input[name=item_type]").val());
         $('#ship_type').html($("input[name=dropPickup]:checked").val());
         $('#shipment_date').html($("input[name=date]").val());
+        $('#packetType').html($("select[name=package_type] option:selected").val());
+        $('#shippingCharge').html("$"+$("input[name=shipping_charge]").val());
+        $('#declaredvalue').html("$"+$("input[name=dvalue]").val());
     });
-     $('.tab-link').click( function() {
-     
-        var tabID = $(this).attr('data-tab');
-        
+    $('.tab-link').click( function() {
+        var tabID = $(this).attr('data-tab'); 
         $(this).addClass('active').siblings().removeClass('active');
-        
         $('#tab-'+tabID).addClass('active').siblings().removeClass('active');
-     });
+    });
     $('#get-rates').click(function(){
         getRates();
     });
-        var currentTab = 0; // Current tab is set to be the first tab (0)
-            showTab(currentTab); // Display the current tab
+    var currentTab = 0; // Current tab is set to be the first tab (0)
+    showTab(currentTab); // Display the current tab
             
-            function showTab(n) {
-                if (n == 3) {
-                    // $('#nextBtn').prop('disabled', true);
-                } 
-                else if (n == 5) {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                    $.ajax({
-                        type: 'post',
-                        url: '{{route("user.store_shipment")}}',
-                        data:  new FormData($('#signUpForm')[0]),
-                        contentType: false,
-                        cache: false,
-                        processData:false,
-                        success: function (res) {
-                            $(".clickMeForPay").attr("data-orderid",res.id);
-                            $(".clickMeForPay").attr("data-user_email",res.user_email);
-                            $(".clickMeForPay").attr("data-customerid",res.client_id);
-                            $(".clickMeForPay").attr("data-shipping_charge",res.shipping_charge);
-                            $(".clickMeForPay").attr("data-tax",res.tax);
-                            $(".clickMeForPay").attr("data-total",res.total);
-                            $('.paymment-right-details').find("td.subtotal").html("$"+res.shipping_charge);
-                            $('.paymment-right-details').find("td.tax").html("$"+res.tax);
-                            $('.paymment-right-details').find("td b.total").html("$"+res.total);
-                            console.log(res)
-                        },
-                        error: function (res) {
-                            console.log(res)
-                        }
-                    });                
-                } else {
+    function showTab(n) {
+        if (n == 3) {
+            // $('#nextBtn').prop('disabled', true);
+        } 
+        else if (n == 5) {
+            $(".form-footer button#prevBtn").remove();
+            $(".form-footer button#nextBtn").hide();
+            $(".form-footer button.clickMeForPay").show();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'post',
+                url: '{{route("user.store_shipment")}}',
+                data:  new FormData($('#signUpForm')[0]),
+                contentType: false,
+                cache: false,
+                processData:false,
+                success: function (res) {
+                    $(".clickMeForPayInput").attr("data-orderid",res.id);
+                    $(".clickMeForPayInput").attr("data-user_email",res.user_email);
+                    $(".clickMeForPayInput").attr("data-customerid",res.client_id);
+                    $(".clickMeForPayInput").attr("data-shipping_charge",res.shipping_charge);
+                    $(".clickMeForPayInput").attr("data-tax",res.tax);
+                    $(".clickMeForPayInput").attr("data-total",res.total);
+                    $('.paymment-right-details').find("td.subtotal").html("$"+res.shipping_charge);
+                    $('.paymment-right-details').find("td.tax").html("$"+res.tax);
+                    $('.paymment-right-details').find("td b.total").html("$"+res.total);
+                    //console.log(res);
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });                
+        } else {
+            $('#nextBtn').prop('disabled', false);
+        }
+        // This function will display the specified tab of the form...
+        var x = document.getElementsByClassName("step");
+        x[n].style.display = "block";
+        //... and fix the Previous/Next buttons:
+        if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
+        }
+        if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "Submit";
+        } else {
+            document.getElementById("nextBtn").innerHTML = "Continue";
+        }
+        //... and run a function that will display the correct step indicator:
+        fixStepIndicator(n);
+    }
+    
+    function nextPrev(n) {
+        // This function will figure out which tab to display
+        var x = document.getElementsByClassName("step");
+        // Exit the function if any field in the current tab is invalid:
+        if (n == 1 && !validateForm()) return false;
+        // Hide the current tab:
+        x[currentTab].style.display = "none";
+        // Increase or decrease the current tab by 1:
+        currentTab = currentTab + n;
+        // if you have reached the end of the form...
+        // if (currentTab >= x.length) {
+        //     // ... the form gets submitted:
+        //     document.getElementById("signUpForm").submit();
+        //     return false;
+        // }
+        // Otherwise, display the correct tab:
+        showTab(currentTab);
+    }
+            
+    function getRates() {
+        $('#nextBtn').html('Loading');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        package_type = $("select[name=package_type]").find(":selected").val();
+        R_country = $("select[name=R_country]").find(":selected").val();
+        weight = $("input[name=weight]").val();
+        length = $("input[name=length]").val();
+        width = $("input[name=width]").val();
+        height = $("input[name=height]").val();
+        if (weight == "" || length == "" || width == "" || height == "") {
+            alert('Please fill all field');
+            return;
+        }
+        const volumetricWeight = (length * width * height) / 6000;
+        const roundedWeight = Math.ceil(volumetricWeight);
+        $('#actual_weight').val(roundedWeight);
+        var formData = {
+            package_type,
+            R_country,
+            weight,
+        };
+        $.ajax({
+            type: 'post',
+            url: '/shipping/get-rates',
+            data: formData,
+            dataType: 'json',
+            success: function (res) {
+                console.log(res)
+                if(res.error){
+                    $('#nextBtn').prop('disabled', true);
+                    currentTab = 3;
+                    alert(res.error);
+                    // return false;
+                }else {
                     $('#nextBtn').prop('disabled', false);
+                    $('#nextBtn').html('Continue');
+                    $('input[name=shipping_charge]').val(res.rate)
+                    // return false
                 }
-              // This function will display the specified tab of the form...
-              var x = document.getElementsByClassName("step");
-              x[n].style.display = "block";
-              //... and fix the Previous/Next buttons:
-              if (n == 0) {
-                document.getElementById("prevBtn").style.display = "none";
-              } else {
-                document.getElementById("prevBtn").style.display = "inline";
-              }
-              if (n == (x.length - 1)) {
-                document.getElementById("nextBtn").innerHTML = "Submit";
-              } else {
-                document.getElementById("nextBtn").innerHTML = "Continue";
-              }
-              //... and run a function that will display the correct step indicator:
-              fixStepIndicator(n)
+            },
+            error: function (res) {
+                $('#nextBtn').html('Continue');
+                $('#nextBtn').prop('disabled', true);
+                console.log(res);
+                // return false
             }
-            
-            function nextPrev(n) {
-                // This function will figure out which tab to display
-                var x = document.getElementsByClassName("step");
-                // Exit the function if any field in the current tab is invalid:
-                if (n == 1 && !validateForm()) return false;
-                // Hide the current tab:
-                x[currentTab].style.display = "none";
-                // Increase or decrease the current tab by 1:
-                currentTab = currentTab + n;
-                // if you have reached the end of the form...
-                // if (currentTab >= x.length) {
-                //     // ... the form gets submitted:
-                //     document.getElementById("signUpForm").submit();
-                //     return false;
-                // }
-                // Otherwise, display the correct tab:
-                showTab(currentTab);
-            }
-            
-            function getRates() {
-                $('#nextBtn').html('Loading');
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                package_type = $("select[name=package_type]").find(":selected").val();
-                R_country = $("select[name=R_country]").find(":selected").val();
-                weight = $("input[name=weight]").val();
-                length = $("input[name=length]").val();
-                width = $("input[name=width]").val();
-                height = $("input[name=height]").val();
-                if (weight == "" || length == "" || width == "" || height == "") {
-                    alert('Please fill all field');
-                    return;
-                }
-                const volumetricWeight = (length * width * height) / 6000;
-                const roundedWeight = Math.ceil(volumetricWeight);
-                $('#actual_weight').val(roundedWeight);
-                var formData = {
-                    package_type,
-                    R_country,
-                    weight,
-                };
-                $.ajax({
-                    type: 'post',
-                    url: '/shipping/get-rates',
-                    data: formData,
-                    dataType: 'json',
-                    success: function (res) {
-                        console.log(res)
-                        if(res.error){
-                            $('#nextBtn').prop('disabled', true);
-                            currentTab = 3;
-                            alert(res.error);
-                            // return false;
-                        }else {
-                            $('#nextBtn').prop('disabled', false);
-                            $('#nextBtn').html('Continue');
-                            $('input[name=shipping_charge]').val(res.rate)
-                            // return false
-                        }
-                    },
-                    error: function (res) {
-                        $('#nextBtn').html('Continue');
-                        $('#nextBtn').prop('disabled', true);
-                        console.log(res);
-                        // return false
-                    }
-                });
-            }
-            function validateForm() {
-              // This function deals with validation of the form fields
-              var x, y, i, valid = true;
-              x = document.getElementsByClassName("step");
-              y = x[currentTab].getElementsByTagName("input");
-              // A loop that checks every input field in the current tab:
-              const notRequired = ['S_department','S_other', 'S_pan', 'S_gstin', 'S_iec', 'S_aadhaar', 'R_department', 'R_other','R_tan'];
-              for (i = 0; i < y.length; i++) {
-                // If a field is empty...
-                if (y[i].value == ""  && !notRequired.includes(y[i].name)) {
-                  // add an "invalid" class to the field:
-                  y[i].className += " invalid";
-                  // and set the current valid status to false
-                  valid = false;
-                }
-              }
-              // If the valid status is true, mark the step as finished and valid:
-              if (valid) {
-                document.getElementsByClassName("stepIndicator")[currentTab].className += " finish";
-              }
-              return valid; // return the valid status
-            }
-            
-            function fixStepIndicator(n) {
-              // This function removes the "active" class of all steps...
-              var i, x = document.getElementsByClassName("stepIndicator");
-              for (i = 0; i < x.length; i++) {
-                x[i].className = x[i].className.replace(" active", "");
-              }
-              //... and adds the "active" class on the current step:
-              x[n].className += " active";
-            }
-        function show1(){
-          document.getElementById('div1').style.display ='none';
+        });
+    }
+    function validateForm() {
+        // This function deals with validation of the form fields
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("step");
+        y = x[currentTab].getElementsByTagName("input");
+        // A loop that checks every input field in the current tab:
+        const notRequired = ['S_department','S_other', 'S_pan', 'S_gstin', 'S_iec', 'S_aadhaar', 'R_department', 'R_other','R_tan'];
+        for (i = 0; i < y.length; i++) {
+        // If a field is empty...
+        if (y[i].value == ""  && !notRequired.includes(y[i].name)) {
+            // add an "invalid" class to the field:
+            y[i].className += " invalid";
+            // and set the current valid status to false
+            valid = false;
         }
-        function show2(){
-          document.getElementById('div1').style.display = 'block';
         }
+        // If the valid status is true, mark the step as finished and valid:
+        if (valid) {
+            document.getElementsByClassName("stepIndicator")[currentTab].className += " finish";
+        }
+        return valid; // return the valid status
+    }
+    
+    function fixStepIndicator(n) {
+        // This function removes the "active" class of all steps...
+        var i, x = document.getElementsByClassName("stepIndicator");
+        for (i = 0; i < x.length; i++) {
+            x[i].className = x[i].className.replace(" active", "");
+        }
+        //... and adds the "active" class on the current step:
+        x[n].className += " active";
+    }
+    document.getElementById('div1').style.display ='none';
+    function show1(){
+        document.getElementById('div1').style.display ='none';
+    }
+    function show2(){
+        document.getElementById('div1').style.display = 'block';
+    }
     $("form").on("change", ".file-upload-field", function(){ 
-        $(this).parent(".file-upload-wrapper").attr("data-text",         $(this).val().replace(/.*(\/|\\)/, '') );
+        $(this).parent(".file-upload-wrapper").attr("data-text",$(this).val().replace(/.*(\/|\\)/, '') );
     });
 
     $('.edit_frm_ad_btn').click(function() {
@@ -940,8 +945,5 @@
         
         $('#update_going_address_modal').modal('hide'); 
     });
-    </script>
-
-
-
+</script>
 @endsection

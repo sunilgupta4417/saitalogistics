@@ -291,7 +291,7 @@ if($page) {
             }
         $content->page_title = $request->page_title;
         $content->page_content = $request->page_content;
-        $content->page_image = $imageName;
+        // $content->page_image = $imageName;
         $content->page_link = json_encode($request->page_link);
         $content->save();
         // dd($content);

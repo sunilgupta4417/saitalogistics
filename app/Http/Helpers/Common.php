@@ -27,5 +27,4 @@ class Common
         Session::flash('message', $message);
     }
 
- 
 }

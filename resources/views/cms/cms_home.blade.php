@@ -55,8 +55,8 @@
                                      <input class="form-control" value="{{(isset($page_content->page_title) ? $page_content->page_title : null)}}" type="text" name="page_title" id="name" required >
                                 </div>                  
                                 <div class="form-group col-md-6 col-12">
-                                     <label>Image*</label>
-                                     <input class="form-control" value="{{(isset($page_content->page_image) ? $page_content->page_image : null)}}" type="file" name="page_image" id="page_image" required >
+                                     <label>Image</label>
+                                     <input class="form-control" type="file" name="page_image" id="page_image" >
                                 </div>
                                
                                 <div class="form-group col-md-4 col-4">

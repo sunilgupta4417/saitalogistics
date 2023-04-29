@@ -305,6 +305,27 @@ class DashboardController extends Controller
         }else{
             PacketBooking::where("id",$request->id)->update(["payment_gateway"=>"payme","payment_status"=>"failed","payment_type"=>"online","payment_response"=>$request->response]);
         }
+        /** Send order on email */
+        $packetInfo=PacketBooking::where("id",$request->id)->get()->first();
+        if(!empty($packetInfo)){
+            $orderData['name']=$packetInfo->csr_consignor;
+            $orderData['receipt_reference_no']=$packetInfo->id;
+            $orderData['account_id']=$packetInfo->client_id;
+            $orderData['awb_no']=$packetInfo->awb_no;
+            $orderData['amount']=$packetInfo->shipping_charge;
+            $orderData['payment_status']=($packetInfo->payment_status=="success"?"Success":"Rejected");
+            $orderData['payment_date']=date("Y-m-d h:i:s", strtotime($packetInfo->created_at));
+            $orderData['payment_mode']=$packetInfo->payment_gateway;
+            $orderData['customer_name']=$packetInfo->csr_consignor;
+            $orderData['email']=$packetInfo->csr_email_id;
+            $emailContent=array(
+                "subject"=>"Shipment Created From Saita Logistics",
+                "email_template"=>"emails.shipment-details",
+                "email_content"=>($orderData)
+            );
+            $emailStatus=sendMyEmail($orderData['email'],$emailContent);
+        }
+        
         $responseData = array(
             'id' => $request->id,
             'response' => $request->response
