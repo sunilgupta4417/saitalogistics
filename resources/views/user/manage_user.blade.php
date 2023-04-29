@@ -209,7 +209,8 @@
                                                 @if(checkAccess('manage-users','delete_permission'))<td><a class="btn btn-primary" href="{{route('user.delete',$rowu->id)}}" onclick="return confirm('Are you sure you want to delete this record?')"> <i class="fa fa-trash-alt"></i></a></td>@endif
                                                 <td><a class="btn btn-primary" href="{{route('user.user-permission',$rowu->id)}}"> <i class="fa fa-sitemap"></i></a></td>
                                                 <td>{{ $rowu->name }}</td>
-                                                @if(auth()->user()->role_id==2)<td>{{ $role[$rowu->role_id] }}</td>@endif
+                                                
+                                                @if(auth()->user()->role_id==2)<td>@if($rowu->role_id==0)User @else {{ $role[$rowu->role_id] }} @endif</td>@endif
                                                 <td>{{ $rowu->doj }}</td>
                                                 <td>{{ $rowu->mobile_no }}</td>
                                                 <td>{{ $rowu->email }}</td>

@@ -52,7 +52,7 @@ class User extends Authenticatable
         $user->email      = $request->email;
         $user->phn_code      = $request->code;
         $user->mobile_no      = $request->mobile;
-        $user->role_id      = 1;
+        $user->role_id      = 0;
         $user->password = \Hash::make($request->password);
         $uu =  $user->save();
 

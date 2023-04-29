@@ -42,6 +42,11 @@ Route::get('/user-register', [AuthController::class, 'register'])->name('user.re
 Route::post('/user/authenticate', [AuthController::class, 'authenticate']);
 Route::post('/user/register', [AuthController::class, 'store']);
 
+Route::get('/user-transaction', function () {
+    return view('frontend.transaction.transaction');
+
+})->name('user.transaction');
+
 
 Route::group(['prefix' => 'user', 'middleware' => ['user']], function () {
 

@@ -18,7 +18,7 @@ class User
     public function handle($request, Closure $next, $guard = null)
     {
 
-        if (Auth::check() && Auth::user()->role_id == '1') {
+        if (Auth::check() && Auth::user()->role_id == '0') {
             return $next($request);
 
         }

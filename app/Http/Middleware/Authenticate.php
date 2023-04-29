@@ -21,6 +21,12 @@ class Authenticate extends Middleware
             {
                  return redirect()->route('user.login');
             }
+
+            if (Auth::check() && Auth::user()->role_id != '0') {
+                return $next($request);
+            }else{
+                return redirect()->route('user.login');
+            }
         }
         if (! $request->expectsJson()) {
             return route('login');

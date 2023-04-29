@@ -51,6 +51,9 @@
                                 <a class="dropdown-item" href="{{ url('user-logout') }}">
                                     Sign Out
                                 </a> 
+                                <a class="dropdown-item" href="{{ url('user-transaction') }}">
+                                    Transaction
+                                </a> 
                             </div>
                         </li> 
                         @else
