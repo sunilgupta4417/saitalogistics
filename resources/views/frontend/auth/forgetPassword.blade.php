@@ -11,7 +11,7 @@
 							<strong>{{ Session::get('status') }}</strong>
 						</div>
 					@endif
-				        <h2>Forgot Password?</h2>
+				        <h2>Forgot Password</h2>
 				        <p class="enter-number">Enter Your Registered Email Id</p>
 				        <form method="POST" action="{{ route('user.forget.password.link') }}">
                             @csrf

@@ -35,8 +35,8 @@
                      <ul class="list-inline header-contact float-lg-right">
                         <li class="list-inline-item center-icons" id="head-icons">
                            <a href="#" class="btn btn-solid-border btn-sm mb-lg-0 mb-2"><i class="fab fa-facebook-f"></i></a>
-                           <a href="#" class="btn btn-solid-border btn-sm mb-lg-0 mb-2"><i class="fab fa-twitter"></i></a>
-                           <a href="#" class="btn btn-solid-border btn-sm mb-lg-0 mb-2"><i class="fab fa-instagram"></i></a>
+                           <a href="https://twitter.com/SaitaLogistics" target="_blank" class="btn btn-solid-border btn-sm mb-lg-0 mb-2"><i class="fab fa-twitter"></i></a>
+                           <a href="https://www.instagram.com/explore/tags/saitalogistics" target="_blank" class="btn btn-solid-border btn-sm mb-lg-0 mb-2"><i class="fab fa-instagram"></i></a>
                         </li> 
                         @if(Auth::check() && Auth::user()->role_id == 1 ) 
                         <li class="list-inline-item nav-item dropdown" id="head-icons">

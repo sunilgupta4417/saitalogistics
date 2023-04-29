@@ -31,6 +31,10 @@
                                    <h3> Country Master</h3>
                                  </div>
                                </div>
+                               <div class="form-group col-md-6 col-12">
+                                   <label>Mobile Code*</label>
+                                   <input type="text"  required class="form-control" name="mobile_code" id="mobile_code" placeholder="Enter Mobile Code">
+                                </div>
                                 <div class="form-group col-md-6 col-12">
                                    <label>Country Code*</label>
                                    <input type="text" min="2" max="3" required class="form-control" name="country_code" id="country_code" placeholder="Enter Country Code">
@@ -82,6 +86,7 @@
                                                    <th>Add State</th>
                                                 @if(checkAccess('country-master','edit_permission'))<th>Edit</th>@endif
                                                 @if(checkAccess('country-master','delete_permission'))<th>Delete</th>@endif
+                                                   <th>Mobile Code</th>
                                                    <th>Country Code</th>
                                                    <th>Country Name</th>
                                                 </tr>
@@ -92,6 +97,7 @@
                                              <td><a class="btn btn-primary" href="{{route('state.all',$row->id)}}" > <i class="fa fa-plus"></i></a></td>
                                              @if(checkAccess('country-master','edit_permission'))<td><a class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$row->id}}" href="#"> <i class="fa fa-pencil-alt"></i></a></td>@endif
                                              @if(checkAccess('country-master','delete_permission'))<td><a class="btn btn-primary" href="{{route('country.delete',$row->id)}}" onclick="return confirm('Are you sure you want to delete this record?')"> <i class="fa fa-trash-alt"></i></a></td>@endif
+                                                <td>{{$row->mobile_code}}</td>
                                                 <td>{{$row->country_code}}</td>
                                                 <td>{{$row->country_name}}</td>
                                              </tr>
@@ -112,6 +118,10 @@
                                                                <label>Country Code*</label>
                                                                <input type="text" value="{{$row->country_code}}" required  name="country_code" id="country_code" class="form-control" placeholder="Enter Country Code">
                                                                <input type="hidden" required class="form-control" value="{{$row->id}}" name="id" id="id">
+                                                            </div>
+                                                            <div class="form-group col-md-6 col-12">
+                                                               <label>Mobile Code*</label>
+                                                               <input type="text" value="{{$row->mobile_code}}" required  name="mobile_code" id="mobile_code" class="form-control" placeholder="Enter mobile Code">
                                                             </div>
                                                             <div class="form-group col-md-6 col-12">
                                                                <label>Country Name*</label>

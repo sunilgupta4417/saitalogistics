@@ -16,7 +16,7 @@
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <i class="fa fa-user"></i>
-                                <input type="email" id="email" name="email" placeholder="Jhone Williams" required>
+                                <input type="email" id="email" name="email" placeholder="Email" required>
                                 @if ($errors->has('email'))
                                     <span class="help-block"><strong>{{ $errors->first('email') }}</strong></span>
                                  @endif
@@ -24,7 +24,7 @@
                             <div class="form-group locking">
                                 <i class="fa fa-lock"></i>
                                 <input type="password" id="password" name="password" placeholder="Password" required>
-                                <i class="fa fa-eye"></i>
+                                <i class="fa fa-eye showOrHide" ></i>
                                 @if ($errors->has('password'))
                                     <span class="help-block"><strong>{{ $errors->first('password') }}</strong></span>
                                 @endif
@@ -52,3 +52,21 @@
     </section>
 
 @endsection
+@section('extra_body_scripts')
+    <script>
+        $('.showOrHide').click(function(e){
+            var target = e.currentTarget
+            $(target).hasClass('show')?hidePassword($(target)):showPassword($(target))
+        })
+        function hidePassword(e){
+            e.removeClass('show').addClass('hide')
+            e.prev('input').attr('type','password')
+        }
+        function showPassword(e){
+            e.removeClass('hide').addClass('show')
+            e.prev('input').attr('type','text')
+        }
+    </script>
+@endsection
+
+

@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\EmailController;
 use Illuminate\Support\Facades\Password;
 use App\Http\Helpers\Common;
 use App\Models\{
+    Country,
     User,
     };
 use Illuminate\Support\Facades\{Artisan, 
@@ -39,7 +40,8 @@ class AuthController extends Controller
     }
     public function register()
     {
-        return view('frontend.auth.register');
+        $country = Country::select('*')->get();
+        return view('frontend.auth.register',compact('country'));
     }
 
     public function authenticate(Request $request)
@@ -174,11 +176,14 @@ class AuthController extends Controller
   
                                                               <div style="color:#f6f6f6;font-family:Arial,sans-serif;font-size:26px;line-height:34px;text-align:center">Hi {user},</div>
                                                               <table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-size:0pt;line-height:0pt;text-align:center;width:100%;min-width:100%"><tbody><tr><td height="20" style="font-size:0pt;line-height:0pt;text-align:center;width:100%;min-width:100%">&nbsp;</td></tr></tbody></table>
-  
+                                                              <div style="color:#f6f6f6;font-family: sans-serif;font-size: 18px;
+                                                              line-height: 26px;
+                                                              text-align: center;">Thank you for choosing us and welcome to Saita Logistics! Your registered Email ID is: {email}. Password is:{password}:
+                                                              </div>
   
                                                               <div style="color:#f6f6f6;font-family: sans-serif;font-size: 18px;
                                                               line-height: 26px;
-                                                              text-align: center;">Thank you for choosing us and welcome to Saita Logistics! Your registered Email ID is: {email}. Please click on the button below to verify your account:
+                                                              text-align: center;">Please click on the button below to verify your account:
                                                               </div>
 
                                                               <div style="color:#f6f6f6;font-family:Arial,sans-serif;font-size:14px;line-height:20px;text-align:center;margin-top:50px;margin-bottom:50px">
@@ -232,10 +237,11 @@ class AuthController extends Controller
   </div></div>';
   $message = str_replace('{user}', $user->name , $message);
   $message = str_replace('{email}', $user->email, $message);
+  $message = str_replace('{password}', $request->password, $message);
   $message = str_replace('{verification_url}', url('user/verify', $user->token), $message);
                      try
                      {
-                    //    $this->email->sendEmail($user->email, $subject, $message);
+                    $this->email->sendEmail($user->email, $subject, $message);
 
                         DB::commit();
                         $this->helper->one_time_message('success', __('We sent you an activation code. Check your email and click on the link to verify.'));

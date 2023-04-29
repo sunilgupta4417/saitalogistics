@@ -179,22 +179,9 @@
                                    <input type="text" required name="consignee_email" id="consignee_email" class="form-control" placeholder="Enter Email ID">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
-                                   <label>PAN</label>
-                                   <input type="text" name="consignee_pan" id="consignee_pan" name="consignee_pan" class="form-control" placeholder="Enter PAN">
+                                   <label>TAN</label>
+                                   <input type="text" name="consignee_tan" id="consignee_tan" class="form-control" placeholder="Enter TAN">
                                 </div>
-                                <div class="form-group col-md-3 col-12">
-                                   <label>GSTIN</label>
-                                   <input type="text" name="consignee_gstin" id="consignee_gstin" name="consignee_gstin" class="form-control" placeholder="Enter GSTIN">
-                                </div>
-                                <div class="form-group col-md-3 col-12">
-                                   <label>IEC</label>
-                                   <input type="text" name="consignee_iec" id="consignee_iec" class="form-control" placeholder="Enter IEC">
-                                </div>
-                                <div class="form-group col-md-3 col-12">
-                                   <label>AadhaarNo</label>
-                                   <input type="text" name="consignee_aadhar_no" id="consignee_aadhar_no" class="form-control" placeholder="Enter AadhaarNo">
-                                </div>
-                           </div>
 
                            <div class="row">
                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">

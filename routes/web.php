@@ -22,7 +22,7 @@ use App\Http\Controllers\ShipmentController;
 
 
 //WEBSITE ROUTES
-Route::get('/', [WebController::class, 'index'])->name('home');
+// Route::get('/', [WebController::class, 'index'])->name('home');
 Route::get('/about', [WebController::class, 'about'])->name('about');
 Route::get('/services', [WebController::class, 'services'])->name('services');
 Route::get('/tracking', [WebController::class, 'tracking'])->name('tracking');
@@ -30,6 +30,7 @@ Route::get('/shipping', [WebController::class, 'shipping'])->name('shipping');
 Route::get('/shipping/state/{id}', [WebController::class, 'shippingStateList'])->name('shipping.states');
 Route::post('/shipping/rates', [WebController::class, 'shippingRates'])->name('shipping_rate');
 Route::get('/support', [WebController::class, 'support'])->name('support');
+Route::post('/support/save', [WebController::class, 'supportSave'])->name('support.store');
 Route::get('/faq', [WebController::class, 'faq'])->name('faq');
 Route::get('/privacy-policy', [WebController::class, 'privacy_policy'])->name('privacy_policy');
 Route::get('/terms-condition', [WebController::class, 'terms_conditions'])->name('terms_conditions');
@@ -63,7 +64,7 @@ Route::get('/token', [ShippingController::class, 'getRates']);
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 
     Route::resource('user', userController::class);
     Route::get('user/unlink/{id}/{image}', [userController::class, 'unlink']);

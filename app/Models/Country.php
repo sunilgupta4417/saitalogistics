@@ -11,5 +11,5 @@ class Country extends Model
     protected $primarykey='id';
     protected $table='country';
     public $timestamps=true;
-    protected $fillable= ['id','country_name','country_code','isActive','created_at','updated_at','id'];
+    protected $fillable= ['id','country_name','country_code','mobile_code','isActive','created_at','updated_at','id'];
 }

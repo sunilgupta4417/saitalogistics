@@ -133,17 +133,21 @@ class OtherApiController extends Controller
     public function countrySave(Request $request){
         $this->validate($request,[
             'country_name'=>'required',
+            'mobile_code'=>'required|min:1|max:4',
             'country_code'=>'required|min:2|max:3',
          ]);
 
         $checkCountry = Country::where('country_name',$request->country_name)
-        ->where('country_code',$request->country_code)->first();
+        ->where('country_code',$request->country_code)
+        ->where('mobile_code',$request->mobile_code)
+        ->first();
         if($checkCountry){
             return redirect()->back()->with('error','This name is already exist!');
         }
         $insData = [
             'country_name'=>isset($request->country_name) ? $request->country_name : NULL, 
             'country_code'=>isset($request->country_code) ? $request->country_code : NULL,
+            'mobile_code'=>isset($request->mobile_code) ? $request->mobile_code : NULL,
             'isActive'=>1,
         ];
         $result = Country::create($insData);
@@ -157,10 +161,13 @@ class OtherApiController extends Controller
         $this->validate($request,[
             'country_name'=>'required',
             'country_code'=>'required|min:2|max:3',
+            'mobile_code'=>'required|min:1|max:4',
          ]);
         $updateData = [
             'country_name'=>isset($request->country_name) ? $request->country_name : NULL, 
             'country_code'=>isset($request->country_code) ? $request->country_code : NULL,
+            'mobile_code'=>isset($request->mobile_code) ? $request->mobile_code : NULL,
+
         ];
         $result = Country::where('id',$request->id)->update($updateData);
         if($result){
