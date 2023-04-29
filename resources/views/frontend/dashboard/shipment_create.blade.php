@@ -650,11 +650,11 @@
             cache: false,
             dataType:'JSON',
             success: function (res) {
-                if((res.status=="ok") && (type==true)){
+                if((res.status=="ok") && (res.response.transt=="completed")){
                     $(".form-footer button#nextBtn").trigger("click");
                     //console.log(res)
                     $(".payment-successful b.successOrderNumber").html(res.response.orderid);
-                    $(".form-footer button#nextBtn").show();
+                    $(".form-footer button#nextBtn").hide();
                     $(".form-footer button.clickMeForPay").remove();
                 }else{
                     $(".form-footer button#nextBtn").hide();

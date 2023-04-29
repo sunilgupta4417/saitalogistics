@@ -305,6 +305,7 @@ class DashboardController extends Controller
         }
         $responseData = array(
             'id' => $request->id,
+            'status' => $request->status,
             'response' => $request->response
         );
         return response()->json($responseData);
