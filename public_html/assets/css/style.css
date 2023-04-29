@@ -85,7 +85,7 @@ h6 a:hover {
 }
 
 a {
-  transition: all 0.45s ease |linear;
+  transition: all 0.45s ease linear;
 }
 
 p {

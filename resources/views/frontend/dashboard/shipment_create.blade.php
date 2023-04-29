@@ -26,7 +26,7 @@
                                     <div class="row">
                                         <div class="inter-form">
                                             <div class="maining-heading">
-                                                <h3 class="mb-4">Where Are You Shipment Form?</h3>
+                                                <h3 class="mb-4">Where Are You Shipment Origin?</h3>
                                             </div>
                                             <div class="form-group">
                                                 <label>Country*</label>
@@ -148,15 +148,15 @@
                                     <div class="row">
                                         <div class="inter-form">
                                             <div class="maining-heading">
-                                                <h3 class="mb-4">Where Is Your Shipping Going?</h3>
+                                                <h3 class="mb-4">Where Is Your Shipping Destination?</h3>
                                             </div>
                                             <div class="form-group">
                                                 <label>Country*</label>
                                                 <select id="select-service" required name="R_country">
                                                 <option label="Select a country ... " selected="selected" disabled>Select a country ... </option>  
                                                     @foreach($country as $coun)
-                                                    <option value="{{$coun->id}}">{{$coun->country}}</option>
-                                                @endforeach
+                                                        <option value="{{$coun->id}}">{{$coun->country}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -243,17 +243,17 @@
                                                 <input  type="datetime-local" name="date">
                                             </div>
                                             <div id="div1" class="">
-                                            <div class="pickup-details">
-                                                <div class="pickup-details-iner">
-                                                <h3>Pickup Address</h3>
-                                                <div class="maing-address">
-                                                    <h4 id="pickup_from_name">Tayla Dhyll</h4>
-                                                    <p id="pickup_from_address">Unit 222, Rosden House 372 Old St, London, Greater London EC1 9AU, GB</p>
-                                                    <b id="pickup_from_number">+15678987645</b>
-                                                    <div class="pickup-details-link">
-                                                        <a href="javascript:void(0);" class="edit_frm_ad_btn">Edit</a>
-                                                    </div>
-                                                </div>
+                                                <div class="pickup-details">
+                                                    <div class="pickup-details-iner">
+                                                        <h3>Pickup Address</h3>
+                                                        <div class="maing-address">
+                                                            <h4 id="pickup_from_name">xxxxx</h4>
+                                                            <p id="pickup_from_address">xxxxxxx</p>
+                                                            <b id="pickup_from_number">+xxxxxx</b>
+                                                            <div class="pickup-details-link">
+                                                                <a href="javascript:void(0);" class="edit_frm_ad_btn">Edit</a>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -322,7 +322,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="maining-heading">
-                                                    <h3 class="mb-4">Where Origin</h3>
+                                                    <h3 class="mb-4">Origin/Pickup</h3>
                                                     <a href="javascript:void(0);" class="edit-clss edit_frm_ad_btn">Edit</a>
                                                 </div>
                                                 <div class="maing-address">
@@ -333,7 +333,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="maining-heading">
-                                                    <h3 class="mb-4">Where Destination</h3>
+                                                    <h3 class="mb-4">Destination</h3>
                                                     <a href="javascript:void(0);" class="edit-clss edit_go_ad_btn">Edit</a>
                                                 </div>
                                                 <div class="maing-address">
@@ -346,28 +346,36 @@
                                                 <div class="what-details">
                                                     <div class="what-detail-iner">
                                                         <h3>What</h3>
-                                                        <a href="#" class="edit-clss">Edit</a>
+                                                        <?php /*<a href="#" class="edit-clss">Edit</a>*/ ?>
                                                         <table style="width: 50%;">
                                                             <tbody>
                                                                 <tr>
+                                                                  <td>Packet Type</td>
+                                                                  <td id="packetType">xxxx</td>
+                                                                </tr>
+                                                                <tr>
                                                                   <td>Weight</td>
-                                                                  <td id="weight">8.1 Lbs/3.67 Kgs</td>
+                                                                  <td id="weight">xxxx</td>
                                                                 </tr>
                                                                 <tr>
                                                                   <td>Dimensions</td>
-                                                                  <td id="dimensions">17X12X4 In.</td>
-                                                                </tr>
-                                                                <tr>
-                                                                  <td>Total Pieces</td>
-                                                                  <td>1</td>
+                                                                  <td id="dimensions">xxxx</td>
                                                                 </tr>
                                                                 <tr>
                                                                   <td>Total Shipment Weight</td>
-                                                                  <td id="total_shipment_weight">8.1 Lbs/3.67 Kgs</td>
+                                                                  <td id="total_shipment_weight">xxxx</td>
                                                                 </tr>
                                                                 <tr>
                                                                   <td>Packaging</td>
-                                                                  <td id="packaging">Your Packaging</td>
+                                                                  <td id="packaging">xxxxx</td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td>Declared Value</td>
+                                                                  <td id="declaredvalue">xxxxx</td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td>Shipping Charge</td>
+                                                                  <td id="shippingCharge">xxxxx</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -378,7 +386,6 @@
                                                 <div class="what-details">
                                                     <div class="what-detail-iner">
                                                         <h3>How</h3>
-                                                        <a href="#" class="edit-clss">Edit</a>
                                                         <table>
                                                             <tbody>
                                                                 <tr>
@@ -447,7 +454,7 @@
                                                     <input type="text" name="CVV">
                                                 </div>*/?>
                                                 <div class="form-group">
-                                                    <input type="radio" checked="checked" class="clickMeForPayInput" data-orderid="0"  data-user_email="test@gmail.com"  data-customerid="0"  data-shipping_charge="0" data-tax="0" data-total="0">Pay By PayMe
+                                                    <input type="radio" checked="checked" class="clickMeForPayInput" data-orderid="0"  data-user_email="test@gmail.com"  data-customerid="0"  data-shipping_charge="0" data-tax="0" data-total="0">Epay
                                                 </div>
                                             </div>
                                             <div class="paymment-right-details">
@@ -499,7 +506,7 @@
                                     <button type="button" id="prevBtn" onclick="nextPrev(-1)">Back</button>
                                     <?php /*<button type="button" id="cencalBtn">Cancel</button>*/?>
                                     <button type="button" id="nextBtn" onclick="nextPrev(1)">Continue</button>
-                                    <button type="button" class="clickMeForPay" style="display:none;">Pay By Payme</button>
+                                    <button type="button" class="clickMeForPay" style="display:none;">Pay By Epay</button>
                                 </div>
                               <!-- end previous / next buttons -->
                             </form>
@@ -511,7 +518,7 @@
             <div class="modal-dialog modal-lg vertical-align-center" style="margin-top: 80px;">
               <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Update Shipping From Address</h4>
+                    <h4 class="modal-title">Update Shipping Origin Address</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body ">
@@ -697,6 +704,9 @@
         $('#packaging').html($("input[name=item_type]").val());
         $('#ship_type').html($("input[name=dropPickup]:checked").val());
         $('#shipment_date').html($("input[name=date]").val());
+        $('#packetType').html($("select[name=package_type] option:selected").val());
+        $('#shippingCharge').html("$"+$("input[name=shipping_charge]").val());
+        $('#declaredvalue').html("$"+$("input[name=dvalue]").val());
     });
     $('.tab-link').click( function() {
         var tabID = $(this).attr('data-tab'); 
@@ -714,6 +724,7 @@
             // $('#nextBtn').prop('disabled', true);
         } 
         else if (n == 5) {
+            $(".form-footer button#prevBtn").remove();
             $(".form-footer button#nextBtn").hide();
             $(".form-footer button.clickMeForPay").show();
             $.ajaxSetup({
@@ -868,6 +879,7 @@
         //... and adds the "active" class on the current step:
         x[n].className += " active";
     }
+    document.getElementById('div1').style.display ='none';
     function show1(){
         document.getElementById('div1').style.display ='none';
     }

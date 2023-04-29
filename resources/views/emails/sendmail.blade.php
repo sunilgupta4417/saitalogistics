@@ -1,3 +1,3 @@
-@include('emails.livery.html-header')
+@include('emails.header')
 <?=$html?>
-@include('emails.livery.html-footer')
+@include('emails.footer')
