@@ -13,23 +13,36 @@ class Authenticate extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
-    protected function redirectTo($request, $guard = null)
-    {
-        if ($guard == 'auth')
-        {
-            if (!Auth::check())
-            {
-                 return redirect()->route('user.login');
-            }
+    // protected function redirectTo($request, $guard = null)
+    // {
+    //     if ($guard == 'auth')
+    //     {
+    //         if (!Auth::check())
+    //         {
+    //              return redirect()->route('user.login');
+    //         }
 
-            if (Auth::check() && Auth::user()->role_id != '0') {
-                return $next($request);
-            }else{
-                return redirect()->route('user.login');
-            }
+    //         if (Auth::check() && Auth::user()->role_id != '0') {
+    //             return $next($request);
+    //         }else{
+    //             return redirect()->route('user.login');
+    //         }
+    //     }
+    //     if (! $request->expectsJson()) {
+    //         return route('login');
+    //     }
+    // }
+
+    public function handle($request, Closure $next, ...$guards)
+    {
+        if (!Auth::check()) {
+            return redirect()->route('user.login');
         }
-        if (! $request->expectsJson()) {
-            return route('login');
+
+        if (Auth::check() && Auth::user()->role_id != '0') {
+            return $next($request);
+        } else {
+            return redirect('/user-login');
         }
     }
 }

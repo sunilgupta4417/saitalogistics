@@ -38,7 +38,7 @@
                            <a href="https://twitter.com/SaitaLogistics" target="_blank" class="btn btn-solid-border btn-sm mb-lg-0 mb-2"><i class="fab fa-twitter"></i></a>
                            <a href="https://www.instagram.com/explore/tags/saitalogistics" target="_blank" class="btn btn-solid-border btn-sm mb-lg-0 mb-2"><i class="fab fa-instagram"></i></a>
                         </li> 
-                        @if(Auth::check() && Auth::user()->role_id == 1 ) 
+                        @if(Auth::check() && Auth::user()->role_id == 0 ) 
                         <li class="list-inline-item nav-item dropdown" id="head-icons">
                             <a href="signup.html" class="nav-link dropdown-toggle" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}} <img src="{{asset('assets/images/user2.png')}}" alt=""><i class="fa fa-caret-down"></i></a>
                             <div class="dropdown-menu" aria-labelledby="navbar3">
@@ -48,11 +48,11 @@
                                 <a class="dropdown-item" href="{{ url('user/shipment/history') }}">
                                     History
                                 </a> 
-                                <a class="dropdown-item" href="{{ url('user-logout') }}">
-                                    Sign Out
-                                </a> 
                                 <a class="dropdown-item" href="{{ url('user-transaction') }}">
                                     Transaction
+                                </a> 
+                                <a class="dropdown-item" href="{{ url('user-logout') }}">
+                                    Sign Out
                                 </a> 
                             </div>
                         </li> 
