@@ -55,7 +55,7 @@
                                 <a class="dropdown-item" href="{{ url('user/shipment/history') }}">
                                     History
                                 </a> 
-                                <a class="dropdown-item" href="{{ url('user-transaction') }}">
+                                <a class="dropdown-item" href="{{route('user.transactions')}}">
                                     Transaction
                                 </a> 
                                 <a class="dropdown-item" href="{{ url('user-logout') }}">

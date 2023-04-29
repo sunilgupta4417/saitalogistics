@@ -332,6 +332,13 @@ class DashboardController extends Controller
         );
         return response()->json($responseData);
     }
+    
+    public function getTransactions()
+    {
+        $data['transactions'] = PacketBooking::where(['client_id' => auth()->user()->id])->get();
+        // dd($data['transactions']);
+        return view('frontend.dashboard.shipment_transactions', $data);
+    }
 
 
 

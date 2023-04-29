@@ -58,7 +58,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['user']], function () {
     Route::post('/shipment/store', [DashboardController::class, 'store_shipment'])->name('user.store_shipment');
     Route::get('/shipping/success', [DashboardController::class, 'shipping_success'])->name('user.shipping.success');
     Route::post('/shipment/payment', [DashboardController::class, 'store_shipment_payment'])->name('user.store_shipment_payment');
-    
+    Route::get('/shipment/transaction', [DashboardController::class, 'getTransactions'])->name('user.transactions');
 });
 Route::post('/shipping/get-rates', [ShippingController::class, 'getRates']);
 Route::get('/token', [ShippingController::class, 'getRates']);
