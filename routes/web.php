@@ -41,6 +41,7 @@ Route::get('/user-logout', [AuthController::class, 'logout'])->name('user.logout
 Route::get('/user-register', [AuthController::class, 'register'])->name('user.register');
 Route::post('/user/authenticate', [AuthController::class, 'authenticate']);
 Route::post('/user/register', [AuthController::class, 'store']);
+Route::get('/user/verify/{token}', [AuthController::class, 'verifyAccount'])->name('user.verify');
 
 Route::get('/user-transaction', function () {
     return view('frontend.transaction.transaction');

@@ -10,6 +10,7 @@ use App\Http\Helpers\Common;
 use App\Models\{
     Country,
     User,
+    UserVerify
     };
 use Illuminate\Support\Facades\{Artisan, 
     Session,
@@ -19,8 +20,6 @@ use Illuminate\Support\Facades\{Artisan,
     Validator
 };
 use Exception;
-
-
 
 class AuthController extends Controller
 {
@@ -99,8 +98,14 @@ class AuthController extends Controller
                 {
                     DB::beginTransaction();
                     
-                            $model =  new User;        
+                    $model =  new User;        
                     $user = $model->createNewUser($request);
+                    $token = \Str::random(64);
+  
+                    UserVerify::create([
+                        'user_id' => $user->id, 
+                        'token' => $token
+                    ]);
                     $subject = 'Notice for User Verification!';
                     $message = '<div style="padding:0!important;margin:0!important;display:block!important;min-width:100%!important;width:100%!important;background:#ffffff">
   <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
@@ -226,11 +231,6 @@ class AuthController extends Controller
           <td style="font-size:0pt;line-height:0pt;text-align:left" width="1"></td>
       </tr>
   </tbody></table>
-
-  
-  
-  
-  
   </td>
   </tr>
   </tbody></table><div class="yj6qo"></div><div class="adL">
@@ -238,7 +238,7 @@ class AuthController extends Controller
   $message = str_replace('{user}', $user->name , $message);
   $message = str_replace('{email}', $user->email, $message);
   $message = str_replace('{password}', $request->password, $message);
-  $message = str_replace('{verification_url}', url('user/verify', $user->token), $message);
+  $message = str_replace('{verification_url}', url('user/verify', $token), $message);
                      try
                      {
                     $this->email->sendEmail($user->email, $subject, $message);
@@ -291,9 +291,28 @@ class AuthController extends Controller
     }
 
     /**
-     * Show and manage Admin profile
+     * Write code on Method
      *
-     * @return Admin profile page view
+     * @return response()
      */
-
+    public function verifyAccount($token)
+    {
+        $verifyUser = UserVerify::where('token', $token)->first();
+  
+        $message = 'Sorry your email cannot be identified.';
+  
+        if(!is_null($verifyUser) ){
+            $user = $verifyUser->user;
+              
+            if(!$user->is_email_verified) {
+                $verifyUser->user->is_email_verified = 1;
+                $verifyUser->user->save();
+                $message = "Your e-mail is verified. You can now login.";
+            } else {
+                $message = "Your e-mail is already verified. You can now login.";
+            }
+        }
+  
+      return redirect()->route('user.login')->with('message', $message);
+    }
 }
