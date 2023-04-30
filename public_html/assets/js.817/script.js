@@ -11,7 +11,7 @@
     }
   });
  
-$('.testimonial-slider').slick({
+/*$('.testimonial-slider').slick({
 		slidesToShow: 1,
 		infinite: true,
 		arrows: false,
@@ -41,7 +41,7 @@ $('.testimonial-slider').slick({
 	if (google_map_canvas.length) {
 		google.maps.event.addDomListener(window, 'load', initialize);
 	}
-
+*/
 	// Counter
 
 	$('.count').counterUp({

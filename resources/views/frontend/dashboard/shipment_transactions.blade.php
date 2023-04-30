@@ -20,7 +20,6 @@
                                        <th>Date</th>
                                        <th>Amount</th>
                                        <th>Gateway</th>
-                                       <th>Tokens</th>
                                        <th>Status</th>
                                        <th>View</th>
                                     </tr>
@@ -40,10 +39,47 @@
                                              <div class="modal-dialog modal-lg vertical-align-center" style="margin-top: 80px;">
                                              <div class="modal-content">
                                                 <div class="modal-header">
-                                                   <h4 class="modal-title">Shipment Details</h4>
+                                                   <h4 class="modal-title">Receipt</h4>
                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                 </div>
                                                 <div class="modal-body ">
+                                                    <div class="row">
+               <div class="col-md-12 col-lg-812">
+                  <div class="shipment-history view-transactions" style="width:100%;">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <td>Order ID</td>
+                                 <td>202303050547057000000000</td>
+                              </tr>
+                              <tr>
+                                 <td>Paid Amt.</td>
+                                 <td>$200.00</td>
+                              </tr>
+                              <tr>
+                                 <td>Transaction ID</td>
+                                 <td></td>
+                              </tr>
+                              <tr>
+                                 <td>Date</td>
+                                 <td>2023-03-05T05:47:00.000Z</td>
+                              </tr>
+                              
+                              <tr>
+                                 <td>Payment Type</td>
+                                 <td>PayBaba</td>
+                              </tr>
+                              
+                              <tr>
+                                 <td>Payment Status</td>
+                                 <td>Pending</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                  </div>
+               </div>
+            </div>
+
                                                    <div class="row">
                                                          <div class="inter-form signUpForm">
                                                             <?php 
