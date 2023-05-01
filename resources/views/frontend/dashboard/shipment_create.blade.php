@@ -11,10 +11,10 @@
                         @csrf
                         <!-- start step indicators -->
                         <div class="form-header d-flex">
-                            <span class="stepIndicator">Origin</span>
-                            <span class="stepIndicator">Destination</span>
-                            <span class="stepIndicator">How</span>
-                            <span class="stepIndicator">What</span>
+                            <span class="stepIndicator">Origin </span>
+                            <span class="stepIndicator">Destination </span>
+                            <span class="stepIndicator">Shipment Mode</span>
+                            <span class="stepIndicator">Shipment </span>
                             <span class="stepIndicator">Review</span>
                             <span class="stepIndicator">Payment</span>
                             <span class="stepIndicator lasting">Complete</span>
@@ -26,7 +26,7 @@
                             <div class="row">
                                 <div class="inter-form">
                                     <div class="maining-heading">
-                                        <h3 class="mb-4">Where Are You Shipment Origin?</h3>
+                                        <h3 class="mb-4">Origin Details</h3>
                                     </div>
                                     <div class="form-group">
                                         <label>Country*</label>
@@ -148,7 +148,7 @@
                             <div class="row">
                                 <div class="inter-form">
                                     <div class="maining-heading">
-                                        <h3 class="mb-4">Where Is Your Shipping Destination?</h3>
+                                        <h3 class="mb-4">Destination Details</h3>
                                     </div>
                                     <div class="form-group">
                                         <label>Country*</label>
@@ -219,7 +219,7 @@
                             <div class="row">
                                 <div class="inter-form">
                                     <div class="maining-heading">
-                                        <h3 class="mb-4">How Would You Like To Ship?</h3>
+                                        <h3 class="mb-4">Shipment Mode</h3>
                                     </div>
 
                                     <div class="form-group agreed-text full-widthing">
@@ -266,7 +266,7 @@
                             <div class="row">
                                 <div class="inter-form">
                                     <div class="maining-heading">
-                                        <h3 class="mb-4">Whats Your Shipment</h3>
+                                        <h3 class="mb-4">Shipment details</h3>
                                     </div>
                                     <div class="where-boxing">
                                         <div class="form-group">
@@ -302,7 +302,7 @@
                                             <input type="text" name="item_type">
                                         </div>--}}
                                         <div class="form-group">
-                                            <label>Shipping charges $</label>
+                                            <label>Chargeable weight $</label>
                                             <input type="text" name="shipping_charge" readonly>
                                         </div>
                                         <div class="form-group">
@@ -323,7 +323,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="maining-heading">
-                                            <h3 class="mb-4">Origin/Pickup</h3>
+                                            <h3 class="mb-4">Origin/Pickup Details</h3>
                                             <a href="javascript:void(0);" class="edit-clss edit_frm_ad_btn">Edit</a>
                                         </div>
                                         <div class="maing-address">
@@ -342,7 +342,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="maining-heading">
-                                            <h3 class="mb-4">Destination</h3>
+                                            <h3 class="mb-4">Destination details</h3>
                                             <a href="javascript:void(0);" class="edit-clss edit_go_ad_btn">Edit</a>
                                         </div>
                                         <div class="maing-address">
@@ -357,7 +357,7 @@
                                     <div class="col-md-12">
                                         <div class="what-details">
                                             <div class="what-detail-iner">
-                                                <h3>What</h3>
+                                                <h3>Shipment details</h3>
                                                 <?php /*<a href="#" class="edit-clss">Edit</a>*/ ?>
                                                 <table style="width: 50%;">
                                                     <tbody>
@@ -397,7 +397,7 @@
                                     <div class="col-md-12">
                                         <div class="what-details">
                                             <div class="what-detail-iner">
-                                                <h3>How</h3>
+                                                <h3>Shipment Mode</h3>
                                                 <table>
                                                     <tbody>
                                                         <tr>
@@ -466,7 +466,8 @@
                                             <input type="text" name="CVV">
                                         </div>*/?>
                                         <div class="form-group">
-                                            <input type="radio" checked="checked" class="clickMeForPayInput" data-orderid="0"  data-user_email="test@gmail.com"  data-customerid="0"  data-shipping_charge="0" data-tax="0" data-total="0">Epay
+                                            <input type="radio" name="payment_gateway" value="epay" checked="checked" class="clickMeForPayInput"> Epay
+                                            <input type="radio" name="payment_gateway" value="smart_contract" class="clickMeForPayInput"> Smart Contract
                                         </div>
                                     </div>
                                     <div class="paymment-right-details">
@@ -494,7 +495,7 @@
                                     </div>
                                     <div class="payment-details">
                                         <h3>Duties & Taxes</h3>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley .</p>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley .</p>
                                     </div>
                                 </div>
                             </div>
@@ -518,7 +519,7 @@
                             <button type="button" id="prevBtn" onclick="nextPrev(-1)">Back</button>
                             <?php /*<button type="button" id="cencalBtn">Cancel</button>*/?>
                             <button type="button" id="nextBtn" onclick="nextPrev(1)">Continue</button>
-                            <button type="button" class="clickMeForPay" style="display:none;">Pay By Epay</button>
+                            <button type="button" class="clickMeForPay" style="display:none;"  data-orderid="0"  data-user_email="test@gmail.com"  data-customerid="0"  data-shipping_charge="0" data-tax="0" data-total="0">Pay Now</button>
                         </div>
                         <!-- end previous / next buttons -->
                     </form>
@@ -629,7 +630,31 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://epay.me/sdk/v2/stage-websdk.js"></script>
-<script>   
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+<script src="{{ asset('assets/js/crypto-payment.js') }}"></script>
+<script>
+    $(document).ready(function(){
+        $("input.clickMeForPayInput").on("click",function(e){
+            var inputValue=$(this).val();
+            if(inputValue=="smart_contract"){
+                checkExtentions();
+            }
+        });
+        /*$(".smartContractButton").on("click",function(e){
+            console.log();
+            return false;
+            e.preventDefault();
+            const customerId=$(this).attr("data-customerid");
+            const userEmail=$(this).attr("data-user_email");
+            const orderID=$(this).attr("data-orderid");
+            const orderAmount=$(this).attr("data-total");
+            const orderCurrency="USD";
+            const orderDescription=customerId+','+userEmail+','+orderID+','+orderAmount+','+orderCurrency;
+            makePayment(orderAmount,1);
+        });*/
+    });
+</script>
+<script>
     function paymentOptions(customerId,userEmail,orderID,orderAmount,orderCurrency,orderDescription){
         const options = {
             channelId: "WEB",
@@ -688,13 +713,18 @@
     $(document).ready(function(){
         $(".clickMeForPay").on("click",function(e){
             e.preventDefault();
-            const customerId=$(".clickMeForPayInput").attr("data-customerid");
-            const userEmail=$(".clickMeForPayInput").attr("data-user_email");
-            const orderID=$(".clickMeForPayInput").attr("data-orderid");
-            const orderAmount=$(".clickMeForPayInput").attr("data-total");
+            const customerId=$(this).attr("data-customerid");
+            const userEmail=$(this).attr("data-user_email");
+            const orderID=$(this).attr("data-orderid");
+            const orderAmount=$(this).attr("data-total");
             const orderCurrency="USD";
             const orderDescription=customerId+','+userEmail+','+orderID+','+orderAmount+','+orderCurrency;
-            paymentOptions(customerId,userEmail,orderID,orderAmount,orderCurrency,orderDescription);
+            var selectPaymentType=$('input.clickMeForPayInput:checked').val();
+            if(selectPaymentType=="epay"){
+                paymentOptions(customerId,userEmail,orderID,orderAmount,orderCurrency,orderDescription);
+            }else if(selectPaymentType=="smart_contract"){
+                makePayment(orderAmount,orderID,'{{route("user.store_shipment_payment")}}');
+            }
         });
     });
 </script>
@@ -778,12 +808,12 @@
                 cache: false,
                 processData:false,
                 success: function (res) {
-                    $(".clickMeForPayInput").attr("data-orderid",res.id);
-                    $(".clickMeForPayInput").attr("data-user_email",res.user_email);
-                    $(".clickMeForPayInput").attr("data-customerid",res.client_id);
-                    $(".clickMeForPayInput").attr("data-shipping_charge",res.shipping_charge);
-                    $(".clickMeForPayInput").attr("data-tax",res.tax);
-                    $(".clickMeForPayInput").attr("data-total",res.total);
+                    $(".clickMeForPay").attr("data-orderid",res.id);
+                    $(".clickMeForPay").attr("data-user_email",res.user_email);
+                    $(".clickMeForPay").attr("data-customerid",res.client_id);
+                    $(".clickMeForPay").attr("data-shipping_charge",res.shipping_charge);
+                    $(".clickMeForPay").attr("data-tax",res.tax);
+                    $(".clickMeForPay").attr("data-total",res.total);
                     $('.paymment-right-details').find("td.subtotal").html("$"+res.shipping_charge);
                     $('.paymment-right-details').find("td.tax").html("$"+res.tax);
                     $('.paymment-right-details').find("td b.total").html("$"+res.total);

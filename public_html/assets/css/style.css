@@ -246,7 +246,7 @@ input[type="tel"]:focus {
 }
 
 .section {
-  padding: 100px 0;
+  padding: 60px 0;
 }
 
 .section-sm {
@@ -611,7 +611,7 @@ a.btn.btn-main-2.btn-sm {
 .process-item p {
   font-weight: normal;
   font-size: 15px;
-  color: #80808099;
+  color: #00000099;
 }
 
 .banner-img {
@@ -627,7 +627,7 @@ a.btn.btn-main-2.btn-sm {
 }
 
 .pricing-item .price-features p {
-  color: #ababab;
+  color: #545454;
   font-weight: 400;
   font-size: 14px;
 }
@@ -1074,6 +1074,9 @@ a.btn.btn-main-2.btn-sm {
   .test-img .testimonial-slider {
     right: 0px;
   }
+  .section {
+  padding: 25px 0 !important;
+}
 }
 
 .pricing {
@@ -3619,7 +3622,6 @@ iframe#youtubevideo {
   .about-item p {
     margin-bottom: 18px;
     margin-right: 0px;
-    text-align: justify;
   }
 
   .payment-section {

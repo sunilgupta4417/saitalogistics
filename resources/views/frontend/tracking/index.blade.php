@@ -14,10 +14,10 @@
                                 <button type="submit" class="btn">Track</button>
                             </div>
                         </form>
-                        <div class="tracking-table">
+                       <!--  <div class="tracking-table">
                             <h3><a href="#">Multiple Tracking Numbers | Need Help?</a></h3>
-                        </div>
-                        <div class="table-formet">
+                        </div> -->
+                        <!-- <div class="table-formet">
                             <table class="table-responsive">
                                 <thead>
                                     <tr>
@@ -34,7 +34,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div> -->
                     </div>
 
 
@@ -43,7 +43,7 @@
         </div>
     </section>
 
-    <section id="tracking-body">
+   <!--  <section id="tracking-body">
         <div class="container">
             <div class="row">
                 <div class="col-md-7 col-lg-8">
@@ -133,6 +133,6 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
 @endsection
