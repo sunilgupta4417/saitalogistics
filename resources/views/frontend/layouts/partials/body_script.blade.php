@@ -12,8 +12,8 @@
     <script src="{{ asset('assets/plugins/magnific-popup/dist/jquery.magnific-popup.min.js') }}"></script>
     
     <!-- Google Map -->
-    <script src="{{ asset('assets/plugins/google-map/map.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&amp;callback=initMap"></script>    
+    <?php /*<script src="{{ asset('assets/plugins/google-map/map.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&amp;callback=initMap"></script>*/?>    
 
     <script src="{{ asset('assets/js/script.js') }}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

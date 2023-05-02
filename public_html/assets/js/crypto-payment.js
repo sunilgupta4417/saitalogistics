@@ -1,93 +1,96 @@
 async function checkExtentions(){
     if (window.ethereum) {
-		window.web3 = new Web3(window.ethereum);
+		  window.web3 = new Web3(window.ethereum);
     } else if (window.web3) {
-		window.web3 = new Web3(window.web3.currentProvider);
+		  window.web3 = new Web3(window.web3.currentProvider);
     } else {
-		alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
+		  alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
     }
-    var walletStatus=connectToMetamask();
-    var currentAddress = getAccount();
-    console.log(currentAddress);
-    console.log(walletStatus);
+    connectToMetamask();
+    var currentAddress=getAccount();
+    if(currentAddress==null){
+      return false;
+    }else{
+      return true;
+    }
 }
 async function connectToMetamask() {
     return window.ethereum.enable();
 };
 
 function getAccount(){
-    console.log("transfer.service :: getAccount :: start");
-    accountId=localStorage.getItem("walletToken");
-    if (accountId == null) {
-      accountId = (new Promise((resolve, reject) => {
-        window.web3.eth.getAccounts((err, retAccount) => {
-          if (retAccount.length > 0) {
-            accountId = retAccount[0];
-            localStorage.setItem("walletToken", accountId);
-            resolve(accountId);
-          } else {
-            // alert('transfer.service :: getAccount :: no accounts found.');
-            reject("No accounts found.");
-          }
-          if (err != null) {
-            alert("transfer.service :: getAccount :: error retrieving account");
-            reject("Error retrieving account");
-          }
-        });
-      }));
-    }
-    return accountId;
+  accountId=localStorage.getItem("walletToken");
+  if (accountId == null) {
+    window.web3.eth.getAccounts((err, retAccount) => {
+      if (err != null) {
+        alert("transfer.service :: getAccount :: error retrieving account");
+        //reject("Error retrieving account");
+      }else if (retAccount.length > 0) {
+        accountId = retAccount[0];
+        localStorage.setItem("walletToken", accountId);
+        return accountId;
+      } else {
+        alert('No accounts found. Please make sure your wallet connected with your metamask');
+        return "";
+      }
+    });
+  }
+  return accountId;
 }
 
 async function makePayment(amount, orderid,paymentUpdateUrl){
-    this.isLoading = true;//add new loader
-    return new Promise((resolve, reject) => {     
-      	if (window.ethereum) {
-	        makeFinalPayment(amount).then((res) => {
-	          if(res){
-              var payStatus=(res.status==true)?"completed":"failed";
-	            const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: res.events.Transfer.returnValues.value/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin: "USDT",transt:payStatus,orderid:orderid}
-              
-	            //const data =  this.service.paymentCall(payment, token)
-              $.ajaxSetup({
-                headers: {
-                  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+    if(checkExtentions()){
+      this.isLoading = true;//add new loader
+      return new Promise((resolve, reject) => {     
+          if (window.ethereum) {
+            makeFinalPayment(amount).then((res) => {
+              if(res){
+                var payStatus=(res.status==true)?"completed":"failed";
+                const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: res.events.Transfer.returnValues.value/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin: "USDT",transt:payStatus,orderid:orderid}
+                
+                //const data =  this.service.paymentCall(payment, token)
+                $.ajaxSetup({
+                  headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                  }
+                });
+                $.ajax({
+                  type: 'post',
+                  url: paymentUpdateUrl,
+                  data: {status:"ok", response:paymentResp,id:orderid,payment_gateway:"Crypto Coin"},
+                  cache: false,
+                  dataType:'JSON',
+                  success: function (res) {
+                      if((res.status=="ok")){
+                          $(".form-footer button#nextBtn").trigger("click");
+                          //console.log(res)
+                          $(".payment-successful b.successOrderNumber").html(res.response.orderid);
+                          $(".form-footer button#nextBtn").hide();
+                          $(".form-footer button.clickMeForPay").remove();
+                      }else{
+                          $(".form-footer button#nextBtn").hide();
+                          $(".form-footer button.clickMeForPay").show();
+                      }
+                  },
+                  error: function (res) {
+                      console.log(res)
+                  }
+                });
+                if(amount){
+                  localStorage.setItem('payment', paymentResp);
+                  resolve(res)
                 }
-              });
-              $.ajax({
-                type: 'post',
-                url: paymentUpdateUrl,
-                data: {status:"ok", response:paymentResp,id:orderid,payment_gateway:"Crypto Coin"},
-                cache: false,
-                dataType:'JSON',
-                success: function (res) {
-                    if((res.status=="ok")){
-                        $(".form-footer button#nextBtn").trigger("click");
-                        //console.log(res)
-                        $(".payment-successful b.successOrderNumber").html(res.response.orderid);
-                        $(".form-footer button#nextBtn").hide();
-                        $(".form-footer button.clickMeForPay").remove();
-                    }else{
-                        $(".form-footer button#nextBtn").hide();
-                        $(".form-footer button.clickMeForPay").show();
-                    }
-                },
-                error: function (res) {
-                    console.log(res)
-                }
-              });
-	            if(amount){
-	              localStorage.setItem('payment', paymentResp);
-	              resolve(res)
-	            }
-	          }
-	        }).catch((err) => {
-	          //this.isLoading = false;
+              }
+            }).catch((err) => {
+              //this.isLoading = false;
               console.log(err);
-	          alert("Something went wrong ! If your amount is deducted then  please contact to admin !!");
-	        })
-     	}
-	})
+              alert("Something went wrong ! If your amount is deducted then  please contact to admin !!");
+          })
+         }else {
+          alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
+        }
+      });
+    }
 }
 
 

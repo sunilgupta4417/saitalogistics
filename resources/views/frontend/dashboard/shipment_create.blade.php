@@ -302,7 +302,7 @@
                                             <input type="text" name="item_type">
                                         </div>--}}
                                         <div class="form-group">
-                                            <label>Chargeable weight $</label>
+                                            <label>Chargeable Rate $</label>
                                             <input type="text" name="shipping_charge" readonly>
                                         </div>
                                         <div class="form-group">
