@@ -83,9 +83,9 @@
                                 <div class="form-group col-md-3 col-12">
                                    <label>Country*</label>
                                    <select class="form-control select" required name="consignor_country" id="consignor_country" >
-                                       <option>--Select Client--</option>
-                                       @foreach($country as $rowct)
-                                       <option value="{{$rowct->id}}">{{$rowct->country_code}}  {{$rowct->country_name}}</option>
+                                       <option>--Select Country--</option>
+                                       @foreach(getCountries() as $key=>$rowct)
+                                       <option value="{{$key}}">{{$rowct}}</option>
                                        @endforeach
                                     </select>
                                 </div>
@@ -156,9 +156,9 @@
                                 <div class="form-group col-md-3 col-12">
                                    <label>Country*</label>
                                    <select class="form-control select" required name="consignee_country" id="consignee_country" >
-                                       <option>--Select Client--</option>
-                                       @foreach($country as $rowc)
-                                       <option value="{{$rowc->id}}">{{$rowc->country_code}}  {{$rowc->country_name}}</option>
+                                       <option>--Select County--</option>
+                                       @foreach(getCountries() as $key=>$rowct)
+                                       <option value="{{$key}}">{{$rowct}}</option>
                                        @endforeach
                                     </select>
                                 </div>
@@ -193,8 +193,18 @@
                                  <label>Courier Type*</label>
                                  <select class="form-control select" required name="packet_type" id="packet_type">
                                     <option>--Select Packet Type--</option>
-                                    <option value="Fedex">Fedex</option>
-                                    <option value="DHL">DHL</option>
+                                    <option value="Envelope">DHL</option>
+                                    <option value="Documents">DPD</option>
+                                    
+                                 </select>
+                                </div>
+                                <div class="form-group col-md-3 col-12">
+                                 <label>Packet Type*</label>
+                                 <select class="form-control select" required name="package_type" id="package_type">
+                                    <option value="Envelope" selected>Envelope</option>
+                                    <option value="Documents">Documents</option>
+                                     <option value="Non Documents">Non Documents</option>
+                                    
                                  </select>
                                 </div>
                                 <div class="form-group col-md-3 col-12">
@@ -243,6 +253,11 @@
                                  <label>Shipping charges*</label>
                                  <input type="text" name="shipping_charge" id="shipping_charge" required class="form-control" placeholder="Enter Shipping charges">
                              </div>
+                             <div class="form-group col-md-3 col-12">
+                                 <button id="getShippingEstimation" class="btn">Get Rates</button>
+                             </div>
+
+                             
 
                            </div>
 
@@ -501,5 +516,74 @@ $(document).ready(function() {
       });
    });
 });
+
+
+$('#pcs_weight').keypress(function(){
+      var package_type=$("select[name=package_type] option:selected").val();
+      if(package_type=="Envelope"){
+         if($('#pcs_weight').val()>0.3){
+            alert("Please enter less then or equal 0.3");
+            $('#pcs_weight').val("");
+         }
+      }
+   });
+   $('#getShippingEstimation').click(function(e){
+      e.preventDefault();
+      getRates();
+   });
+   $('#dvalue').on("blur",function(e){
+      e.preventDefault();
+      getRates();
+   });
+   //dvalue
+   function getRates() {
+      $('#getShippingEstimation').html('Loading');
+      $.ajaxSetup({
+         headers: {
+            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+         }
+      });
+      var package_type = $("select[name=package_type]").find(":selected").val();
+      var fromCountry = $("input[name=from_country]").val();
+      var R_country = $("select[name=consignee_country]").find(":selected").val();
+      var weight = $("input[name=pcs_weight]").val();
+      var length = $("input[name=length]").val();
+      var width = $("input[name=width]").val();
+      var height = $("input[name=height]").val();
+      if (weight == "" || length == "" || width == "" || height == "") {
+         alert('Please fill all field');
+         return;
+      }
+      const volumetricWeight = (length * width * height) / 6000;
+      const roundedWeight = Math.ceil(volumetricWeight);
+      $('.actualWeight').val(roundedWeight);
+      var formData = {
+         package_type,
+         R_country,
+         weight,
+      };
+      $.ajax({
+         type: 'post',
+         url: '/shipping/get-rates',
+         data: formData,
+         dataType: 'json',
+         success: function (res) {
+            console.log(res)
+            if(res.error){
+               alert(res.error);
+               // return false;
+            }else {
+               $('input[name="shipping_charge"]').val(res.rate)
+               $('#getShippingEstimation').html('Get Rates');
+               // return false
+            }
+         },
+         error: function (res) {
+            console.log(res);
+            // return false
+         }
+      });
+    }
 </script>
 @endsection
+
