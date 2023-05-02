@@ -82,12 +82,7 @@
                                 </div>
                                 <div class="form-group col-md-3 col-12">
                                    <label>Country*</label>
-                                   <select class="form-control select" required name="consignor_country" id="consignor_country" >
-                                       <option>--Select Country--</option>
-                                       @foreach(getCountries() as $key=>$rowct)
-                                       <option value="{{$key}}">{{$rowct}}</option>
-                                       @endforeach
-                                    </select>
+                                   <input type="text" required name="consignor_country" id="consignor_country" class="form-control" placeholder="Enter Pin Code" value="Germany" readonly>
                                 </div>
                                 <div class="form-group col-md-3 col-12">
                                    <label>State*</label>
@@ -544,7 +539,7 @@ $('#pcs_weight').keypress(function(){
          }
       });
       var package_type = $("select[name=package_type]").find(":selected").val();
-      var fromCountry = $("input[name=from_country]").val();
+      var fromCountry = $("input[name=consignor_country]").val();
       var R_country = $("select[name=consignee_country]").find(":selected").val();
       var weight = $("input[name=pcs_weight]").val();
       var length = $("input[name=length]").val();
