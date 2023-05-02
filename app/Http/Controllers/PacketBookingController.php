@@ -149,7 +149,7 @@ class PacketBookingController extends Controller
     public function packetListing(Request $request){
         $var = '';
         $client = ClientMaster::select('client_name','id')->get();
-
+        //mydd($request->all());
         $vendor = VendorMaster::select('name','id')->get();
         $client_id = isset($request->client_id) ? $request->client_id : 0;
         $vendor_id= isset($request->vendor) ? $request->vendor : 0;
@@ -166,8 +166,9 @@ class PacketBookingController extends Controller
         ->select('packet_bookings.*','client_masters.client_name')
         ->where(function ($sqlAdd) use ($startdate,$enddate){
             if($startdate!=NULL && $enddate!=NULL){
-                $sqlAdd->where('booking_date','>=',$startdate)
-                ->where('booking_date','<=',$enddate);
+                /*$sqlAdd->where('booking_date','>=',$startdate)
+                ->where('booking_date','<=',$enddate);*/
+                $sqlAdd->whereBetween('booking_date', [$startdate, $enddate]);
             }elseif($startdate!=NULL){
                 $sqlAdd->where('booking_date','>=',$startdate);
             }elseif($enddate!=NULL){
@@ -306,6 +307,9 @@ class PacketBookingController extends Controller
         $sheet->setCellValue('AS1', 'Currency');
         $sheet->setCellValue('AT1', 'Operation Remarks');
         $sheet->setCellValue('AU1', 'Accounting Remarks');
+        $sheet->setCellValue('AV1', 'Payment Gateway');
+        $sheet->setCellValue('AW1', 'Payment Status');
+        $sheet->setCellValue('AX1', 'Transaction ID');
        
         $rows = 2;
         $i=1;
@@ -357,6 +361,9 @@ class PacketBookingController extends Controller
         $sheet->setCellValue('AS' . $rows, $row['currency']);
         $sheet->setCellValue('AT' . $rows, $row['operation_remark']);
         $sheet->setCellValue('AU' . $rows, $row['accounting_remark']);
+        $sheet->setCellValue('AV' . $rows, $row['payment_gateway']);
+        $sheet->setCellValue('AW' . $rows, $row['payment_status']);
+        $sheet->setCellValue('AX' . $rows, checkKeyExists("transactionid",jsonToArrayConvert($row['payment_response'])));
         $rows++;
         }
         $fileName = "packet-booking.".$type;

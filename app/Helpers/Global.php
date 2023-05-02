@@ -4,6 +4,8 @@ use Illuminate\Http\Response;
 use Twilio\Rest\Client;
 use App\Models\User;
 use Carbon\Carbon;
+use App\Models\Country;
+use App\Models\ShippingZone;
 
 
 /**
@@ -18,7 +20,27 @@ function mydd($data,$flag=0){
         exit;
     }
 }
-
+/**
+ * get Country
+ * 
+ * */
+function getCountriesWithCode(){
+    return ShippingZone::select("id","country")->get()->toArray();
+}
+/**
+ * get Countries
+ * 
+ * */
+function getCountries($key=""){
+    $countries=getCountriesWithCode();
+    $countryIds=array_column($countries,"id");
+    $countryNames=array_column($countries,"country");
+    $countriesInfo=array_combine($countryIds,$countryNames);
+    if(!empty($key)){
+        return checkKeyExists($key,$countriesInfo);
+    }
+    return $countriesInfo;
+}
 
 /**
  * Check Key Exixts With No Empty
@@ -32,7 +54,15 @@ function checkKeyExists($key,$data=array()){
     }
     return false;
 }
-
+/**
+ * Json To Array 
+ * */
+function jsonToArrayConvert($data=""){
+    if(!empty($data)){
+        return json_decode($data,true);
+    }
+    return array();
+}
 
 /**
  * String To Array 

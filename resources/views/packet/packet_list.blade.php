@@ -49,7 +49,7 @@
                                      <label>AWB No.*</label>
                                      <textarea type="text" name="awb_no" id="awb_no" class="form-control" placeholder="Accepts multiple AWB No. comma(,) seperated or enter seperated">{{ app('request')->input('awb_no') }}</textarea>
                                 </div>
-                                <div class="form-group col-md-4 col-12">
+                                <?php /*<div class="form-group col-md-4 col-12">
                                      <label>Client*</label>
                                      <select class="form-control select" name="client_id" id="client_id">
                                         <option value="">---Select Client---</option>
@@ -57,7 +57,7 @@
                                         <option value="{{$rowc->id}}" <?php echo ($client_id==$rowc->id?'selected':'')?>>{{$rowc->client_name}}</option>
                                         @endforeach
                                      </select>
-                                </div>
+                                </div>*/?>
                                 <div class="form-group col-md-4 col-12">
                                      <label>Consignor*</label>
                                      <input class="form-control" type="text" name="consignor" id="consignor" value="{{ app('request')->input('consignor') }}"  placeholder="Enter Consignor">

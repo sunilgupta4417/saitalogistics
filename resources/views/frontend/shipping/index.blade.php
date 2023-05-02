@@ -23,7 +23,6 @@
                               <div class="form-group">
                                  <label>Packet type</label>
                                  <select id="select-service" name="package_type" required>
-                                    <option></option>
                                     <option value="Envelope">Envelope</option>
                                     <option value="Documents">Documents</option>
                                     <option value="Non-Documents">Non Documents</option>
@@ -39,23 +38,23 @@
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>From Country</label>
-                                 <input type="text" readonly value="Germany" class=""/>
+                                 <input type="text" readonly value="Germany" name="from_country" class=""/>
                               </div>
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label>To Country</label>
-                                 <select id="select-service" class="to_country" name="recipient_country" required>
+                                 <select id="select-service" name="to_country" class="to_country" name="recipient_country" required>
                                  <option disabled>Select Country</option>
-                                    @foreach($country as $cou)
+                                    @foreach(getCountries() as $key=>$coun)
                                        @if(session()->get('max_rate'))
                                           @php 
                                              $max_rate = session()->get('max_rate');
                                              $data = session()->get('data');
                                           @endphp
-                                          <option value="{{$cou->id}}" {{$cou->country == $data['destination'] ? 'selected' : ''}}>{{$cou->country}}</option>
+                                          <option value="{{$key}}" {{$cou->country == $data['destination'] ? 'selected' : ''}}>{{$coun}}</option>
                                        @else
-                                       <option value="{{$cou->id}}">{{$cou->country}}</option>
+                                       <option value="{{$key}}">{{$coun}}</option>
                                        @endif
                                     @endforeach
                                  </select>
@@ -63,14 +62,45 @@
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
-                                 <label>Weight</label>
+                                 <label>Weight KG</label>
                                   <input type="text" id="weight" name="weight" required>
                               </div>
                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label>Length CM</label>
+                                  <input type="text" id="length" name="length" required>
+                              </div>
+                           </div>
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label>Width CM</label>
+                                  <input type="text" id="width" name="width" required>
+                              </div>
+                           </div>
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label>Height CM</label>
+                                  <input type="text" id="height" name="height" required>
+                              </div>
+                           </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label>Declared value $</label>
+                                  <input type="text" id="dvalue" name="dvalue" required>
+                              </div>
+                           </div>
+                           <div class="col-lg-6">
+                              <div class="shipmentEstimationDetails">
+                                 <div class="actualWeight"></div>
+                                 <div class="actualShippingRates"></div>
+                              </div>
+                           </div>
+
                            <div class="col-lg-12">
                               <br>
                                  <div class="sub-btns text-center">
-                                    <button type="submit" id="submit_btn" class="btn">Get Estimation</button>
+                                    <button id="getShippingEstimation" class="btn">Get Estimation</button>
                                  </div>
                            </div>
                         </div>
@@ -225,7 +255,7 @@
                                  <input type="email" class="form-control" id="email" placeholder="Email">
                               </div>
                               <div class="form-group">
-                                 <textarea type="text" class="form-control" id="email" placeholder="Email"></textarea>
+                     <textarea type="text" class="form-control" id="email" placeholder="Message"></textarea>
                               </div>
                               <button type="submit" class="btn btn-main-2">Submit</button>
                            </form>
@@ -240,4 +270,69 @@
                </div>
          </div>
       </section>
-   @endsection
+@endsection
+@section('extra_body_scripts')
+<script>
+   $('#weight').keypress(function(){
+      var package_type=$("select[name=package_type] option:selected").val();
+      if(package_type=="Envelope"){
+         if($('#weight').val()>0.3){
+               alert("Please enter less then or equal 0.3");
+               $('#weight').val("");
+         }
+      }
+   });
+   $('#getShippingEstimation').click(function(e){
+      e.preventDefault();
+      getRates();
+   });
+   function getRates() {
+      $('#getShippingEstimation').html('Loading');
+      $.ajaxSetup({
+         headers: {
+            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+         }
+      });
+      var package_type = $("select[name=package_type]").find(":selected").val();
+      var fromCountry = $("input[name=from_country]").val();
+      var R_country = $("select[name=to_country]").find(":selected").val();
+      var weight = $("input[name=weight]").val();
+      var length = $("input[name=length]").val();
+      var width = $("input[name=width]").val();
+      var height = $("input[name=height]").val();
+      if (weight == "" || length == "" || width == "" || height == "") {
+         alert('Please fill all field');
+         return;
+      }
+      const volumetricWeight = (length * width * height) / 6000;
+      const roundedWeight = Math.ceil(volumetricWeight);
+      $('.actualWeight').val(roundedWeight);
+      var formData = {
+         package_type,
+         R_country,
+         weight,
+      };
+      $.ajax({
+         type: 'post',
+         url: '/shipping/get-rates',
+         data: formData,
+         dataType: 'json',
+         success: function (res) {
+            console.log(res)
+            if(res.error){
+               alert(res.error);
+               // return false;
+            }else {
+               $('.actualShippingRates').html("$"+res.rate)
+               // return false
+            }
+         },
+         error: function (res) {
+            console.log(res);
+            // return false
+         }
+      });
+    }
+    
+</script>
+@endsection

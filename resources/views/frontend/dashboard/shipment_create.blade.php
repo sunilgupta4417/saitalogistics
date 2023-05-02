@@ -155,8 +155,8 @@
                                         <select id="select-service" required name="R_country">
                                         <option label="Select a country ... " selected="selected" disabled>Select a country ... </option> 
                                             
-                                            @foreach($country as $coun)
-                                                <option value="{{$coun->id}}">{{$coun->country}}</option>
+                                            @foreach(getCountries() as $key=>$coun)
+                                                <option value="{{$key}}">{{$coun}}</option>
                                             @endforeach
                                         </select>
                                     </div>

@@ -184,7 +184,7 @@
                                         <input type="email" class="form-control" id="email" placeholder="Email">
                                     </div>
                                     <div class="form-group">
-                                        <textarea type="text" class="form-control" id="email" placeholder="Email"></textarea>
+                                <textarea type="text" class="form-control" id="email" placeholder="Message"></textarea>
                                     </div>
                                     <button type="submit" class="btn btn-main-2">Submit</button>
                                 </form>

@@ -48,7 +48,7 @@
                                         <tr>
                                             <th>Client</th>
                                             <th >:</th>
-                                            <td>{{$packet->client_name}}</td>
+                                            <td>{{$packet->client_id}}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="3" class="height-light">Consignor Details</th>
@@ -164,7 +164,7 @@
                                         <tr>
                                             <th>Country</th>
                                             <th >:</th>
-                                            <td>{{$packet->csn_country_id}}</td>
+                                            <td>{{ getCountries($packet->csn_country_id)}}</td>
                                         </tr>
                                         <tr>
                                             <th>State</th>
@@ -201,11 +201,6 @@
                                             <td>{{$packet->packet_type}}</td>
                                         </tr>
                                         <tr>
-                                            <th>Payment Type</th>
-                                            <th >:</th>
-                                            <td>{{$packet->payment_type}}</td>
-                                        </tr>
-                                        <tr>
                                             <th>Invoice No</th>
                                             <th >:</th>
                                             <td>{{$packet->invoice_no}}</td>
@@ -229,9 +224,27 @@
                                             <td>{{$packet->actual_weight}}</td>
                                         </tr>
                                         <tr>
-                                            <th>Packet Type</th>
+                                            <th colspan="3" class="height-light">Payment Details</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Payment Type</th>
                                             <th >:</th>
-                                            <td>{{$packet->packet_type}}</td>
+                                            <td>{{$packet->payment_type}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Payment Gateway</th>
+                                            <th >:</th>
+                                            <td>{{$packet->payment_gateway}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Payment Status</th>
+                                            <th >:</th>
+                                            <td>{{$packet->payment_status}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Transaction ID</th>
+                                            <th >:</th>
+                                            <td>{{ checkKeyExists("transactionid",jsonToArrayConvert($packet->payment_response)) }}</td>
                                         </tr>
                                         <!-- <tr>
                                             <th>Total Value</th>
@@ -239,9 +252,9 @@
                                             <td>{{$packet->total_weight}}</td>
                                         </tr> -->
                                         <tr>
-                                            <th>Currency</th>
+                                            <th>Amount</th>
                                             <th >:</th>
-                                            <td>$</td>
+                                            <td>${{$packet->shipping_charge}}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="3" class="height-light">Remarks</th>

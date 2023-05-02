@@ -1592,15 +1592,18 @@ pre {
 }
 
 #close-video {
-  border: 4px solid;
-  border-radius: 50%;
-  background: #000;
-  font-size: 26px;
-  color: #fff;
-  height: 56px;
-  width: 56px;
-  text-align: center;
-  padding: 6px 16px;
+    border: 4px solid;
+    border-radius: 50%;
+    background: #000;
+    font-size: 26px;
+    color: #fff;
+    height: 56px;
+    width: 56px;
+    text-align: center;
+    padding: 6px 16px;
+    position: absolute;
+    top: 10%;
+    right: 70px;
 }
 
 .youtube-video .modal-dialog {
@@ -1620,10 +1623,11 @@ pre {
 
 #video-container {
   position: relative;
-  padding-bottom: 50%;
+  padding-bottom: 80%;
   padding-top: 30px;
   height: 0;
   overflow: hidden;
+  margin-top: 30px;
 }
 
 iframe#youtubevideo {
