@@ -70,11 +70,10 @@ class ShipmentController extends Controller
         $arr = $this->csvToArray($filepath);
 
         for ($i = 0; $i < count($arr); $i++) {
-            
-            $weight = $arr[$i]['Weight'];
-            $package_type = $arr[$i]['Package_type'];
+            $weight = $arr[$i]['ght'];
+            $package_type = $arr[$i]['package_type'];
             // dd($package_type);
-            unset($arr[$i]['Weight'], $arr[$i]['Package_type']);
+            unset($arr[$i]['ght'], $arr[$i]['package_type']);
             $Edata = json_encode($arr[$i]);
             ZoneRate::updateOrCreate(
                 ['weight' => $weight, 'package_type' => $package_type, 'carrier_type' => $request->carrier],

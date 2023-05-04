@@ -264,6 +264,7 @@ class DashboardController extends Controller
         $shipment->csn_mobile_no = $request->R_phone;
         $shipment->courier_type = $request->courier_type;
         $shipment->pcs_weight = $request->weight;
+        $shipment->chargeable_weight = $request->chargeable_weight;
         $shipment->length = $request->length;
         $shipment->width = $request->width;
         $shipment->height = $request->height;

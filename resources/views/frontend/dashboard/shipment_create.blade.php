@@ -83,7 +83,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Aadhaar No</label>
-                                        <input type="text" name="S_aadhaar" value="">
+                                        <input type="number" name="S_aadhaar" value="">
                                     </div>
 
                                     <div class="form-group">
@@ -109,7 +109,7 @@
 
                                     <div class="form-group">
                                         <label>Email Id*</label>
-                                        <input type="text" name="S_email" value="">
+                                        <input type="email" name="S_email" value="">
                                     </div>
 
                                     <div class="form-group">
@@ -199,7 +199,7 @@
 
                                     <div class="form-group">
                                         <label>Email Id*</label>
-                                        <input type="text" name="R_email"  value="">
+                                        <input type="email" name="R_email"  value="">
                                     </div>
 
                                     <div class="form-group">
@@ -270,39 +270,46 @@
                                     </div>
                                     <div class="where-boxing">
                                         <div class="form-group">
-                                        <label>Packet type</label>
-                                        <select id="select-service" name="package_type" required>
-                                            <option value="Envelope">Envelope</option>
-                                            <option value="Documents">Documents</option>
-                                            <option value="Non-Documents">Non Documents</option>
-                                        </select>
+                                            <label>Packet type</label>
+                                            <select id="select-service" name="package_type" required>
+                                                <option value="Envelope">Envelope</option>
+                                                <option value="Documents">Documents</option>
+                                                <option value="Non-Documents">Non Documents</option>
+                                            </select>
+                                        </div>       
+                                        <div class="form-group">
+                                            <label>Mode</label>
+                                            <select id="select-service" disabled="disabled">
+                                                <option value="export" selected>Export</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Gross Weight KG</label>
+                                            <input type="number" name="weight" value="">
                                         </div>
                                         <div class="form-group">
-                                            <label>Weight KG</label>
-                                            <input type="text" name="weight"  value="">
+                                            <label>Chargeable Weight KG</label>
+                                            <input type="number" name="chargeable_weight" id="chargeableWeight" readonly>
                                         </div>
                                         <div class="form-group">
                                             <label>Length CM</label>
-                                            <input type="text" name="length"  value="">
+                                            <input type="number" name="length"  value="">
                                         </div>
                                         <div class="form-group">
                                             <label>Width CM</label>
-                                            <input type="text" name="width"  value="">
+                                            <input type="number" name="width"  value="">
                                         </div>
                                         <div class="form-group">
                                             <label>Height CM</label>
-                                            <input type="text" name="height"  value="">
+                                            <input type="number" name="height"  value="">
                                         </div>
                                         <div class="form-group">
-                                            <label>Declared value $</label>
-                                            <input type="text" name="dvalue"  value="">
+                                            <label>Declared Value €</label>
+                                            <input type="number" name="dvalue"  value="">
                                         </div>
-                                        {{--<div class="form-group">
-                                            <label>Item type</label>
-                                            <input type="text" name="item_type">
-                                        </div>--}}
                                         <div class="form-group">
-                                            <label>Chargeable Rate $</label>
+                                            <label>Estimated Air Freight Cost €</label>
                                             <input type="text" name="shipping_charge" readonly>
                                         </div>
                                         <div class="form-group">
@@ -312,6 +319,37 @@
                                     </div>
                                     <div class="step-image">
                                         <img src="{{asset('assets/images/step-img.png')}}" alt="" class="img-responsive">
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="shp-list">
+                                            <p style="margin-bottom:0px;"><strong style="font-size: 20px;">All prices given in Euro Currency </strong> </p>
+                                            <p style="margin-bottom:0px;"><strong>Peak surcharge to be added on above rates </strong></p>
+                                            <ul> 
+                                                <li>Dynamic fuel surcharge to be added on above rates</li>
+                                                <li>Each package of a shipment is calculated according to the dimensional weight as soon as the dimensional weight exceeds the actual weight. </li>
+                                                <li>Final weight shall be chargeable as per DHL invoice </li>
+                                            </ul>
+                                            <p style="margin-bottom:0px;"> <strong>Extra Charges as below may apply to  any shipment </strong> </p>
+                                            <ul> 
+                                                <li>Residential Delivery Address</li>
+                                                <li>Direct Signature Delivery</li>
+                                                <li>DDP/DTP  charges</li>
+                                                <li>Remote Area charges</li>
+                                                <li>Overweight Charges</li>
+                                                <li>Oversize charges</li>
+                                                <li>Address Correction Charges</li>
+                                            </ul>
+                                            <p style="margin-bottom:0px;"> <strong>TIME BOUND DELIVERIES (if service available for that particular destination) </strong> </p>
+                                            <p> 
+                                                <ul>
+                                                    <li>Premium 9:00: Zuschlag von 35.00 EUR auf den Preis von DHL EXPRESS WORLDWIDE EXPORT </li>
+                                                    <li>Premium 10:30: Zuschlag von 25.00 EUR auf den Preis von DHL EXPRESS WORLDWIDE EXPORT </li>
+                                                    <li>Premium 12:00: Zuschlag von 20.00 EUR auf den Preis von DHL EXPRESS WORLDWIDE EXPORT</li>
+                                                </ul>
+                                            </p>
+                                            <p>At the end of the above details mention “ The above rates are estimated and the final rates will be confirmed on the confirmation from the Airlines are sharing the details “</p>
+                                            <p><strong>“WILL GET BACK TO YOU SOON”</strong></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -519,7 +557,7 @@
                             <button type="button" id="prevBtn" onclick="nextPrev(-1)">Back</button>
                             <?php /*<button type="button" id="cencalBtn">Cancel</button>*/?>
                             <button type="button" id="nextBtn" onclick="nextPrev(1)">Continue</button>
-                            <button type="button" class="clickMeForPay" style="display:none;"  data-orderid="0"  data-user_email="test@gmail.com"  data-customerid="0"  data-shipping_charge="0" data-tax="0" data-total="0">Pay Now</button>
+                            <button type="button" class="clickMeForPay" style="display:none;"  data-orderid="0"  data-user_email="test@gmail.com" data-customerid="0" data-shipping_charge="0" data-tax="0" data-total="0">Pay Now</button>
                         </div>
                         <!-- end previous / next buttons -->
                     </form>
@@ -772,8 +810,8 @@
         $('#ship_type').html($("input[name=dropPickup]:checked").val());
         $('#shipment_date').html($("input[name=date]").val());
         $('#packetType').html($("select[name=package_type] option:selected").val());
-        $('#shippingCharge').html("$"+$("input[name=shipping_charge]").val());
-        $('#declaredvalue').html("$"+$("input[name=dvalue]").val());
+        $('#shippingCharge').html("€"+$("input[name=shipping_charge]").val());
+        $('#declaredvalue').html("€"+$("input[name=dvalue]").val());
     }
     $('.tab-link').click( function() {
         var tabID = $(this).attr('data-tab'); 
@@ -790,8 +828,7 @@
         getReviewFormData();
         if (n == 3) {
             // $('#nextBtn').prop('disabled', true);
-        } 
-        else if (n == 5) {
+        }else if (n == 5) {
             $(".form-footer button#prevBtn").remove();
             $(".form-footer button#nextBtn").hide();
             $(".form-footer button.clickMeForPay").show();
@@ -814,9 +851,9 @@
                     $(".clickMeForPay").attr("data-shipping_charge",res.shipping_charge);
                     $(".clickMeForPay").attr("data-tax",res.tax);
                     $(".clickMeForPay").attr("data-total",res.total);
-                    $('.paymment-right-details').find("td.subtotal").html("$"+res.shipping_charge);
-                    $('.paymment-right-details').find("td.tax").html("$"+res.tax);
-                    $('.paymment-right-details').find("td b.total").html("$"+res.total);
+                    $('.paymment-right-details').find("td.subtotal").html("€"+res.shipping_charge);
+                    $('.paymment-right-details').find("td.tax").html("€"+res.tax);
+                    $('.paymment-right-details').find("td b.total").html("€"+res.total);
                     //console.log(res);
                 },
                 error: function (res) {
@@ -826,6 +863,7 @@
         } else {
             $('#nextBtn').prop('disabled', false);
         }
+        console.log(n);
         // This function will display the specified tab of the form...
         var x = document.getElementsByClassName("step");
         x[n].style.display = "block";
@@ -882,17 +920,21 @@
         });
         package_type = $("select[name=package_type]").find(":selected").val();
         R_country = $("select[name=R_country]").find(":selected").val();
-        weight = $("input[name=weight]").val();
+        grossWeight = $("input[name=weight]").val();
         length = $("input[name=length]").val();
         width = $("input[name=width]").val();
         height = $("input[name=height]").val();
-        if (weight == "" || length == "" || width == "" || height == "") {
+        
+        if (grossWeight == "" || length == "" || width == "" || height == "") {
             alert('Please fill all field');
             return;
         }
-        const volumetricWeight = (length * width * height) / 6000;
-        const roundedWeight = Math.ceil(volumetricWeight);
-        $('#actual_weight').val(roundedWeight);
+        /*const volumetricWeight = (length * width * height) / 6000;
+        const roundedWeight = Math.ceil(volumetricWeight);*/
+        const volumetricWeight = (length * width * height) / 5000;
+        const weight = Math.ceil(volumetricWeight);
+        $('#chargeableWeight').val(weight);
+        $('#actual_weight').val(weight);
         var formData = {
             package_type,
             R_country,
