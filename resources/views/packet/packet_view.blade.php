@@ -219,9 +219,9 @@
                                             <td>{{$packet->pcs_weight}}</td>
                                         </tr>
                                         <tr>
-                                            <th>Actual Weight</th>
+                                            <th>Chargeable Weight</th>
                                             <th >:</th>
-                                            <td>{{$packet->actual_weight}}</td>
+                                            <td>{{$packet->chargeable_weight?$packet->chargeable_weight:$packet->actual_weight}}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="3" class="height-light">Payment Details</th>

@@ -34,18 +34,20 @@ class OtherApiController extends Controller
             ->where('awb_no',$awb_no)->first();
 
             // return view('pdf.awb_invoice_print',compact('invoiceData','website'));
-            $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData','website','awb_no'));
+            $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData','website'));
             
             $pdf->setPaper('A4', 'landscape');
             // $pdf->render();
             return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
             // return $pdf->download('awb_'.$awb_no.'_invoice.pdf');
         }elseif($request->print_type=='label'){
-            $labelData = PacketBooking::join('country','country.id','=','csr_country_id')
-            ->join('country as c','c.id','=','csn_country_id')
-            ->join('client_masters','client_masters.id','=','packet_bookings.client_id')
-            ->select('packet_bookings.*','country.country_name','c.country_name as csn_country_name',
-            'client_masters.client_name','client_masters.client_code')
+            $labelData = PacketBooking::leftjoin('country','country.id','=','csr_country_id')
+            ->leftjoin('country as c','c.id','=','csn_country_id')
+            // ->join('client_masters','client_masters.id','=','packet_bookings.client_id')
+            // ->select('packet_bookings.*','country.country_name','c.country_name as csn_country_name',
+            // 'client_masters.client_name','client_masters.client_code')
+
+            ->select('packet_bookings.*','country.country_name','c.country_name as csn_country_name')
             ->where('awb_no',$awb_no)->first();
             // return view('pdf.awb_label_print',compact('labelData','website'));
             $pdf = PDF::loadView('pdf.awb_label_print', compact('labelData','website','awb_no'));
@@ -67,7 +69,7 @@ class OtherApiController extends Controller
     public function shipmentMovement(Request $request){
         $packetbooking = PacketBooking::select('id','awb_no')->get();
         $shipment = Shipment::join('packet_bookings','packet_bookings.id','=','shipments.awb_id')
-        ->leftjoin('client_masters','client_masters.id','=','packet_bookings.client_id')
+        ->join('client_masters','client_masters.id','=','packet_bookings.client_id')
         ->select('shipments.*','packet_bookings.awb_no','packet_bookings.booking_date','packet_bookings.csn_consignor',
         'packet_bookings.csr_mobile_no','packet_bookings.csr_consignor','packet_bookings.csn_city_id','client_masters.client_name')
         ->paginate(env('page_default_val'));

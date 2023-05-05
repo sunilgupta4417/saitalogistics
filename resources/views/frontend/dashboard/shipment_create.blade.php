@@ -901,13 +901,6 @@
         x[currentTab].style.display = "none";
         // Increase or decrease the current tab by 1:
         currentTab = currentTab + n;
-        // if you have reached the end of the form...
-        // if (currentTab >= x.length) {
-        //     // ... the form gets submitted:
-        //     document.getElementById("signUpForm").submit();
-        //     return false;
-        // }
-        // Otherwise, display the correct tab:
         showTab(currentTab);
     }
             
@@ -951,18 +944,22 @@
                 if(res.error){
                     $('#nextBtn').prop('disabled', true);
                     currentTab = 3;
+                    $('input[name=shipping_charge]').val("");
+                    $('#nextBtn').html('Continue');
                     alert(res.error);
                     // return false;
                 }else {
                     $('#nextBtn').prop('disabled', false);
                     $('#nextBtn').html('Continue');
-                    $('input[name=shipping_charge]').val(res.rate)
+                    $('input[name=shipping_charge]').val(res.rate);
                     // return false
                 }
             },
             error: function (res) {
-                $('#nextBtn').html('Continue');
                 $('#nextBtn').prop('disabled', true);
+                $('input[name=shipping_charge]').val("");
+                $('#nextBtn').html('Continue');
+                alert(res.error);
                 console.log(res);
                 // return false
             }

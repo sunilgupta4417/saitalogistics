@@ -35,6 +35,9 @@ class AuthController extends Controller
 
     public function login()
     {
+        if(!empty(Auth::user()->id)){
+            return redirect()->route('user.dashboard');
+        }
         return view('frontend.auth.login');
     }
     public function register()

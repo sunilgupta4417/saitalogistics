@@ -221,12 +221,12 @@
                                 </div>--}}
 
                              <div class="form-group col-md-3 col-12">
-                                 <label>Weight *</label>
+                                 <label>Gross Weight *</label>
                                  <input type="text" name="pcs_weight" id="pcs_weight" required class="form-control" placeholder="Enter Weight">
                              </div>
                              <div class="form-group col-md-3 col-12">
                                  <label>Chargeable Weight *</label>
-                                 <input type="text" name="chargeble_weight" id="chargeble_weight" required class="form-control" placeholder="Enter Chargeble Weight">
+                                 <input type="text" name="chargeable_weight" id="chargeable_weight" required class="form-control" placeholder="Enter Chargeble Weight">
                              </div>
                              <div class="form-group col-md-3 col-12">
                                  <label>Length*</label>
@@ -244,10 +244,6 @@
                                  <label>Declared value*</label>
                                  <input type="text" name="dvalue" id="dvalue" required class="form-control" placeholder="Enter Declared value">
                              </div>
-                             {{--<div class="form-group col-md-3 col-12">
-                                 <label>Item type*</label>
-                                 <input type="text" name="item_type" required class="form-control" placeholder="Enter Item type">
-                             </div>--}}
                              <div class="form-group col-md-3 col-12">
                                  <label>Shipping charges*</label>
                                  <input type="text" name="shipping_charge" id="shipping_charge" required class="form-control" placeholder="Enter Shipping charges">
@@ -440,6 +436,7 @@ $(document).ready(function() {
                $("#packet_detail").val(data.packet_description);
                $("#pcs").val(data.pcs_weight);
                $("#actual_weight").val(data.actual_weight);
+               $("#chargeable_weight").val(data.chargeable_weight);
                $("#vendor_weight").val(data.vendor_weight);
                $("#vendor_packet_type").val(data.vendor_weight_type).trigger('change');
                $("#total_value").val(data.total_weight);
@@ -496,6 +493,7 @@ $(document).ready(function() {
                $("#packet_detail").val("");
                $("#pcs").val("");
                $("#actual_weight").val("");
+               $("#chargeable_weight").val("");
                $("#vendor_weight").val("");
                $("#vendor_packet_type").val("").trigger('change');
                $("#total_value").val("");
@@ -545,17 +543,17 @@ $('#pcs_weight').keypress(function(){
       var package_type = $("select[name=package_type]").find(":selected").val();
       var fromCountry = $("input[name=consignor_country]").val();
       var R_country = $("select[name=consignee_country]").find(":selected").val();
-      var weight = $("input[name=pcs_weight]").val();
+      var pcs_weight = $("input[name=pcs_weight]").val();
       var length = $("input[name=length]").val();
       var width = $("input[name=width]").val();
       var height = $("input[name=height]").val();
-      if (weight == "" || length == "" || width == "" || height == "") {
+      if (pcs_weight == "" || length == "" || width == "" || height == "") {
          alert('Please fill all field');
          return;
       }
-      const volumetricWeight = (length * width * height) / 6000;
-      const roundedWeight = Math.ceil(volumetricWeight);
-      $('.actualWeight').val(roundedWeight);
+      const weight = (length * width * height) / 5000;
+      $('.actualWeight').val(weight);
+      $("#chargeable_weight").val(weight);
       var formData = {
          package_type,
          R_country,
@@ -569,6 +567,8 @@ $('#pcs_weight').keypress(function(){
          success: function (res) {
             console.log(res)
             if(res.error){
+               $('input[name="shipping_charge"]').val("");
+               $('#getShippingEstimation').html('Get Rates');
                alert(res.error);
                // return false;
             }else {
@@ -578,6 +578,8 @@ $('#pcs_weight').keypress(function(){
             }
          },
          error: function (res) {
+            $('input[name="shipping_charge"]').val("");
+            $('#getShippingEstimation').html('Get Rates');
             console.log(res);
             // return false
          }

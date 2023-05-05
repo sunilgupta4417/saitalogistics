@@ -41,6 +41,7 @@ function getAccount(){
 async function makePayment(amount, orderid,paymentUpdateUrl){
     if(checkExtentions()){
       let currentChain = window.ethereum.request({ method: 'eth_chainId' });
+      console.log(currentChain);
       if(currentChain != 0x61){
         return alert("Please Select BNB Mainnet network before payment !!");
       }

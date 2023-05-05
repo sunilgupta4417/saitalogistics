@@ -118,7 +118,7 @@
                 <th style="padding: 10px; font-family: sans-serif; font-size: 13px; border-right: 1px solid #eeeeee94;">Packing</th>
                 <th style="padding: 10px; font-family: sans-serif; font-size: 13px; border-right: 1px solid #eeeeee94;">CONTENTS - DESCRIPTION (SAID TO CONTAIN)</th>
                 <th style="padding: 10px; font-family: sans-serif; font-size: 13px; border-right: 1px solid #eeeeee94;">DIM(Cms.) L * W * H</th>
-                <th style="padding: 10px; font-family: sans-serif; font-size: 13px; border-right: 1px solid #eeeeee94;">ACTUA WEIGHT</th>
+                <th style="padding: 10px; font-family: sans-serif; font-size: 13px; border-right: 1px solid #eeeeee94;">ACTUAL WEIGHT</th>
                 <th style="padding: 10px; font-family: sans-serif; font-size: 13px; border-right: 1px solid #eeeeee94;">CHARGED WEIGHT</th>
                 <th style="padding: 10px; font-family: sans-serif; font-size: 13px;">Special Remarks:</th>
               </tr>
@@ -131,16 +131,17 @@
               <td style="padding: 8px 5px; text-align: center; border: 1px solid #4e4e4e; font-size: 12px; font-family: sans-serif;" >0*0*0</td>
               <td style="padding: 8px 5px; text-align: center; border: 1px solid #4e4e4e; font-size: 12px; font-family: sans-serif;">{{$invoiceData->actual_weight}}</td>
               <td style="padding: 8px 5px; text-align: center; border: 1px solid #4e4e4e; font-size: 12px; font-family: sans-serif;">{{$invoiceData->vendor_weight}}</td>
-              <td style="padding: 8px 5px; text-align: center; border: 1px solid #4e4e4e; font-size: 12px; font-family: sans-serif;">{{$invoiceData->vendor_weight}}</td>
+              <td style="padding: 8px 5px; text-align: center; border: 1px solid #4e4e4e; font-size: 12px; font-family: sans-serif;">{{$invoiceData->operation_remark}}</td>
               </tr>
             </tbody>
           </table>
         </div>
         <!-- Footer sign -->
         <div class="clear"></div>
+        
         <div class="div50">
         <div style="padding-top:15px;">
-        <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600; margin-bottom: 10px;">SENDER'S NAME <span>.........................</span></p>
+        <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600; margin-bottom: 10px;">SENDER'S NAME <span>{{$invoiceData->csr_consignor}}</span></p>
         <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">SIGNATURE <span>.........................</span></p>
         </div>
         </div>
@@ -151,6 +152,13 @@
                     <p class="mb-0" style="font-size: 13px; display: inline-block; color: #000; font-family: sans-serif;">DATE <span>.........................</span></p>
                     <p class="mb-0" style="font-size: 13px; display: inline-block; color: #000; font-family: sans-serif;">TIME <span>.........................</span></p>
           </div>
+        </div>
+        <div class="">
+        <div style="margin-top:80px;">
+          <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">PAYMENT TYPE: <span>{{strtoupper($invoiceData->payment_type)}}</span></p>
+          <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">PAYMENT AMOUNT: <span>{{$invoiceData->shipping_charge}}</span></p>
+          <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">PAYMENT STATUS: <span>{{$invoiceData->payment_status}}</span></p>
+        </div>
         </div>
         <div class="clear"></div>
         <div class="div100">
@@ -271,19 +279,20 @@
               <td style="padding: 8px 5px; text-align: center; border: 1px solid #4e4e4e; font-size: 12px; font-family: sans-serif;">1</td>
               <td style="padding: 8px 5px; text-align: center; border: 1px solid #4e4e4e; font-size: 12px; font-family: sans-serif;">{{$invoiceData->packet_type}}</td>
               <td style="padding: 8px 5px; text-align: center; border: 1px solid #4e4e4e; font-size: 12px; font-family: sans-serif;" >{{$invoiceData->packet_description}}</td>
-              <td style="padding: 8px 5px; text-align: center; border: 1px solid #4e4e4e; font-size: 12px; font-family: sans-serif;" >0*0*0</td>
+              <td style="padding: 8px 5px; text-align: center; border: 1px solid #4e4e4e; font-size: 12px; font-family: sans-serif;" >{{$invoiceData->length}}*{{$invoiceData->width}}*{{$invoiceData->height}}</td>
               <td style="padding: 8px 5px; text-align: center; border: 1px solid #4e4e4e; font-size: 12px; font-family: sans-serif;">{{$invoiceData->actual_weight}}</td>
               <td style="padding: 8px 5px; text-align: center; border: 1px solid #4e4e4e; font-size: 12px; font-family: sans-serif;">{{$invoiceData->vendor_weight}}</td>
-              <td style="padding: 8px 5px; text-align: center; border: 1px solid #4e4e4e; font-size: 12px; font-family: sans-serif;">{{$invoiceData->vendor_weight}}</td>
+              <td style="padding: 8px 5px; text-align: center; border: 1px solid #4e4e4e; font-size: 12px; font-family: sans-serif;">{{$invoiceData->operation_remark}}</td>
               </tr>
             </tbody>
           </table>
         </div>
         <!-- Footer sign -->
         <div class="clear"></div>
+        
         <div class="div50">
         <div style="padding-top:15px;">
-        <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600; margin-bottom: 10px;">SENDER'S NAME <span>.........................</span></p>
+        <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600; margin-bottom: 10px;">SENDER'S NAME <span>{{$invoiceData->csr_consignor}}</span></p>
         <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">SIGNATURE <span>.........................</span></p>
         </div>
         </div>
@@ -294,6 +303,13 @@
                     <p class="mb-0" style="font-size: 13px; display: inline-block; color: #000; font-family: sans-serif;">DATE <span>.........................</span></p>
                     <p class="mb-0" style="font-size: 13px; display: inline-block; color: #000; font-family: sans-serif;">TIME <span>.........................</span></p>
           </div>
+        </div>
+        <div class="">
+        <div style="margin-top:80px;">
+          <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">PAYMENT TYPE: <span>{{strtoupper($invoiceData->payment_type)}}</span></p>
+          <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">PAYMENT AMOUNT: <span>{{$invoiceData->shipping_charge}}</span></p>
+          <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">PAYMENT STATUS: <span>{{$invoiceData->payment_status}}</span></p>
+        </div>
         </div>
         <div class="clear"></div>
         <div class="div100">

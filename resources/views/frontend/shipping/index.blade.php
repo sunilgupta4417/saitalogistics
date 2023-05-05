@@ -389,14 +389,19 @@
          success: function(res) {
             console.log(res)
             if (res.error) {
+               $('.actualShippingRates').html("")
+               $('#getShippingEstimation').html('Get Estimation');
                alert(res.error);
                // return false;
             } else {
-               $('.actualShippingRates').html("€" + res.rate)
+               $('.actualShippingRates').html("€" + res.rate);
+               $('#getShippingEstimation').html('Get Estimation');
                // return false
             }
          },
          error: function(res) {
+            $('.actualShippingRates').html("")
+            $('#getShippingEstimation').html('Get Estimation');
             console.log(res);
             // return false
          }

@@ -119,13 +119,20 @@
             <td>1</td>
             <td>{{isset($labelData->packet_type)?$labelData->packet_type:''}}</td>
             <td>{{isset($labelData->packet_description)?$labelData->packet_description:''}}</td>
-            <td>0*0*0</td>
+            <td>{{(!isset($labelData->length) || $labelData->length==null)?0:$labelData->length}}*{{(!isset($labelData->width) || $labelData->width==null)?0:$labelData->width}}*{{(!isset($labelData->height)||$labelData->height==null)?0:$labelData->height}}</td>
             <td>{{isset($labelData->actual_weight)?$labelData->actual_weight:''}}</td>
             <td>{{isset($labelData->vendor_weight)?$labelData->vendor_weight:''}}</td>
           </tr>
         </tbody>
       </table>
       <div class="clear"></div>
+      <div class="">
+        <div style="margin-top:80px;">
+          <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">PAYMENT TYPE: <span>{{isset($labelData->payment_type)?strtoupper($labelData->payment_type):''}}</span></p>
+          <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">PAYMENT AMOUNT: <span>{{isset($labelData->shipping_charge)?$labelData->shipping_charge:''}}</span></p>
+          <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">PAYMENT STATUS: <span>{{isset($labelData->payment_status)?$labelData->payment_status:''}}</span></p>
+        </div>
+        </div>
       <div style="text-align: center;">
         <h3 style="font-size: 24px; font-family:sans-serif; margin: 0;">AWB</h3>
         <div class="clear"></div>
