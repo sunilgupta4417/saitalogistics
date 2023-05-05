@@ -11,6 +11,7 @@ use App\Models\ShippingZone;
 use App\Models\State;
 use App\Models\Suppot;
 use App\Http\Helpers\Common;
+use App\Models\ContactUs;
 
 class WebController extends Controller
 {
@@ -240,8 +241,13 @@ class WebController extends Controller
     public function supportSave(Request $request){
 
         Suppot::create($request->all());
+        return view('frontend.landing.thankyou');
 
-        $this->helper->one_time_message('success', __('Form Submitted successfully!'));
-        return redirect()->back();
+    }
+
+    public function contactusSave(Request $request){	
+        ContactUs::create($request->all());	
+        return view('frontend.landing.thankyou');
+
     }
 }

@@ -116,7 +116,7 @@
                                 
                                
                                 <div class="form-group col-md-4 col-12">
-                                     <label>icon*</label>
+                                     <label>icon</label>
                                      <input class="form-control" type="file" name="page_image1" id="page_image1"  >
                                 </div>
                                 
@@ -134,7 +134,7 @@
                                 
                                
                                 <div class="form-group col-md-4 col-12">
-                                     <label>icon*</label>
+                                     <label>icon</label>
                                      <input class="form-control" type="file" name="page_image2" id="page_image3"  >
                                 </div>
                                 
@@ -152,7 +152,7 @@
                                 
                                
                                 <div class="form-group col-md-4 col-12">
-                                     <label>icon*</label>
+                                     <label>icon</label>
                                      <input class="form-control" type="file" name="page_image3" id="page_image3"  >
                                 </div>
                                 
@@ -170,7 +170,7 @@
                                 
                                
                                 <div class="form-group col-md-4 col-12">
-                                     <label>icon*</label>
+                                     <label>icon</label>
                                      <input class="form-control" type="file" name="page_image4" id="page_image4"  >
                                 </div>
                                 
@@ -217,7 +217,7 @@
                                 
                                
                                 <div class="form-group col-md-3 col-12">
-                                     <label>icon*</label>
+                                     <label>icon</label>
                                      <input class="form-control" type="file" name="page_image1" id="page_image1"  >
                                 </div>
                                 
@@ -239,7 +239,7 @@
                                 
                                
                                 <div class="form-group col-md-3 col-12">
-                                     <label>icon*</label>
+                                     <label>icon</label>
                                      <input class="form-control" type="file" name="page_image2" id="page_image3"  >
                                 </div>
                                 
@@ -261,7 +261,7 @@
                                 
                                
                                 <div class="form-group col-md-3 col-12">
-                                     <label>icon*</label>
+                                     <label>icon</label>
                                      <input class="form-control" type="file" name="page_image3" id="page_image3"  >
                                 </div>
                                 <div class="form-group col-md-3 col-12">
@@ -307,8 +307,8 @@
                                 
                                
                                 <div class="form-group col-md-6 col-12">
-                                     <label>Image*</label>
-                                     <input class="form-control"  type="file" name="page_image" id="name" required >
+                                     <label>Image</label>
+                                     <input class="form-control"  type="file" name="page_image" id="name" >
                                 </div>
                                 <div class="form-group col-md-12 col-12">
                                    <input type="hidden" value="0" name="id" id="id">
@@ -405,7 +405,7 @@
                                 </div> 
                                
                                 <div class="form-group col-md-4 col-12">
-                                     <label>Image*</label>
+                                     <label>Image</label>
                                      <input class="form-control" type="file" {{$req}} name="page_image" id="page_image">
                                 </div>
                                 

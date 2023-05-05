@@ -31,6 +31,7 @@ Route::get('/shipping/state/{id}', [WebController::class, 'shippingStateList'])-
 Route::post('/shipping/rates', [WebController::class, 'shippingRates'])->name('shipping_rate');
 Route::get('/support', [WebController::class, 'support'])->name('support');
 Route::post('/support/save', [WebController::class, 'supportSave'])->name('support.store');
+Route::post('/contactus/save', [WebController::class, 'contactusSave'])->name('contactus.store');
 Route::get('/faq', [WebController::class, 'faq'])->name('faq');
 Route::get('/privacy-policy', [WebController::class, 'privacy_policy'])->name('privacy_policy');
 Route::get('/terms-condition', [WebController::class, 'terms_conditions'])->name('terms_conditions');
@@ -209,6 +210,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('import-zone-rates', [ShipmentController::class, 'ImportRates'])->name('import.zone.rates');
     Route::post('doimport-zone-rates', [ShipmentController::class, 'DoImportRates'])->name('doimport.zone.rates');
     Route::get('export-zone-rates/{carrier}', [ShipmentController::class, 'ExportRates'])->name('export.zone.rates');
+
+    Route::get('support-lists', [CMSController::class, 'supportLists'])->name('support.lists');
+    Route::get('inquiry-lists', [CMSController::class, 'inquiryLists'])->name('inquiry.lists');
 });
 
 Route::get('/get_rate', [FedexController::class, 'get_rate']);

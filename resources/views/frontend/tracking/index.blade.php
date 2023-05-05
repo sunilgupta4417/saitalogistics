@@ -8,7 +8,7 @@
                         <h2>Track Your Parcel</h2>
                         <form>
                             <div class="form-group">
-                                <input type="text" id="otp" value="621691143376" required>
+                                <input type="text" id="otp" value="" placeholder="Tracking ID" required>
                             </div>
                             <div class="sub-btns text-center">
                                 <button type="submit" class="btn">Track</button>

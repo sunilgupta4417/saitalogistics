@@ -28,7 +28,7 @@
             <img src="{{ asset('admin/img/dash/dash-1.png') }}" alt="" width="80">
           </span>
           <div class="dash-widget-info text-right">
-            <span>BOOKING</span>
+            <span>PACKET BOOKING</span>
             <h3>{{$booking->count()}}</h3>
           </div>
         </div>

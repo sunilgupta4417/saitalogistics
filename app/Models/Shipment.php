@@ -10,7 +10,7 @@ class Shipment extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table = 'shipment';
+    protected $table = 'shipments';
     public $timeStamps = true;
     protected $guarded = [];
 }

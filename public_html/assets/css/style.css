@@ -2373,7 +2373,7 @@ iframe#youtubevideo {
 }
 
 .select-code #mobile {
-  padding-left: 120px !important;
+  padding-left: 157px !important;
 }
 
 
@@ -3906,4 +3906,48 @@ iframe#youtubevideo {
   width: 50%;
   text-align: left;
 }
+
+.country-box-rounded{
+  border-radius: 33px; 
+  border: 2px solid; 
+  border-color: #eee; 
+  height: 62px; 
+  padding-left: 50px; 
+}
+
+
+#showshippingestimation .actualShippingRates {
+    box-sizing: border-box;
+    margin: 0 1px;
+    width: 100%;
+    margin-top: 2px;
+    padding: 0 10px 0 25px;
+    border: 2px solid #00000012;
+    font-size: 16px;
+    color: #00000094;
+    transition: 1ms;
+    height: 45px;
+    border-radius: 33px;
+    display: block;
+    margin: 4px 0;
+    line-height: 40px;
+}
+
+.shp-list {
+    margin: 30px 20px;
+}
+.shp-list ul {
+    padding: 0px 16px;
+}
+.shp-list ul li {
+    font-size: 16px;
+    font-weight: normal;
+    color: #7b7b7b;
+}
+.shp-list strong {
+  font-size: 16px;
+    color: #000;
+}
+
+
 

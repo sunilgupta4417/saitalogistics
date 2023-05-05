@@ -34,7 +34,7 @@ class OtherApiController extends Controller
             ->where('awb_no',$awb_no)->first();
 
             // return view('pdf.awb_invoice_print',compact('invoiceData','website'));
-            $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData','website'));
+            $pdf = PDF::loadView('pdf.awb_invoice_print', compact('invoiceData','website','awb_no'));
             
             $pdf->setPaper('A4', 'landscape');
             // $pdf->render();
@@ -48,7 +48,7 @@ class OtherApiController extends Controller
             'client_masters.client_name','client_masters.client_code')
             ->where('awb_no',$awb_no)->first();
             // return view('pdf.awb_label_print',compact('labelData','website'));
-            $pdf = PDF::loadView('pdf.awb_label_print', compact('labelData','website'));
+            $pdf = PDF::loadView('pdf.awb_label_print', compact('labelData','website','awb_no'));
             $pdf->setPaper('A4', 'landscape');
              return $pdf->stream('awb_'.$awb_no.'_invoice.pdf');
             // return $pdf->download('awb_'.$awb_no.'_label.pdf');
@@ -67,7 +67,7 @@ class OtherApiController extends Controller
     public function shipmentMovement(Request $request){
         $packetbooking = PacketBooking::select('id','awb_no')->get();
         $shipment = Shipment::join('packet_bookings','packet_bookings.id','=','shipments.awb_id')
-        ->join('client_masters','client_masters.id','=','packet_bookings.client_id')
+        ->leftjoin('client_masters','client_masters.id','=','packet_bookings.client_id')
         ->select('shipments.*','packet_bookings.awb_no','packet_bookings.booking_date','packet_bookings.csn_consignor',
         'packet_bookings.csr_mobile_no','packet_bookings.csr_consignor','packet_bookings.csn_city_id','client_masters.client_name')
         ->paginate(env('page_default_val'));

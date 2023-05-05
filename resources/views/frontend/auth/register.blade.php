@@ -19,7 +19,8 @@
                             <input type="text" id="name" name="name" placeholder="Name" required>
                         </div>
                         <div class="form-group">
-                            <select name="country" id="country" class="form-control" required>
+                            <i class="fa fa-flag"></i>
+ <select name="country" id="country" class="form-control country-box-rounded" required >
                                 <option value="">Please Select Country</option>
                                 @foreach($country as $country_data)
                                 <option value="{{$country_data->mobile_code}}">{{$country_data->country_name}}</option>

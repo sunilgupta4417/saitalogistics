@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use App\Http\Helpers\Common;
+use App\Models\ContactUs;
+use App\Models\Suppot;
 class CMSController extends Controller
 {
     protected $helper;
@@ -566,5 +568,17 @@ if($page) {
         $content->delete();
         $this->helper->one_time_message('success', __('Section Deleted successfully!'));
         return redirect('admin/cms/home');
+    }
+
+    public function supportLists(){
+        
+        $supports = Suppot::select('*')->get();
+        return view('support_list.support',compact('supports'));
+    }
+
+    public function inquiryLists(){
+        
+        $inquiries = ContactUs::select('*')->get();
+        return view('support_list.inquiries',compact('inquiries'));
     }
 }

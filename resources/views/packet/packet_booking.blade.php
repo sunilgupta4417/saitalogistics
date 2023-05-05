@@ -39,7 +39,7 @@
                                    <label>Booking Date*</label>
                                    <input type="date" required name="booking_date" id="booking_date" class="form-control" placeholder="">
                                 </div>
-                                <div class="form-group col-md-3 col-12">
+                                <!-- <div class="form-group col-md-3 col-12">
                                    <label>Client*</label>
                                     <select class="form-control select" required name="client_id" id="client_id">
                                        <option>--Select Client--</option>
@@ -47,7 +47,7 @@
                                        <option value="{{$rowc->id}}">{{$rowc->client_name}}</option>
                                        @endforeach
                                     </select>
-                                </div>
+                                </div> -->
                            </div>
 
                            <div class="row">
@@ -223,6 +223,10 @@
                              <div class="form-group col-md-3 col-12">
                                  <label>Weight *</label>
                                  <input type="text" name="pcs_weight" id="pcs_weight" required class="form-control" placeholder="Enter Weight">
+                             </div>
+                             <div class="form-group col-md-3 col-12">
+                                 <label>Chargeable Weight *</label>
+                                 <input type="text" name="chargeble_weight" id="chargeble_weight" required class="form-control" placeholder="Enter Chargeble Weight">
                              </div>
                              <div class="form-group col-md-3 col-12">
                                  <label>Length*</label>
