@@ -372,8 +372,9 @@
       }
       /*const volumetricWeight = (length * width * height) / 6000;
       const roundedWeight = Math.ceil(volumetricWeight);*/
-      const volumetricWeight = (length * width * height) / 5000;
-      const weight = Math.ceil(volumetricWeight);
+      const weight = (length * width * height) / 5000;
+      console.log(weight);
+      /*const weight = Math.ceil(volumetricWeight);*/
       $('#chargeableWeight').val(weight);
       var formData = {
          package_type,

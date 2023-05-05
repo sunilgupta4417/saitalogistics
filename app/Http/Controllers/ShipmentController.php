@@ -68,6 +68,7 @@ class ShipmentController extends Controller
             $filepath = public_path($location . "/" . $filename);
             $file = fopen($filepath, "r");
             $arr = $this->csvToArray($filepath);
+            //mydd($arr);
             for ($i = 0; $i < count($arr); $i++) {
                 $weight = $arr[$i]['ght'];
                 $package_type = $arr[$i]['package_type'];
@@ -130,7 +131,7 @@ class ShipmentController extends Controller
         $header = null;
         $data = array();
         if (($handle = fopen($filename, 'r')) !== false) {
-            fseek($handle, 3);
+            fseek($handle,3);
             while (($row = fgetcsv($handle, 1000, $delimiter)) !== false) {
                 if (!$header)
                     $header = $row;

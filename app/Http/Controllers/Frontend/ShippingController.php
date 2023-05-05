@@ -36,13 +36,16 @@ class ShippingController extends Controller
     public function getRates(Request $request)
     {
         $res = [];
-        $count = ShippingZone::find($request->R_country);
-        $DHLzone = ZoneRate::where('package_type', $request->package_type)->where('carrier_type', 'DHL')->where('weight', '>=', $request->weight)->first();
-        $DPDzone = ZoneRate::where('package_type', 'NONE')->where('carrier_type', 'DPD')->where('weight', '>=', $request->weight)->first();
-
+        $requestedWeight=isset($request->weight)?trim($request->weight):0;
+        $package_type=isset($request->package_type)?trim($request->package_type):"";
+        $R_country=isset($request->R_country)?trim($request->R_country):1;
+        $count = ShippingZone::find($R_country);
+        $DHLzone = ZoneRate::where('package_type', $package_type)->where('carrier_type', 'DHL')->where('weight', '>=', $requestedWeight)->first();
+        $DPDzone = ZoneRate::where('package_type', 'NONE')->where('carrier_type', 'DPD')->where('weight', '>=', $requestedWeight)->first();
+        
         if (empty($DHLzone)) {
-            $max_W = ZoneRate::where('package_type', $request->package_type)->where('carrier_type', 'DHL')->max('weight');
-            $res['warning'] = 'maximum weight ' . $max_W . ' allowed for DHL ' . $request->package_type;
+            $max_W = ZoneRate::where('package_type', $package_type)->where('carrier_type', 'DHL')->max('weight');
+            $res['warning'] = 'maximum weight ' . $max_W . ' allowed for DHL ' . $package_type;
         }
         if (isset($DHLzone->rate)) {
             $DHLdata = json_decode($DHLzone->rate, true);
