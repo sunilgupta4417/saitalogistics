@@ -411,10 +411,10 @@ class PacketBookingController extends Controller
                 $countryArray[strtolower($rowct->country_name)] = $rowct->id;
             }
             foreach ( $row_range as $key=>$row ) {
-               
-                $client_id = $clientArray[strtolower($sheet->getCell( 'D' . $row )->getValue())];
-                $csrCountry = $countryArray[strtolower($sheet->getCell( 'K' . $row )->getValue())];
-                $csnCountry = $countryArray[strtolower($sheet->getCell( 'Z' . $row )->getValue())];
+                
+                $client_id = isset($clientArray[strtolower($sheet->getCell( 'D' . $row )->getValue())])?$clientArray[strtolower($sheet->getCell( 'D' . $row )->getValue())]:1;
+                $csrCountry = isset($countryArray[strtolower($sheet->getCell( 'K' . $row )->getValue())])?$countryArray[strtolower($sheet->getCell( 'K' . $row )->getValue())]:1;
+                $csnCountry = isset($countryArray[strtolower($sheet->getCell( 'Z' . $row )->getValue())])?$countryArray[strtolower($sheet->getCell( 'Z' . $row )->getValue())]:1;
                 $data[] = [
                     'awb_no' => $sheet->getCell( 'A' . $row )->getValue(),
                     'reference_no' => $sheet->getCell( 'B' . $row )->getValue(),
@@ -446,10 +446,10 @@ class PacketBookingController extends Controller
                     'csn_city_id' => $sheet->getCell( 'AB' . $row )->getValue(),
                     'csn_mobile_no' => $sheet->getCell( 'AC' . $row )->getValue(),
                     'csn_email_id' => $sheet->getCell( 'AD' . $row )->getValue(),
-                    'csn_pan' => $sheet->getCell( 'AE' . $row )->getValue(),
-                    'csn_gstin' => $sheet->getCell( 'AF' . $row )->getValue(),
-                    'csn_iec' => $sheet->getCell( 'AG' . $row )->getValue(),
-                    'csn_aadharno' => $sheet->getCell( 'AH' . $row )->getValue(),
+                    'shipping_charge' => $sheet->getCell( 'AE' . $row )->getValue(),
+                    'length' => $sheet->getCell( 'AF' . $row )->getValue(),
+                    'width' => $sheet->getCell( 'AG' . $row )->getValue(),
+                    'height' => $sheet->getCell( 'AH' . $row )->getValue(),
                     'packet_type' => $sheet->getCell( 'AI' . $row )->getValue(),
                     'payment_type' => $sheet->getCell( 'AJ' . $row )->getValue(),
                     'invoice_no' => $sheet->getCell( 'AK' . $row )->getValue(),
@@ -464,6 +464,7 @@ class PacketBookingController extends Controller
                     'operation_remark' => $sheet->getCell( 'AT' . $row )->getValue(),
                     'accounting_remark' => $sheet->getCell( 'AU' . $row )->getValue(),
                     'created_by' => auth()->user()->id,
+                    'dvalue'=>0
                 ];
                 $check=['awb_no'];
                 $startcount++;

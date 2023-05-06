@@ -133,6 +133,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('export-zone',[ZoneMasterController::class,'exportZone'])->name('export.zone');
 
     Route::get('manage-users', [UserController::class, 'manageUser'])->name('manage.user');
+    Route::post('manage-users', [UserController::class, 'manageFilterUser'])->name('manage.post.user');
+    Route::get('manage-frontend-users', [UserController::class, 'manageFrontEndUser'])->name('manage.frontend.user');
+    Route::get('export-users/{userstatus}', [UserController::class, 'ExportUsers'])->name('export.users');
+
     Route::post('user-master-save',[UserController::class, 'userMasterSave'])->name('user.master.save');
     Route::post('user-master-update',[UserController::class, 'userMasterUpdate'])->name('user.master.update');
     Route::get('user-delete/{id}',[UserController::class, 'userMasterDelete'])->name('user.delete');

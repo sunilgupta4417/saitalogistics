@@ -80,6 +80,7 @@ class ShippingController extends Controller
             return response()->json(['error' => 'Somethig is wrong, please try to change package type or connect customer support']);
         } else {
             $max_rate = max($numeric_rates);
+            $max_rate=round(($max_rate*1.2),2);
             return response()->json(['rate' => $max_rate]);
         }
 

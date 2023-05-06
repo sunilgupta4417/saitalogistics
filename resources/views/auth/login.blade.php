@@ -8,11 +8,17 @@
           <div class="account-logo">
              <a href="{{ url('/') }}"><img src="{{ asset('admin/img/logo.png') }}" alt="SchoolAdmin"></a>
           </div>
+          @if(Session::has('message'))
+            <div class="alert {{ Session::get('alert-class') }} text-center">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>{{ Session::get('message') }}</strong>
+            </div>
+        @endif
           <form method="POST" action="{{ route('login') }}">
             @csrf
              <div class="form-group">
                 <label>Username or Email</label>
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                 @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

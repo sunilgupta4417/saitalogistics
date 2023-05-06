@@ -48,7 +48,7 @@
                               <div class="form-group text-center custom-mt-form-group">
                                  
                               @if(checkAccess('import-packet','import_permission'))<button value="invoice" class="getVal btn btn-primary mr-2" type="submit"><i class="fa fa-file-import"></i> Import</button>@endif
-                                 <a class="btn btn-primary mr-2 btn-sm orng-btn" href="{{asset('excel_demo/packet-booking-demo.xlsx')}}"><i class="fa fa-download"></i> Download Format</a>
+                                 <a class="btn btn-primary mr-2 btn-sm orng-btn" href="{{asset('excel_demo/packet-booking-excel.xlsx')}}"><i class="fa fa-download"></i> Download Format</a>
                                  <button class="btn btn-secondary orng-btn" type="reset"><i class="fa fa-dot-circle"></i> Reset</button>
                               </div>
                             </div>

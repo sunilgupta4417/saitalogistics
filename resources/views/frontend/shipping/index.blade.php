@@ -94,12 +94,12 @@
                         </div>
                         <div class="col-lg-6">
                            <div class="form-group">
-                              <label>Declared Value €</label>
+                              <label>Declared Value $</label>
                               <input type="number" id="dvalue" name="dvalue" required>
                            </div>
                         </div>
                         <div class="col-lg-6">
-                           <label style="margin-bottom:0px; color: #000;">Estimated Air Freight Cost €</label>
+                           <label style="margin-bottom:0px; color: #000;">Estimated Air Freight Cost $</label>
                            <div class="shipmentEstimationDetails" id="showshippingestimation">
                               <div class="actualWeight"></div>
                               <div class="actualShippingRates"></div>
@@ -122,7 +122,7 @@
                               <ul>
                                  <li>Dynamic fuel surcharge to be added on above rates</li>
                                  <li>Each package of a shipment is calculated according to the dimensional weight as soon as the dimensional weight exceeds the actual weight. </li>
-                                 <li>Final weight shall be chargeable as per DHL invoice </li>
+                                 <li>Final weight shall be chargeable as per airlines </li>
                               </ul>
 
                               </ul>
@@ -158,14 +158,7 @@
             </div>
          </div>
 
-         <!-- <div class="col-lg-4 col-md-4">
-                  <div class="create-right">
-                     <h3>Create Your Shipment</h3>
-                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem.</p>
-                     <img src="assets/images/creat-image.png" alt="" class="img-responsive">
-                     <a href="shipping-history.html" class="btn btn-main-2"> Get Started</a>
-                  </div>
-               </div> -->
+          
          @if(session()->get('max_rate'))
          <div class="col-lg-4 col-md-4" style="color: black;">
             <div class="create-right">
@@ -372,7 +365,11 @@
       }
       /*const volumetricWeight = (length * width * height) / 6000;
       const roundedWeight = Math.ceil(volumetricWeight);*/
-      const weight = (length * width * height) / 5000;
+      const chargeableWeight = (length * width * height) / 5000;
+      var weight=chargeableWeight;
+      if(gross_weight>chargeableWeight){
+         weight=gross_weight;
+      }
       console.log(weight);
       /*const weight = Math.ceil(volumetricWeight);*/
       $('#chargeableWeight').val(weight);
@@ -394,7 +391,7 @@
                alert(res.error);
                // return false;
             } else {
-               $('.actualShippingRates').html("€" + res.rate);
+               $('.actualShippingRates').html("$" + res.rate);
                $('#getShippingEstimation').html('Get Estimation');
                // return false
             }

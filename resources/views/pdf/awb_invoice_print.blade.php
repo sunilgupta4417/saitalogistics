@@ -140,13 +140,13 @@
         <div class="clear"></div>
         
         <div class="div50">
-        <div style="padding-top:15px;">
+        <div style="padding-top:0px;">
         <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600; margin-bottom: 10px;">SENDER'S NAME <span>{{$invoiceData->csr_consignor}}</span></p>
         <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">SIGNATURE <span>.........................</span></p>
         </div>
         </div>
         <div class="div50">
-          <div style="padding-top:15px;">
+          <div style="padding-top:0px;">
           <h5 style="text-align: right; font-size: 14px; font-weight: bold; color: #000; margin: 0; margin-bottom: 0px; font-family: sans-serif;">RECEIVED BY IT COMPANY</h5>
           <p class="mb-0" style="font-size: 13px; display: inline-block; color: #000; font-family: sans-serif;">SIGNATURE <span>.........................</span></p>
                     <p class="mb-0" style="font-size: 13px; display: inline-block; color: #000; font-family: sans-serif;">DATE <span>.........................</span></p>
@@ -154,7 +154,7 @@
           </div>
         </div>
         <div class="">
-        <div style="margin-top:80px;">
+        <div style="margin-top:60px;">
           <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">PAYMENT TYPE: <span>{{strtoupper($invoiceData->payment_type)}}</span></p>
           <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">PAYMENT AMOUNT: <span>{{$invoiceData->shipping_charge}}</span></p>
           <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">PAYMENT STATUS: <span>{{$invoiceData->payment_status}}</span></p>
@@ -291,13 +291,13 @@
         <div class="clear"></div>
         
         <div class="div50">
-        <div style="padding-top:15px;">
+        <div style="padding-top:0px;">
         <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600; margin-bottom: 10px;">SENDER'S NAME <span>{{$invoiceData->csr_consignor}}</span></p>
         <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">SIGNATURE <span>.........................</span></p>
         </div>
         </div>
         <div class="div50">
-          <div style="padding-top:15px;">
+          <div style="padding-top:0px;">
           <h5 style="text-align: right; font-size: 14px; font-weight: bold; color: #000; margin: 0; margin-bottom: 0px; font-family: sans-serif;">RECEIVED BY {{$website['company_name']}}</h5>
           <p class="mb-0" style="font-size: 13px; display: inline-block; color: #000; font-family: sans-serif;">SIGNATURE <span>.........................</span></p>
                     <p class="mb-0" style="font-size: 13px; display: inline-block; color: #000; font-family: sans-serif;">DATE <span>.........................</span></p>
@@ -305,7 +305,7 @@
           </div>
         </div>
         <div class="">
-        <div style="margin-top:80px;">
+        <div style="margin-top:60px;">
           <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">PAYMENT TYPE: <span>{{strtoupper($invoiceData->payment_type)}}</span></p>
           <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">PAYMENT AMOUNT: <span>{{$invoiceData->shipping_charge}}</span></p>
           <p class="mb-0" style="display: block; font-size: 14px; padding: 0; margin: 0; font-family: sans-serif; font-weight: 600;">PAYMENT STATUS: <span>{{$invoiceData->payment_status}}</span></p>

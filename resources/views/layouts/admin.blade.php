@@ -249,13 +249,13 @@
                         </a>
                       </li>
                     @endif
-                    {{--@if(in_array("vendor-manifest",$accessMenu))
+                    <!-- @if(in_array("vendor-manifest",$accessMenu))
                       <li class="{{ Request::segment(2)=='vendor-manifest'?'active':'' }}">
                         <a href="{{ url('/admin/vendor-manifest') }}">
                             <span>Manifest to Vendor</span>
                         </a>
                       </li>
-                    @endif--}}
+                    @endif -->
                     @if(in_array("shipment-movement",$accessMenu))
                       <li class="{{ Request::segment(2)=='shipment-movement'?'active':'' }}">
                         <a href="{{ url('/admin/shipment-movement') }}">
@@ -284,27 +284,27 @@
                  </a>
 
                  <ul class="list-unstyled" style="{{ in_array(Request::segment(2), $client_menu)?'':'display: none;' }}">
-                    <!-- @if(in_array("client-master",$accessMenu))
+                    @if(in_array("client-master",$accessMenu))
                       <li class="{{ Request::segment(2)=='client-master'?'active':'' }}">
                           <a href="{{ url('/admin/client-master') }}">
                               <span>Client Master</span>
                           </a>
                       </li>
-                    @endif -->
-                    <!-- @if(in_array("vendor-master",$accessMenu))
+                    @endif
+                    @if(in_array("vendor-master",$accessMenu))
                       <li class="{{ Request::segment(2)=='vendor-master'?'active':'' }}">
                         <a href="{{ url('/admin/vendor-master') }}">
                             <span>Vendor Master</span>
                         </a>
                       </li>
-                    @endif -->
-                   <!--  @if(in_array("vendor-account-detail",$accessMenu))
+                    @endif
+                    @if(in_array("vendor-account-detail",$accessMenu))
                       <li class="{{ Request::segment(2)=='vendor-account-detail'?'active':'' }}">
                         <a href="{{ url('/admin/vendor-account-detail') }}">
                             <span>Vendor Account Details</span>
                         </a>
                       </li>
-                    @endif -->
+                    @endif
                     @if(in_array("zone-master",$accessMenu))
                       <li class="{{ Request::segment(2)=='zone-master'?'active':'' }}">
                         <a href="{{ url('/admin/zone-master') }}">
@@ -367,7 +367,7 @@
               @endif
 
               @php 
-                $user_menu = ['change-password','manage-users','role-manager'];
+                $user_menu = ['change-password','manage-users','manage-frontend-users','role-manager'];
               @endphp
               @if(array_intersect($user_menu, $accessMenu))
                <li class="submenu">
@@ -380,7 +380,14 @@
                     @if(in_array("manage-users",$accessMenu))
                       <li class="{{ Request::segment(2)=='manage-users'?'active':'' }}">
                           <a href="{{ url('/admin/manage-users') }}">
-                              <span>Manage Users</span>
+                              <span>Manage Admin Users</span>
+                          </a>
+                      </li>
+                    @endif
+                    @if(in_array("manage-users",$accessMenu))
+                      <li class="{{ Request::segment(2)=='manage-frontend-users'?'active':'' }}">
+                          <a href="{{ url('/admin/manage-frontend-users') }}">
+                              <span>Manage Register Users</span>
                           </a>
                       </li>
                     @endif
@@ -536,32 +543,33 @@
                               <span>Faq</span>
                           </a>
                       </li>
+                      
+
+                    
                  </ul>
                </li>
-
                @php 
-                $support_list = ['support-lists','inquiry-lists'];
-                @endphp
-                <li class="submenu">
-                  <a href="javascript:void(0);" class="{{ in_array(Request::segment(2), $support_list)?'subdrop':'' }}">
-                  <i class="fa fa-question"></i>
-                    <span> SUPPORT LIST </span>
-                    <span class="menu-arrow"></span>
-                  </a>
-                  <ul class="list-unstyled" style="{{ in_array(Request::segment(2), $support_list)?'':'display: none;' }}">
-                        <li class="{{ Request::segment(2)=='support-lists'?'active':'' }}">
-                            <a href="{{ url('/admin/support-lists') }}">
-                                <span>Support</span>
-                            </a>
-                        </li>
-                        <li class="{{ Request::segment(2)=='inquiry-lists'?'active':'' }}">
-                            <a href="{{ url('/admin/inquiry-lists') }}">
-                                <span>Inquiry</span>
-                            </a>
-                        </li>
-                  </ul>
-                </li>
-
+               $support_list = ['support-lists','inquiry-lists'];
+               @endphp
+               <li class="submenu">
+                 <a href="javascript:void(0);" class="{{ in_array(Request::segment(2), $support_list)?'subdrop':'' }}">
+                 <i class="fa fa-question"></i>
+                   <span> SUPPORT LIST </span>
+                   <span class="menu-arrow"></span>
+                 </a>
+                 <ul class="list-unstyled" style="{{ in_array(Request::segment(2), $support_list)?'':'display: none;' }}">
+                      <li class="{{ Request::segment(2)=='support-lists'?'active':'' }}">
+                          <a href="{{ url('/admin/support-lists') }}">
+                              <span>Support</span>
+                          </a>
+                      </li>
+                      <li class="{{ Request::segment(2)=='inquiry-lists'?'active':'' }}">
+                          <a href="{{ url('/admin/inquiry-lists') }}">
+                              <span>Inquiry</span>
+                          </a>
+                      </li>
+                 </ul>
+               </li>
              </ul>
            </div>
          </div>

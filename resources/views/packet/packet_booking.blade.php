@@ -551,7 +551,12 @@ $('#pcs_weight').keypress(function(){
          alert('Please fill all field');
          return;
       }
-      const weight = (length * width * height) / 5000;
+      const chargeableWeight = (length * width * height) / 5000;
+      var weight=chargeableWeight;
+      if(gross_weight>chargeableWeight){
+         weight=gross_weight;
+      }
+      console.log(weight);
       $('.actualWeight').val(weight);
       $("#chargeable_weight").val(weight);
       var formData = {

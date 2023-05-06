@@ -305,11 +305,11 @@
                                             <input type="number" name="height"  value="">
                                         </div>
                                         <div class="form-group">
-                                            <label>Declared Value €</label>
+                                            <label>Declared Value $</label>
                                             <input type="number" name="dvalue"  value="">
                                         </div>
                                         <div class="form-group">
-                                            <label>Estimated Air Freight Cost €</label>
+                                            <label>Estimated Air Freight Cost $</label>
                                             <input type="text" name="shipping_charge" readonly>
                                         </div>
                                         <div class="form-group">
@@ -705,6 +705,7 @@
             userEmail:userEmail,
             merchantLogo:"https://epay.me/assets/images/logo.png",
             showSavedCardFeature:true,
+            showCancelButton: true,
             orderCurrency:orderCurrency,
             successHandler: async function(response) {
                 afterPaymentAction(response,true);  
@@ -810,8 +811,8 @@
         $('#ship_type').html($("input[name=dropPickup]:checked").val());
         $('#shipment_date').html($("input[name=date]").val());
         $('#packetType').html($("select[name=package_type] option:selected").val());
-        $('#shippingCharge').html("€"+$("input[name=shipping_charge]").val());
-        $('#declaredvalue').html("€"+$("input[name=dvalue]").val());
+        $('#shippingCharge').html("$"+$("input[name=shipping_charge]").val());
+        $('#declaredvalue').html("$"+$("input[name=dvalue]").val());
     }
     $('.tab-link').click( function() {
         var tabID = $(this).attr('data-tab'); 
@@ -851,9 +852,9 @@
                     $(".clickMeForPay").attr("data-shipping_charge",res.shipping_charge);
                     $(".clickMeForPay").attr("data-tax",res.tax);
                     $(".clickMeForPay").attr("data-total",res.total);
-                    $('.paymment-right-details').find("td.subtotal").html("€"+res.shipping_charge);
-                    $('.paymment-right-details').find("td.tax").html("€"+res.tax);
-                    $('.paymment-right-details').find("td b.total").html("€"+res.total);
+                    $('.paymment-right-details').find("td.subtotal").html("$"+res.shipping_charge);
+                    $('.paymment-right-details').find("td.tax").html("$"+res.tax);
+                    $('.paymment-right-details').find("td b.total").html("$"+res.total);
                     //console.log(res);
                 },
                 error: function (res) {
@@ -923,8 +924,12 @@
             return;
         }
         /*const volumetricWeight = (length * width * height) / 6000;
-        const roundedWeight = Math.ceil(volumetricWeight);*/        
-        const weight = (length * width * height) / 5000;
+        const roundedWeight = Math.ceil(volumetricWeight);*/
+        const chargeableWeight = (length * width * height) / 5000;
+        var weight=chargeableWeight;
+        if(gross_weight>chargeableWeight){
+            weight=gross_weight;
+        }
         console.log(weight);
         /*const weight = Math.ceil(volumetricWeight);*/
         $('#chargeableWeight').val(weight);
