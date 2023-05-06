@@ -30,15 +30,28 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Country*</label>
-                                        <input type="text" name="S_country" readonly value="Germany">                                                                           
+                                        <select id="select-service" required name="S_country">
+                                            @foreach(getCountries() as $key=>$coun)
+                                                @if(($key==235) || ($key==71))
+                                                    <?php $selected=($key==235)?"selected='selected'":""; ?>
+                                                    <option value="{{$key}}" {{$selected}}>{{$coun}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>                                                                           
                                     </div>
                                     <div class="form-group">
                                         <label>Company Or Name*</label>
                                         <input type="text" name="S_name" value="">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group select-code-packb">
                                         <label>Contact Number*</label>
-                                        <input type="number" name="S_contact" value="">
+                                        <select name="s_mobile_c_code" class="select-code-packb">
+                                            @foreach(getCountryBMCodes() as $mobile_code)
+                                                <option value="{{$mobile_code}}" <?php /*echo ($user->phn_code == $mobile_code) ? "selected='selected'" : "";*/ ?>>{{$mobile_code}}</option>
+                                            @endforeach         
+                                        </select>
+                                        <i class="fa fa-mobile"></i>
+                                        <input type="text" id="S_contact" name="S_contact" value="">
                                     </div>
                                     <div class="form-group">
                                         <label>Address*</label>
@@ -65,24 +78,24 @@
                                         <input type="text" name="S_state" value="">
                                     </div>
                                     <div class="form-group">
-                                        <label>Land Mark</label>
+                                        <label>Landmark</label>
                                         <input type="text" name="S_other" value="">
                                     </div>
 
                                     <div class="form-group">
-                                        <label>PAN</label>
+                                        <label>Business Registration Number</label>
                                         <input type="text" name="S_pan" value="">
                                     </div>
                                     <div class="form-group">
-                                        <label>GSTIN</label>
+                                        <label>VAT*</label>
                                         <input type="text" name="S_gstin" value="">
                                     </div>
                                     <div class="form-group">
-                                        <label>IEC</label>
+                                        <label>IEC (Import and Export Code)</label>
                                         <input type="text" name="S_iec" value="">
                                     </div>
                                     <div class="form-group">
-                                        <label>Aadhaar No</label>
+                                        <label>Individual ID</label>
                                         <input type="number" name="S_aadhaar" value="">
                                     </div>
 
@@ -112,17 +125,23 @@
                                         <input type="email" name="S_email" value="">
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group  select-code-packb">
                                         <label>Telephone*</label>
-                                        <input type="number" name="S_phone"  value="">
+                                        <select name="s_mobile_t_code" class="select-code-packb">
+                                            @foreach(getCountryBMCodes() as $mobile_code)
+                                                <option value="{{$mobile_code}}" <?php /*echo ($user->phn_code == $mobile_code) ? "selected='selected'" : "";*/ ?>>{{$mobile_code}}</option>
+                                            @endforeach         
+                                        </select>
+                                        <i class="fa fa-mobile"></i>
+                                        <input type="text" id="S_phone" name="S_phone" value="">
                                     </div>
 
                                     <div class="form-group">
                                         <label>KYC Document*</label>
                                         <select id="select-service" required name="S_idProof">
-                                            <option value="aadhar card">Aadhar Card</option>
-                                            <option value="voter id card">Voter Id Card</option>
+                                            <option value="passport">Passport</option>
                                             <option value="driving licence">Driving Licence</option>
+                                            <option value="other id card">Other ID Card</option>
                                         </select>
                                     </div>
 
@@ -154,7 +173,6 @@
                                         <label>Country*</label>
                                         <select id="select-service" required name="R_country">
                                         <option label="Select a country ... " selected="selected" disabled>Select a country ... </option> 
-                                            
                                             @foreach(getCountries() as $key=>$coun)
                                                 <option value="{{$key}}">{{$coun}}</option>
                                             @endforeach
@@ -164,9 +182,15 @@
                                         <label>Company Or Name*</label>
                                         <input type="text" name="R_name"  value="">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group select-code-packb">
                                         <label>Contact Number*</label>
-                                        <input type="number" name="R_contact"  value="">
+                                        <select name="r_mobile_c_code" class="select-code-packb">
+                                            @foreach(getCountryBMCodes() as $mobile_code)
+                                                <option value="{{$mobile_code}}" <?php /*echo ($user->phn_code == $mobile_code) ? "selected='selected'" : "";*/ ?>>{{$mobile_code}}</option>
+                                            @endforeach         
+                                        </select>
+                                        <i class="fa fa-mobile"></i>
+                                        <input type="text" id="R_contact" name="R_contact" value="">
                                     </div>
                                     <div class="form-group">
                                         <label>Address*</label>
@@ -202,9 +226,15 @@
                                         <input type="email" name="R_email"  value="">
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group  select-code-packb">
                                         <label>Telephone*</label>
-                                        <input type="number" name="R_phone"  value="">
+                                        <select name="r_mobile_t_code" class="select-code-packb">
+                                            @foreach(getCountryBMCodes() as $mobile_code)
+                                                <option value="{{$mobile_code}}" <?php /*echo ($user->phn_code == $mobile_code) ? "selected='selected'" : "";*/ ?>>{{$mobile_code}}</option>
+                                            @endforeach         
+                                        </select>
+                                        <i class="fa fa-mobile"></i>
+                                        <input type="text" id="R_phone" name="R_phone" value="">
                                     </div>
 
                                     <div class="form-group">
@@ -412,7 +442,7 @@
                                                             <td id="dimensions">xxxx</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Total Shipment Weight</td>
+                                                           <td>Total Chargeable Weight</td>
                                                             <td id="total_shipment_weight">xxxx</td>
                                                         </tr>
                                                         <?php /*<tr>
@@ -784,29 +814,29 @@
     function getReviewFormData(){
         // console.log($("input[name=dropPickup]:checked").val());
         $('#from_name').html($("input[name=S_name]").val());
-        $('#from_address').html($('input[name=S_address]').val()+' , '+$('input[name=S_appartment]').val()+' , '+$('input[name=S_department]').val()+' , '+$('input[name=S_pincode]').val()+' , '+$('input[name=S_city]').val()+' , '+$('input[name=S_state]').val()+' , '+$('input[name=S_other]').val()+" - "+$("input[name=S_country]").val());
-        $('#from_number').html($("input[name=S_contact]").val());
-        $('#from_phone_number').html("Telephone: "+$("input[name=S_phone]").val());
-        $('#from_pan_no').html("Pan No: "+$("input[name=S_pan]").val());
-        $('#from_gstin').html("GSTIN: "+$("input[name=S_gstin]").val());
-        $('#from_iec').html("IEC: "+$("input[name=S_iec]").val());
-        $('#from_adhaar_no').html("Adhaar No: "+$("input[name=S_aadhaar]").val());
+        $('#from_address').html($('input[name=S_address]').val()+' , '+$('input[name=S_appartment]').val()+' , '+$('input[name=S_department]').val()+' , '+$('input[name=S_pincode]').val()+' , '+$('input[name=S_city]').val()+' , '+$('input[name=S_state]').val()+' , '+$('input[name=S_other]').val()+" - "+$("select[name=S_country] option:selected").text());
+        $('#from_number').html($("select[name=s_mobile_c_code] option:selected").val()+$("input[name=S_contact]").val());
+        $('#from_phone_number').html("Telephone: "+$("select[name=s_mobile_t_code] option:selected").val()+$("input[name=S_phone]").val());
+        $('#from_pan_no').html("Business Registration Number: "+$("input[name=S_pan]").val());
+        $('#from_gstin').html("VAT: "+$("input[name=S_gstin]").val());
+        $('#from_iec').html("IEC (Import and Export Code): "+$("input[name=S_iec]").val());
+        $('#from_adhaar_no').html("Individual ID: "+$("input[name=S_aadhaar]").val());
         $('#from_address_type').html("Address Type: "+$("input[name=S_address_type]").val());
         $('#from_email').html("Email: "+$("input[name=S_email]").val());
         $('#from_kyc_document').html("KYC Document: "+$("select[name=S_idProof] option:selected").val());
         $('#pickup_from_name').html($("input[name=S_name]").val());
         $('#pickup_from_address').html($('input[name=S_address]').val()+' , '+$('input[name=S_appartment]').val()+' , '+$('input[name=S_department]').val()+' , '+$('input[name=S_pincode]').val()+' , '+$('input[name=S_city]').val()+' , '+$('input[name=S_state]').val()+' , '+$('input[name=S_other]').val());
-        $('#pickup_from_number').html($("input[name=S_contact]").val());
+        $('#pickup_from_number').html($("select[name=s_mobile_c_code] option:selected").val()+$("input[name=S_contact]").val());
         $('#to_name').html($("input[name=R_name]").val());
         $('#to_address').html($('input[name=R_address]').val()+' , '+$('input[name=R_appartment]').val()+' , '+$('input[name=R_department]').val()+' , '+$('input[name=R_pincode]').val()+' , '+$('input[name=R_city]').val()+' , '+$('input[name=R_other]').val()+"-"+$("select[name=R_country] option:selected").text());
-        $('#to_number').html($("input[name=R_contact]").val());
-        $('#to_phone_number').html("Telephone: "+$("input[name=R_phone]").val());
+        $('#to_number').html($("select[name=r_mobile_c_code] option:selected").val()+$("input[name=R_contact]").val());
+        $('#to_phone_number').html("Telephone: "+$("select[name=r_mobile_t_code] option:selected").val()+$("input[name=R_phone]").val());
         $('#to_email').html("Email: "+$("input[name=R_email]").val());
         $('#to_tan_no').html("Tan No: "+$("input[name=R_tan]").val());
 
         $('#weight').html($("input[name=weight]").val() + " KG");
         $('#dimensions').html($("input[name=width]").val()+' X '+$("input[name=height]").val()+' X '+$("input[name=length]").val()+ ' CM');
-        $('#total_shipment_weight').html($("input[name=weight]").val()+ ' KG');
+        $('#total_shipment_weight').html($("input[name=chargeable_weight]").val()+ ' KG');
         $('#packaging').html($("input[name=item_type]").val());
         $('#ship_type').html($("input[name=dropPickup]:checked").val());
         $('#shipment_date').html($("input[name=date]").val());
@@ -914,6 +944,7 @@
         });
         package_type = $("select[name=package_type]").find(":selected").val();
         R_country = $("select[name=R_country]").find(":selected").val();
+        S_Country=$("select[name=S_country] option:selected").val();
         grossWeight = $("input[name=weight]").val();
         length = $("input[name=length]").val();
         width = $("input[name=width]").val();
@@ -927,18 +958,14 @@
         const roundedWeight = Math.ceil(volumetricWeight);*/
         const chargeableWeight = (length * width * height) / 5000;
         var weight=chargeableWeight;
-        if(gross_weight>chargeableWeight){
-            weight=gross_weight;
+        if(grossWeight>chargeableWeight){
+            weight=grossWeight;
         }
         console.log(weight);
         /*const weight = Math.ceil(volumetricWeight);*/
         $('#chargeableWeight').val(weight);
         $('#actual_weight').val(weight);
-        var formData = {
-            package_type,
-            R_country,
-            weight,
-        };
+        var formData = {package_type:package_type,from_country:S_Country,to_country:R_country,weight:weight};
         $.ajax({
             type: 'post',
             url: '/shipping/get-rates',

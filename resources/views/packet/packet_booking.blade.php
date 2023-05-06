@@ -80,9 +80,16 @@
                                    <label>Pin Code*</label>
                                    <input type="text" required name="consignor_pin_code" id="consignor_pin_code" class="form-control" placeholder="Enter Pin Code">
                                 </div>
-                                <div class="form-group col-md-3 col-12">
-                                   <label>Country*</label>
-                                   <input type="text" required name="consignor_country" id="consignor_country" class="form-control" placeholder="Enter Pin Code" value="Germany" readonly>
+                                 <div class="form-group col-md-3 col-12">
+                                    <label>Country*</label>
+                                    <select id="consignor_country" class="form-control" class="consignor_country" required name="consignor_country">
+                                       @foreach(getCountries() as $key=>$coun)
+                                          @if(($key==235) || ($key==71))
+                                             <?php $selected=($key==235)?"selected='selected'":""; ?>
+                                             <option value="{{$key}}" {{$selected}}>{{$coun}}</option>
+                                          @endif
+                                       @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group col-md-3 col-12">
                                    <label>State*</label>
@@ -198,7 +205,7 @@
                                  <select class="form-control select" required name="package_type" id="package_type">
                                     <option value="Envelope" selected>Envelope</option>
                                     <option value="Documents">Documents</option>
-                                     <option value="Non Documents">Non Documents</option>
+                                     <option value="Non-Documents">Non Documents</option>
                                     
                                  </select>
                                 </div>
@@ -249,11 +256,8 @@
                                  <input type="text" name="shipping_charge" id="shipping_charge" required class="form-control" placeholder="Enter Shipping charges">
                              </div>
                              <div class="form-group col-md-3 col-12">
-                                 <button id="getShippingEstimation" class="btn">Get Rates</button>
+                                 <button id="getShippingEstimation" class="btn btn-primary mt-3">Get Rates</button>
                              </div>
-
-                             
-
                            </div>
 
                            {{--<div class="row">
@@ -541,7 +545,7 @@ $('#pcs_weight').keypress(function(){
          }
       });
       var package_type = $("select[name=package_type]").find(":selected").val();
-      var fromCountry = $("input[name=consignor_country]").val();
+      var fromCountry=$("select[name=consignor_country] option:selected").val();
       var R_country = $("select[name=consignee_country]").find(":selected").val();
       var pcs_weight = $("input[name=pcs_weight]").val();
       var length = $("input[name=length]").val();
@@ -553,17 +557,13 @@ $('#pcs_weight').keypress(function(){
       }
       const chargeableWeight = (length * width * height) / 5000;
       var weight=chargeableWeight;
-      if(gross_weight>chargeableWeight){
-         weight=gross_weight;
+      if(pcs_weight>chargeableWeight){
+         weight=pcs_weight;
       }
       console.log(weight);
       $('.actualWeight').val(weight);
       $("#chargeable_weight").val(weight);
-      var formData = {
-         package_type,
-         R_country,
-         weight,
-      };
+      var formData = {package_type:package_type,from_country:fromCountry,to_country:R_country,weight:weight};
       $.ajax({
          type: 'post',
          url: '/shipping/get-rates',

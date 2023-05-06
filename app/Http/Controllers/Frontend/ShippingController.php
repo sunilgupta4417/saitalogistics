@@ -36,11 +36,13 @@ class ShippingController extends Controller
     public function getRates(Request $request)
     {
         $res = [];
-        $requestedWeight=isset($request->weight)?floatval($request->weight):0;
+        //mydd($request->all());
         $package_type=isset($request->package_type)?trim($request->package_type):"";
-        $R_country=isset($request->R_country)?intval($request->R_country):1;
-        $count = ShippingZone::find($R_country);
-        $DHLzone = ZoneRate::select("id","package_type","carrier_type","weight","rate")->where("package_type",$package_type)->where("carrier_type","DHL")->where("weight",">=",$requestedWeight)->orderBy("id","ASC")->first();
+        $requestedWeight=isset($request->weight)?floatval($request->weight):0;
+        $to_country=isset($request->to_country)?intval($request->to_country):1;
+        $from_country=isset($request->from_country)?intval($request->from_country):235;
+        $count = ShippingZone::find($to_country);
+        $DHLzone = ZoneRate::select("id","package_type","carrier_type","weight","rate")->where("package_type",$package_type)->where("carrier_type","DHL")->where("weight",">=",$requestedWeight)->where("base_country_id",$from_country)->orderBy("id","ASC")->first();
         //mydd($DHLzone->toArray()); 
         if (empty($DHLzone)) {
             $max_W = ZoneRate::where('package_type', $package_type)->where('carrier_type', 'DHL')->max('weight');
@@ -101,7 +103,7 @@ class ShippingController extends Controller
 //             "recipient" => [
 //                 "address" => [
 //                     "postalCode" => $request->R_pincode,
-//                     "countryCode" => $request->R_country,
+//                     "countryCode" => $request->to_country,
 //                 ]
 //             ],
 //             "pickupType" => "DROPOFF_AT_FEDEX_LOCATION",

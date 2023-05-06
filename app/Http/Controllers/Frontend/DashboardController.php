@@ -236,7 +236,7 @@ class DashboardController extends Controller
         $shipment->client_id = auth()->user()->id;
         $shipment->csr_country_id = $request->S_country;
         $shipment->csr_consignor = $request->S_name;
-        $shipment->csr_contact_person = $request->S_contact;
+        $shipment->csr_contact_person = $request->s_mobile_c_code.$request->S_contact;
         $shipment->csr_address1 = $request->S_address;
         $shipment->csr_address2 = $request->S_appartment;
         $shipment->csr_address3 = $request->S_department;
@@ -246,13 +246,13 @@ class DashboardController extends Controller
         $shipment->S_default = $S_default;
         $shipment->S_residential = $S_residential;
         $shipment->csr_email_id = $request->S_email;
-        $shipment->csr_mobile_no = $request->S_phone;
+        $shipment->csr_mobile_no = $request->s_mobile_t_code.$request->S_phone;
         $shipment->S_idProof = $request->S_idProof;
         $shipment->S_idFront = $frontImg;
         $shipment->S_idBack = $backImg;
         $shipment->csn_country_id = $request->R_country;
         $shipment->csn_consignor = $request->R_name;
-        $shipment->csn_contact_person = $request->R_contact;
+        $shipment->csn_contact_person = $request->r_mobile_c_code.$request->R_contact;
         $shipment->csn_address1 = $request->R_address;
         $shipment->csn_address2 = $request->R_appartment;
         $shipment->csn_address3 = $request->R_department;
@@ -261,7 +261,7 @@ class DashboardController extends Controller
         $shipment->csn_tan_number = $request->R_tan;
         $shipment->R_other = $request->R_other;
         $shipment->csn_email_id = $request->R_email;
-        $shipment->csn_mobile_no = $request->R_phone;
+        $shipment->csn_mobile_no = $request->r_mobile_t_code.$request->R_phone;
         $shipment->courier_type = $request->courier_type;
         $shipment->pcs_weight = $request->weight;
         $shipment->chargeable_weight = $request->chargeable_weight;

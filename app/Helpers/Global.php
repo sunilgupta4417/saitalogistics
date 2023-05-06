@@ -43,6 +43,25 @@ function getCountries($key=""){
 }
 
 /**
+ * get Country form country table
+ * 
+ * */
+function getCountriesDetails(){
+    return Country::select("id","country_name","mobile_code","country_code")->get()->toArray();
+}
+function getCountryBMCodes($key=""){
+    $countries=getCountriesDetails();
+    $countryIds=array_column($countries,"id");
+    $mobile_code=array_column($countries,"mobile_code");
+    $countriesInfo=array_combine($countryIds,$mobile_code);
+    if(!empty($key)){
+        return checkKeyExists($key,$countriesInfo);
+    }
+    return $countriesInfo;
+}
+
+
+/**
  * Check Key Exixts With No Empty
  * 
  * */

@@ -40,7 +40,14 @@
                         <div class="col-lg-6">
                            <div class="form-group">
                               <label>From Country</label>
-                              <input type="text" readonly value="Germany" name="from_country" class="" />
+                              <select id="select-service" class="from_country" required name="from_country">
+                                 @foreach(getCountries() as $key=>$coun)
+                                    @if(($key==235) || ($key==71))
+                                       <?php $selected=($key==235)?"selected='selected'":""; ?>
+                                       <option value="{{$key}}" {{$selected}}>{{$coun}}</option>
+                                    @endif
+                                 @endforeach
+                              </select>
                            </div>
                         </div>
                         <div class="col-lg-6">
@@ -352,7 +359,7 @@
          }
       });
       var package_type = $("select[name=package_type]").find(":selected").val();
-      var fromCountry = $("input[name=from_country]").val();
+      var fromCountry=$("select[name=from_country] option:selected").val();
       var R_country = $("select[name=to_country]").find(":selected").val();
       var gross_weight = $("input[name=gross_weight]").val();
       var chargeable_weight = $("input[name=chargeable_weight]").val();
@@ -360,8 +367,9 @@
       var width = $("input[name=width]").val();
       var height = $("input[name=height]").val();
       if (gross_weight == "" || length == "" || width == "" || height == "") {
+         $('#getShippingEstimation').html('Get Estimation');
          alert('Please fill all field');
-         return;
+         return false;
       }
       /*const volumetricWeight = (length * width * height) / 6000;
       const roundedWeight = Math.ceil(volumetricWeight);*/
@@ -373,11 +381,7 @@
       console.log(weight);
       /*const weight = Math.ceil(volumetricWeight);*/
       $('#chargeableWeight').val(weight);
-      var formData = {
-         package_type,
-         R_country,
-         weight,
-      };
+      var formData = {package_type:package_type,from_country:fromCountry,to_country:R_country,weight:weight};
       $.ajax({
          type: 'post',
          url: '/shipping/get-rates',
