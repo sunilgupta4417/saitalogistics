@@ -12,6 +12,6 @@ class ZoneRate extends Model
     protected $primaryKey = 'id';
     public $timestamps=true;
     protected $guarded = [];  
-    protected $fillable = ['weight', 'package_type', 'carrier_type', 'rate'];
+    protected $fillable = ['weight', 'package_type', 'carrier_type', 'rate','base_country_id'];
 
 }

@@ -24,7 +24,7 @@ class ZoneMasterController extends Controller
         $zoneMaster = ZoneMaster::select('zone_masters.*','vendor_masters.name')->join('vendor_masters','zone_masters.vendor_id','=','vendor_masters.id')
         ->whereNull('zone_masters.deleted_at');
         $total = $zoneMaster->count();
-       $zoneMaster =  $zoneMaster->paginate(env('page_default_val'));
+        $zoneMaster =  $zoneMaster->paginate(env('page_default_val'));
         
         return view('zone.index',compact('vendorMaster','editZone','zoneMaster','total'));
     }

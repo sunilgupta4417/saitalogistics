@@ -32,8 +32,8 @@
                         <div class="col-md-6 col-12">
                            <div class="form-group">
                               <label>Mode</label>
-                              <select id="select-service" disabled>
-                                 <option value="export" selected>Export</option>
+                              <select id="select-service" readonly>
+                                 <option value="export" selected readonly>Export</option>
                               </select>
                            </div>
                         </div>

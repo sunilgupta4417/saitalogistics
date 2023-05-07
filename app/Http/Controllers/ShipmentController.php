@@ -16,6 +16,7 @@ class ShipmentController extends Controller
         $data['UPS'] = $zones->whereNotNull('ups_zone')->count();
         $data['ARAMEX'] = $zones->whereNotNull('aramex_zone')->count();
         $data['DPD'] = $zones->whereNotNull('dpd_zone')->count();
+        /*$data['HKC'] = ZoneRate::where('carrier_type',"HKC")->count();*/
         return view('shipment.zone.index', compact('data'));
     }
     public function CarrierZone($carrierType)
@@ -68,36 +69,50 @@ class ShipmentController extends Controller
             $filepath = public_path($location . "/" . $filename);
             $file = fopen($filepath, "r");
             $arr = $this->csvToArray($filepath);
-            //mydd($arr);
-            for ($i = 0; $i < count($arr); $i++) {
-                $weight = $arr[$i]['ght'];
-                $package_type = $arr[$i]['package_type'];
-                // dd($package_type);
-                unset($arr[$i]['ght'], $arr[$i]['package_type']);
-                $Edata = json_encode($arr[$i]);
+            foreach($arr as $key=>$arrValue){
+                if(checkKeyExists("weight",$arrValue)){
+                    $weight = checkKeyExists("weight",$arrValue);
+                    unset($arrValue['weight']);
+                }
+                if(checkKeyExists("package_type",$arrValue)){
+                    $package_type = checkKeyExists("package_type",$arrValue);
+                    unset($arrValue['package_type']);
+                }
+                if(checkKeyExists("base_country_id",$arrValue)){
+                    $base_country_id = checkKeyExists("base_country_id",$arrValue);
+                    unset($arrValue['base_country_id']);
+                }
+                $countryRates = json_encode($arrValue);
+                $insertUpdateData['base_country_id']=$base_country_id;
+                $insertUpdateData['weight']=$weight;
+                $insertUpdateData['package_type']=$package_type;
+                $insertUpdateData['carrier_type']=$request->carrier;
+                $insertUpdateData['rate']=$countryRates;
                 ZoneRate::updateOrCreate(
-                    ['weight' => $weight, 'package_type' => $package_type, 'carrier_type' => $request->carrier],
-                    ['rate' => $Edata]
+                    ['base_country_id'=>$base_country_id,'weight' => $weight, 'package_type' => $package_type, 'carrier_type' => $request->carrier],$insertUpdateData
                 );
             }
+            //mydd($arr);
         }
         return redirect()->route('zone.index')->with('success', 'Zone rates updated successfully');
     }
     public function ExportRates($carrier_type)
     {
-        $index = ZoneRate::select("weight","package_type","carrier_type","rate")->where('carrier_type', $carrier_type)->get();
+        $index = ZoneRate::select("base_country_id","weight","package_type","carrier_type","rate")->where('carrier_type', $carrier_type)->get();
         // dd($index);
         $data = [];
         $columns = [];
         foreach ($index as $value) {
+            $baseCountryId = ['base_country_id' => $value->base_country_id];
             $weight = ['weight' => $value->weight];
             $package_type = ['package_type' => $value->package_type];
             $carrierType = ['carrier_type' => $value->carrier_type];
             $zone = json_decode($value->rate, true);
-            $data[] = array_merge($weight, $package_type,$carrierType, $zone);
+            $data[] = array_merge($baseCountryId,$weight, $package_type,$carrierType, $zone);
             $columns = array_keys($zone);
         }
         //array_unshift($columns, 'carrier_type');
+        array_unshift($columns, 'base_country_id');
         array_unshift($columns, 'package_type');
         array_unshift($columns, 'weight');
         //mydd($columns);
@@ -114,6 +129,7 @@ class ShipmentController extends Controller
             $row['weight'] = $obj['weight'];
             /*$row['carrier_type'] = $obj['carrier_type'];*/
             $row['package_type'] = $obj['package_type'];
+            $row['base_country_id'] = $obj['base_country_id'];
             foreach ($columns as $value) {
                 $row[$value] = $obj[$value];
             }
@@ -131,7 +147,7 @@ class ShipmentController extends Controller
         $header = null;
         $data = array();
         if (($handle = fopen($filename, 'r')) !== false) {
-            fseek($handle,3);
+            fseek($handle,0);
             while (($row = fgetcsv($handle, 1000, $delimiter)) !== false) {
                 if (!$header)
                     $header = $row;

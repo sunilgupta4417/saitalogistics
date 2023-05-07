@@ -41,51 +41,78 @@ class ShippingController extends Controller
         $requestedWeight=isset($request->weight)?floatval($request->weight):0;
         $to_country=isset($request->to_country)?intval($request->to_country):1;
         $from_country=isset($request->from_country)?intval($request->from_country):235;
-        $count = ShippingZone::find($to_country);
-        $DHLzone = ZoneRate::select("id","package_type","carrier_type","weight","rate")->where("package_type",$package_type)->where("carrier_type","DHL")->where("weight",">=",$requestedWeight)->where("base_country_id",$from_country)->orderBy("id","ASC")->first();
-        //mydd($DHLzone->toArray()); 
-        if (empty($DHLzone)) {
-            $max_W = ZoneRate::where('package_type', $package_type)->where('carrier_type', 'DHL')->max('weight');
-            $res['warning'] = 'maximum weight ' . $max_W . ' allowed for DHL ' . $package_type;
-        }
-        if (isset($DHLzone->rate)) {
-            $DHLdata = json_decode($DHLzone->rate, true);
-            if (isset($DHLdata['ZONE_' . $count->dhl_zone])) {
-                $res['DHL']['rate'] = $DHLdata['ZONE_' . $count->dhl_zone];
-                $res['DHL']['zone'] = $count->dhl_zone;
-            } else {
-                $res['DHL']['rate'] = 'NIL';
-                $res['DHL']['zone'] = 'NIL';
+        $toCountryInfo = ShippingZone::find($to_country);
+        $ratesErrorWarning="";
+        if($from_country==235){
+            $DHLzone = ZoneRate::select("id","package_type","carrier_type","weight","rate")->where("package_type",$package_type)->where("carrier_type","DHL")->where("weight",">=",$requestedWeight)->where("base_country_id",$from_country)->orderBy("id","ASC")->first();
+            //mydd($DHLzone->toArray()); 
+            if (empty($DHLzone)) {
+                $max_W = ZoneRate::where('package_type', $package_type)->where('carrier_type', 'DHL')->max('weight');
+                $ratesErrorWarning = 'Maximum weight ' . $max_W . 'kg allowed for DHL ' . $package_type;
+            }else{
+                if (isset($DHLzone->rate)) {
+                    $DHLdata = json_decode($DHLzone->rate, true);
+                    if (isset($DHLdata['ZONE_' . $$toCountryInfo->dhl_zone])) {
+                        $res['DHL']['rate'] = $DHLdata['ZONE_' . $$toCountryInfo->dhl_zone];
+                        $res['DHL']['zone'] = $$toCountryInfo->dhl_zone;
+                    }else{
+                        $ratesErrorWarning = 'Sorry we don\'t have rates realted to your package';
+                    }
+                }else{
+                    $ratesErrorWarning = 'Sorry we don\'t have rates realted to your package';
+                }
             }
-        } else {
-            $res['DHL']['rate'] = 'NIL';
-            $res['DHL']['zone'] = 'NIL';
-        }
-        if (isset($DPDzone->rate)) {
-            $DPDdata = json_decode($DPDzone->rate, true);
-            if (isset($DPDdata['ZONE_' . $count->dpd_zone])) {
-                $res['DPD']['rate'] = $DPDdata['ZONE_' . $count->dpd_zone];
-                $res['DPD']['zone'] = $count->dpd_zone;
-            } else {
-                $res['DPD']['rate'] = 'NIL';
-                $res['DPD']['zone'] = 'NIL';
+            if (isset($DPDzone->rate)) {
+                $DPDdata = json_decode($DPDzone->rate, true);
+                if (isset($DPDdata['ZONE_' . $$toCountryInfo->dpd_zone])) {
+                    $res['DPD']['rate'] = $DPDdata['ZONE_' . $$toCountryInfo->dpd_zone];
+                    $res['DPD']['zone'] = $$toCountryInfo->dpd_zone;
+                }else{
+                    $ratesErrorWarning = 'Sorry we don\'t have rates realted to your package';
+                }
+            }else{
+                $ratesErrorWarning = 'Sorry we don\'t have rates realted to your package';
             }
-        } else {
-            $res['DPD']['rate'] = 'NIL';
-            $res['DPD']['zone'] = 'NIL';
+        }else{
+            $carrierType="HKC";
+            $ratesInfo = ZoneRate::select("id","package_type","carrier_type","weight","rate")->where("package_type",$package_type)->where("carrier_type",$carrierType)->where("weight",">=",$requestedWeight)->where("base_country_id",$from_country)->orderBy("id","ASC")->first();
+            /*mydd($ratesInfo);*/
+            if (empty($ratesInfo)) {
+                $max_W = ZoneRate::where('package_type', $package_type)->where('carrier_type',$carrierType)->max('weight');
+                $ratesErrorWarning = 'Maximum weight ' . $max_W . 'kg allowed for '.$carrierType.' '. $package_type;
+            }else{
+                if (isset($ratesInfo->rate)) {
+                    $ratesData = json_decode($ratesInfo->rate, true);
+                    $counrtyName=strtolower(str_replace(" ","_",$toCountryInfo->country));
+                    if (isset($ratesData[$counrtyName])) {
+                        $res[$carrierType]['rate'] = $ratesData[$counrtyName];
+                        $res[$carrierType]['zone'] = $counrtyName;
+                    }else{
+                        $ratesErrorWarning = 'Sorry we don\'t have rates realted to your package';
+                    }
+                }else{
+                    $weightWarning = 'Sorry we don\'t have rates realted to your package';
+                }
+            }
         }
-
-        asort($res);
-        array_reverse($res);
-        $numeric_rates = array_filter(array_column($res, 'rate'), 'is_numeric');
-        if (empty($numeric_rates)) {
-            return response()->json(['error' => 'Somethig is wrong, please try to change package type or connect customer support']);
-        } else {
-            $max_rate = max($numeric_rates);
-            $max_rate=round(($max_rate*1.2),2);
-            return response()->json(['rate' => $max_rate]);
+        if(!empty($ratesErrorWarning)){
+            return response()->json(['error' => $ratesErrorWarning.', please try to change package type or connect customer support']);
+        }else{
+            asort($res);
+            array_reverse($res);
+            $numeric_rates = array_filter(array_column($res, 'rate'), 'is_numeric');
+            if (empty($numeric_rates)) {
+                return response()->json(['error' => 'Somethig is wrong, please try to change package type or connect customer support']);
+            } else {
+                $max_rate = max($numeric_rates);
+                if($from_country==235){
+                    $max_rate=round(($max_rate*1.2),2);
+                }else{
+                    $max_rate=round(($max_rate/7.8),2);
+                }
+                return response()->json(['rate' => $max_rate]);
+            }
         }
-
     }
 // public function getRates(Request $request)
 // {
