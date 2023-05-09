@@ -16,7 +16,7 @@ class ShipmentController extends Controller
         $data['UPS'] = $zones->whereNotNull('ups_zone')->count();
         $data['ARAMEX'] = $zones->whereNotNull('aramex_zone')->count();
         $data['DPD'] = $zones->whereNotNull('dpd_zone')->count();
-        /*$data['HKC'] = ZoneRate::where('carrier_type',"HKC")->count();*/
+        $data['HKC'] = ZoneRate::where('carrier_type',"HKC")->count();
         return view('shipment.zone.index', compact('data'));
     }
     public function CarrierZone($carrierType)

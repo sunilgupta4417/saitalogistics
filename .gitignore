@@ -16,3 +16,5 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+**/public_html/*
+saitalogistics-07-05-2023.zip

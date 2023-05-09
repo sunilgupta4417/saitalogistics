@@ -309,8 +309,8 @@
                                         </div>       
                                         <div class="form-group">
                                             <label>Mode</label>
-                                            <select id="select-service" disabled="disabled">
-                                                <option value="export" selected>Export</option>
+                                            <select id="select-service" readonly>
+                                                <option value="export" readonly selected>Export</option>
                                             </select>
                                         </div>
 
@@ -352,12 +352,12 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="shp-list">
-                                            <p style="margin-bottom:0px;"><strong style="font-size: 20px;">All prices given in Euro Currency </strong> </p>
+                                            <p style="margin-bottom:0px;"><strong style="font-size: 20px;">All prices given in USD Currency </strong> </p>
                                             <p style="margin-bottom:0px;"><strong>Peak surcharge to be added on above rates </strong></p>
                                             <ul> 
                                                 <li>Dynamic fuel surcharge to be added on above rates</li>
                                                 <li>Each package of a shipment is calculated according to the dimensional weight as soon as the dimensional weight exceeds the actual weight. </li>
-                                                <li>Final weight shall be chargeable as per DHL invoice </li>
+                                                <li>Final weight shall be chargeable as per Airlines </li>
                                             </ul>
                                             <p style="margin-bottom:0px;"> <strong>Extra Charges as below may apply to  any shipment </strong> </p>
                                             <ul> 
@@ -369,15 +369,15 @@
                                                 <li>Oversize charges</li>
                                                 <li>Address Correction Charges</li>
                                             </ul>
-                                            <p style="margin-bottom:0px;"> <strong>TIME BOUND DELIVERIES (if service available for that particular destination) </strong> </p>
+                                           <!--  <p style="margin-bottom:0px;"> <strong>TIME BOUND DELIVERIES (if service available for that particular destination) </strong> </p>
                                             <p> 
                                                 <ul>
-                                                    <li>Premium 9:00: Zuschlag von 35.00 EUR auf den Preis von DHL EXPRESS WORLDWIDE EXPORT </li>
-                                                    <li>Premium 10:30: Zuschlag von 25.00 EUR auf den Preis von DHL EXPRESS WORLDWIDE EXPORT </li>
-                                                    <li>Premium 12:00: Zuschlag von 20.00 EUR auf den Preis von DHL EXPRESS WORLDWIDE EXPORT</li>
+                                                    <li>Premium 9:00: Zuschlag von 35.00 USD auf den Preis von DHL EXPRESS WORLDWIDE EXPORT </li>
+                                                    <li>Premium 10:30: Zuschlag von 25.00 USD auf den Preis von DHL EXPRESS WORLDWIDE EXPORT </li>
+                                                    <li>Premium 12:00: Zuschlag von 20.00 USD auf den Preis von DHL EXPRESS WORLDWIDE EXPORT</li>
                                                 </ul>
-                                            </p>
-                                            <p>At the end of the above details mention “ The above rates are estimated and the final rates will be confirmed on the confirmation from the Airlines are sharing the details “</p>
+                                            </p> -->
+                                            <p>The above rates are estimated and the final rates will be confirmed on the confirmation from the Airlines are sharing the details</p>
                                             <p><strong>“WILL GET BACK TO YOU SOON”</strong></p>
                                         </div>
                                     </div>
@@ -387,155 +387,157 @@
 
                         <!-- Step5 -->
                         <div class="step">
-                            <div class="inter-form">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="maining-heading">
-                                            <h3 class="mb-4">Origin/Pickup Details</h3>
-                                            <a href="javascript:void(0);" class="edit-clss edit_frm_ad_btn">Edit</a>
-                                        </div>
-                                        <div class="maing-address">
-                                            <h4 id="from_name">xxxxx</h4>
-                                            <p id="from_address">xxxxx</p>
-                                            <p id="from_number">xxxxx</p>
-                                            <p id="from_email">xxxxx</p>
-                                            <p id="from_phone_number">xxxxx</p>
-                                            <p id="from_pan_no">xxxxx</p>
-                                            <p id="from_gstin">xxxxx</p>
-                                            <p id="from_iec">xxxxx</p>
-                                            <p id="from_adhaar_no">xxxxx</p>
-                                            <p id="from_address_type">xxxxx</p> 
-                                            <p id="from_kyc_document">xxxxx</p>                                              
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="maining-heading">
-                                            <h3 class="mb-4">Destination details</h3>
-                                            <a href="javascript:void(0);" class="edit-clss edit_go_ad_btn">Edit</a>
-                                        </div>
-                                        <div class="maing-address">
-                                            <h4 id="to_name">xxxxx</h4>
-                                            <p id="to_address">xxxxxx</p>
-                                            <p id="to_number">xxxxx</p>
-                                            <p id="to_email">xxxxx</p>
-                                            <p id="to_phone_number">xxxxx</p>
-                                            <p id="to_tan_no">xxxxx</p> 
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="what-details">
-                                            <div class="what-detail-iner">
-                                                <h3>Shipment details</h3>
-                                                <?php /*<a href="#" class="edit-clss">Edit</a>*/ ?>
-                                                <table style="width: 50%;">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Packet Type</td>
-                                                            <td id="packetType">xxxx</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Weight</td>
-                                                            <td id="weight">xxxx</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Dimensions</td>
-                                                            <td id="dimensions">xxxx</td>
-                                                        </tr>
-                                                        <tr>
-                                                           <td>Total Chargeable Weight</td>
-                                                            <td id="total_shipment_weight">xxxx</td>
-                                                        </tr>
-                                                        <?php /*<tr>
-                                                            <td>Packaging</td>
-                                                            <td id="packaging">xxxxx</td>
-                                                        </tr>*/?>
-                                                        <tr>
-                                                            <td>Declared Value</td>
-                                                            <td id="declaredvalue">xxxxx</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Shipping Charge</td>
-                                                            <td id="shippingCharge">xxxxx</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                           <div class="row">
+                                <div class="inter-form">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="maining-heading">
+                                                <h3 class="mb-4">Origin/Pickup Details</h3>
+                                                <a href="javascript:void(0);" class="edit-clss edit_frm_ad_btn">Edit</a>
+                                            </div>
+                                            <div class="maing-address">
+                                                <h4 id="from_name">xxxxx</h4>
+                                                <p id="from_address">xxxxx</p>
+                                                <p id="from_number">xxxxx</p>
+                                                <p id="from_email">xxxxx</p>
+                                                <p id="from_phone_number">xxxxx</p>
+                                                <p id="from_pan_no">xxxxx</p>
+                                                <p id="from_gstin">xxxxx</p>
+                                                <p id="from_iec">xxxxx</p>
+                                                <p id="from_adhaar_no">xxxxx</p>
+                                                <p id="from_address_type">xxxxx</p> 
+                                                <p id="from_kyc_document">xxxxx</p>                                              
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="what-details">
-                                            <div class="what-detail-iner">
-                                                <h3>Shipment Mode</h3>
-                                                <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Type selected</td>
-                                                            <td id="ship_type">xxxxx</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Drop date</td>
-                                                            <td id="shipment_date">xx xx xxxx</td>
-                                                        </tr>
-                                                        <!-- <tr>
-                                                            <td>Drop address</td>
-                                                            <td>Unit 222, Rosden House 372 Old St, London, Greater London EC1 9AU, GB</td>
-                                                        </tr> -->
-                                                    </tbody>
-                                                </table>
+                                        <div class="col-md-6">
+                                            <div class="maining-heading">
+                                                <h3 class="mb-4">Destination details</h3>
+                                                <a href="javascript:void(0);" class="edit-clss edit_go_ad_btn">Edit</a>
+                                            </div>
+                                            <div class="maing-address">
+                                                <h4 id="to_name">xxxxx</h4>
+                                                <p id="to_address">xxxxxx</p>
+                                                <p id="to_number">xxxxx</p>
+                                                <p id="to_email">xxxxx</p>
+                                                <p id="to_phone_number">xxxxx</p>
+                                                <p id="to_tan_no">xxxxx</p> 
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="what-details">
-                                            <div class="agreed-text not-boarding">
-                                                <label class="container">
-                                                    <p style="font-size:14px;">xxxxxx</p>
-                                                    <input type="radio" name="radio">
-                                                    <span class="checkmark"></span>
-                                                </label>
+                                        <div class="col-md-12">
+                                            <div class="what-details">
+                                                <div class="what-detail-iner">
+                                                    <h3>Shipment details</h3>
+                                                    <?php /*<a href="#" class="edit-clss">Edit</a>*/ ?>
+                                                    <table style="width: 50%;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Packet Type</td>
+                                                                <td id="packetType">xxxx</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Weight</td>
+                                                                <td id="weight">xxxx</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Dimensions</td>
+                                                                <td id="dimensions">xxxx</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td>Total Chargeable Weight</td>
+                                                                <td id="total_shipment_weight">xxxx</td>
+                                                            </tr>
+                                                            <?php /*<tr>
+                                                                <td>Packaging</td>
+                                                                <td id="packaging">xxxxx</td>
+                                                            </tr>*/?>
+                                                            <tr>
+                                                                <td>Declared Value</td>
+                                                                <td id="declaredvalue">xxxxx</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Estimated Air Freight Cost</td>
+                                                                <td id="shippingCharge">xxxxx</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-12">
+                                            <div class="what-details">
+                                                <div class="what-detail-iner">
+                                                    <h3>Shipment Mode</h3>
+                                                    <table width="50%">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Type selected</td>
+                                                                <td id="ship_type">xxxxx</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Drop date</td>
+                                                                <td id="shipment_date">xx xx xxxx</td>
+                                                            </tr>
+                                                            <!-- <tr>
+                                                                <td>Drop address</td>
+                                                                <td>Unit 222, Rosden House 372 Old St, London, Greater London EC1 9AU, GB</td>
+                                                            </tr> -->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <!--  <div class="col-md-12">
+                                            <div class="what-details">
+                                                <div class="agreed-text not-boarding">
+                                                    <label class="container">
+                                                        <p style="font-size:14px;">xxxxxx</p>
+                                                        <input type="radio" name="radio">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Step6 -->
+                        <!-- Step6 Payment -->
                         <div class="step">
                             <div class="row">
                                 <div class="inter-form">
                                     <div class="maining-heading">
-                                        <h3 class="mb-4">Who Would You Like To Pay?</h3>
+                                        <h3 class="mb-4">How Would You Like To Pay?</h3>
                                     </div>
-                                    <div class="where-boxing">
-                                        <?php /*<div class="form-group">
-                                            <label>Payment type</label>
-                                            <select id="select-service" name="payment_gateway" class="">
-                                                <option></option>
-                                                <option value="Development">Development</option>
-                                                <option value="Graphics">Graphics</option>
-                                                <option value="Mobile App">Mobile App</option>
-                                            </select>
-                                        </div>
+                                    <div class="payment-gateway">
+                                        <?php /*<div class="form-group"> 
+                                            <label>Smart Contract </label>
+                                            <input type="radio" name="payment_gateway" value="smart_contract" class="clickMeForPayInput" style="height:34px;" >
+                                            </div> 
+                                        */?>
                                         <div class="form-group">
-                                            <label>Card number</label>
-                                            <input type="text" name="Card number">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Name on card</label>
-                                            <input type="text" name="Name on card">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Expiry on card</label>
-                                            <input type="text" name="Expiry on card">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>CVV</label>
-                                            <input type="text" name="CVV">
-                                        </div>*/?>
-                                        <div class="form-group">
-                                            <input type="radio" name="payment_gateway" value="epay" checked="checked" class="clickMeForPayInput"> Epay
-                                            <input type="radio" name="payment_gateway" value="smart_contract" class="clickMeForPayInput"> Smart Contract
+                                            <div class="cryptoPayments">
+                                                <div class="form-group"> 
+                                                    <label>ETH - Launching Soon</label>
+                                                    <input type="radio" name="payment_gateway" value="ETH" class="clickMeForPayInput" disabled>
+                                                </div>
+                                                <div class="form-group"> 
+                                                    <label>BNB - Launching Soon</label>
+                                                    <input type="radio" name="payment_gateway" value="BNB" class="clickMeForPayInput" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>USDT (BEP 20) - Launching Soon</label>
+                                                    <input type="radio" name="payment_gateway" value="USDT_BEP_20" class="clickMeForPayInput" disabled>  
+                                                </div>
+                                                <!--<div class="form-group">
+                                                    <label>USDT (BEP 20) - Launching Soon</label>
+                                                    <input type="radio" name="payment_gateway" value="USDT_ERC_20" class="clickMeForPayInput"> USDT (ERC 20)
+                                                </div>-->
+                                                <div class="form-group">
+                                                    <label>Epay</label>
+                                                    <input type="radio" name="payment_gateway" value="epay" checked="checked" class="clickMeForPayInput" >  
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="paymment-right-details">
@@ -563,7 +565,7 @@
                                     </div>
                                     <div class="payment-details">
                                         <h3>Duties & Taxes</h3>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley .</p>
+                                        <p>Duties and taxes are to be paid by the consignee as per the local duty structure.</p>
                                     </div>
                                 </div>
                             </div>
@@ -697,29 +699,18 @@
 @section('extra_body_scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://epay.me/sdk/v2/stage-websdk.js"></script>
+<script src="https://epay.me/sdk/v2/websdk.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 <script src="{{ asset('assets/js/crypto-payment.js') }}"></script>
 <script>
     $(document).ready(function(){
         $("input.clickMeForPayInput").on("click",function(e){
             var inputValue=$(this).val();
-            if(inputValue=="smart_contract"){
+            if(cryptoPayments.indexOf(inputValue) != -1) {
                 checkExtentions();
+                /*makePayment("","","",inputValue);*/
             }
         });
-        /*$(".smartContractButton").on("click",function(e){
-            console.log();
-            return false;
-            e.preventDefault();
-            const customerId=$(this).attr("data-customerid");
-            const userEmail=$(this).attr("data-user_email");
-            const orderID=$(this).attr("data-orderid");
-            const orderAmount=$(this).attr("data-total");
-            const orderCurrency="USD";
-            const orderDescription=customerId+','+userEmail+','+orderID+','+orderAmount+','+orderCurrency;
-            makePayment(orderAmount,1);
-        });*/
     });
 </script>
 <script>
@@ -739,14 +730,12 @@
             orderCurrency:orderCurrency,
             successHandler: async function(response) {
                 afterPaymentAction(response,true);  
-                $(".form-footer").hide();              
+                //$(".form-footer").hide();              
             },
             failedHandler: async function(response) {
-                console.log(response);
                 afterPaymentAction(response,false);
             },
-        };
-        console.log(options);     
+        };    
         const epay=new Epay(options);
         epay.open(options);
     }
@@ -765,7 +754,6 @@
             success: function (res) {
                 if((res.status=="ok") && (res.response.transt=="completed")){
                     $(".form-footer button#nextBtn").trigger("click");
-                    //console.log(res)
                     $(".payment-successful b.successOrderNumber").html(res.response.orderid);
                     $(".form-footer button#nextBtn").hide();
                     $(".form-footer button.clickMeForPay").remove();
@@ -775,7 +763,7 @@
                 }
             },
             error: function (res) {
-                console.log(res)
+                /*console.log(res)*/
             }
         });
     }
@@ -791,8 +779,8 @@
             var selectPaymentType=$('input.clickMeForPayInput:checked').val();
             if(selectPaymentType=="epay"){
                 paymentOptions(customerId,userEmail,orderID,orderAmount,orderCurrency,orderDescription);
-            }else if(selectPaymentType=="smart_contract"){
-                makePayment(orderAmount,orderID,'{{route("user.store_shipment_payment")}}');
+            }else if(cryptoPayments.indexOf(selectPaymentType) != -1){
+                makePayment(orderAmount,orderID,'{{route("user.store_shipment_payment")}}',selectPaymentType);
             }
         });
     });
@@ -812,7 +800,6 @@
     });
 
     function getReviewFormData(){
-        // console.log($("input[name=dropPickup]:checked").val());
         $('#from_name').html($("input[name=S_name]").val());
         $('#from_address').html($('input[name=S_address]').val()+' , '+$('input[name=S_appartment]').val()+' , '+$('input[name=S_department]').val()+' , '+$('input[name=S_pincode]').val()+' , '+$('input[name=S_city]').val()+' , '+$('input[name=S_state]').val()+' , '+$('input[name=S_other]').val()+" - "+$("select[name=S_country] option:selected").text());
         $('#from_number').html($("select[name=s_mobile_c_code] option:selected").val()+$("input[name=S_contact]").val());
@@ -894,7 +881,7 @@
         } else {
             $('#nextBtn').prop('disabled', false);
         }
-        console.log(n);
+        /*console.log(n);*/
         // This function will display the specified tab of the form...
         var x = document.getElementsByClassName("step");
         x[n].style.display = "block";
@@ -961,7 +948,7 @@
         if(grossWeight>chargeableWeight){
             weight=grossWeight;
         }
-        console.log(weight);
+        /*console.log(weight);*/
         /*const weight = Math.ceil(volumetricWeight);*/
         $('#chargeableWeight').val(weight);
         $('#actual_weight').val(weight);
@@ -972,7 +959,6 @@
             data: formData,
             dataType: 'json',
             success: function (res) {
-                console.log(res)
                 if(res.error){
                     $('#nextBtn').prop('disabled', true);
                     currentTab = 3;
@@ -991,8 +977,7 @@
                 $('#nextBtn').prop('disabled', true);
                 $('input[name=shipping_charge]').val("");
                 $('#nextBtn').html('Continue');
-                alert(res.error);
-                console.log(res);
+                /*alert(res.error);*/
                 // return false
             }
         });

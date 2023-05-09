@@ -284,7 +284,7 @@
                  </a>
 
                  <ul class="list-unstyled" style="{{ in_array(Request::segment(2), $client_menu)?'':'display: none;' }}">
-                    @if(in_array("client-master",$accessMenu))
+                  <!--   @if(in_array("client-master",$accessMenu))
                       <li class="{{ Request::segment(2)=='client-master'?'active':'' }}">
                           <a href="{{ url('/admin/client-master') }}">
                               <span>Client Master</span>
@@ -304,7 +304,7 @@
                             <span>Vendor Account Details</span>
                         </a>
                       </li>
-                    @endif
+                    @endif -->
                     @if(in_array("zone-master",$accessMenu))
                       <li class="{{ Request::segment(2)=='zone-master'?'active':'' }}">
                         <a href="{{ url('/admin/zone-master') }}">

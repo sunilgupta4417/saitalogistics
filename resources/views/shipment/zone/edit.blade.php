@@ -32,7 +32,7 @@
                                 </div>
                                 @else
                                 <div class="form-group">
-                                    <label for="{{$key}}">{{$key}}</label>
+                                    <label for="{{$key}}">{{ ucwords(str_replace("_"," ",$key)) }}</label>
                                     <input type="text" name="{{$key}}" id="{{$key}}" value="{{$obj}}" class="form-control">
                                 </div>
                                 @endif

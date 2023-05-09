@@ -1,4 +1,4 @@
-/*--------------------
+.pricing-item/*--------------------
  TYPOGRAPHY
 -----------------*/
 @import url("https://fonts.googleapis.com/css?family=poppins:400,600,700&amp;display=swap|Lato:400");
@@ -8,7 +8,7 @@ body {
   font-family: "Lato", sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 16px;
-  color: #858585;
+  color: #404040eb;
   font-weight: 400;
   font-family: "Rubik";
   src: url("Rubik-Medium.woff2") format("woff2"),
@@ -1104,6 +1104,7 @@ a.btn.btn-main-2.btn-sm {
   background: #ffeee8;
   padding: 40px;
   border-radius: 20px;
+  min-height: 370px;
 }
 
 .pricing-item:hover {
@@ -1496,14 +1497,18 @@ pre {
 }
 
 .copyright p {
-  color: #000;
+    color: #000;
+    font-size: 15px;
+    margin-bottom: 0;
+    margin-top: 7px;
 }
 
 .footer-btm {
-  background: #ffeee8;
-  margin: 0 auto;
-  border-top: 1px solid #fff;
-  padding-top: 18px;
+    background: #ffeee8;
+    margin: 0 auto;
+    border-top: 1px solid #fff;
+    padding-top: 20px;
+    padding-bottom: 15px;
 }
 
 .subs-form {
@@ -2288,13 +2293,6 @@ iframe#youtubevideo {
   text-align: center;
 }
 
-.shipment-table-formet tbody tr td {
-  display: table-cell;
-  width: 280px;
-  font-weight: 400;
-  padding: 6px;
-}
-
 .shipment-right-details {
   margin-left: 90px;
   margin-top: 40px;
@@ -2369,12 +2367,39 @@ iframe#youtubevideo {
   top: 20px;
   background: transparent;
   border: none;
-  color: #00000063;
+  color: #404040eb;
 }
 
 .select-code #mobile {
   padding-left: 157px !important;
 }
+
+.select-code-packb {
+  position: relative;
+}
+
+.select-code-packb select {
+  position: absolute;
+  left: 10%;
+  top: 58%;
+  background: transparent;
+  border: none;
+  color: #404040eb;
+}
+
+.select-code-packb #mobile {
+  padding-left: 157px !important;
+}
+.select-code-packb .fa-mobile{
+  position: absolute;
+    padding-top: 48px;
+    padding-left: 14px;
+    left: 0px;
+}
+
+.select-code-packb input{
+    padding-left: 140px !important;
+  }
 
 
 /*-================== Support Page Css Start Here 1360px ==================-*/
@@ -2568,7 +2593,7 @@ iframe#youtubevideo {
   padding: 0 10px 0 25px;
   border: 2px solid #00000012;
   font-size: 16px;
-  color: #40404078;
+  color: #404040eb;
   transition: 1ms;
   height: 45px;
   border-radius: 33px;
@@ -2581,7 +2606,7 @@ iframe#youtubevideo {
   padding: 0 10px 0 25px;
   border: 2px solid #00000012;
   font-size: 16px;
-  color: #40404078;
+  color: #404040eb;
   transition: 1ms;
   height: 45px;
   border-radius: 33px;
@@ -2629,7 +2654,7 @@ iframe#youtubevideo {
 }
 
 .create-right p {
-  color: #9b9b9bcc;
+  color: #404040eb;
   font-size: 15px;
 }
 
@@ -2643,52 +2668,24 @@ iframe#youtubevideo {
   border-radius: 25px;
 }
 
-.rwd-table {
-  width: 100%;
-  display: block;
-  max-width: 100%;
-}
 
-.rwd-table thead {
-  width: 100%;
-  display: block;
+.shipment-history.view-transactions tr {
+    border: none;
+    margin: 0;
 }
-
-.rwd-table thead tr {
-  background: #FFEDE6;
-  width: 100%;
-  border-radius: 1em;
-  display: block;
+.shipment-history.view-transactions tr td {
+    width: 49%;
+    border: 1px solid #eeeeee8f;
+    padding: 4px 10px;
+    margin: 2px;
+    display: inline-block;
+    font-size: 13px;
+    overflow-x: hidden;
 }
-
-.rwd-table thead tr th {
-  color: #000;
-  font-weight: 500;
-  font-size: 15px;
-  padding: 8px;
-  width: 1%;
+.shipment-history .modal-footer button.btn.btn-default {
+    background: #ff5d21;
+    color: #fff;
 }
-
-.rwd-table tbody {
-  width: 100%;
-  display: block;
-}
-
-.rwd-table tbody tr {
-  width: 100%;
-  display: block;
-  margin: 6px 0;
-  padding-bottom: 0px;
-}
-
-.rwd-table tbody tr td {
-  color: #000;
-  font-weight: 500;
-  font-size: 15px;
-  padding: 8px;
-  width: 10%;
-}
-
 .og-clr {
   color: #FF9300 !important;
 }
@@ -2700,7 +2697,7 @@ iframe#youtubevideo {
 .view-btn a {
   background: #ff5d21;
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   padding: 10px;
   display: block;
   border-radius: 2em;
@@ -2911,9 +2908,9 @@ iframe#youtubevideo {
 
 .inter-form {
   width: 100%;
-  margin: 30px 20px;
+  margin: 5px 10px;
   background: #fff;
-  padding: 30px;
+  padding: 15px;
   box-shadow: 0px 0px 99px #ff5d2115;
   border-radius: 25px;
 }
@@ -2937,7 +2934,7 @@ iframe#youtubevideo {
   padding: 0 10px 0 25px;
   border: 2px solid #00000012;
   font-size: 16px;
-  color: #000;
+  color: #404040eb;
   transition: 1ms;
   height: 45px;
   border-radius: 33px;
@@ -2976,6 +2973,15 @@ iframe#youtubevideo {
   width: 44%;
 }
 
+.payment-gateway .form-group {
+  width: 45%;
+}
+
+.payment-gateway .form-group input {
+    margin-top: -30px;
+    height: 24px;
+    margin-left: 72px;
+}
 .full-widthing {
   width: 40% !important;
 }
@@ -3083,6 +3089,7 @@ iframe#youtubevideo {
   padding: 20px;
   margin-bottom: 20px;
   padding-bottom: 50px;
+}
 }
 
 .paymment-right-details h3 {
@@ -3270,7 +3277,108 @@ iframe#youtubevideo {
   height: 1.5rem;
   width: auto;
 }
+.cryptoPayments .form-group {
+    background: #eeeeee59;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #eee;
+    font-size: 14px;
+    cursor: pointer;
+}
+.cryptoPayments .form-group label {
+    cursor: pointer;
+}
+.cryptoPayments .form-group input {
+    cursor: pointer;
+}
 
+.transactions-table thead tr {
+
+  background: #FFEDE6;
+  width: 100%;
+
+}
+
+.transactions-table thead tr th {
+  border: none;
+}
+
+.shipment-history.view-transactions {
+  width: 50%;
+  text-align: left;
+}
+
+.country-box-rounded{
+  border-radius: 33px; 
+  border: 2px solid; 
+  border-color: #eee; 
+  height: 62px; 
+  padding-left: 50px; 
+}
+
+
+#showshippingestimation .actualShippingRates {
+    box-sizing: border-box;
+    margin: 0 1px;
+    width: 100%;
+    margin-top: 2px;
+    padding: 0 10px 0 25px;
+    border: 2px solid #00000012;
+    font-size: 16px;
+    color: #00000094;
+    transition: 1ms;
+    height: 45px;
+    border-radius: 33px;
+    display: block;
+    margin: 4px 0;
+    line-height: 40px;
+}
+
+.shp-list {
+    margin: 30px 20px;
+}
+.shp-list ul {
+    padding: 0px 16px;
+}
+.shp-list ul li {
+    font-size: 16px;
+    font-weight: normal;
+    color: #7b7b7b;
+}
+.shp-list strong {
+  font-size: 16px;
+    color: #000;
+}
+.clickMeForViewBox .inter-form.signUpForm .mt-4 {
+    margin: 3px 0 !important;
+    border: 1px solid #eeeeee7d;
+    font-size: 13px;
+    font-weight: normal;
+    padding: 5px 10px;
+    text-align: left;
+}
+
+.clickMeForViewBox .modal-dialog {
+    margin-top: 110px !important;
+}
+
+.shipment-table td {
+    padding: 10px 5px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+.shipment-table thead th {
+    padding: 10px 8px;
+    border: none;
+    font-size: 15px;
+    white-space: nowrap;
+}
+.shipment-table thead tr {
+    background: #FFEDE6;
+    width: 100%;
+    border-radius: 20px;
+    border: none;
+}
 
 
 
@@ -3287,10 +3395,11 @@ iframe#youtubevideo {
   .banner-content h1 {
     line-height: 38px;
     font-size: 25px;
+    letter-spacing: 0;
   }
 
   .banner-img {
-    margin: 0 !important;
+    margin: 30px !important;
   }
 
   .banner-content p {
@@ -3315,7 +3424,7 @@ iframe#youtubevideo {
     width: 40%;
     height: 40%;
     margin: 30px 0;
-    left: 145px;
+    left: 175px;
   }
 
   .process-item p {
@@ -3369,7 +3478,20 @@ iframe#youtubevideo {
   }
 
   .cta .track-div {
-    padding: 50px 30px;
+    padding: 40px;
+  }
+  .ai-based-section {
+      padding: 30px 0 0;
+  }
+  .copyright p {
+      font-size: 11px;
+  }
+  .list-inline-item:not(:last-child) {
+      margin-right: 0;
+  }
+
+  .blog-item.mb-5.mb-lg-0 {
+      margin-bottom: 0 !important;
   }
 
   .contact-frm {
@@ -3424,18 +3546,120 @@ iframe#youtubevideo {
     margin-left: 10px;
   }
 
-  .shipment-table-formet tbody tr td {
-    width: auto;
-    font-size: 11px;
-  }
-
-  .shipment-right-details ul li {
-    margin-bottom: 20px;
-  }
 
   .progress-bar {
     height: 25vh;
   }
+  .pricing-item {
+      min-height: 320px;
+      margin-bottom: 0 !important;
+  }
+  .container {
+      max-width: 750px;
+  }
+  .process-item span {
+      margin: 10px 0 10px;
+      font-size: 13px;
+  }
+  .heading {
+      margin-bottom: 30px;
+      margin-top: 30px;
+  }
+  .heading h2 {
+      font-size: 26px;
+      letter-spacing: 0;
+      width: 50%;
+      margin: 0 auto;
+      line-height: 35px;
+  }
+  .youtube-video .modal-dialog {
+      max-width: 80% !important;
+  }
+  #close-video {
+      font-size: 22px;
+      padding: 6px 16px;
+      top: 3%;
+  }
+  .inter-form .form-group {
+      width: 31%;
+      margin: 8px 10px 15px 0;
+  }
+  .inter-form .form-group label.container p b {
+      font-size: 12px;
+      top: 7px;
+  }
+  .inter-form .form-group label {
+      font-size: 12px;
+  }
+  .signUpForm .form-header .stepIndicator {
+      padding: 5px;
+      font-size: 12px;
+  }
+  .signUpForm .form-header .stepIndicator::before {
+      left: 98%;
+      width: 7px;
+      height: 7px;
+      top: 11px;
+  }
+  .maining-heading {
+      text-align: center;
+  }
+  .inter-form .agreed-text .container {
+      padding: 0px 0 15px 45px;
+  }
+  .inter-form .agreed-text .checkmark {
+      top: 7px;
+  }
+  .where-boxing {
+      width: 99%;
+  }
+  .inter-form.signUpForm .row.mt-4 {
+      display: block;
+      margin: 0 !important;
+  }
+  .what-detail-iner table {
+      width: 100% !important;
+  }
+  .payment-gateway .form-group {
+      width: 100%;
+      display: inline-block;
+      margin: 5px 0;
+  }
+  .cryptoPayments .form-group {
+      width: 23%;
+      margin: 5px;
+      padding: 6px;
+  }
+  .cryptoPayments .form-group label {
+      font-size: 9px;
+  }
+  .cryptoPayments .form-group input {
+      margin-top: -18px;
+      height: 15px;
+      margin-left: 70px;
+  }
+  .profile-page-start {
+      margin: 120px 0 !important;
+  }
+  .profile-box {
+      width: 90%;
+  }
+  .sign-btns a {
+      width: 35%;
+      font-size: 18px;
+  }
+  .sign-btns a img {
+      width: 11%;
+      margin-right: 5px;
+  }
+  #make-shipping {
+        margin-top: 60px;
+    }
+  .create-right img {
+      width: 100%;
+  }
+
+
 
 }
 
@@ -3766,7 +3990,7 @@ iframe#youtubevideo {
   }
 
   .select-code #mobile {
-    padding-left: 110px !important;
+    padding-left: 140px !important;
   }
 
   .iner-number {
@@ -3853,13 +4077,21 @@ iframe#youtubevideo {
   }
 
   .signUpForm .form-header .stepIndicator {
-    padding: 5px;
-    width: 48%;
-    display: inline-block;
+      padding: 5px;
+      width: 47%;
+      display: inline-block;
+      background: #eeeeee52;
+      margin: 2px;
+      border-radius: 5px;
   }
 
   .signUpForm .form-header .stepIndicator::before {
     display: none;
+  }
+
+  .signUpForm .form-header .stepIndicator.active {
+      color: #fff !important;
+      background: #ff5d21;
   }
 
   .shipment-heading {
@@ -3867,7 +4099,7 @@ iframe#youtubevideo {
   }
 
   .maining-heading h3 {
-    font-size: 23px;
+    font-size: 18px;
     text-align: center;
   }
 
@@ -3888,66 +4120,229 @@ iframe#youtubevideo {
     font-size: 8px;
   }
 
+  .header-contact {
+      margin-left: 0px;
+      margin-top: 20px;
+  }
 
-}
+  .center-icons {
+      right: 0px !important;
+  }
 
-.transactions-table thead tr {
+  #head-icons {
+      right: 0;
+  }
 
-  background: #FFEDE6;
-  width: 100%;
+  .list-inline-item img.img-responsive {
+      width: 80%;
+  }
 
-}
+  .navbar-nav.ml-auto {
+      border-left: none;
+  }
 
-.transactions-table thead tr th {
-  border: none;
-}
+  .navbar-expand-lg .navbar-nav .nav-link {
+      padding-left: 10px;
+      border-bottom: 1px solid #cbbfbf21;
+  }
 
-.shipment-history.view-transactions {
-  width: 50%;
-  text-align: left;
-}
+  .blog-item .blog-item-content {
+      text-align: center;
+  }
 
-.country-box-rounded{
-  border-radius: 33px; 
-  border: 2px solid; 
-  border-color: #eee; 
-  height: 62px; 
-  padding-left: 50px; 
-}
+  .footer-socials {
+      margin: 10px 0;
+  }
 
+  #about-page {
+      padding-bottom: 0 !important;
+  }
 
-#showshippingestimation .actualShippingRates {
-    box-sizing: border-box;
-    margin: 0 1px;
+  #about-page {
+      margin-top: 85px;
+  } 
+
+  #how-it-works-iner {
+      margin-top: 40px;
+  }
+
+  .shipment-details {
+      padding: 15px;
+  }
+
+  #calculate-form .sub-btns .btn {
+      padding: 15px 60px;
+  }
+
+  .shp-list {
+      margin: 30px 10px;
+  }
+
+  .create-right {
+      margin-top: 30px;
+      padding: 20px 20px 40px;
+      height: auto;
+  }
+
+  #tracking-page {
+      margin: 120px 0 40px;
+  }
+
+  #tracking-page form .form-group input {
+      padding: 0 12px 0 20px;
+  }
+
+  #login-page {
+      margin: 120px 0 50px;
+  }
+
+  #login-page .for-text {
+      text-align: center;
+  }
+
+  .profile-page-start {
+      margin: 100px 10px !important;
+  }
+
+  .profile-box {
+      width: 100%;
+  }
+
+  .profile-box-heading-img h2 {
+      font-size: 24px;
+  }
+
+  .sign-btns a {
+      width: 70%;
+      font-size: 18px;
+      padding: 10px;
+  }
+
+  .sign-btns a img {
+      width: 10%;
+  }
+
+  .change-password-p .modal-dialog {
+      max-width: 95%;
+      margin: 120px auto;
+  }
+
+  .change-password-p .modal-header .modal-title {
+      font-size: 20px;
+  }
+
+  .change-password-p #login-page {
+      padding: 0px 20px 20px;
+  }
+
+  #login-page  form .form-group input {
+      padding: 0 12px 0 60px;
+      font-size: 14px;
+  }
+
+  .change-password-p #login-page .login-box img {
+      left: 22px;
+      top: 15px;
+      width: 5%;
+  }
+
+  #login-page .sub-btns .btn {
+      font-size: 15px;
+  }
+
+  .shipment-history {
+      padding: 20px 10px;
+      overflow: scroll;
+  }
+
+  .view-btn a {
+      font-size: 9px;
+      padding: 5px 10px;
+  }
+  .shp-list {
+      margin: 30px 0px;
+  }
+  .shp-list p strong {
+      font-size: 16px !important;
+  }
+  .what-details {
+      margin: 20px 0px;
+  }
+  .what-detail-iner table {
+      width: 100% !important;
+  }
+  .what-detail-iner tbody td {
+    margin: 5px 3px;
+    display: inline-block;
     width: 100%;
-    margin-top: 2px;
-    padding: 0 10px 0 25px;
-    border: 2px solid #00000012;
-    font-size: 16px;
-    color: #00000094;
-    transition: 1ms;
-    height: 45px;
-    border-radius: 33px;
-    display: block;
-    margin: 4px 0;
-    line-height: 40px;
+    font-size: 13px;
+}
+#where-from-page {
+    overflow-x: hidden;
+}
+#terms-page h2 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+.shipment-history.view-transactions tr td {
+    width: 99%;
+}
+.shipment-table thead th {
+    white-space: nowrap;
+}
+.shipment-table tbody td {
+    white-space: nowrap;
+}
+.shipment-history.view-transactions {
+    overflow: scroll;
+}
+.clickMeForViewBox .inter-form.signUpForm {
+    overflow: hidden;
+    margin-top: 0;
+}
+.clickMeForViewBox .inter-form.signUpForm .mt-4 {
+    margin: 0 !important;
+    border: 1px solid #eeeeee7d;
+    font-size: 11px;
+    font-weight: normal;
+    padding: 5px 10px;
+    width: 100%;
+    display: inherit;
+}
+#make-shipping {
+    margin-top: 80px;
+}
+#make-shipping .heading {
+    margin-bottom: 20px;
+}
+.youtube-video .modal-dialog {
+    max-width: 100% !important;
 }
 
-.shp-list {
-    margin: 30px 20px;
+#video-container {
+    padding-bottom: 90%;
 }
-.shp-list ul {
-    padding: 0px 16px;
+#close-video {
+    border: 2px solid;
+    font-size: 14px;
+    height: 35px;
+    width: 35px;
+    padding: 6px 5px;
+    top: 8%;
+    right: 5px;
 }
-.shp-list ul li {
-    font-size: 16px;
-    font-weight: normal;
-    color: #7b7b7b;
+
+
+
+
+
 }
-.shp-list strong {
-  font-size: 16px;
-    color: #000;
-}
+
+
+
+
+
+
 
 
 

@@ -26,7 +26,7 @@
                                     <ul class="list-unstyled footer-links">
                                           <li><a href="{{ url('support') }}">Support</a></li>
                                           <li><a href="{{ url('faq') }}">FAQ's</a></li>
-                                          <li><a href="{{ url('terms-condition') }}">Terms & Condition</a></li>
+                                          <li><a href="{{ url('terms-condition') }}">Terms & Conditions</a></li>
                                           <li><a href="{{ url('privacy-policy') }}">Privacy Policy</a></li>
                                     </ul>
                               </div>

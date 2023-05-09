@@ -48,13 +48,13 @@ class ShippingController extends Controller
             //mydd($DHLzone->toArray()); 
             if (empty($DHLzone)) {
                 $max_W = ZoneRate::where('package_type', $package_type)->where('carrier_type', 'DHL')->max('weight');
-                $ratesErrorWarning = 'Maximum weight ' . $max_W . 'kg allowed for DHL ' . $package_type;
+                $ratesErrorWarning = 'Maximum weight ' . $max_W . 'kg allowed for '.$package_type;
             }else{
-                if (isset($DHLzone->rate)) {
+                if (isset($DHLzone->rate) && isset($toCountryInfo->dhl_zone)) {
                     $DHLdata = json_decode($DHLzone->rate, true);
-                    if (isset($DHLdata['ZONE_' . $$toCountryInfo->dhl_zone])) {
-                        $res['DHL']['rate'] = $DHLdata['ZONE_' . $$toCountryInfo->dhl_zone];
-                        $res['DHL']['zone'] = $$toCountryInfo->dhl_zone;
+                    if (isset($DHLdata['ZONE_'.$toCountryInfo->dhl_zone])) {
+                        $res['DHL']['rate'] = $DHLdata['ZONE_'.$toCountryInfo->dhl_zone];
+                        $res['DHL']['zone'] = $toCountryInfo->dhl_zone;
                     }else{
                         $ratesErrorWarning = 'Sorry we don\'t have rates realted to your package';
                     }
@@ -62,24 +62,24 @@ class ShippingController extends Controller
                     $ratesErrorWarning = 'Sorry we don\'t have rates realted to your package';
                 }
             }
-            if (isset($DPDzone->rate)) {
+            if (isset($DPDzone->rate) && isset($toCountryInfo->dhl_zone)) {
                 $DPDdata = json_decode($DPDzone->rate, true);
                 if (isset($DPDdata['ZONE_' . $$toCountryInfo->dpd_zone])) {
                     $res['DPD']['rate'] = $DPDdata['ZONE_' . $$toCountryInfo->dpd_zone];
                     $res['DPD']['zone'] = $$toCountryInfo->dpd_zone;
-                }else{
+                }/*else{
                     $ratesErrorWarning = 'Sorry we don\'t have rates realted to your package';
-                }
-            }else{
+                }*/
+            }/*else{
                 $ratesErrorWarning = 'Sorry we don\'t have rates realted to your package';
-            }
+            }*/
         }else{
             $carrierType="HKC";
             $ratesInfo = ZoneRate::select("id","package_type","carrier_type","weight","rate")->where("package_type",$package_type)->where("carrier_type",$carrierType)->where("weight",">=",$requestedWeight)->where("base_country_id",$from_country)->orderBy("id","ASC")->first();
             /*mydd($ratesInfo);*/
             if (empty($ratesInfo)) {
                 $max_W = ZoneRate::where('package_type', $package_type)->where('carrier_type',$carrierType)->max('weight');
-                $ratesErrorWarning = 'Maximum weight ' . $max_W . 'kg allowed for '.$carrierType.' '. $package_type;
+                $ratesErrorWarning = 'Maximum weight ' . $max_W . 'kg allowed for '. $package_type;
             }else{
                 if (isset($ratesInfo->rate)) {
                     $ratesData = json_decode($ratesInfo->rate, true);

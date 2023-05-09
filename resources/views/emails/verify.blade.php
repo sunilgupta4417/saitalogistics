@@ -33,7 +33,7 @@
                                                               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                   <tbody><tr>
                                                                       <td>
-                                                                          <div style="font-size:0pt;line-height:0pt;text-align:center"><div style="font-size:0pt;line-height:0pt;text-align:center"><a href="#" rel="noreferrer noreferrer"><img style="width:250px;height:aut0" src="https://saitalogistics.tech/assets/images/logo-white.png" border="0" width="220" height="65" alt="" class="CToWUd"></a></div></div>
+                                                                          <div style="font-size:0pt;line-height:0pt;text-align:center"><div style="font-size:0pt;line-height:0pt;text-align:center"><a href="#" rel="noreferrer noreferrer"><img style="width:250px;height:aut0" src="https://saitalogistics.com/assets/images/logo-white.png" border="0" width="220" height="65" alt="" class="CToWUd"></a></div></div>
                                                                           <div style="font-size:0pt;line-height:0pt"></div>
   
                                                                       </td>

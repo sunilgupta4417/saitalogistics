@@ -185,13 +185,13 @@
                                    <input type="text" name="consignee_tan" id="consignee_tan" class="form-control" placeholder="Enter TAN">
                                 </div>
 
-                           <div class="row">
+                           <div class="row" style="padding-left:15px; padding-right: 15px;">
                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                                  <div class="frm-heading">
                                    <h3>Packet & Weight Details</h3>
                                  </div>
                                </div>
-                                <div class="form-group col-md-3 col-12">
+                                <!-- <div class="form-group col-md-3 col-12">
                                  <label>Courier Type*</label>
                                  <select class="form-control select" required name="packet_type" id="packet_type">
                                     <option>--Select Packet Type--</option>
@@ -199,7 +199,7 @@
                                     <option value="Documents">DPD</option>
                                     
                                  </select>
-                                </div>
+                                </div> -->
                                 <div class="form-group col-md-3 col-12">
                                  <label>Packet Type*</label>
                                  <select class="form-control select" required name="package_type" id="package_type">
@@ -209,7 +209,7 @@
                                     
                                  </select>
                                 </div>
-                                <div class="form-group col-md-3 col-12">
+                               <!--  <div class="form-group col-md-3 col-12">
                                  <label>Payment Type*</label>
                                  <select class="form-control select" required name="payment_type" id="payment_type">
                                     <option>--Select Payment Type--</option>
@@ -217,7 +217,7 @@
                                     <option value="COD">COD</option>
                                     <option value="CREDIT">CREDIT</option>
                                  </select>
-                                </div>
+                                </div> -->
                                 {{--<div class="form-group col-md-3 col-12">
                                    <label>Invoice No*</label>
                                    <input type="text" required name="invoice_no" id="invoice_no" class="form-control" placeholder="Enter Invoice No">
@@ -228,32 +228,32 @@
                                 </div>--}}
 
                              <div class="form-group col-md-3 col-12">
-                                 <label>Gross Weight *</label>
-                                 <input type="text" name="pcs_weight" id="pcs_weight" required class="form-control" placeholder="Enter Weight">
+                                 <label>Gross Weight KG*</label>
+                                 <input type="text" name="pcs_weight" id="pcs_weight" required class="form-control" placeholder="Enter Gross Weight">
                              </div>
                              <div class="form-group col-md-3 col-12">
-                                 <label>Chargeable Weight *</label>
-                                 <input type="text" name="chargeable_weight" id="chargeable_weight" required class="form-control" placeholder="Enter Chargeble Weight">
+                                 <label>Chargeable Weight KG*</label>
+                                 <input type="text" name="chargeable_weight" id="chargeable_weight" required class="form-control" placeholder="Chargeble Weight" readonly>
                              </div>
                              <div class="form-group col-md-3 col-12">
-                                 <label>Length*</label>
+                                 <label>Length CM*</label>
                                  <input type="text" name="length" id="length" required class="form-control" placeholder="Enter Length">
                              </div>
                              <div class="form-group col-md-3 col-12">
-                                 <label>Width*</label>
+                                 <label>Width CM*</label>
                                  <input type="text" name="width" id="width" required class="form-control" placeholder="Enter Width">
                              </div>
                              <div class="form-group col-md-3 col-12">
-                                 <label>Height*</label>
+                                 <label>Height CM*</label>
                                  <input type="text" name="height" id="height" required class="form-control" placeholder="Enter Height">
                              </div>
                              <div class="form-group col-md-3 col-12">
-                                 <label>Declared value*</label>
+                                 <label>Declared Value $*</label>
                                  <input type="text" name="dvalue" id="dvalue" required class="form-control" placeholder="Enter Declared value">
                              </div>
                              <div class="form-group col-md-3 col-12">
-                                 <label>Shipping charges*</label>
-                                 <input type="text" name="shipping_charge" id="shipping_charge" required class="form-control" placeholder="Enter Shipping charges">
+                                 <label>Estimated Air Freight Cost $*</label>
+                                 <input type="text" name="shipping_charge" id="shipping_charge" required class="form-control" placeholder="Shipping charges">
                              </div>
                              <div class="form-group col-md-3 col-12">
                                  <button id="getShippingEstimation" class="btn btn-primary mt-3">Get Rates</button>
@@ -560,7 +560,6 @@ $('#pcs_weight').keypress(function(){
       if(pcs_weight>chargeableWeight){
          weight=pcs_weight;
       }
-      console.log(weight);
       $('.actualWeight').val(weight);
       $("#chargeable_weight").val(weight);
       var formData = {package_type:package_type,from_country:fromCountry,to_country:R_country,weight:weight};
@@ -570,7 +569,6 @@ $('#pcs_weight').keypress(function(){
          data: formData,
          dataType: 'json',
          success: function (res) {
-            console.log(res)
             if(res.error){
                $('input[name="shipping_charge"]').val("");
                $('#getShippingEstimation').html('Get Rates');
@@ -585,7 +583,6 @@ $('#pcs_weight').keypress(function(){
          error: function (res) {
             $('input[name="shipping_charge"]').val("");
             $('#getShippingEstimation').html('Get Rates');
-            console.log(res);
             // return false
          }
       });

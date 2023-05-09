@@ -109,7 +109,7 @@ class AuthController extends Controller
                         'user_id' => $user->id, 
                         'token' => $token
                     ]);
-                    $subject = 'Notice for User Verification!';
+                    $subject = 'User Verification!';
                     $message = '<div style="padding:0!important;margin:0!important;display:block!important;min-width:100%!important;width:100%!important;background:#ffffff">
   <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
       <tbody><tr>
@@ -145,7 +145,7 @@ class AuthController extends Controller
                                                               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                   <tbody><tr>
                                                                       <td>
-                                                                          <div style="font-size:0pt;line-height:0pt;text-align:center"><div style="font-size:0pt;line-height:0pt;text-align:center"><a href="#" rel="noreferrer noreferrer"><img style="width:250px;height:aut0" src="https://saitalogistics.tech/assets/images/logo-white.png" border="0" width="220" height="65" alt="" class="CToWUd"></a></div></div>
+                                                                          <div style="font-size:0pt;line-height:0pt;text-align:center"><div style="font-size:0pt;line-height:0pt;text-align:center"><a href="#" rel="noreferrer noreferrer"><img style="width:250px;height:aut0" src="https://saitalogistics.com/assets/images/logo-white.png" border="0" width="220" height="65" alt="" class="CToWUd"></a></div></div>
                                                                           <div style="font-size:0pt;line-height:0pt"></div>
   
                                                                       </td>
@@ -186,7 +186,7 @@ class AuthController extends Controller
                                                               <table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-size:0pt;line-height:0pt;text-align:center;width:100%;min-width:100%"><tbody><tr><td height="20" style="font-size:0pt;line-height:0pt;text-align:center;width:100%;min-width:100%">&nbsp;</td></tr></tbody></table>
                                                               <div style="color:#f6f6f6;font-family: sans-serif;font-size: 18px;
                                                               line-height: 26px;
-                                                              text-align: center;">Thank you for choosing us and welcome to Saita Logistics! Your registered Email ID is: {email}. Password is:{password}:
+                                                              text-align: center;">Thank you for choosing us and welcome to Saita Logistics! Your registered Email ID is: {email}. 
                                                               </div>
   
                                                               <div style="color:#f6f6f6;font-family: sans-serif;font-size: 18px;

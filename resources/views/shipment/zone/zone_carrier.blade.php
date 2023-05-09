@@ -28,7 +28,7 @@
                                 <th>Weight</th>
                                 <th>Carrier type</th>
                                 @foreach($zone as $obj)
-                                    <th>{{$obj}}</th>
+                                    <th>{{ ucwords(str_replace("_"," ",$obj)) }}</th>
                                 @endforeach
                                 <th>Action</th>
                             </tr>

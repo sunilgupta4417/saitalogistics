@@ -122,7 +122,7 @@
                         <div class="col-lg-12">
                            <div class="shp-list">
 
-                              <p style="margin-bottom:0px;"><strong style="font-size: 20px;">All prices given in Euro Currency </strong> </p>
+                              <p style="margin-bottom:0px;"><strong style="font-size: 20px;">All prices given in USD Currency </strong> </p>
 
                               <p style="margin-bottom:0px;"><strong>Peak surcharge to be added on above rates </strong>
                               </p>
@@ -143,15 +143,15 @@
                                  <li>Oversize charges</li>
                                  <li>Address Correction Charges</li>
                               </ul>
-                              <p style="margin-bottom:0px;"> <strong>TIME BOUND DELIVERIES (if service available for that particular destination) </strong> </p>
+                              <!-- <p style="margin-bottom:0px;"> <strong>TIME BOUND DELIVERIES (if service available for that particular destination) </strong> </p>
 
                               <ul>
-                                 <li>Premium 9:00: Zuschlag von 35.00 EUR auf den Preis von DHL EXPRESS WORLDWIDE EXPORT </li>
-                                 <li>Premium 10:30: Zuschlag von 25.00 EUR auf den Preis von DHL EXPRESS WORLDWIDE EXPORT </li>
-                                 <li>Premium 12:00: Zuschlag von 20.00 EUR auf den Preis von DHL EXPRESS WORLDWIDE EXPORT</li>
+                                 <li>Premium 9:00: Zuschlag von 35.00 USD auf den Preis von DHL EXPRESS WORLDWIDE EXPORT </li>
+                                 <li>Premium 10:30: Zuschlag von 25.00 USD auf den Preis von DHL EXPRESS WORLDWIDE EXPORT </li>
+                                 <li>Premium 12:00: Zuschlag von 20.00 USD auf den Preis von DHL EXPRESS WORLDWIDE EXPORT</li>
 
-                              </ul>
-                              <p>At the end of the above details mention “ The above rates are estimated and the final rates will be confirmed on the confirmation from the Airlines are sharing the details “</p>
+                              </ul> -->
+                              <p>The above rates are estimated and the final rates will be confirmed on the confirmation from the Airlines are sharing the details</p>
                               <p><strong>“WILL GET BACK TO YOU SOON”</strong></p>
 
 
@@ -378,7 +378,6 @@
       if(gross_weight>chargeableWeight){
          weight=gross_weight;
       }
-      console.log(weight);
       /*const weight = Math.ceil(volumetricWeight);*/
       $('#chargeableWeight').val(weight);
       var formData = {package_type:package_type,from_country:fromCountry,to_country:R_country,weight:weight};
@@ -388,7 +387,6 @@
          data: formData,
          dataType: 'json',
          success: function(res) {
-            console.log(res)
             if (res.error) {
                $('.actualShippingRates').html("")
                $('#getShippingEstimation').html('Get Estimation');
@@ -403,7 +401,6 @@
          error: function(res) {
             $('.actualShippingRates').html("")
             $('#getShippingEstimation').html('Get Estimation');
-            console.log(res);
             // return false
          }
       });

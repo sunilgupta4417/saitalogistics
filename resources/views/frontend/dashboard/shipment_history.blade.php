@@ -12,8 +12,8 @@
             <div class="row">
                <div class="col-md-12 col-lg-812">
                   <div class="shipment-history">
-                        <div class="shipment-table">
-                              <table class="rwd-table">
+                        <div class="shipment-table table-responsive">
+                              <table class="table custom-table datatable dataTable no-footer">
                                  <thead>
                                     <tr>
                                        <th>Sr. No.</th>
@@ -85,7 +85,6 @@
    $(document).ready(function(){
       $(".clickMeForViewDetails").on("click",function(e){
          var modelId=$(this).parent("td.view-btn").find(".clickMeForViewBox").attr('id');
-         console.log(modelId);
          $('#'+modelId).modal('show');
       });
     });

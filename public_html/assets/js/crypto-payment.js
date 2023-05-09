@@ -1,3 +1,4 @@
+const cryptoPayments=["ETH","BNB","USDT_BEP_20","USDT_ERC_20"];
 async function checkExtentions(){
     if (window.ethereum) {
 		  window.web3 = new Web3(window.ethereum);
@@ -38,8 +39,10 @@ function getAccount(){
   return accountId;
 }
 
-async function makePayment(amount, orderid,paymentUpdateUrl){
+async function makePayment(amount,orderid,paymentUpdateUrl,payment_type){
     if(checkExtentions()){
+      let currentChain = window.ethereum.request({ method: 'eth_chainId' });
+      console.log("Current Chain: "+currentChain);
       /*let currentChain = window.ethereum.request({ method: 'eth_chainId' });
       console.log(currentChain);
       if(currentChain != 0x61){
@@ -47,42 +50,10 @@ async function makePayment(amount, orderid,paymentUpdateUrl){
       }*/
       this.isLoading = true;//add new loader
       return new Promise((resolve, reject) => {     
-          if (window.ethereum) {
-            makeFinalPayment(amount).then((res) => {
+        if (window.ethereum) {
+            makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl).then((res) => {
               if(res){
-                var payStatus=(res.status==true)?"completed":"failed";
-                const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: res.events.Transfer.returnValues.value/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin: "USDT",transt:payStatus,orderid:orderid}
-                
-                //const data =  this.service.paymentCall(payment, token)
-                $.ajaxSetup({
-                  headers: {
-                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                  }
-                });
-                $.ajax({
-                  type: 'post',
-                  url: paymentUpdateUrl,
-                  data: {status:"ok", response:paymentResp,id:orderid,payment_gateway:"Crypto Coin"},
-                  cache: false,
-                  dataType:'JSON',
-                  success: function (res) {
-                      if((res.status=="ok")){
-                          $(".form-footer button#nextBtn").trigger("click");
-                          //console.log(res)
-                          $(".payment-successful b.successOrderNumber").html(res.response.orderid);
-                          $(".form-footer button#nextBtn").hide();
-                          $(".form-footer button.clickMeForPay").remove();
-                      }else{
-                          $(".form-footer button#nextBtn").hide();
-                          $(".form-footer button.clickMeForPay").show();
-                      }
-                  },
-                  error: function (res) {
-                      console.log(res)
-                  }
-                });
                 if(amount){
-                  localStorage.setItem('payment', paymentResp);
                   resolve(res)
                 }
               }
@@ -91,41 +62,164 @@ async function makePayment(amount, orderid,paymentUpdateUrl){
               console.log(err);
               alert("Something went wrong ! If your amount is deducted then  please contact to admin !!");
           })
-         }else {
+        }else {
           alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
         }
       });
     }
 }
 
-async function makeFinalPayment(amount){
+async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
     try {
-        const CONTRACT_ABI =[{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"_decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"mint","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
-      const CONTARCT_ADDRESS="0xB1C0744481315c3469968f9d89D4D764E58e117D";
-      const contract = new window.web3.eth.Contract(
-        CONTRACT_ABI,
-        CONTARCT_ADDRESS
-      );
       /*console.log("this.web3.utils.toWei(amount.toString())",  window.web3.utils.toWei((amount).toString()));*/
       let userAddress = await getAccount(); 
       return new Promise((resolve, reject) => {
         //window.web3.eth.sendTransaction({from: userAddress, to: contract, value: amount})
-        contract.methods
-          .transfer("0x4Ff19AE160EE847c6CcC167c9721269D6243D423", window.web3.utils.toWei((amount).toString()))
-          .send({
-            from: userAddress.toString()
-          })
-          .then((data) => {
+        console.log(userAddress);
+        var senderAddress = userAddress.toString();
+        var receiverAddress=getReceiverAddress(payment_type);
+        const coinPayments=["ETH","BNB"];
+        const contarctPayments=["USDT_BEP_20","USDT_ERC_20"];
+        if(coinPayments.indexOf(payment_type) != -1) {
+          const ethAmount=window.web3.utils.toWei(getUsdToConvertAmount(amount,payment_type));
+          console.log("ethAmount: "+ethAmount);
+          window.web3.eth.sendTransaction({to:receiverAddress,from:senderAddress,value:ethAmount})
+          .then((res) => {
             alert("Payment done successfully");
-            console.log(data);
-            resolve(data);
+            console.log(res);
+            console.log(ethAmount);
+            var payStatus=(res.status==true)?"completed":"failed";
+            const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: ethAmount/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
+            updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
+            console.log(paymentResp);
+            resolve(res);
           })
           .catch((err) => {
             // this.toastr.error("Something went wrong");
             reject(err);
           });
+        }else if(contarctPayments.indexOf(payment_type) != -1) {
+          const CONTRACT_ABI=getContractAbi(payment_type);
+          const CONTRACT_ADDRESS=getContractAddress(payment_type);
+          const contract = new window.web3.eth.Contract(
+            CONTRACT_ABI,
+            CONTRACT_ADDRESS
+          );
+          contract.methods
+          .transfer(receiverAddress, window.web3.utils.toWei((amount).toString()))
+          .send({
+            from:senderAddress
+          })
+          .then((res) => {
+            alert("Payment done successfully");
+            console.log(res);
+            var payStatus=(res.status==true)?"completed":"failed";
+            const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: res.events.Transfer.returnValues.value/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
+            updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
+            console.log(paymentResp);
+            resolve(res);
+          })
+          .catch((err) => {
+            // this.toastr.error("Something went wrong");
+            reject(err);
+          });
+        }
       });
     } catch (error) {
     console.log(error);
+  }
+}
+
+function updatePaymentResponse(paymentResp,orderid="",payment_type="USDT",paymentUpdateUrl){
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
     }
- }
+  });
+  $.ajax({
+    type: 'post',
+    url: paymentUpdateUrl,
+    data: {status:"ok", response:paymentResp,id:orderid,payment_gateway:"Crypto",payment_type:payment_type},
+    cache: false,
+    dataType:'JSON',
+    success: function (res) {
+        if((res.status=="ok")){
+            $(".form-footer button#nextBtn").trigger("click");
+            //console.log(res)
+            $(".payment-successful b.successOrderNumber").html(res.response.orderid);
+            $(".form-footer button#nextBtn").hide();
+            $(".form-footer button.clickMeForPay").remove();
+        }else{
+            $(".form-footer button#nextBtn").hide();
+            $(".form-footer button.clickMeForPay").show();
+        }
+    },
+    error: function (res) {
+        console.log(res)
+    }
+  });
+}
+function getContractAbi(paymentType="USDT_BEP_20"){
+  if(paymentType=="USDT_BEP_20"){
+    return [{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":    [{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"_decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"mint","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"senderAddress","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
+  }else if(paymentType=="USDT_ERC_20"){
+    return "";
+  }
+}
+/*var amountConvt=getUsdToConvertAmount(1,"ETH");
+console.log(amountConvt);*/
+function getUsdToConvertAmount(amount, paymenType="ETH"){
+  if(paymenType=="ETH"){
+    var covertUrl="https://api.coingecko.com/api/v3/simple/price?ids=Ethereum&vs_currencies=usd";
+  }else if(paymenType=="BNB"){
+    var covertUrl="https://api.coingecko.com/api/v3/simple/price?ids=binance-coin-wormhole&vs_currencies=usd";
+  }
+  var afterConvertAmount="";
+  $.ajax({
+    type: 'get',
+    url: covertUrl,
+    async: false, 
+    success: function (res) {
+      convertRate="";
+      if(paymenType=="ETH"){
+        convertRate=res.ethereum.usd;
+      }else if(paymenType=="BNB"){
+        convertRate=res.binance-coin-wormhole.usd;
+      }
+      if(convertRate){
+        afterConvertAmount=(amount/convertRate);
+      }
+    },
+    error: function (res) {
+      console.log(res)
+      afterConvertAmount=amount;
+    }
+  });
+  return afterConvertAmount;
+  /*if($paymenType=="ETH"){
+    return ""
+  }else if($paymenType=="BNB"){
+    return "";
+  }else{
+    return amount;
+  }*/
+}
+
+function getReceiverAddress($paymenType="USDT_BEP_20"){
+  if($paymenType=="ETH"){
+    return "0x4Ff19AE160EE847c6CcC167c9721269D6243D423";
+  }else if($paymenType=="BNB"){
+    return "0x4Ff19AE160EE847c6CcC167c9721269D6243D423";
+  }else if($paymenType=="USDT_BEP_20"){
+    return "0x4Ff19AE160EE847c6CcC167c9721269D6243D423";
+  }else if($paymenType=="USDT_ERC_20"){
+    return "0x4Ff19AE160EE847c6CcC167c9721269D6243D423";
+  }
+}
+function getContractAddress($paymenType="USDT_BEP_20"){
+  if($paymenType=="USDT_BEP_20"){
+    return "0xB1C0744481315c3469968f9d89D4D764E58e117D";
+  }else if($paymenType=="USDT_ERC_20"){
+    return "";
+  }
+}

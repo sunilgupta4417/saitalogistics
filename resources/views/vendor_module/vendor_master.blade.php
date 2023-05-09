@@ -404,7 +404,6 @@ function GenrateAjaxHtml(data){
    var addval = "";
    $.each(data, function(index,value) {
       addval = "edit_"+ index;
-      // console.log(addval);
       html+= '<div class="row col-md-12 dynamic_add_filed" id="dynamic_edit_'+index+'">'+
                   '<div class="form-group col-md-2 col-12">'+
                      '<label>Forwarder*</label>'+

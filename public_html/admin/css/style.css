@@ -394,17 +394,17 @@ div.dataTables_wrapper div.dataTables_paginate {
     border: 1px solid #22c571;
 }
 .btn-primary {
-    background-color: #4f6ecd;
-    border: 1px solid #4f6ecd;
+    background-color: #ff5d21;
+    border: 1px solid #ff5d21;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active {
-    background-color: #22c571;
-    border: 1px solid #22c571;
+    background-color: #ff5d21;
+    border: 1px solid #ff5d21;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary.active, .btn-primary:active, .open > .dropdown-toggle.btn-primary {
-    background-color: #b95add;
-    border: 1px solid #b95add;
+    background-color: #ff5d21;
+    border: 1px solid #ff5d21;
 }
 .btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary.focus:active, .btn-primary:active:focus, .btn-primary:active:hover, .open > .dropdown-toggle.btn-primary.focus, .open > .dropdown-toggle.btn-primary:focus, .open > .dropdown-toggle.btn-primary:hover {
     background-color: #22c571;

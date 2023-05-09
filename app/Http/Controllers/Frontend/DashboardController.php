@@ -302,10 +302,11 @@ class DashboardController extends Controller
     public function store_shipment_payment(Request $request)
     {
         $payment_gateway=isset($request->payment_gateway)?$request->payment_gateway:"Epay";
+        $payment_type=isset($request->payment_type)?$request->payment_type:"online";
         if(($request->status=="ok") && ($request->response["transt"]=="completed")){
-            PacketBooking::where("id",$request->id)->update(["payment_gateway"=>$payment_gateway,"payment_status"=>"success","payment_type"=>"online","payment_response"=>$request->response]);
+            PacketBooking::where("id",$request->id)->update(["payment_gateway"=>$payment_gateway,"payment_status"=>"success","payment_type"=>$payment_type,"payment_response"=>$request->response]);
         }else{
-            PacketBooking::where("id",$request->id)->update(["payment_gateway"=>$payment_gateway,"payment_status"=>"failed","payment_type"=>"online","payment_response"=>$request->response]);
+            PacketBooking::where("id",$request->id)->update(["payment_gateway"=>$payment_gateway,"payment_status"=>"failed","payment_type"=>$payment_type,"payment_response"=>$request->response]);
         }
         /** Send order on email */
         $packetInfo=PacketBooking::where("id",$request->id)->get()->first();

@@ -1,3 +1,8 @@
+AuthName "Restricted Area" 
+AuthType Basic 
+AuthUserFile /var/www/vhosts/saitalogistics.com/htdocs/public_html/.htpasswd
+AuthGroupFile /dev/null 
+require valid-user
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
