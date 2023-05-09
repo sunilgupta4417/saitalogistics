@@ -530,7 +530,7 @@
                                                     <input type="radio" name="payment_gateway" value="USDT_BEP_20" class="clickMeForPayInput" disabled>  
                                                 </div>
                                                 <!--<div class="form-group">
-                                                    <label>USDT (BEP 20) - Launching Soon</label>
+                                                    <label>USDT (ERC 20) - Launching Soon</label>
                                                     <input type="radio" name="payment_gateway" value="USDT_ERC_20" class="clickMeForPayInput"> USDT (ERC 20)
                                                 </div>-->
                                                 <div class="form-group">
