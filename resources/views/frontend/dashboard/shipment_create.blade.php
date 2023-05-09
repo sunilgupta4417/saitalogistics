@@ -46,8 +46,8 @@
                                     <div class="form-group select-code-packb">
                                         <label>Contact Number*</label>
                                         <select name="s_mobile_c_code" class="select-code-packb">
-                                            @foreach(getCountryBMCodes() as $mobile_code)
-                                                <option value="{{$mobile_code}}" <?php /*echo ($user->phn_code == $mobile_code) ? "selected='selected'" : "";*/ ?>>{{$mobile_code}}</option>
+                                            @foreach(getCountryBMDCodes() as $countries)
+                                                <option value="{{$countries['mobile_code']}}" <?php /*echo ($user->phn_code == $countries['mobile_code']) ? "selected='selected'" : "";*/ ?>>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
                                             @endforeach         
                                         </select>
                                         <i class="fa fa-mobile"></i>
@@ -128,9 +128,9 @@
                                     <div class="form-group  select-code-packb">
                                         <label>Telephone*</label>
                                         <select name="s_mobile_t_code" class="select-code-packb">
-                                            @foreach(getCountryBMCodes() as $mobile_code)
-                                                <option value="{{$mobile_code}}" <?php /*echo ($user->phn_code == $mobile_code) ? "selected='selected'" : "";*/ ?>>{{$mobile_code}}</option>
-                                            @endforeach         
+                                            @foreach(getCountryBMDCodes() as $countries)
+                                                <option value="{{$countries['mobile_code']}}" <?php /*echo ($user->phn_code == $countries['mobile_code']) ? "selected='selected'" : "";*/ ?>>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
+                                            @endforeach             
                                         </select>
                                         <i class="fa fa-mobile"></i>
                                         <input type="text" id="S_phone" name="S_phone" value="">
@@ -185,9 +185,9 @@
                                     <div class="form-group select-code-packb">
                                         <label>Contact Number*</label>
                                         <select name="r_mobile_c_code" class="select-code-packb">
-                                            @foreach(getCountryBMCodes() as $mobile_code)
-                                                <option value="{{$mobile_code}}" <?php /*echo ($user->phn_code == $mobile_code) ? "selected='selected'" : "";*/ ?>>{{$mobile_code}}</option>
-                                            @endforeach         
+                                            @foreach(getCountryBMDCodes() as $countries)
+                                                <option value="{{$countries['mobile_code']}}" <?php /*echo ($user->phn_code == $countries['mobile_code']) ? "selected='selected'" : "";*/ ?>>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
+                                            @endforeach 
                                         </select>
                                         <i class="fa fa-mobile"></i>
                                         <input type="text" id="R_contact" name="R_contact" value="">
@@ -229,9 +229,9 @@
                                     <div class="form-group  select-code-packb">
                                         <label>Telephone*</label>
                                         <select name="r_mobile_t_code" class="select-code-packb">
-                                            @foreach(getCountryBMCodes() as $mobile_code)
-                                                <option value="{{$mobile_code}}" <?php /*echo ($user->phn_code == $mobile_code) ? "selected='selected'" : "";*/ ?>>{{$mobile_code}}</option>
-                                            @endforeach         
+                                            @foreach(getCountryBMDCodes() as $countries)
+                                                <option value="{{$countries['mobile_code']}}" <?php /*echo ($user->phn_code == $countries['mobile_code']) ? "selected='selected'" : "";*/ ?>>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
+                                            @endforeach 
                                         </select>
                                         <i class="fa fa-mobile"></i>
                                         <input type="text" id="R_phone" name="R_phone" value="">

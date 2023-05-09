@@ -49,6 +49,11 @@ function getCountries($key=""){
 function getCountriesDetails(){
     return Country::select("id","country_name","mobile_code","country_code")->orderBy("country_code","ASC")->get()->toArray();
 }
+function getCountryBMDCodes(){
+    $countries=getCountriesDetails();
+    //mydd($countries);
+    return $countries;
+}
 function getCountryBMCodes($key=""){
     $countries=getCountriesDetails();
     $countryIds=array_column($countries,"id");
