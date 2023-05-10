@@ -2,7 +2,7 @@ name: 'Prod Deployment'
 
 on:
   push:
-    branches: [ main ]
+    branches: [ staging ]
   workflow_dispatch:
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
       - name: 'Pull latest'
         working-directory: /var/www/vhosts/staging.saitalogistics.com/htdocs
         run: |
-          sudo git pull
+          sudo git pull origin staging
 
       - name: 'Full permission of Storage folder'
         working-directory: /var/www/vhosts/staging.saitalogistics.com/htdocs
