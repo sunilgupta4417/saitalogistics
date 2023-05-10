@@ -1,16 +1,12 @@
-name: CI
+name: ci
 
+# Controls when the workflow will run
 on:
   pull_request:
-  workflow_dispatch:
-    inputs:
-      workflow:
-        description: 'saitalogistics CI'
-        required: true
-        default: 'CI'
+  workflow_call:
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
