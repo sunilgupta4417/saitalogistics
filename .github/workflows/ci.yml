@@ -1,40 +1,37 @@
-name: ci
+name: CI
 
-# Controls when the workflow will run
 on:
   pull_request:
-  workflow_call:
+  workflow_dispatch:
+    inputs:
+      workflow:
+        description: 'saitalogistics CI'
+        required: true
+        default: 'CI'
 
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up project
-        uses: actions/checkout@v2.3.4
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
       - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: composer install --no-interaction --no-ansi --no-scripts --no-progress --prefer-dist
 
-    #  - name: Compile CSS and Javascript
-    #    run: |
-    #      npm install
-    #      npm run prod
+      - name: Compile assets
+        run: |
+          npm install
+          npm run production
 
       - name: Generate key
-        run: sudo php artisan key:generate
+        run: php artisan key:generate
 
-      - name: Directory Permissions
-        run: sudo chmod -R 777 storage bootstrap/cache
-
- #     - name: Compile CSS and Javascript
- #       run: |
- #       npm run prod
-
-      - name: Create Database
+      - name: Set up database
         run: |
-          mkdir -p database
           touch database/database.sqlite
+          php artisan migrate --force
