@@ -19,10 +19,10 @@ jobs:
       - name: Install Dependencies
         run: composer install --no-interaction --no-ansi --no-scripts --no-progress --prefer-dist
 
-      - name: Compile assets
-        run: |
-          npm install
-          npm run production
+  #    - name: Compile assets
+  #      run: |
+  #        npm install
+  #        npm run production
 
       - name: Generate key
         run: php artisan key:generate
