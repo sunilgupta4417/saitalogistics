@@ -170,7 +170,7 @@
                 <a class="dropdown-item" href="{{ url('/admin/user-profile') }}">My Profile</a>
                 {{-- <a class="dropdown-item" href="javascript:void(0);">Edit Profile</a> --}}
                 <a class="dropdown-item" href="{{ url('/admin/change-password') }}">Change Password</a>
-                <a class="dropdown-item" href="{{ url('/admin/website-setting') }}">Settings</a>
+                <!-- <a class="dropdown-item" href="{{ url('/admin/website-setting') }}">Settings</a> -->
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                   @csrf
@@ -305,13 +305,13 @@
                         </a>
                       </li>
                     @endif -->
-                    @if(in_array("zone-master",$accessMenu))
+                   <!--  @if(in_array("zone-master",$accessMenu))
                       <li class="{{ Request::segment(2)=='zone-master'?'active':'' }}">
                         <a href="{{ url('/admin/zone-master') }}">
                             <span>Zone Master</span>
                         </a>
                       </li>
-                    @endif
+                    @endif -->
                     @if(in_array("country-master",$accessMenu))
                       <li class="{{ Request::segment(2)=='country-master'?'active':'' }}">
                         <a href="{{ url('/admin/country-master') }}">
@@ -333,7 +333,7 @@
               @php 
                 $report_menu = ['booking-report','manifest-report','delivered-report'];
               @endphp
-              @if(array_intersect($report_menu, $accessMenu))
+             <!--  @if(array_intersect($report_menu, $accessMenu))
                <li class="submenu">
                  <a href="javascript:void(0);" class="{{ in_array(Request::segment(2), $report_menu)?'subdrop':'' }}">
                   <i class="fa fa-retweet"></i>
@@ -364,7 +364,7 @@
                     @endif
                  </ul>
                </li>
-              @endif
+              @endif -->
 
               @php 
                 $user_menu = ['change-password','manage-users','manage-frontend-users','role-manager'];
@@ -441,7 +441,7 @@
               @php 
                $setting_menu = ['website-setting','payment-history','user-profile','vendor-api-configuration'];
               @endphp
-              @if(array_intersect($setting_menu, $accessMenu))
+             <!--  @if(array_intersect($setting_menu, $accessMenu))
                <li class="submenu">
                  <a href="javascript:void(0);" class="{{ in_array(Request::segment(2), $setting_menu)?'subdrop':'' }}">
                   <i class="fa fa-cog"></i>
@@ -479,7 +479,7 @@
                     @endif
                  </ul>
                </li>
-              @endif
+              @endif -->
               @php 
                $sipping_menu = ['shipment-rate','zone-rate', 'import-zone-rates', 'view-carrier-zone'];
               @endphp

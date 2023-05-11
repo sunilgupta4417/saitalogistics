@@ -36,7 +36,7 @@
     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
       <div class="dash-widget dash-widget5" id="box2">
         <div class="dash-widget-info text-left d-inline-block">
-          <span>DELIVERED</span>
+          <span>REGISTERED USERS</span>
           <h3>0</h3>
         </div>
         <span class="float-right">
@@ -50,7 +50,7 @@
           <img src="{{ asset('admin/img/dash/dash-3.png') }}" alt="" width="80">
         </span>
         <div class="dash-widget-info text-right">
-          <span>PENDING</span>
+          <span>PACKET STATUS</span>
           <h3>0</h3>
         </div>
       </div>

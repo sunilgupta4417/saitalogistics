@@ -35,6 +35,18 @@ class WebController extends Controller
      */
     public function index()
     {
+        if($_SERVER['REMOTE_ADDR']=="160.202.36.15"){
+            $orderData['name']="test";
+            $orderData['customer_name']="kjdhkjsdsa";
+            $orderData['email']="techdevelopers10@gmail.com";
+            $emailContent=array(
+                "subject"=>"Test Shipment Created From Saita Logistics",
+                "email_template"=>"emails.default",
+                "email_content"=>($orderData)
+            );
+            var_dump(sendMyEmail($orderData['email'],$emailContent));
+            exit;
+        }
         $data['cms'] = CMS::where('page_name' , 'home-top')->first();
         $data['cms1'] = CMS::where('page_name' , 'home-work')->get();
         $data['cms2'] = CMS::where('page_name' , 'home-bottom')->first();

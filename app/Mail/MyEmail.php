@@ -29,7 +29,7 @@ class MyEmail extends Mailable
     public function build()
     {
         $fromEmail=env("MAIL_FROM_ADDRESS");
-        $fromName=env("EMAIL_FROM_NAME");
+        $fromName=env("MAIL_FROM_NAME");
         $emailSubject=env("EMAIL_DEFULT_SUBJECT");
         $emailTemplate=env("EMAIL_DEFULT_EMAIL_TEMPLATE");
         $emailContent=array();

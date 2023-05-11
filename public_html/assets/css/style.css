@@ -2380,6 +2380,7 @@ iframe#youtubevideo {
 
 .select-code-packb select {
   position: absolute;
+  width: 40%;
   left: 10%;
   top: 58%;
   background: transparent;
@@ -2398,7 +2399,7 @@ iframe#youtubevideo {
 }
 
 .select-code-packb input{
-    padding-left: 140px !important;
+    padding-left: 166px !important;
   }
 
 
