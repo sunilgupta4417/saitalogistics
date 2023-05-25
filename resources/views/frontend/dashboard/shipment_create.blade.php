@@ -519,19 +519,31 @@
                                             <div class="cryptoPayments">
                                                 <div class="form-group"> 
                                                     <label>ETH - Launching Soon</label>
-                                                    <input type="radio" name="payment_gateway" value="ETH" class="clickMeForPayInput" disabled>
+                                                    <input type="radio" name="payment_gateway" value="ETH" class="clickMeForPayInput" />
                                                 </div>
                                                 <div class="form-group"> 
                                                     <label>BNB - Launching Soon</label>
-                                                    <input type="radio" name="payment_gateway" value="BNB" class="clickMeForPayInput" disabled>
+                                                    <input type="radio" name="payment_gateway" value="BNB" class="clickMeForPayInput" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label>USDT (BEP 20) - Launching Soon</label>
-                                                    <input type="radio" name="payment_gateway" value="USDT_BEP_20" class="clickMeForPayInput" disabled>  
+                                                    <input type="radio" name="payment_gateway" value="USDT_BEP_20" class="clickMeForPayInput" />  
                                                 </div>
-                                                <!--<div class="form-group">
+                                                <div class="form-group">
                                                     <label>USDT (ERC 20) - Launching Soon</label>
                                                     <input type="radio" name="payment_gateway" value="USDT_ERC_20" class="clickMeForPayInput"> USDT (ERC 20)
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>SAITAMA (ERC 20) - Launching Soon</label>
+                                                    <input type="radio" name="payment_gateway" value="SAITAMA_ERC_20" class="clickMeForPayInput"> SAITAMA (ERC 20)
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Mazimatic (Mazi ERC 20) - Launching Soon</label>
+                                                    <input type="radio" name="payment_gateway" value="MAZI_ERC_20" class="clickMeForPayInput">Mazimatic (Mazi ERC 20)
+                                                </div>
+                                                <!--<div class="form-group">
+                                                    <label>HT Token (TRC 20) - Launching Soon</label>
+                                                    <input type="radio" name="payment_gateway" value="HUOBITOKEN_TRC_20" class="clickMeForPayInput"> HT Token (TRC 20)
                                                 </div>-->
                                                 <div class="form-group">
                                                     <label>Epay</label>
@@ -708,8 +720,7 @@
             var inputValue=$(this).val();
             if(cryptoPayments.indexOf(inputValue) != -1) {
                 checkExtentions();
-                /*makePayment("","","",inputValue);*/
-            }
+            } 
         });
     });
 </script>
