@@ -15,7 +15,7 @@
                                           <li><a href="{{ url('about') }}">About us</a></li>
                                           <li><a href="{{ url('services') }}">Services</a></li>
                                           <li><a href="{{ url('shipping') }}">Shipping</a></li>
-                                          <li><a href="{{ url('tracking') }}">Tracking</a></li>
+                                          <!-- <li><a href="{{ url('tracking') }}">Tracking</a></li> -->
                                     </ul>
                               </div>
                         </div>

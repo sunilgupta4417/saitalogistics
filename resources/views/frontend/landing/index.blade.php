@@ -120,7 +120,7 @@
 
 
 
-<section class="section bg-grey cta">
+<!-- <section class="section bg-grey cta">
     <div class="container">
         <div class="track-div">
             <div class="row justify-content-center">
@@ -140,7 +140,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 <section class="ai-based-section about">
     <div class="container">
@@ -162,7 +162,7 @@
     </div>
 </section>
 
-<section class="section bg-grey cta contact-frm">
+<section class="section bg-grey cta contact-frm" style="margin-bottom:0px;">
     <div class="container">
         <div class="track-div">
             <div class="row justify-content-center">
@@ -179,7 +179,7 @@
                                     <input type="text" class="form-control" id="name" name="name" placeholder="Name">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="phoneno" name="phoneno" placeholder="Mobile Number">
+                                    <input type="number" class="form-control" id="phoneno" name="phoneno" placeholder="Mobile Number">
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control" id="email" name="email" placeholder="Email">

@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="form-group col-md-3 col-12">
                                    <label>Mobile No*</label>
-                                   <input type="text"  required name="consignor_mobile" id="consignor_mobile" class="form-control" placeholder="Enter Mobile No">
+                                   <input type="number"  required name="consignor_mobile" id="consignor_mobile" class="form-control" placeholder="Enter Mobile No">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
                                    <label>Email ID*</label>
@@ -174,7 +174,7 @@
                                 </div>
                                 <div class="form-group col-md-3 col-12">
                                    <label>Mobile No*</label>
-                                   <input type="text" required name="consignee_mobile" id="consignee_mobile" class="form-control" placeholder="Enter Mobile No">
+                                   <input type="number" required name="consignee_mobile" id="consignee_mobile" class="form-control" placeholder="Enter Mobile No">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
                                    <label>Email ID*</label>

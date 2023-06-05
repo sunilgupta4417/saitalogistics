@@ -20,6 +20,9 @@
                             <span class="stepIndicator lasting">Complete</span>
                         </div>
                         <!-- end step indicators -->
+                        <div class="courier_type">
+                            <input type="hidden" name="courier_type" value="courier"/>
+                        </div>
 
                         <!-- Step1 -->
                         <div class="step">
@@ -127,7 +130,7 @@
 
                                     <div class="form-group  select-code-packb">
                                         <label>Telephone*</label>
-                                        <select name="s_mobile_t_code" class="select-code-packb">
+                                        <select name="csn_mobile_code" class="select-code-packb">
                                             @foreach(getCountryBMDCodes() as $countries)
                                                 <option value="{{$countries['mobile_code']}}" <?php /*echo ($user->phn_code == $countries['mobile_code']) ? "selected='selected'" : "";*/ ?>>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
                                             @endforeach             
@@ -184,7 +187,7 @@
                                     </div>
                                     <div class="form-group select-code-packb">
                                         <label>Contact Number*</label>
-                                        <select name="r_mobile_c_code" class="select-code-packb">
+                                        <select name="csn_contact_person_code" class="select-code-packb">
                                             @foreach(getCountryBMDCodes() as $countries)
                                                 <option value="{{$countries['mobile_code']}}" <?php /*echo ($user->phn_code == $countries['mobile_code']) ? "selected='selected'" : "";*/ ?>>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
                                             @endforeach 
@@ -228,7 +231,7 @@
 
                                     <div class="form-group  select-code-packb">
                                         <label>Telephone*</label>
-                                        <select name="r_mobile_t_code" class="select-code-packb">
+                                        <select name="csr_mobile_code" class="select-code-packb">
                                             @foreach(getCountryBMDCodes() as $countries)
                                                 <option value="{{$countries['mobile_code']}}" <?php /*echo ($user->phn_code == $countries['mobile_code']) ? "selected='selected'" : "";*/ ?>>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
                                             @endforeach 
@@ -519,19 +522,31 @@
                                             <div class="cryptoPayments">
                                                 <div class="form-group"> 
                                                     <label>ETH - Launching Soon</label>
-                                                    <input type="radio" name="payment_gateway" value="ETH" class="clickMeForPayInput" disabled>
+                                                    <input type="radio" name="payment_gateway" value="ETH" class="clickMeForPayInput" />
                                                 </div>
                                                 <div class="form-group"> 
                                                     <label>BNB - Launching Soon</label>
-                                                    <input type="radio" name="payment_gateway" value="BNB" class="clickMeForPayInput" disabled>
+                                                    <input type="radio" name="payment_gateway" value="BNB" class="clickMeForPayInput" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label>USDT (BEP 20) - Launching Soon</label>
-                                                    <input type="radio" name="payment_gateway" value="USDT_BEP_20" class="clickMeForPayInput" disabled>  
+                                                    <input type="radio" name="payment_gateway" value="USDT_BEP_20" class="clickMeForPayInput" />  
                                                 </div>
-                                                <!--<div class="form-group">
+                                                <div class="form-group">
                                                     <label>USDT (ERC 20) - Launching Soon</label>
                                                     <input type="radio" name="payment_gateway" value="USDT_ERC_20" class="clickMeForPayInput"> USDT (ERC 20)
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>SAITAMA (ERC 20) - Launching Soon</label>
+                                                    <input type="radio" name="payment_gateway" value="SAITAMA_ERC_20" class="clickMeForPayInput"> SAITAMA (ERC 20)
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Mazimatic (Mazi ERC 20) - Launching Soon</label>
+                                                    <input type="radio" name="payment_gateway" value="MAZI_ERC_20" class="clickMeForPayInput">Mazimatic (Mazi ERC 20)
+                                                </div>
+                                                <!--<div class="form-group">
+                                                    <label>HT Token (TRC 20) - Launching Soon</label>
+                                                    <input type="radio" name="payment_gateway" value="HUOBITOKEN_TRC_20" class="clickMeForPayInput"> HT Token (TRC 20)
                                                 </div>-->
                                                 <div class="form-group">
                                                     <label>Epay</label>
@@ -576,7 +591,7 @@
                             <div class="row">
                                 <div class="inter-form">
                                     <div class="payment-successful">
-                                        <img src="assets/images/successful.svg" alt="" class="img-responsive">
+                                        <img src="{{asset('assets/images/successful.svg')}}" alt="" class="img-responsive">
                                         <h3>Payment Successful</h3>
                                         <p>Your shipment has been successfully added Track with your order No. <b class="successOrderNumber">xxxxx</b></p>
                                     </div>
@@ -701,6 +716,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://epay.me/sdk/v2/websdk.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script>
+<script type="text/javascript" src="https://unpkg.com/evm-chains@0.2.0/dist/umd/index.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/fortmatic@2.0.6/dist/fortmatic.js"></script>
+
+
+
 <script src="{{ asset('assets/js/crypto-payment.js') }}"></script>
 <script>
     $(document).ready(function(){
@@ -803,7 +825,7 @@
         $('#from_name').html($("input[name=S_name]").val());
         $('#from_address').html($('input[name=S_address]').val()+' , '+$('input[name=S_appartment]').val()+' , '+$('input[name=S_department]').val()+' , '+$('input[name=S_pincode]').val()+' , '+$('input[name=S_city]').val()+' , '+$('input[name=S_state]').val()+' , '+$('input[name=S_other]').val()+" - "+$("select[name=S_country] option:selected").text());
         $('#from_number').html($("select[name=s_mobile_c_code] option:selected").val()+$("input[name=S_contact]").val());
-        $('#from_phone_number').html("Telephone: "+$("select[name=s_mobile_t_code] option:selected").val()+$("input[name=S_phone]").val());
+        $('#from_phone_number').html("Telephone: "+$("select[name=csn_mobile_code] option:selected").val()+$("input[name=S_phone]").val());
         $('#from_pan_no').html("Business Registration Number: "+$("input[name=S_pan]").val());
         $('#from_gstin').html("VAT: "+$("input[name=S_gstin]").val());
         $('#from_iec').html("IEC (Import and Export Code): "+$("input[name=S_iec]").val());
@@ -816,8 +838,8 @@
         $('#pickup_from_number').html($("select[name=s_mobile_c_code] option:selected").val()+$("input[name=S_contact]").val());
         $('#to_name').html($("input[name=R_name]").val());
         $('#to_address').html($('input[name=R_address]').val()+' , '+$('input[name=R_appartment]').val()+' , '+$('input[name=R_department]').val()+' , '+$('input[name=R_pincode]').val()+' , '+$('input[name=R_city]').val()+' , '+$('input[name=R_other]').val()+"-"+$("select[name=R_country] option:selected").text());
-        $('#to_number').html($("select[name=r_mobile_c_code] option:selected").val()+$("input[name=R_contact]").val());
-        $('#to_phone_number').html("Telephone: "+$("select[name=r_mobile_t_code] option:selected").val()+$("input[name=R_phone]").val());
+        $('#to_number').html($("select[name=csn_contact_person_code] option:selected").val()+$("input[name=R_contact]").val());
+        $('#to_phone_number').html("Telephone: "+$("select[name=csr_mobile_code] option:selected").val()+$("input[name=R_phone]").val());
         $('#to_email').html("Email: "+$("input[name=R_email]").val());
         $('#to_tan_no').html("Tan No: "+$("input[name=R_tan]").val());
 

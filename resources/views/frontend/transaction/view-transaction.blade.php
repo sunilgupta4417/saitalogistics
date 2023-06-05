@@ -4,8 +4,8 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <meta name="description" content="">
-      <meta name="author" content="themeturn.com">
-      <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
+      <meta name="author" content="">
+      <link rel="shortcut icon" type="image/x-icon" href="{{ url('assets/images/favicon.png') }}">
       <title>Saita-Logistics</title>
       <!-- Mobile Specific Meta-->
       <meta name="viewport" content="width=device-width, initial-scale=1">

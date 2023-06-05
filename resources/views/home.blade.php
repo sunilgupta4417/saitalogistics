@@ -36,7 +36,7 @@
     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
       <div class="dash-widget dash-widget5" id="box2">
         <div class="dash-widget-info text-left d-inline-block">
-          <span>REGISTERED USERS</span>
+          <span>DELIVERED</span>
           <h3>0</h3>
         </div>
         <span class="float-right">
@@ -50,7 +50,7 @@
           <img src="{{ asset('admin/img/dash/dash-3.png') }}" alt="" width="80">
         </span>
         <div class="dash-widget-info text-right">
-          <span>PACKET STATUS</span>
+          <span>PENDING</span>
           <h3>0</h3>
         </div>
       </div>
@@ -66,7 +66,7 @@
             <div class="col-auto" id="clr-blk">
               <div class="page-title"> Country - Total Shipment </div>
             </div>
-            <div class="col text-right">
+            <!-- <div class="col text-right">
               <div class=" mt-sm-0 mt-2">
                 <button class="btn btn-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-ellipsis-h"></i>
@@ -79,7 +79,7 @@
                   <a class="dropdown-item" href="#">Something else here</a>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="card-body">

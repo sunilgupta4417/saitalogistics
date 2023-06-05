@@ -36,8 +36,7 @@ class ShippingController extends Controller
     public function getRates(Request $request)
     {
         $res = [];
-        //mydd($request->all());
-        $package_type=isset($request->package_type)?trim($request->package_type):"";
+        $package_type=isset($request->packet_type)?trim($request->packet_type):"";
         $requestedWeight=isset($request->weight)?floatval($request->weight):0;
         $to_country=isset($request->to_country)?intval($request->to_country):1;
         $from_country=isset($request->from_country)?intval($request->from_country):235;
@@ -45,7 +44,7 @@ class ShippingController extends Controller
         $ratesErrorWarning="";
         if($from_country==235){
             $DHLzone = ZoneRate::select("id","package_type","carrier_type","weight","rate")->where("package_type",$package_type)->where("carrier_type","DHL")->where("weight",">=",$requestedWeight)->where("base_country_id",$from_country)->orderBy("id","ASC")->first();
-            //mydd($DHLzone->toArray()); 
+            //mydd($DHLzone); 
             if (empty($DHLzone)) {
                 $max_W = ZoneRate::where('package_type', $package_type)->where('carrier_type', 'DHL')->max('weight');
                 $ratesErrorWarning = 'Maximum weight ' . $max_W . 'kg allowed for '.$package_type;

@@ -27,7 +27,17 @@
                            <div class="row">
                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                                  <div class="frm-heading">
-                                   <h3>Packet Listing:</h3>
+                                   <h3>
+                                    <?php
+                                    $courierType=Request::segment(2); 
+                                    if(in_array($courierType,getCourierTypes())){
+                                       if($courierType!="courier"){
+                                          echo ucfirst($courierType)." Freight";
+                                       }else{
+                                          echo ucfirst($courierType);
+                                       }
+                                    } 
+                                    ?> Packet Listing:</h3>
                                  </div>
                                </div>
                                @php
@@ -64,8 +74,19 @@
                                 </div>
                                 <div class="form-group col-md-4 col-12">
                                      <label>Consignor Mobile*</label>
-                                     <input class="form-control" type="text" value="{{ app('request')->input('csr_mobile') }}" name="csr_mobile" id="csr_mobile" placeholder="Enter Consignor Mobile">
+                                     <input class="form-control" type="number" value="{{ app('request')->input('csr_mobile') }}" name="csr_mobile" id="csr_mobile" placeholder="Enter Consignor Mobile">
                                 </div>
+                                <?php if(!in_array($courierType,getCourierTypes())){ ?>
+                                    <div class="form-group col-md-5 col-12">
+                                       <label>Courier Type*</label>
+                                       <select class="form-control select" name="courier_type" id="courier_type">
+                                          <option value="">---Select Courier Type---</option>
+                                          <option value="air">Air Shipment</option>
+                                          <option value="ocean">Ocean Shipment</option>
+                                          <option value="courier">Courier Shipment</option>
+                                       </select>
+                                    </div>
+                                 <?php } ?>
                            </div>
                          </div>
                          <hr>
@@ -79,17 +100,21 @@
                             </div>
                         </div>
                         <script>
-                            $(document).ready(function() {
-                            $(".searchList").click(function () {
-                            $('#booking').attr('method', "get")
-                            $('#booking').attr('action', "{{route('packet.listing')}}")
-
-                            });
-                            $(".searchExpo").click(function () {
-                            $('#booking').attr('method', "post")
-                            $('#booking').attr('action', "{{route('packet.listing.expo')}}")
-                            });
-                            });
+                           $(document).ready(function() {
+                              $(".searchList").click(function () {
+                                 $('#booking').attr('method', "get")
+                                 $('#booking').attr('action', "{{route('packet.listing')}}")
+                              });
+                              $(".searchExpo").click(function () {
+                                 $('#booking').attr('method', "post")
+                                 
+                                 <?php if($courierType=="courier"){ ?>
+                                    $('#booking').attr('action', "{{route('packet.listing.expo')}}")
+                                 <?php }else{?>
+                                    $('#booking').attr('action', "{{route('custom.packet.listing.expo',$courierType)}}")
+                                 <?php } ?>
+                              });
+                           });
                         </script>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                              <div class="bg-clr">
@@ -113,7 +138,7 @@
                                                      <th>Booking Date</th>
                                                      <th>Consignee</th>
                                                      <th>AWB No.</th>
-                                                     <th>Client</th>
+                                                     <th>Courier Type</th>
                                                      <th>Consignor</th>
                                                      <th>Consignor Mobile</th>
                                                      <th>Packet Type</th>
@@ -127,11 +152,11 @@
                                                      <td>{{$row->booking_date}} </td>
                                                      <td>{{$row->csn_consignor}}</td>
                                                      <td>{{$row->awb_no}}</td>
-                                                     <td>{{$row->client_name}}</td>
+                                                     <td>{{ucfirst($row->courier_type)}}</td>
                                                      <td>{{$row->csr_consignor}}</td>
                                                      <td>{{$row->csr_mobile_no}}</td>
                                                      <td>{{$row->packet_type}}</td>
-                                                     <td>{{$row->payment_type}}</td>
+                                                     <td>{{$row->payment_type?$row->payment_type:$row->payment_status}}</td>
                                                  </tr> 
                                                  @endforeach
                                                  </tbody>                                                           

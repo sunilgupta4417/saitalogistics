@@ -21,19 +21,19 @@
                         <li class="nav-item ">
                             <a href="{{ url('services') }}" class="nav-link js-scroll-trigger">Services</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a href="{{ url('shipping') }}" class="nav-link dropdown-toggle">
+                        <li class="nav-item ">
+                            <a href="{{ url('shipping') }}" class="nav-link js-scroll-trigger">
                                 Shipping
-                                <ul class="dropdown-menu" style="color:#000;">
-                                    <li> <a href="{{ route('user.create_courier_shipment') }}" class="nav-link">Courier Shipment</a> </li>
-                                    <li><a href="{{ route('user.create_air_shipment') }}" class="nav-link">Air Freight Shipment</a> </li>
-                                    <li><a href="{{ route('user.create_ocean_shipment') }}" class="nav-link">Ocean Shipment</a> </li>
+                                <ul>
+                                    <a href="{{ route('user.create_courier_shipment') }}" class="nav-link js-scroll-trigger">Couirer Shimpment</a>
+                                    <a href="{{ route('user.create_air_shipment') }}" class="nav-link js-scroll-trigger">Air Freight Shimpment</a>
+                                    <a href="{{ route('user.create_ocean_shipment') }}" class="nav-link js-scroll-trigger">Ocean Shimpment</a>
                                 </ul>
                             </a>
                         </li>
-                       <!--  <li class="nav-item ">
+                        <li class="nav-item ">
                             <a href="{{ url('tracking') }}" class="nav-link js-scroll-trigger">Tracking</a>
-                        </li> -->
+                        </li>
                         <li class="nav-item ">
                             <a href="{{ url('support') }}" class="nav-link">Support</a>
                         </li>

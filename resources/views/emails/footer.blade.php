@@ -1,5 +1,4 @@
-    <p>Thanks,</p>
-	<br/>
+    <p>Regards,</p>
     <p>Saita Logistics</p>
 	<br/>
 </body>

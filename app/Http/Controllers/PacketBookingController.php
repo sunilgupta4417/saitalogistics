@@ -148,7 +148,7 @@ class PacketBookingController extends Controller
             return redirect()->back()->with('error','Something went wrong please try again!');
         }
     }
-    public function packetListing(Request $request){
+    public function packetListing(Request $request,$courier_type=""){
         $var = '';
         $client = ClientMaster::select('client_name','id')->get();
         //mydd($request->all());
@@ -164,6 +164,7 @@ class PacketBookingController extends Controller
         $consignor = isset($request->consignor) ? $request->consignor : NULL;
         $forwarding_no = isset($request->forwarding_no) ? $request->forwarding_no : NULL;
         $csr_mobile= isset($request->csr_mobile) ? $request->csr_mobile : NULL;
+        $courierType= isset($request->courier_type) ? $request->courier_type : $courier_type;
         $packetBook = PacketBooking::leftjoin('client_masters','client_masters.id','=','packet_bookings.client_id')
         ->select('packet_bookings.*','client_masters.client_name')
         ->where(function ($sqlAdd) use ($startdate,$enddate){
@@ -181,8 +182,15 @@ class PacketBookingController extends Controller
             if($client_id!=0){
                 $sqlAdd->where('client_id',$client_id);
             }
-        })
-        ->where(function ($sqlAdd) use ($consignee,$booking_status,$destination,$consignor,$forwarding_no,$csr_mobile){
+        });       
+        if(!empty($courierType)){
+            $packetBook =$packetBook->where(function ($sqlAdd) use ($courierType){
+                if($courierType!=0){
+                    $sqlAdd->where('courier_type',$courierType);
+                }
+            });
+        }
+        $packetBook=$packetBook->where(function ($sqlAdd) use ($consignee,$booking_status,$destination,$consignor,$forwarding_no,$csr_mobile){
             if($consignee!=NULL){
                 $sqlAdd->where('csn_consignor','LIKE','%'.$consignee.'%');
             }
@@ -199,7 +207,6 @@ class PacketBookingController extends Controller
                 $sqlAdd->whereIn('awb_no',$array);
             }
         })
-        // ->get();
         ->paginate(env('page_default_val'));
         return view('packet.packet_list',compact('vendor','client','packetBook'));
     }
@@ -211,7 +218,7 @@ class PacketBookingController extends Controller
         return view('packet.packet_view',compact('packet'));
     }
 
-    public function packetListingExpo(Request $request){
+    public function packetListingExpo(Request $request,$courier_type=""){
         $var = '';
         $client_id = isset($request->client_id) ? $request->client_id : 0;
         $vendor_id= isset($request->vendor) ? $request->vendor : 0;
@@ -224,9 +231,27 @@ class PacketBookingController extends Controller
         $consignor = isset($request->consignor) ? $request->consignor : NULL;
         $forwarding_no = isset($request->forwarding_no) ? $request->forwarding_no : NULL;
         $csr_mobile= isset($request->csr_mobile) ? $request->csr_mobile : NULL;
-        $packetBook = PacketBooking::leftjoin('client_masters','client_masters.id','=','packet_bookings.client_id')
-        ->select('packet_bookings.*','client_masters.client_name')
-        ->where(function ($sqlAdd) use ($startdate,$enddate){
+        if(in_array($courier_type,getCourierTypes())){
+            $courierType= isset($request->courier_type) ? $request->courier_type : $courier_type;
+        }else{
+            $courierType= isset($request->courier_type) ? $request->courier_type :NULL;
+        }          
+        $packetBook = PacketBooking::leftjoin('client_masters','client_masters.id','=','packet_bookings.client_id');
+        if(!empty($courierType)){
+            if($courierType=="courier"){
+                $packetBook=$packetBook->select("packet_bookings.id","packet_bookings.uuid","packet_bookings.awb_no",
+                    "packet_bookings.reference_no","packet_bookings.booking_date","packet_bookings.client_id","packet_bookings.csr_consignor","packet_bookings.csr_contact_person_code","packet_bookings.csr_contact_person","packet_bookings.csr_address1","packet_bookings.csr_address2","packet_bookings.csr_address3","packet_bookings.csr_pincode","packet_bookings.csr_country_id","packet_bookings.csr_state_id","packet_bookings.csr_city_id","packet_bookings.csr_mobile_code","packet_bookings.csr_mobile_no","packet_bookings.S_idProof as kyc_document","packet_bookings.csr_email_id","packet_bookings.csr_pan","packet_bookings.csr_gstin as vat","packet_bookings.csr_iec","packet_bookings.csn_consignor","packet_bookings.csn_contact_person_code","packet_bookings.csn_contact_person","packet_bookings.csn_address1","packet_bookings.csn_address2","packet_bookings.csn_address3","packet_bookings.csn_pincode","packet_bookings.csn_country_id","packet_bookings.csn_state_id","packet_bookings.csn_city_id","packet_bookings.csn_tan_number","packet_bookings.R_other as csn_landmark","packet_bookings.S_other as csr_landmark","packet_bookings.S_default as default_address","packet_bookings.S_residential as residential_address","packet_bookings.csn_mobile_code","packet_bookings.csn_mobile_no","packet_bookings.courier_type","packet_bookings.csn_email_id","packet_bookings.packet_type","packet_bookings.shipping_charge","packet_bookings.fca_charge","packet_bookings.ex_work_charge","packet_bookings.total_charges","packet_bookings.cpickup as pickup","packet_bookings.cdrop as drop","packet_bookings.payment_gateway","packet_bookings.payment_status","packet_bookings.payment_type","packet_bookings.payment_response","packet_bookings.invoice_no","packet_bookings.packet_description","packet_bookings.pcs_weight as weight","packet_bookings.chargeable_weight","packet_bookings.operation_remark","packet_bookings.accounting_remark","client_masters.client_name"
+                );
+            }elseif($courierType=="air"){
+                $packetBook=$packetBook->select("packet_bookings.id","packet_bookings.courier_type","packet_bookings.uuid","packet_bookings.awb_no","packet_bookings.reference_no","packet_bookings.booking_date","packet_bookings.client_id","packet_bookings.csr_consignor","packet_bookings.csr_contact_person_code","packet_bookings.csr_contact_person","packet_bookings.csr_address1","packet_bookings.csr_address2","packet_bookings.csr_address3","packet_bookings.csr_pincode","packet_bookings.csr_country_id","packet_bookings.csr_state_id","packet_bookings.csr_city_id","packet_bookings.csr_mobile_code","packet_bookings.csr_mobile_no","packet_bookings.S_idProof as kyc_document","packet_bookings.csr_email_id","packet_bookings.csr_pan","packet_bookings.csr_gstin as vat","packet_bookings.csr_iec","packet_bookings.csn_consignor","packet_bookings.csn_contact_person_code","packet_bookings.csn_contact_person","packet_bookings.csn_address1","packet_bookings.csn_address2","packet_bookings.csn_address3","packet_bookings.csn_pincode","packet_bookings.csn_country_id","packet_bookings.csn_state_id","packet_bookings.csn_city_id","packet_bookings.csn_tan_number","packet_bookings.R_other as csn_landmark","packet_bookings.S_other as csr_landmark","packet_bookings.S_default as default_address","packet_bookings.S_residential as residential_address","packet_bookings.csn_mobile_code","packet_bookings.csn_mobile_no","packet_bookings.csn_iec_number","packet_bookings.csn_bn_number","packet_bookings.csn_tan_number","packet_bookings.no_of_package","packet_bookings.csn_email_id","packet_bookings.packet_type","packet_bookings.shipping_charge","packet_bookings.fca_charge","packet_bookings.ex_work_charge","packet_bookings.total_charges","packet_bookings.cpickup as pickup","packet_bookings.cdrop as drop","packet_bookings.payment_gateway","packet_bookings.payment_status","packet_bookings.payment_type","packet_bookings.payment_response","packet_bookings.invoice_no","packet_bookings.packet_description","packet_bookings.pcs_weight as weight","packet_bookings.chargeable_weight","packet_bookings.operation_remark","packet_bookings.accounting_remark","client_masters.client_name"
+                );
+            }elseif($courierType=="ocean"){
+                $packetBook=$packetBook->select("packet_bookings.id","packet_bookings.courier_type","packet_bookings.uuid","packet_bookings.awb_no","packet_bookings.reference_no","packet_bookings.booking_date","packet_bookings.client_id","packet_bookings.csr_consignor","packet_bookings.csr_contact_person_code","packet_bookings.csr_contact_person","packet_bookings.csr_address1","packet_bookings.csr_address2","packet_bookings.csr_address3","packet_bookings.csr_pincode","packet_bookings.csr_country_id","packet_bookings.csr_state_id","packet_bookings.csr_city_id","packet_bookings.csr_mobile_code","packet_bookings.csr_mobile_no","packet_bookings.S_idProof as kyc_document","packet_bookings.csr_email_id","packet_bookings.csr_pan","packet_bookings.csr_gstin as vat","packet_bookings.csr_iec","packet_bookings.csn_consignor","packet_bookings.csn_contact_person_code","packet_bookings.csn_contact_person","packet_bookings.csn_address1","packet_bookings.csn_address2","packet_bookings.csn_address3","packet_bookings.csn_pincode","packet_bookings.csn_country_id","packet_bookings.csn_state_id","packet_bookings.csn_city_id","packet_bookings.csn_tan_number","packet_bookings.R_other as csn_landmark","packet_bookings.S_other as csr_landmark","packet_bookings.S_default as default_address","packet_bookings.S_residential as residential_address","packet_bookings.csn_mobile_code","packet_bookings.csn_mobile_no","packet_bookings.csn_iec_number","packet_bookings.csn_bn_number","packet_bookings.csn_tan_number","packet_bookings.no_of_package","packet_bookings.container_type","packet_bookings.commodity","packet_bookings.commodity_type","packet_bookings.csn_email_id","packet_bookings.packet_type","packet_bookings.shipping_charge","packet_bookings.fca_charge","packet_bookings.ex_work_charge","packet_bookings.total_charges","packet_bookings.cpickup as pickup","packet_bookings.cdrop as drop","packet_bookings.payment_gateway","packet_bookings.payment_status","packet_bookings.payment_type","packet_bookings.payment_response","packet_bookings.invoice_no","packet_bookings.packet_description","packet_bookings.pcs_weight as weight","packet_bookings.chargeable_weight","packet_bookings.operation_remark","packet_bookings.accounting_remark","client_masters.client_name"); 
+            }
+        }else{
+            $packetBook=$packetBook->select("packet_bookings.id","packet_bookings.courier_type","packet_bookings.uuid","packet_bookings.awb_no","packet_bookings.reference_no","packet_bookings.booking_date","packet_bookings.client_id","packet_bookings.csr_consignor","packet_bookings.csr_contact_person_code","packet_bookings.csr_contact_person","packet_bookings.csr_address1","packet_bookings.csr_address2","packet_bookings.csr_address3","packet_bookings.csr_pincode","packet_bookings.csr_country_id","packet_bookings.csr_state_id","packet_bookings.csr_city_id","packet_bookings.csr_mobile_code","packet_bookings.csr_mobile_no","packet_bookings.S_idProof as kyc_document","packet_bookings.csr_email_id","packet_bookings.csr_pan","packet_bookings.csr_gstin as vat","packet_bookings.csr_iec","packet_bookings.csn_consignor","packet_bookings.csn_contact_person_code","packet_bookings.csn_contact_person","packet_bookings.csn_address1","packet_bookings.csn_address2","packet_bookings.csn_address3","packet_bookings.csn_pincode","packet_bookings.csn_country_id","packet_bookings.csn_state_id","packet_bookings.csn_city_id","packet_bookings.csn_tan_number","packet_bookings.R_other as csn_landmark","packet_bookings.S_other as csr_landmark","packet_bookings.S_default as default_address","packet_bookings.S_residential as residential_address","packet_bookings.csn_mobile_code","packet_bookings.csn_mobile_no","packet_bookings.csn_iec_number","packet_bookings.csn_bn_number","packet_bookings.csn_tan_number","packet_bookings.no_of_package","packet_bookings.container_type","packet_bookings.commodity","packet_bookings.commodity_type","packet_bookings.csn_email_id","packet_bookings.packet_type","packet_bookings.shipping_charge","packet_bookings.fca_charge","packet_bookings.ex_work_charge","packet_bookings.total_charges","packet_bookings.cpickup as pickup","packet_bookings.cdrop as drop","packet_bookings.payment_gateway","packet_bookings.payment_status","packet_bookings.payment_type","packet_bookings.payment_response","packet_bookings.invoice_no","packet_bookings.packet_description","packet_bookings.pcs_weight as weight","packet_bookings.chargeable_weight","packet_bookings.operation_remark","packet_bookings.accounting_remark","client_masters.client_name"); 
+        } 
+        $packetBook=$packetBook->where(function ($sqlAdd) use ($startdate,$enddate){
             if($startdate!=NULL && $enddate!=NULL){
                 $sqlAdd->where('booking_date','>=',$startdate)
                 ->where('booking_date','<=',$enddate);
@@ -240,8 +265,15 @@ class PacketBookingController extends Controller
             if($client_id!=0){
                 $sqlAdd->where('client_id',$client_id);
             }
-        })
-        ->where(function ($sqlAdd) use ($consignee,$booking_status,$destination,$consignor,$forwarding_no,$csr_mobile){
+        });
+        if(!empty($courierType)){
+            $packetBook =$packetBook->where(function ($sqlAdd) use ($courierType){
+                if($courierType!=0){
+                    $sqlAdd->where('courier_type',$courierType);
+                }
+            });
+        }
+        $packetBook=$packetBook->where(function ($sqlAdd) use ($consignee,$booking_status,$destination,$consignor,$forwarding_no,$csr_mobile){
             if($consignee!=NULL){
                 $sqlAdd->where('csn_consignor','LIKE','%'.$consignee.'%');
             }
@@ -262,113 +294,27 @@ class PacketBookingController extends Controller
         $type = 'xlsx';
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A1', 'Id');
-        $sheet->setCellValue('B1', 'AWB NO');
-        $sheet->setCellValue('C1', 'Ref No');
-        $sheet->setCellValue('D1', 'Booking Date');
-        $sheet->setCellValue('E1', 'Client');
-        $sheet->setCellValue('F1', 'Consignor');
-        $sheet->setCellValue('G1', 'CPerson');
-        $sheet->setCellValue('H1', 'Address1');
-        $sheet->setCellValue('I1', 'Address2');
-        $sheet->setCellValue('J1', 'Address3');
-        $sheet->setCellValue('K1', 'Pin Code');
-        $sheet->setCellValue('L1', 'Country');
-        $sheet->setCellValue('M1', 'State');
-        $sheet->setCellValue('N1', 'City');
-        $sheet->setCellValue('O1', 'Mobile No');
-        $sheet->setCellValue('P1', 'Email ID');
-        $sheet->setCellValue('Q1', 'PAN');
-        $sheet->setCellValue('R1', 'GSTIN');
-        $sheet->setCellValue('S1', 'IEC');
-        $sheet->setCellValue('T1', 'AadhaarNo');
-        $sheet->setCellValue('U1', 'Consignee');
-        $sheet->setCellValue('V1', 'CPerson');
-        $sheet->setCellValue('W1', 'Address1');
-        $sheet->setCellValue('X1', 'Address2');
-        $sheet->setCellValue('Y1', 'Address3');
-        $sheet->setCellValue('Z1', 'Pin Code');
-        $sheet->setCellValue('AA1', 'Country');
-        $sheet->setCellValue('AB1', 'State');
-        $sheet->setCellValue('AC1', 'City');
-        $sheet->setCellValue('AD1', 'Mobile No');
-        $sheet->setCellValue('AE1', 'Email ID');
-        $sheet->setCellValue('AF1', 'PAN');
-        $sheet->setCellValue('AG1', 'GSTIN');
-        $sheet->setCellValue('AH1', 'IEC');
-        $sheet->setCellValue('AI1', 'AadhaarNo');
-        $sheet->setCellValue('AJ1', 'Packet Type');
-        $sheet->setCellValue('AK1', 'Payment Type');
-        $sheet->setCellValue('AL1', 'Invoice No');
-        $sheet->setCellValue('AM1', 'Packet Description');
-        $sheet->setCellValue('AN1', 'PCS');
-        $sheet->setCellValue('AO1', 'Actual Weight');
-        $sheet->setCellValue('AP1', 'Vendor Weight');
-        $sheet->setCellValue('AQ1', 'Packet Type');
-        $sheet->setCellValue('AR1', 'Total Value');
-        $sheet->setCellValue('AS1', 'Currency');
-        $sheet->setCellValue('AT1', 'Operation Remarks');
-        $sheet->setCellValue('AU1', 'Accounting Remarks');
-        $sheet->setCellValue('AV1', 'Payment Gateway');
-        $sheet->setCellValue('AW1', 'Payment Status');
-        $sheet->setCellValue('AX1', 'Transaction ID');
-       
-        $rows = 2;
-        $i=1;
-        foreach($packetBook as $row){
-        $sheet->setCellValue('A' . $rows, $i++);
-        $sheet->setCellValue('B' . $rows, $row['awb_no']);
-        $sheet->setCellValue('C' . $rows, $row['reference_no']);
-        $sheet->setCellValue('D' . $rows, $row['booking_date']);
-        $sheet->setCellValue('E' . $rows, $row['client_name']);
-        $sheet->setCellValue('F' . $rows, $row['csr_consignor']);
-        $sheet->setCellValue('G' . $rows, $row['csr_contact_person']);
-        $sheet->setCellValue('H' . $rows, $row['csr_address1']);
-        $sheet->setCellValue('I' . $rows, $row['csr_address2']);
-        $sheet->setCellValue('J' . $rows, $row['csr_address3']);
-        $sheet->setCellValue('K' . $rows, $row['csr_pincode']);
-        $sheet->setCellValue('L' . $rows, $row['csr_country_id']);
-        $sheet->setCellValue('M' . $rows, $row['csr_state_id']);
-        $sheet->setCellValue('N' . $rows, $row['csr_city_id']);
-        $sheet->setCellValue('O' . $rows, $row['csr_mobile_no']);
-        $sheet->setCellValue('P' . $rows, $row['csr_email_id']);
-        $sheet->setCellValue('Q' . $rows, $row['csr_pan']);
-        $sheet->setCellValue('R' . $rows, $row['csr_gstin']);
-        $sheet->setCellValue('S' . $rows, $row['csr_iec']);
-        $sheet->setCellValue('T' . $rows, $row['csr_aadharno']);
-        $sheet->setCellValue('U' . $rows, $row['csn_consignor']);
-        $sheet->setCellValue('V' . $rows, $row['csn_contact_person']);
-        $sheet->setCellValue('W' . $rows, $row['csn_address1']);
-        $sheet->setCellValue('X' . $rows, $row['csn_address2']);
-        $sheet->setCellValue('Y' . $rows, $row['csn_address3']);
-        $sheet->setCellValue('Z' . $rows, $row['csn_pincode']);
-        $sheet->setCellValue('AA' . $rows, $row['csn_country_id']);
-        $sheet->setCellValue('AB' . $rows, $row['csn_state_id']);
-        $sheet->setCellValue('AC' . $rows, $row['csn_city_id']);
-        $sheet->setCellValue('AD' . $rows, $row['csn_mobile_no']);
-        $sheet->setCellValue('AE' . $rows, $row['csn_email_id']);
-        $sheet->setCellValue('AF' . $rows, $row['csn_pan']);
-        $sheet->setCellValue('AG' . $rows, $row['csn_gstin']);
-        $sheet->setCellValue('AH' . $rows, $row['csn_iec']);
-        $sheet->setCellValue('AI' . $rows, $row['csn_aadharno']);
-        $sheet->setCellValue('AJ' . $rows, $row['packet_type']);
-        $sheet->setCellValue('AK' . $rows, $row['payment_type']);
-        $sheet->setCellValue('AL' . $rows, $row['invoice_no']);
-        $sheet->setCellValue('AM' . $rows, $row['packet_description']);
-        $sheet->setCellValue('AN' . $rows, $row['pcs_weight']);
-        $sheet->setCellValue('AO' . $rows, $row['actual_weight']);
-        $sheet->setCellValue('AP' . $rows, $row['vendor_weight']);
-        $sheet->setCellValue('AQ' . $rows, $row['vendor_weight_type']);
-        $sheet->setCellValue('AR' . $rows, $row['total_weight']);
-        $sheet->setCellValue('AS' . $rows, $row['currency']);
-        $sheet->setCellValue('AT' . $rows, $row['operation_remark']);
-        $sheet->setCellValue('AU' . $rows, $row['accounting_remark']);
-        $sheet->setCellValue('AV' . $rows, $row['payment_gateway']);
-        $sheet->setCellValue('AW' . $rows, $row['payment_status']);
-        $sheet->setCellValue('AX' . $rows, checkKeyExists("transactionid",jsonToArrayConvert($row['payment_response'])));
-        $rows++;
+        if(!empty(count($packetBook))){
+            $packetBookKeys=array_keys($packetBook->first()->toArray());
+            foreach($packetBookKeys as $key=>$packetBookKey){
+                $sheet->setCellValue(getAlphabates($key,count($packetBookKeys))."1",ucwords(str_replace("_"," ",$packetBookKey)));
+            }
         }
-        $fileName = "packet-booking.".$type;
+        $rows = 2;
+        foreach($packetBook as $row){
+            $packetBookInfo=$row->toArray();
+            $i=0;
+            foreach($packetBookInfo as $key=>$packetBookKey){
+                if($key=="payment_response"){
+                    $sheet->setCellValue(getAlphabates($i,count($packetBookInfo)).$rows,checkKeyExists("transactionid",jsonToArrayConvert($packetBookKey)));
+                }else{
+                    $sheet->setCellValue(getAlphabates($i,count($packetBookInfo)).$rows,$packetBookKey);
+                }
+                $i++;
+            }
+            $rows++;
+        }
+        $fileName = $courierType?$courierType:"all"."-packet-booking.".$type;
         if($type == 'xlsx') {
         $writer = new Xlsx($spreadsheet);
         } else if($type == 'xls') {
@@ -616,5 +562,81 @@ class PacketBookingController extends Controller
         array_reverse($res);
         // dd($res);
         return redirect()->back()->with('data', $res);
+    }
+    public function updateShippingRates(Request $request){
+        /*$this->validate($request,[
+            'pcs_weight' => 'required',
+            'chargeable_weight' => 'required',
+            'shipping_charge' => 'required'
+        ]);*/
+        $shipping_charge=isset($request->shipping_charge) ? $request->shipping_charge :0;
+        $fca_charge=isset($request->fca_charge) ? $request->fca_charge :0;
+        $ex_work_charge=isset($request->ex_work_charge) ? $request->ex_work_charge :0;
+        $total_charges=($shipping_charge+$fca_charge+$ex_work_charge);
+        $data = [
+            'pcs_weight' => isset($request->pcs_weight) ? $request->pcs_weight : "",
+            'chargeable_weight' => isset($request->chargeable_weight) ? $request->chargeable_weight : "",
+            'shipping_charge' => isset($request->shipping_charge) ? $request->shipping_charge :0,
+            'fca_charge' => isset($request->fca_charge) ? $request->fca_charge :0,
+            'ex_work_charge' => isset($request->ex_work_charge) ? $request->ex_work_charge :0,
+            'total_charges' =>$total_charges,
+        ];
+        if(!empty($request->id)){
+            $result = PacketBooking::where('id',$request->id)->update($data);
+            $msg = "Packet Booking Update Successfully";
+        }            
+        if($result){
+            return redirect()->back()->with('success',$msg);
+        }else{
+            return redirect()->back()->with('error','Something went wrong please try again!');
+        }
+    }
+    
+    public function sendShipmentPaymentEmailToCustomer($id){
+        if(!empty($id)){
+            $packetInfo = PacketBooking::where('id',$id)->get()->first();
+            if(!empty($packetInfo)){
+                $packetInfo=$packetInfo->toArray();
+                if(checkKeyExists("shipping_charge",$packetInfo)){
+                    //mydd($packetInfo);            
+                    /**Send Email To Customer */
+                    if(!empty($packetInfo)){
+                        $orderData['name']=$packetInfo['csr_consignor_person']?$packetInfo['csr_consignor_person']:$packetInfo['csr_consignor'];
+                        $orderData['origin']=$packetInfo['csr_country_id']?getCountries($packetInfo['csr_country_id']):"";
+                        $orderData['destination']=$packetInfo['csn_country_id']?getCountries($packetInfo['csn_country_id']):"";
+                        $orderData['booking_date']=$packetInfo['booking_date']?date("Y-m-d",strtotime($packetInfo['booking_date'])):"";
+                        $orderData['email']=$packetInfo['csr_email_id'];
+                        $orderData['shipping_charge']=$packetInfo['shipping_charge']?$packetInfo['shipping_charge']:0;
+                        $orderData['fca_charge']=$packetInfo['fca_charge']?$packetInfo['fca_charge']:0;
+                        $orderData['ex_work_charge']=$packetInfo['ex_work_charge']?$packetInfo['ex_work_charge']:0;
+                        $totalCharges=($orderData['shipping_charge']+$orderData['fca_charge']+$orderData['ex_work_charge']);
+                        $orderData['total_charges']=$packetInfo['total_charges']?$packetInfo['total_charges']:$totalCharges;
+                        if(!empty($packetInfo['courier_type']) && ($packetInfo['courier_type']=="courier")){
+                            $orderData['subject']="Courier freight shipment quotation";
+                            $orderData['email_template']="emails.shipments.courier_quotation_to_customer";
+                            $orderData['chargeable_weight']=$packetInfo['chargeable_weight']?$packetInfo['chargeable_weight']:"";
+                        }elseif(!empty($packetInfo['courier_type']) && ($packetInfo['courier_type']=="air")){
+                            $orderData['subject']="Air Freight Shipment Quotation";
+                            $orderData['email_template']="emails.shipments.air_freight_quotation_to_customer";
+                            $orderData['chargeable_weight']=$packetInfo['chargeable_weight']?$packetInfo['chargeable_weight']:"";
+                        }elseif(!empty($packetInfo['courier_type']) && ($packetInfo['courier_type']=="ocean")){
+                            $orderData['subject']="Ocean Freight Shipment Quotation";
+                            $orderData['email_template']="emails.shipments.ocean_freight_quotation_to_customer";
+                            $orderData['container_type']=$packetInfo['container_type']?$packetInfo['container_type']:"";
+                        }
+                        $emailContent=array(
+                            "subject"=>$orderData['subject'],
+                            "email_template"=>$orderData['email_template'],
+                            "email_content"=>($orderData)
+                        );
+                        sendMyEmail($orderData['email'],$emailContent);
+                    }
+                    $message="Email send successfully to customer";
+                    return redirect(route('packet.view',$id))->with('success',$message);
+                }
+            }
+            return redirect(route('packet.view',$id))->back()->with('error','Something went wrong please try again!');
+        }
+        return redirect(route('packet.listing'))->with('error','Something went wrong please try again!');
     }
 }
