@@ -142,12 +142,6 @@ class DashboardController extends Controller
         return view('frontend.dashboard.shipment_create_ocean', $data);
     }
 
-    public function shipping_success()
-    {
-        $data['user'] = auth()->user();
-        return view('frontend.dashboard.shipment_success', $data);
-
-    }
     public function get_token()
     {
         $curl = curl_init();
@@ -439,6 +433,7 @@ class DashboardController extends Controller
     public function createShipmentPayment($shipment_id="")
     {
         if(!empty($shipment_id)){
+            $data['encrypt_shipment_id']=$shipment_id;
             $shipment_id=decryptFromBase64($shipment_id);
             $shipments = PacketBooking::find($shipment_id);
             if(!empty($shipments)){
@@ -449,6 +444,22 @@ class DashboardController extends Controller
         $data['user'] =auth()->user();
         return view('frontend.dashboard.shipment_payment', $data);
     }
+    
+    public function shipping_success($shipment_id="")
+    {
+        if(!empty($shipment_id)){
+            $shipment_id=decryptFromBase64($shipment_id);
+            $shipments = PacketBooking::find($shipment_id);
+            if(!empty($shipments)){
+                $shipments=$shipments->toArray();
+                $data['shipments']=$shipments;
+            }
+        }
+        $data['user'] =auth()->user();
+        return view('frontend.dashboard.shipment_success', $data);
+
+    }
+    
     public function getTransactions()
     {
         $data['transactions'] = PacketBooking::where(['client_id' => auth()->user()->id])->get();

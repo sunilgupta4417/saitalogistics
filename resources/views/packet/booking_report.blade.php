@@ -46,8 +46,8 @@
                                      <input class="form-control" value="{{ app('request')->input('consignee') }}" name="consignee" id="consignee" type="text" placeholder="Enter Consignee">
                                 </div>
                                 <div class="form-group col-md-12 col-12">
-                                     <label>AWB No.*</label>
-                                     <textarea type="text" name="awb_no" id="awb_no" class="form-control" placeholder="Accepts multiple AWB No. comma(,) seperated or enter seperated">{{ app('request')->input('awb_no') }}</textarea>
+                                     <label>Reference No.*</label>
+                                     <textarea type="text" name="awb_no" id="awb_no" class="form-control" placeholder="Accepts multiple Reference No. comma(,) seperated or enter seperated">{{ app('request')->input('awb_no') }}</textarea>
                                 </div>
                                 <div class="form-group col-md-6 col-12">
                                      <label>Client*</label>
@@ -147,7 +147,7 @@
                                                      <th>Print</th>
                                                      <th>Booking Date</th>
                                                      <th>Consignee</th>
-                                                     <th>AWB No.</th>
+                                                     <th>Reference No.</th>
                                                      <th>Client</th>
                                                      <th>Status</th>
                                                      <th>Vendor</th>

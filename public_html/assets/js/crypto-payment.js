@@ -5,6 +5,7 @@ var provider = new WalletConnectProvider.default({
   rpc: {
     1: "https://cloudflare-eth.com/", // https://ethereumnodes.com/
     137: "https://polygon-rpc.com/", // https://docs.polygon.technology/docs/develop/network-details/network/
+    56: "https://bsc-dataseed.binance.org/", // https://docs.polygon.technology/docs/develop/network-details/network/
     // ...
 
   },
@@ -13,13 +14,13 @@ var provider = new WalletConnectProvider.default({
 
 var connectWC = async () => {
   await provider.enable();
-  //  Create Web3 instance
-  const web3 = new Web3(provider);
-  window.w3 = web3
-  var accounts  = await web3.eth.getAccounts(); // get all connected accounts
-  console.log(">>>>>>.accounts", accounts);
-  account = accounts[0]; // get the primary account
-  console.log(">>>>>>.accounts", account);
+  var currentAddress=getAccount("wallet_connect");
+  $('#paymentUpdateForm').modal('hide');
+  if(currentAddress==null){
+    return false;
+  }else{
+    return true;
+  }
 }
 /*var sign = async (msg) => {
   if (w3) {
@@ -35,9 +36,12 @@ var contract = async (abi, address) => {
     return false
   }
 }*/
-var disconnect = async () => {
+//disconnectWC();
+async function disconnectWC(){
   // Close provider session
-  await provider.disconnect()
+  sessionStorage.removeItem("walletProvider");
+  sessionStorage.removeItem("walletToken");
+  await provider.disconnect();
 }
 
 async function connectMetamaskWC(){
@@ -48,72 +52,101 @@ async function connectMetamaskWC(){
   } else {
     alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
   }
-  connectToMetamask();
-  var currentAddress=getAccount();
+  window.ethereum.enable();
+  var currentAddress=getAccount("metamask");
+  $('#paymentUpdateForm').modal('hide');
   if(currentAddress==null){
     return false;
   }else{
     return true;
   }
 }
-async function connectToMetamask() {
-    return window.ethereum.enable();
-};
+function getWalletProvider(){
+  const getWalletProviderName=sessionStorage.getItem("walletProvider");
+  if(getWalletProviderName==null){
+    return false;
+  }
+  return getWalletProviderName;
+}
 
-function getAccount(){
-  var accountId=localStorage.getItem("walletToken");
+async function getAccount(walletType=""){
+  var accountId=sessionStorage.getItem("walletToken");
   if (accountId == null) {
-    window.web3.eth.getAccounts((err, retAccount) => {
-      if (err != null) {
-        alert("transfer.service :: getAccount :: error retrieving account");
-        //reject("Error retrieving account");
-      }else if (retAccount.length > 0) {
-        accountId = retAccount[0];
-        localStorage.setItem("walletToken", accountId);
-        return accountId;
-      } else {
-        alert('No accounts found. Please make sure your wallet connected with your metamask');
-        return "";
-      }
-    });
+    if(walletType=="metamask"){
+      window.web3.eth.getAccounts((err, retAccount) => {
+        if (err != null) {
+          alert("transfer.service :: getAccount :: error retrieving account");
+          //reject("Error retrieving account");
+        }else if (retAccount.length > 0) {
+          accountId = retAccount[0];
+          sessionStorage.setItem("walletToken", accountId);
+          sessionStorage.setItem("walletProvider","metamask");
+          return accountId;
+        } else {
+          alert('No accounts found. Please make sure your wallet connected with your metamask');
+          return "";
+        }
+      });
+    }else if(walletType=="wallet_connect"){
+      const web3 = new Web3(provider);
+      window.w3 = web3
+      var accounts  = await web3.eth.getAccounts(); // get all connected accounts
+      accountId = accounts[0];// get the primary account
+      sessionStorage.setItem("walletToken", accountId);
+      sessionStorage.setItem("walletProvider","wallet_connect");
+      console.log(">>>>>>.Primary Account: ", accountId);
+      return accountId;
+    }
   }
   return accountId;
 }
 
 async function makePayment(amount,orderid,paymentUpdateUrl,payment_type){
-  if(checkExtentions()){
-    let currentChain = window.ethereum.request({ method: 'eth_chainId' });
-    console.log("Current Chain: "+currentChain);
-    /*let currentChain = window.ethereum.request({ method: 'eth_chainId' });
-    console.log(currentChain);
-    if(currentChain != 0x61){
-      return alert("Please Select BNB Mainnet network before payment !!");
-    }*/
-    this.isLoading = true;//add new loader
-    return new Promise((resolve, reject) => {     
-      if (window.ethereum) {
-          makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl).then((res) => {
-            if(res){
-              if(amount){
-                resolve(res)
-              }
-            }
-          }).catch((err) => {
-            //this.isLoading = false;
-            console.log(err);
-            alert("Something went wrong ! If your amount is deducted then  please contact to admin !!");
-        })
-      }else {
-        alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
-      }
-    });
+  if(getWalletProvider()=="metamask"){
+    connectMetamaskWC();
+  }else if(getWalletProvider()=="wallet_connect"){
+    connectWC();
+    console.log("WC EMP: ");
   }
+  /*let currentChain = window.ethereum.request({ method: 'eth_chainId' });
+  console.log("Current Chain: "+currentChain);*/
+  /*let currentChain = window.ethereum.request({ method: 'eth_chainId' });
+  console.log(currentChain);
+  if(currentChain != 0x61){
+    return alert("Please Select BNB Mainnet network before payment !!");
+  }*/
+  this.isLoading = true;//add new loader
+  return new Promise((resolve, reject) => {     
+    if (getWalletProvider()) {
+        makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl).then((res) => {
+          if(res){
+            if(amount){
+              resolve(res)
+            }
+          }
+        }).catch((err) => {
+          //this.isLoading = false;
+          console.log(err);
+          alert("Something went wrong ! If your amount is deducted then  please contact to admin !!");
+      })
+    }else {
+      alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
+    }
+  });
 }
 
 async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
   try {
     /*console.log("this.web3.utils.toWei(amount.toString())",  window.web3.utils.toWei((amount).toString()));*/
-    let userAddress = await getAccount(); 
+    var userAddress="";
+    const walletProviderName=getWalletProvider();
+    if(walletProviderName){
+      if(walletProviderName=="metamask"){
+        userAddress = await getAccount("metamask");
+      }else if(walletProviderName=="wallet_connect"){
+        userAddress = await getAccount("wallet_connect");
+      }
+    } 
     return new Promise((resolve, reject) => {
       //window.web3.eth.sendTransaction({from: userAddress, to: contract, value: amount})
       console.log(userAddress);
@@ -122,23 +155,46 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
       const coinPayments=["ETH","BNB"];
       const contarctPayments=["USDT_BEP_20","USDT_ERC_20","MAZI_ERC_20","SAITAMA_ERC_20"];
       if(coinPayments.indexOf(payment_type) != -1) {
-        const ethAmount=window.web3.utils.toWei(getUsdToConvertAmount(amount,payment_type));
-        console.log("ethAmount: "+ethAmount);
-        window.web3.eth.sendTransaction({to:receiverAddress,from:senderAddress,value:ethAmount})
-        .then((res) => {
-          alert("Payment done successfully");
-          console.log(res);
-          console.log(ethAmount);
-          var payStatus=(res.status==true)?"completed":"failed";
-          const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: ethAmount/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
-          updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
-          console.log(paymentResp);
-          resolve(res);
-        })
-        .catch((err) => {
-          // this.toastr.error("Something went wrong");
-          reject(err);
-        });
+        if(walletProviderName=="metamask"){
+          const ethAmount=window.web3.utils.toWei(getUsdToConvertAmount(amount,payment_type).toString());
+          console.log("ethAmount: "+ethAmount);
+          window.web3.eth.sendTransaction({to:receiverAddress,from:senderAddress,value:ethAmount})
+          .then((res) => {
+            alert("Payment done successfully");
+            console.log(res);
+            console.log(ethAmount);
+            var payStatus=(res.status==true)?"completed":"failed";
+            const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: ethAmount/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
+            updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
+            console.log(paymentResp);
+            resolve(res);
+          })
+          .catch((err) => {
+            // this.toastr.error("Something went wrong");
+            reject(err);
+          });
+        }else if(walletProviderName=="wallet_connect"){
+          const web3WC = new Web3(provider);
+          window.w3 = web3WC;
+          const ethAmount=web3WC.utils.toWei(getUsdToConvertAmount(amount,payment_type).toString());
+          console.log("ethAmount: "+ethAmount);
+          web3WC.eth.sendTransaction({to:receiverAddress,from:senderAddress,value:1})
+          .then((res) => {
+            alert("Payment done successfully");
+            console.log(res);
+            console.log(ethAmount);
+            var payStatus=(res.status==true)?"completed":"failed";
+            const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: ethAmount/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
+            updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
+            console.log(paymentResp);
+            resolve(res);
+          })
+          .catch((err) => {
+            // this.toastr.error("Something went wrong");
+            reject(err);
+          });
+          
+        }
       }else if(contarctPayments.indexOf(payment_type) != -1) {
         const CONTRACT_ABI=getContractAbi(payment_type);
         const CONTRACT_ADDRESS=getContractAddress(payment_type);
@@ -148,28 +204,55 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
           finalAmount=(parseFloat(finalAmount)+parseFloat(perAmount));
           finalAmount=finalAmount.toFixed(4);
         }
-        const contract = new window.web3.eth.Contract(
-          CONTRACT_ABI,
-          CONTRACT_ADDRESS
-        );
-        contract.methods
-        .transfer(receiverAddress, window.web3.utils.toWei((finalAmount).toString()))
-        .send({
-          from:senderAddress
-        })
-        .then((res) => {
-          alert("Payment done successfully");
-          console.log(res);
-          var payStatus=(res.status==true)?"completed":"failed";
-          const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: res.events.Transfer.returnValues.value/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
-          updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
-          console.log(paymentResp);
-          resolve(res);
-        })
-        .catch((err) => {
-          // this.toastr.error("Something went wrong");
-          reject(err);
-        });
+        if(walletProviderName=="metamask"){
+          const contract = new window.web3.eth.Contract(
+            CONTRACT_ABI,
+            CONTRACT_ADDRESS
+          );
+          contract.methods
+            .transfer(receiverAddress, window.web3.utils.toWei((finalAmount).toString()))
+            .send({
+              from:senderAddress
+            })
+            .then((res) => {
+              alert("Payment done successfully");
+              console.log(res);
+              var payStatus=(res.status==true)?"completed":"failed";
+              const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: res.events.Transfer.returnValues.value/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
+              updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
+              console.log(paymentResp);
+              resolve(res);
+            })
+            .catch((err) => {
+              // this.toastr.error("Something went wrong");
+              reject(err);
+            });
+        }else if(walletProviderName=="wallet_connect"){
+          const web3WC = new Web3(provider);
+          window.w3 = web3WC;
+          const contract = new web3WC.eth.Contract(
+            CONTRACT_ABI,
+            CONTRACT_ADDRESS
+          );
+          contract.methods
+            .transfer(receiverAddress, web3WC.utils.toWei((finalAmount).toString()))
+            .send({
+              from:senderAddress
+            })
+            .then((res) => {
+              alert("Payment done successfully");
+              console.log(res);
+              var payStatus=(res.status==true)?"completed":"failed";
+              const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: res.events.Transfer.returnValues.value/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
+              updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
+              console.log(paymentResp);
+              resolve(res);
+            })
+            .catch((err) => {
+              // this.toastr.error("Something went wrong");
+              reject(err);
+            });
+        }
       }
     });
   } catch (error) {
@@ -225,7 +308,7 @@ function getUsdToConvertAmount(amount, paymentType="ETH"){
   if(paymentType=="ETH"){
     var covertUrl="https://api.coingecko.com/api/v3/simple/price?ids=Ethereum&vs_currencies=usd";
   }else if(paymentType=="BNB"){
-    var covertUrl="https://api.coingecko.com/api/v3/simple/price?ids=binance-coin-wormhole&vs_currencies=usd";
+    var covertUrl="https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd";
   }
   var afterConvertAmount="";
   $.ajax({
@@ -237,7 +320,7 @@ function getUsdToConvertAmount(amount, paymentType="ETH"){
       if(paymentType=="ETH"){
         convertRate=res.ethereum.usd;
       }else if(paymentType=="BNB"){
-        convertRate=res.binance-coin-wormhole.usd;
+        convertRate=res.binancecoin.usd;
       }
       if(convertRate){
         afterConvertAmount=(amount/convertRate);
@@ -249,13 +332,6 @@ function getUsdToConvertAmount(amount, paymentType="ETH"){
     }
   });
   return afterConvertAmount;
-  /*if(paymentType=="ETH"){
-    return ""
-  }else if(paymentType=="BNB"){
-    return "";
-  }else{
-    return amount;
-  }*/
 }
 
 function getReceiverAddress(paymentType="USDT_BEP_20"){

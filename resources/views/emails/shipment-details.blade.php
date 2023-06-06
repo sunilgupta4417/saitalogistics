@@ -4,7 +4,7 @@
     <p>Details of your transaction given below:</p>
     <p>Receipt Reference No: {{ $emailContent['receipt_reference_no'] }}</p>
     <p>Account ID: {{ $emailContent['account_id'] }}</p>
-    <p>AWB No: {{ $emailContent['awb_no'] }}</p>
+    <p>Reference No: {{ $emailContent['awb_no'] }}</p>
     <p>Payment Amount: {{ $emailContent['amount'] }}</p>
     <p>Transaction Status: {{ $emailContent['payment_status'] }}</p>
     <p>Date and Time: {{ $emailContent['payment_date'] }}</p>

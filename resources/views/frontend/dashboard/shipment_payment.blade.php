@@ -34,10 +34,10 @@
                                                             <p><strong>Contant No: </strong> {{$shipments['csr_contact_person_code']}}-{{ $shipments['csr_contact_person'] }}</p>
                                                         @endif
                                                         @if($shipments['csr_country_id'])
-                                                            <p><strong>Country: </strong> {{ $shipments['csr_country_id'] }}</p>
+                                                            <p><strong>Country: </strong> {{ getCountries($shipments['csr_country_id']) }}</p>
                                                         @endif
                                                         @if($shipments['csr_address1'])
-                                                            <p><strong>Address: </strong> {{ $shipments['csr_address1'] }}, {{ $shipments['csr_address2'] }}, {{ $shipments['csr_address3'] }}, {{ $shipments['csr_city_id'] }}, {{ $shipments['csr_state_id'] }}, {{ $shipments['csr_country_id'] }}-{{ $shipments['csr_pincode'] }}</p>
+                                                            <p><strong>Address: </strong> {{ $shipments['csr_address1'] }}, {{ $shipments['csr_address2'] }}, {{ $shipments['csr_address3'] }}, {{ $shipments['csr_city_id'] }}, {{ $shipments['csr_state_id'] }}, {{ getCountries($shipments['csr_country_id']) }}-{{ $shipments['csr_pincode'] }}</p>
                                                         @endif
                                                     </td>
                                                     <td width="33%">
@@ -51,10 +51,10 @@
                                                             <p><strong>Contant No: </strong> {{$shipments['csn_contact_person_code']}}-{{ $shipments['csn_contact_person'] }}</p>
                                                         @endif
                                                         @if($shipments['csn_country_id'])
-                                                            <p><strong>Country: </strong> {{ $shipments['csn_country_id'] }}</p>
+                                                            <p><strong>Country: </strong> {{ getCountries($shipments['csn_country_id']) }}</p>
                                                         @endif
                                                         @if($shipments['csn_address1'])
-                                                            <p><strong>Address: </strong> {{ $shipments['csn_address1'] }}, {{ $shipments['csn_address2'] }}, {{ $shipments['csn_address3'] }}, {{ $shipments['csn_city_id'] }}, {{ $shipments['csn_state_id'] }}, {{ $shipments['csn_country_id'] }}-{{ $shipments['csn_pincode'] }}</p>
+                                                            <p><strong>Address: </strong> {{ $shipments['csn_address1'] }}, {{ $shipments['csn_address2'] }}, {{ $shipments['csn_address3'] }}, {{ $shipments['csn_city_id'] }}, {{ $shipments['csn_state_id'] }}, {{ getCountries($shipments['csn_country_id']) }}-{{ $shipments['csn_pincode'] }}</p>
                                                         @endif
                                                     </td>
                                                     <td width="33%">
@@ -62,7 +62,7 @@
                                                             <p><strong>Shipment Type: </strong> {{ ucfirst($shipments['courier_type']) }}</p>
                                                         @endif
                                                         @if(!empty($shipments['packet_type']))
-                                                            <p><strong>Packate Type: </strong> {{ $shipments['packet_type'] }}</p>
+                                                            <p><strong>Packet Type: </strong> {{ $shipments['packet_type'] }}</p>
                                                         @endif
                                                         @if(!empty($shipments['pcs_weight']) )
                                                             <p><strong>Initial Weight: </strong> {{$shipments['pcs_weight'] }}KG</p>
@@ -245,7 +245,9 @@
             $("input.clickMeForPayInput").on("click",function(e){
                 var inputValue=$(this).val();
                 if(cryptoPayments.indexOf(inputValue) != -1) {
-                    $('#paymentUpdateForm').modal('show');
+                    if(!getWalletProvider()){
+                        $('#paymentUpdateForm').modal('show');
+                    }
                     //checkExtentions();
                 }
             });
@@ -292,6 +294,7 @@
                 success: function (res) {
                     if((res.status=="ok") && (res.response.transt=="completed")){
                         $(".payment-successful b.successOrderNumber").html(res.response.orderid);
+                        window.location.href="{{ route('user.shipping.success',$encrypt_shipment_id) }}";
                     }else{
 
                     }
