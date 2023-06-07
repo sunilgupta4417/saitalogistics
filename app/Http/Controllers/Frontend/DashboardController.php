@@ -345,7 +345,8 @@ class DashboardController extends Controller
         $responseData = array(
             'id' => $request->id,
             'status' => $request->status,
-            'response' => $request->response
+            'response' => $request->response,
+            'redirect_url' => route('user.shipping.success',encryptToBase64($packetInfo->id))
         );
         return response()->json($responseData);
     }

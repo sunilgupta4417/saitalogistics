@@ -89,6 +89,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::post('save-packet-booking', [PacketBookingController::class, 'savePacketBooking']);
     Route::post('search-packet-booking', [PacketBookingController::class, 'searchPacketBooking']);
     Route::post('update-shipping-charge',[PacketBookingController::class,'updateShippingRates'])->name('packet.update.shipping.charge');
+    Route::get('send-shipment-quotation-email-to-customer/{id}',[PacketBookingController::class,'sendShipmentQuotationEmailToCustomer'])->name('packet.send.shipment.quotation.email.to.customer');
     Route::get('send-shipment-payment-email-to-customer/{id}',[PacketBookingController::class,'sendShipmentPaymentEmailToCustomer'])->name('packet.send.shipment.payment.email.to.customer');
     Route::get('{courier_type}/packet-listing',[PacketBookingController::class,'packetListing'])->name('custom.packet.listing');
     Route::post('{courier_type}/packet-listing-expo',[PacketBookingController::class,'packetListingExpo'])->name('custom.packet.listing.expo');

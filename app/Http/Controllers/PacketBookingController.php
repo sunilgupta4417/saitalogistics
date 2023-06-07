@@ -592,7 +592,7 @@ class PacketBookingController extends Controller
         }
     }
     
-    public function sendShipmentPaymentEmailToCustomer($id){
+    public function sendShipmentQuotationEmailToCustomer($id){
         if(!empty($id)){
             $packetInfo = PacketBooking::where('id',$id)->get()->first();
             if(!empty($packetInfo)){
@@ -631,7 +631,46 @@ class PacketBookingController extends Controller
                         );
                         sendMyEmail($orderData['email'],$emailContent);
                     }
-                    $message="Email send successfully to customer";
+                    $message="Quotation email send successfully to customer";
+                    return redirect(route('packet.view',$id))->with('success',$message);
+                }
+            }
+            return redirect(route('packet.view',$id))->back()->with('error','Something went wrong please try again!');
+        }
+        return redirect(route('packet.listing'))->with('error','Something went wrong please try again!');
+    }
+
+    public function sendShipmentPaymentEmailToCustomer($id){
+        if(!empty($id)){
+            $packetInfo = PacketBooking::where('id',$id)->get()->first();
+            if(!empty($packetInfo)){
+                $packetInfo=$packetInfo->toArray();
+                if(checkKeyExists("shipping_charge",$packetInfo)){
+                    //mydd($packetInfo);            
+                    /**Send Email To Customer */
+                    if(!empty($packetInfo)){
+                        $orderData['name']=$packetInfo['csr_consignor_person']?$packetInfo['csr_consignor_person']:$packetInfo['csr_consignor'];
+                        $orderData['origin']=$packetInfo['csr_country_id']?getCountries($packetInfo['csr_country_id']):"";
+                        $orderData['destination']=$packetInfo['csn_country_id']?getCountries($packetInfo['csn_country_id']):"";
+                        $orderData['booking_date']=$packetInfo['booking_date']?date("Y-m-d",strtotime($packetInfo['booking_date'])):"";
+                        $orderData['email']=$packetInfo['csr_email_id'];
+                        $orderData['shipping_charge']=$packetInfo['shipping_charge']?$packetInfo['shipping_charge']:0;
+                        $orderData['fca_charge']=$packetInfo['fca_charge']?$packetInfo['fca_charge']:0;
+                        $orderData['ex_work_charge']=$packetInfo['ex_work_charge']?$packetInfo['ex_work_charge']:0;
+                        $totalCharges=($orderData['shipping_charge']+$orderData['fca_charge']+$orderData['ex_work_charge']);
+                        $orderData['total_charges']=$packetInfo['total_charges']?$packetInfo['total_charges']:$totalCharges;
+                        $orderData['chargeable_weight']=$packetInfo['chargeable_weight']?$packetInfo['chargeable_weight']:"";
+                        $orderData['payment_link']=route("user.create.shipment.payment",encryptToBase64($packetInfo['id']));                        
+                        $orderData['subject']="Shipment payment link";
+                        $orderData['email_template']="emails.shipments.payment_link_to_customer";
+                        $emailContent=array(
+                            "subject"=>$orderData['subject'],
+                            "email_template"=>$orderData['email_template'],
+                            "email_content"=>($orderData)
+                        );
+                        sendMyEmail($orderData['email'],$emailContent);
+                    }
+                    $message="Paymnet link email send successfully to customer";
                     return redirect(route('packet.view',$id))->with('success',$message);
                 }
             }

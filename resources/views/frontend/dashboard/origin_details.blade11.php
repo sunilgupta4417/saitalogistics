@@ -94,7 +94,7 @@
     <label>Alternate Number</label>
     <select name="csr_mobile_code" class="select-code-packb">
          @foreach(getCountryBMDCodes() as $countries)
-            <option value="{{$countries['mobile_code']}}" >{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</otion>
+            <option value="{{$countries['mobile_code']}}" >{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
         @endforeach        
     </select>
     <i class="fa fa-mobile"></i>

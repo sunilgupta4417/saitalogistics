@@ -54,16 +54,16 @@
                                         <p style="color:#000;">Do you know gross weight of your shipment ?</p>
                                     </div>
                                     <div class="where-boxing">
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label>Mode</label>
                                             <select id="select-service" name="packet_type">
                                                 <option value="export" selected>Export</option>
                                             </select>
-                                        </div>
-                                        <div class="form-group">
+                                        </div> -->
+                                        <!-- <div class="form-group">
                                             <label>Gross Weight KG</label>
                                             <input type="number" name="pcs_weight" value="">
-                                        </div>
+                                        </div> -->
                                         <!-- <div class="form-group">
                                             <label>Chargeable Weight KG</label>
                                             <input type="number" name="chargeable_weight" id="chargeableWeight" readonly>
@@ -80,10 +80,10 @@
                                             <label>Height CM</label>
                                             <input type="number" name="height"  value="">
                                         </div> -->
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label>Declared Value $</label>
                                             <input type="number" name="dvalue"  value="">
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                             <label>Number of Packages</label>
                                             <input type="number" name="no_of_package"  value="">
@@ -92,10 +92,10 @@
                                             <label>Attach Packing List</label>
                                             <input type="file" name="attach_package_list"  value="">  
                                         </div>
-                                        <div class="form-group">
+                                        <!--<div class="form-group">
                                             <button type="button" class="btn btn-main-2 track-shipment-clr" id="get-rates">Calcualte Chargeable Weight</button>
                                         </div>
-                                        <input type="hidden" name="actual_weight" id="actual_weight">
+                                        <input type="hidden" name="actual_weight" id="actual_weight">-->
                                     </div>
                                     <div class="step-image">
                                         <img src="{{asset('assets/images/step-img.png')}}" alt="" class="img-responsive">

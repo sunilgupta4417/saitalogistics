@@ -1,18 +1,66 @@
 @extends('frontend.layouts.master')
 @section('page_content')
 <?php $userData=auth()->user();?>
+
+<style>
+#shipments-pg .inter-form {
+    padding: 30px;
+}
+#shipments-pg .inter-form table tr th, td {
+    border: 1px solid #eee;
+}
+#shipments-pg .inter-form table tr td p {
+    border-bottom: 1px dotted #eee;
+    padding: 0 0 5px 0;
+    color: #000;
+}
+#shipments-pg .inter-form .cryptoPayments .form-group {
+    background: #eeeeee59;
+    padding: 7px 15px 5px;
+    border-radius: 6px;
+    border: 1px solid #eee;
+    font-size: 12px;
+    cursor: pointer;
+    width: 100%;
+    display: inline-block;
+    margin: 0px;
+    color: #000;
+    float: inherit;
+    border-bottom: 5px solid #eee;
+    position: relative;
+    overflow: hidden;
+}
+#shipments-pg .inter-form .cryptoPayments .form-group label {
+    font-size: 14px;
+    font-weight: 600;
+}
+#shipments-pg .paymment-right-details {
+    width: 100%;
+    float: inherit;
+    background: #ff5d210d;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 50px;
+}
+#shipments-pg .paymment-right-details tbody td {
+    padding: 4px 0;
+    border: none;
+}
+</style>
+
 <section id="where-from-page">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="where-from-design">
+                <div class="where-from-design" id="shipments-pg">
                     <h3 class="shipment-heading">Shipment Payment</h3>
                     @if(!empty($shipments))
                         <form id="signUpForm" class="signUpForm" enctype='multipart/form-data'>
                             @csrf
                             <div class="row">
                                 <div class="inter-form">
-                                    <div class="maining-heading">
+                                    <div class="maining-heading table-responsive">
                                         <table class="table shipmentInformation">
                                             <thead>
                                                 <tr>
@@ -114,81 +162,92 @@
                                             </tbody>
                                         </table>
                                         <p></p>
-                                        <h3 class="mb-4">How Would You Like To Pay?</h3>
                                     </div>
                                     <div class="payment-gateway">
-                                        <div class="form-group">
-                                            <div class="cryptoPayments">
-                                                <div class="form-group"> 
-                                                    <label>ETH - Launching Soon</label>
-                                                    <input type="radio" name="payment_gateway" value="ETH" class="clickMeForPayInput" />
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h4 class="mb-4">How Would You Like To Pay?</h4>
+                                            </div>  
+                                            <div class="col-md-8">
+                                                <div class="cryptoPayments">
+                                                    <div class="form-group"> 
+                                                        <label>ETH - Launching Soon</label>
+                                                        <input type="radio" name="payment_gateway" value="ETH" class="clickMeForPayInput" />
+                                                    </div>
+                                                    <div class="form-group"> 
+                                                        <label>BNB - Launching Soon</label>
+                                                        <input type="radio" name="payment_gateway" value="BNB" class="clickMeForPayInput" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>USDT (BEP 20) - Launching Soon</label>
+                                                        <input type="radio" name="payment_gateway" value="USDT_BEP_20" class="clickMeForPayInput" />  
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>USDT (ERC 20) - Launching Soon</label>
+                                                        <input type="radio" name="payment_gateway" value="USDT_ERC_20" class="clickMeForPayInput">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>SAITAMA (ERC 20) - Launching Soon</label>
+                                                        <input type="radio" name="payment_gateway" value="SAITAMA_ERC_20" class="clickMeForPayInput">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Mazimatic (Mazi BEP 20) - Launching Soon</label>
+                                                        <input type="radio" name="payment_gateway" value="MAZI_BEP_20" class="clickMeForPayInput">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>HT Token (TRC 20) - Launching Soon</label>
+                                                        <input type="radio" name="payment_gateway" value="HUOBITOKEN_TRC_20" class="clickMeForPayInput">
+                                                    </div>
+                                                    <!--<div class="form-group">
+                                                        <label>Mazimatic (Mazi ERC 20) - Launching Soon</label>
+                                                        <input type="radio" name="payment_gateway" value="MAZI_ERC_20" class="clickMeForPayInput">
+                                                    </div>-->
+                                                    <div class="form-group">
+                                                        <label>Credit/Debit Card (Epay)</label>
+                                                        <input type="radio" name="payment_gateway" value="epay" checked="checked" class="clickMeForPayInput" >  
+                                                    </div>
                                                 </div>
-                                                <div class="form-group"> 
-                                                    <label>BNB - Launching Soon</label>
-                                                    <input type="radio" name="payment_gateway" value="BNB" class="clickMeForPayInput" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>USDT (BEP 20) - Launching Soon</label>
-                                                    <input type="radio" name="payment_gateway" value="USDT_BEP_20" class="clickMeForPayInput" />  
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>USDT (ERC 20) - Launching Soon</label>
-                                                    <input type="radio" name="payment_gateway" value="USDT_ERC_20" class="clickMeForPayInput"> USDT (ERC 20)
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>SAITAMA (ERC 20) - Launching Soon</label>
-                                                    <input type="radio" name="payment_gateway" value="SAITAMA_ERC_20" class="clickMeForPayInput"> SAITAMA (ERC 20)
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Mazimatic (Mazi ERC 20) - Launching Soon</label>
-                                                    <input type="radio" name="payment_gateway" value="MAZI_ERC_20" class="clickMeForPayInput">Mazimatic (Mazi ERC 20)
-                                                </div>
-                                                <!--<div class="form-group">
-                                                    <label>HT Token (TRC 20) - Launching Soon</label>
-                                                    <input type="radio" name="payment_gateway" value="HUOBITOKEN_TRC_20" class="clickMeForPayInput"> HT Token (TRC 20)
-                                                </div>-->
-                                                <div class="form-group">
-                                                    <label>Epay</label>
-                                                    <input type="radio" name="payment_gateway" value="epay" checked="checked" class="clickMeForPayInput" >  
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="paymment-right-details">
+                                                    <h3>Amount Payables Details</h3>
+                                                    <table>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><b>Particulars</b></td>
+                                                                <td><b>Amount</b></td>
+                                                            </tr>
+                                                            @if($shipments['shipping_charge'])
+                                                                <tr>
+                                                                    <td>Shipping Charges</td>
+                                                                    <td class="subtotal">USD {{ $shipments['shipping_charge'] }}</td>
+                                                                </tr>
+                                                            @endif
+                                                            @if($shipments['fca_charge'])
+                                                                <tr>
+                                                                    <td>FCA Charges</td>
+                                                                    <td class="fca_charge">USD {{ $shipments['fca_charge'] }}</td>
+                                                                </tr>
+                                                            @endif
+                                                            @if($shipments['ex_work_charge'])
+                                                                <tr>
+                                                                    <td>Ex Work Charges</td>
+                                                                    <td class="ex_work_charge">USD {{ $shipments['ex_work_charge'] }}</td>
+                                                                </tr>
+                                                            @endif
+                                                            @if($shipments['total_charges'])
+                                                                <tr>
+                                                                    <td><b>Payable Amount</b></td>
+                                                                    <td class="total_charges">USD {{ $shipments['total_charges'] }}</td>
+                                                                </tr>
+                                                            @endif
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="paymment-right-details">
-                                        <h3>Amount Payables Details</h3>
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td><b>Particulars</b></td>
-                                                    <td><b>Amount</b></td>
-                                                </tr>
-                                                @if($shipments['shipping_charge'])
-                                                    <tr>
-                                                        <td>Shipping Charges</td>
-                                                        <td class="subtotal">USD {{ $shipments['shipping_charge'] }}</td>
-                                                    </tr>
-                                                @endif
-                                                @if($shipments['fca_charge'])
-                                                    <tr>
-                                                        <td>FCA Charges</td>
-                                                        <td class="fca_charge">USD {{ $shipments['fca_charge'] }}</td>
-                                                    </tr>
-                                                @endif
-                                                @if($shipments['ex_work_charge'])
-                                                    <tr>
-                                                        <td>Ex Work Charges</td>
-                                                        <td class="ex_work_charge">USD {{ $shipments['ex_work_charge'] }}</td>
-                                                    </tr>
-                                                @endif
-                                                @if($shipments['total_charges'])
-                                                    <tr>
-                                                        <td><b>Payable Amount</b></td>
-                                                        <td class="total_charges">USD {{ $shipments['total_charges'] }}</td>
-                                                    </tr>
-                                                @endif
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    <br>
                                     <div class="payment-details">
                                         <h3>Duties & Taxes</h3>
                                         <p>Duties and taxes are to be paid by the consignee as per the local duty structure.</p>

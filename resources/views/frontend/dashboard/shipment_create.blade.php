@@ -90,7 +90,7 @@
                                         <input type="text" name="S_pan" value="">
                                     </div>
                                     <div class="form-group">
-                                        <label>VAT*</label>
+                                        <label>VAT</label>
                                         <input type="text" name="S_gstin" value="">
                                     </div>
                                     <div class="form-group">
@@ -129,7 +129,7 @@
                                     </div>
 
                                     <div class="form-group  select-code-packb">
-                                        <label>Telephone*</label>
+                                        <label>Alternate Number</label>
                                         <select name="csn_mobile_code" class="select-code-packb">
                                             @foreach(getCountryBMDCodes() as $countries)
                                                 <option value="{{$countries['mobile_code']}}" <?php /*echo ($user->phn_code == $countries['mobile_code']) ? "selected='selected'" : "";*/ ?>>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
@@ -140,7 +140,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>KYC Document*</label>
+                                        <label>KYC Document*  (Please Select Any One)</label>
                                         <select id="select-service" required name="S_idProof">
                                             <option value="passport">Passport</option>
                                             <option value="driving licence">Driving Licence</option>
@@ -230,7 +230,7 @@
                                     </div>
 
                                     <div class="form-group  select-code-packb">
-                                        <label>Telephone*</label>
+                                        <label>Alternate Number</label>
                                         <select name="csr_mobile_code" class="select-code-packb">
                                             @foreach(getCountryBMDCodes() as $countries)
                                                 <option value="{{$countries['mobile_code']}}" <?php /*echo ($user->phn_code == $countries['mobile_code']) ? "selected='selected'" : "";*/ ?>>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>

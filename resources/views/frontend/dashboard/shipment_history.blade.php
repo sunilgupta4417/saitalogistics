@@ -36,9 +36,9 @@
                                        <td>{{$ship->packet_type}}</td>
                                        <td>{{$ship->csr_city_id}}</td>
                                        <td>{{$ship->csn_city_id}}</td>
-                                       <td class="view-btn"> 
-                                          <a href="#" class="clickMeForViewDetails">Quote Acceptance Pending</a> </td>
-                                       <!-- <td class="og-clr">{{ucfirst($ship->payment_status)}}</td> -->
+                                       <!-- <td class="view-btn"> 
+                                          <a href="#" class="clickMeForViewDetails">Quote Acceptance Pending</a> </td> -->
+                                       <td class="og-clr">{{ucfirst($ship->payment_status)}}</td> 
                                        <td class="view-btn"> 
                                           <a href="javascript:void(0);" class="clickMeForViewDetails">View Details</a>
                                           <div class="modal fade clickMeForViewBox" id="clickMeForViewDetails{{$i}}" role="dialog" >

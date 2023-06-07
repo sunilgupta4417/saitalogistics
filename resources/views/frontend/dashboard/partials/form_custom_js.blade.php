@@ -99,7 +99,7 @@
         if(checkInputFieldKeys("csr_mobile_no")){
             csr_mobile_no=checkInputFieldKeys("csr_mobile_no");
         }
-        $('#from_phone_number').html("Telephone: "+csr_mobile_code+csr_mobile_no);
+       // $('#from_phone_number').html("Telephone: "+csr_mobile_code+csr_mobile_no);
         if(checkInputFieldKeys("csr_pan","from_pan_no")){
            $('#from_pan_no').html("Business Registration Number: "+checkInputFieldKeys("csr_pan"));
         }
@@ -186,8 +186,8 @@
         $('#to_number').html(csn_contact_person_code+csn_contact_person);
         //to_phone_number
         var csn_mobile_code="";
-        if(checkSelectFieldKeys("csn_mobile_code")){
-            csn_mobile_code=checkSelectFieldKeys("csn_mobile_code");
+         if(checkSelectFieldKeys("csn_mobile_code")){
+             csn_mobile_code=checkSelectFieldKeys("csn_mobile_code");
         }
         var csn_mobile_no="";
         if(checkInputFieldKeys("csn_mobile_no")){

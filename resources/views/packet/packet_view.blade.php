@@ -78,7 +78,8 @@
                                     </div>
                                 </div>
                                 @if(!empty($packet->shipping_charge))
-                                    <a href="{{ route('packet.send.shipment.payment.email.to.customer',$packet->id)}}" class="btn btn-info btn-sm" title="Send EMail To Customer">Send EMail To Customer</a>
+                                    <a href="{{ route('packet.send.shipment.quotation.email.to.customer',$packet->id)}}" class="btn btn-info btn-sm" title="Send Quotation Email To Customer">Send Quotation Email To Customer</a>
+                                    <a href="{{ route('packet.send.shipment.payment.email.to.customer',$packet->id)}}" class="btn btn-info btn-sm" title="Send Payment Email To Customer">Send Payment Email To Customer</a>
                                 @endif
                             </div> 
                         <?php } ?> 
@@ -87,25 +88,26 @@
                             <div class="table-responsive">
                                 <table>
                                     <tbody>
-                                        <tr>
-                                            <th style="width:25%">AWB NO</th>
-                                            <th style="width:2%">:</th>
-                                            <td>{{$packet->awb_no}}</td>
-                                        </tr>
-                                        <tr>
+                                        <?php /*<tr>
                                             <th>Ref No</th>
                                             <th>:</th>
                                             <td>{{$packet->reference_no}}</td>
                                         </tr>
                                         <tr>
-                                            <th>Booking Date</th>
-                                            <th>:</th>
-                                            <td>{{$packet->booking_date}}</td>
-                                        </tr>
-                                        <tr>
                                             <th>Client</th>
                                             <th>:</th>
                                             <td>{{$packet->client_id}}</td>
+                                        </tr>*/?>
+                                        <tr>
+                                            <th style="width:25%">Reference No</th>
+                                            <th style="width:2%">:</th>
+                                            <td>{{$packet->awb_no}}</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <th>Booking Date</th>
+                                            <th>:</th>
+                                            <td>{{$packet->booking_date}}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="3" class="height-light">Consignor Details</th>

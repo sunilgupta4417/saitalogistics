@@ -224,14 +224,14 @@
                  </a>
                  <ul class="list-unstyled" style="{{ in_array(Request::segment(2), $operation_menu)?'':'display: none;' }}">
                     @if(in_array("packet-booking",$accessMenu))
-                      <li class="{{ Request::segment(2)=='packet-booking'?'active':'' }}">
+                      <!-- <li class="{{ Request::segment(2)=='packet-booking'?'active':'' }}">
                           <a href="{{ url('/admin/packet-booking') }}">
                               <span>Packet Booking</span>
                           </a>
-                      </li>
+                      </li> -->
                       <li class="{{ Request::segment(2)=='packet-listing'?'active':'' }}">
                           <a href="{{ url('/admin/packet-listing') }}">
-                              <span>Packet Listing</span>
+                              <span>Shipments Listing</span>
                           </a>
                       </li>
                       <li class="{{ Request::segment(2)=='courier'?'active':'' }}">
@@ -250,20 +250,20 @@
                           </a>
                       </li>
                     @endif
-                    @if(in_array("import-packet",$accessMenu))
+                    <!-- @if(in_array("import-packet",$accessMenu))
                       <li class="{{ Request::segment(2)=='import-packet'?'active':'' }}">
                         <a href="{{ url('/admin/import-packet') }}">
                             <span>Import Packet</span>
                         </a>
                       </li>
-                    @endif
-                    @if(in_array("print-awb-document",$accessMenu))
+                    @endif -->
+                    <!-- @if(in_array("print-awb-document",$accessMenu))
                       <li class="{{ Request::segment(2)=='print-awb-document'?'active':'' }}">
                         <a href="{{ url('/admin/print-awb-document') }}">
                             <span>Print AWB Document</span>
                         </a>
                       </li>
-                    @endif
+                    @endif -->
                     <!-- @if(in_array("vendor-manifest",$accessMenu))
                       <li class="{{ Request::segment(2)=='vendor-manifest'?'active':'' }}">
                         <a href="{{ url('/admin/vendor-manifest') }}">
@@ -271,13 +271,13 @@
                         </a>
                       </li>
                     @endif -->
-                    @if(in_array("shipment-movement",$accessMenu))
+                   <!--  @if(in_array("shipment-movement",$accessMenu))
                       <li class="{{ Request::segment(2)=='shipment-movement'?'active':'' }}">
                         <a href="{{ url('/admin/shipment-movement') }}">
                             <span>Shipment Movement</span>
                         </a>
                       </li>
-                    @endif
+                    @endif -->
                     <!-- <li class="{{ Request::segment(2)=='pod-upload'?'active':'' }}">
                       <a href="{{ url('/admin/pod-upload') }}">
                           <span>POD Upload</span>
@@ -320,13 +320,13 @@
                         </a>
                       </li>
                     @endif -->
-                    @if(in_array("zone-master",$accessMenu))
+                    <!-- @if(in_array("zone-master",$accessMenu))
                       <li class="{{ Request::segment(2)=='zone-master'?'active':'' }}">
                         <a href="{{ url('/admin/zone-master') }}">
                             <span>Zone Master</span>
                         </a>
                       </li>
-                    @endif
+                    @endif -->
                     @if(in_array("country-master",$accessMenu))
                       <li class="{{ Request::segment(2)=='country-master'?'active':'' }}">
                         <a href="{{ url('/admin/country-master') }}">
@@ -334,13 +334,13 @@
                         </a>
                       </li>
                     @endif
-                    @if(in_array("reason-master",$accessMenu))
+                    <!-- @if(in_array("reason-master",$accessMenu))
                       <li class="{{ Request::segment(2)=='reason-master'?'active':'' }}">
                         <a href="{{ url('/admin/reason-master') }}">
                             <span>Reason Master</span>
                         </a>
                       </li>
-                    @endif
+                    @endif -->
                  </ul>
                </li>
               @endif
@@ -370,13 +370,13 @@
                         </a>
                       </li>
                     @endif
-                    @if(in_array("delivered-report",$accessMenu))
+                    <!-- @if(in_array("delivered-report",$accessMenu))
                       <li class="{{ Request::segment(2)=='delivered-report'?'active':'' }}">
                         <a href="{{ url('/admin/delivered-report') }}">
                             <span>Delivered Report</span>
                         </a>
                       </li>
-                    @endif
+                    @endif -->
                  </ul>
                </li>
               @endif
@@ -464,20 +464,20 @@
                    <span class="menu-arrow"></span>
                  </a>
                  <ul class="list-unstyled" style="{{ in_array(Request::segment(2), $setting_menu)?'':'display: none;' }}">
-                    @if(in_array("website-setting",$accessMenu))
+                   <!--  @if(in_array("website-setting",$accessMenu))
                       <li class="{{ Request::segment(2)=='website-setting'?'active':'' }}">
                           <a href="{{ url('/admin/website-setting') }}">
                               <span>Company Profile</span>
                           </a>
                       </li>
-                    @endif
-                    @if(in_array("payment-history",$accessMenu))
+                    @endif -->
+                    <!-- @if(in_array("payment-history",$accessMenu))
                       <li class="{{ Request::segment(2)=='payment-history'?'active':'' }}">
                         <a href="{{ url('/admin/payment-history') }}">
                             <span>Payment History</span>
                         </a>
                       </li>
-                    @endif
+                    @endif -->
                     @if(in_array("user-profile",$accessMenu))
                       <li class="{{ Request::segment(2)=='user-profile'?'active':'' }}">
                         <a href="{{ url('/admin/user-profile') }}">

@@ -61,7 +61,7 @@
     <input type="email" name="csn_email_id"  value="">
 </div>
 <div class="form-group  select-code-packb">
-    <label>Telephone*</label>
+    <label>Alternate Number</label>
     <select name="csn_mobile_code" class="select-code-packb">
         @foreach(getCountryBMDCodes() as $countries)
             <option value="{{$countries['mobile_code']}}" >{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
