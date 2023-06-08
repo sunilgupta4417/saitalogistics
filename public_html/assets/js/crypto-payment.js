@@ -6,7 +6,7 @@ var provider = new WalletConnectProvider.default({
     1: "https://cloudflare-eth.com/", // https://ethereumnodes.com/
     137: "https://polygon-rpc.com/", // https://docs.polygon.technology/docs/develop/network-details/network/
     56: "https://bsc-dataseed.binance.org/",
-    88: "https://rpc.tomochain.com"
+    88: "https://trx.getblock.io/03d6b03d-b069-4eee-bcab-77f2363e4df9/mainnet/"
   },
   bridge: 'https://bridge.walletconnect.org',
 });

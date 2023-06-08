@@ -43,11 +43,11 @@
                                     <p>Copyright Saitama Technology LLC, Dubai (UAE). All rights reserved.</p>
                               </div>
                         </div>
-                        <div class="col-lg-2 col-md-2"><a href="#"><img src="{{asset('assets/images/social-icon/saitama.png')}}" alt="" class="img-responsive"></a></div>
+                        <div class="col-lg-2 col-md-2"><a href="https://saitamatoken.com" target="_blank"><img src="{{asset('assets/images/social-icon/saitama.png')}}" alt="" class="img-responsive"></a></div>
                         <div class="col-lg-4 col-md-4">
                               <ul class="list-inline footer-socials text-lg-right mb-0">
                           <li class="list-inline-item">
-                              <a href="#"><img src="{{asset('assets/images/social-icon/facebook.svg')}}" alt="" class="img-responsive"></a>
+                              <a href="https://www.facebook.com/groups/1275234186328559/?ref=share" target="_blank"><img src="{{asset('assets/images/social-icon/facebook.svg')}}" alt="" class="img-responsive"></a>
                           </li>
                           <li class="list-inline-item">
                               <a href="https://twitter.com/SaitaLogistics" target="_blank"><img src="{{asset('assets/images/social-icon/twitter.svg')}}" alt="" class="img-responsive"></a>

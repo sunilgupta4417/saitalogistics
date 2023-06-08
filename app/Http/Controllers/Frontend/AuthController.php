@@ -35,9 +35,6 @@ class AuthController extends Controller
 
     public function login()
     {
-        if(!empty(Auth::user()->id)){
-            return redirect()->route('user.dashboard');
-        }
         return view('frontend.auth.login');
     }
     public function register()
@@ -109,26 +106,26 @@ class AuthController extends Controller
                         'user_id' => $user->id, 
                         'token' => $token
                     ]);
-                    $subject = 'User Verification!';
+                    $subject = 'Notice for User Verification!';
                     $message = '<div style="padding:0!important;margin:0!important;display:block!important;min-width:100%!important;width:100%!important;background:#ffffff">
   <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
       <tbody><tr>
           <td align="center" valign="top">
               
-              <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#272727">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#fff">
                   <tbody><tr>
                       <td style="font-size:0pt;line-height:0pt;text-align:left" width="1"></td>
                       <td align="center" style="background-image: linear-gradient(70deg,#009cde 0%,#71ccf3 25%,#141c28 35%,#141c28 65%,#5dc5f1 75%,#141c28 100%);">
-                          <table width="650" border="0" cellspacing="0" cellpadding="0" bgcolor="#272727">
+                          <table width="650" border="0" cellspacing="0" cellpadding="0" bgcolor="#fff">
                               <tbody><tr>
                                   <td style="width:650px;min-width:650px;font-size:0pt;line-height:0pt;padding:0;margin:0;font-weight:normal;Margin:0">
-                                      <table width="650" border="0" cellspacing="0" cellpadding="0" bgcolor="#03b67a">
+                                      <table width="650" border="0" cellspacing="0" cellpadding="0" style="background-color:#fff !important">
                                           <tbody><tr>
                                               <td style="width:650px;min-width:650px;font-size:0pt;line-height:0pt;padding:0;margin:0;font-weight:normal;Margin:0">
   
   
                                                   
-                                                  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:#009cde">
+                                                  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:#fff !important">
                                           <tbody><tr>
                                               <td style="font-size:0pt;line-height:0pt;text-align:left" width="1"></td>
                                               <td>
@@ -145,7 +142,7 @@ class AuthController extends Controller
                                                               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                   <tbody><tr>
                                                                       <td>
-                                                                          <div style="font-size:0pt;line-height:0pt;text-align:center"><div style="font-size:0pt;line-height:0pt;text-align:center"><a href="#" rel="noreferrer noreferrer"><img style="width:250px;height:aut0" src="https://saitalogistics.com/assets/images/logo-white.png" border="0" width="220" height="65" alt="" class="CToWUd"></a></div></div>
+                                                                          <div style="font-size:0pt;line-height:0pt;text-align:center"><div style="font-size:0pt;line-height:0pt;text-align:center"><a href="#" rel="noreferrer noreferrer"><img style="width:250px;height:aut0" src="https://staging.saitalogistics.com/assets/images/logo-dark.png" border="0" width="220" height="65" alt="" class="CToWUd"></a></div></div>
                                                                           <div style="font-size:0pt;line-height:0pt"></div>
   
                                                                       </td>
@@ -176,31 +173,31 @@ class AuthController extends Controller
                                           <tbody><tr>
                                               <td>
   
-                                                  <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#272727">
+                                                  <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#fff" style="color:">
                                                       <tbody><tr>
                                                           <td style="font-size:0pt;line-height:0pt;text-align:left" width="30"></td>
                                                           <td>
                                                               <table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-size:0pt;line-height:0pt;text-align:center;width:100%;min-width:100%"><tbody><tr><td height="20" style="font-size:0pt;line-height:0pt;text-align:center;width:100%;min-width:100%">&nbsp;</td></tr></tbody></table>
   
-                                                              <div style="color:#f6f6f6;font-family:Arial,sans-serif;font-size:26px;line-height:34px;text-align:center">Hi {user},</div>
+                                                              <div style="color:#b2b2b2;font-family:Arial,sans-serif;font-size:26px;line-height:34px;text-align:center">Hi {user},</div>
                                                               <table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-size:0pt;line-height:0pt;text-align:center;width:100%;min-width:100%"><tbody><tr><td height="20" style="font-size:0pt;line-height:0pt;text-align:center;width:100%;min-width:100%">&nbsp;</td></tr></tbody></table>
-                                                              <div style="color:#f6f6f6;font-family: sans-serif;font-size: 18px;
+                                                              <div style="color:#b2b2b2;font-family: sans-serif;font-size: 18px;
                                                               line-height: 26px;
-                                                              text-align: center;">Thank you for choosing us and welcome to Saita Logistics! Your registered Email ID is: {email}. 
+                                                              text-align: center;">Thank you for choosing us and welcome to Saita Logistics! Your registered Email ID is: {email}. Password is:{password}:
                                                               </div>
   
-                                                              <div style="color:#f6f6f6;font-family: sans-serif;font-size: 18px;
+                                                              <div style="color:#b2b2b2;font-family: sans-serif;font-size: 18px;
                                                               line-height: 26px;
                                                               text-align: center;">Please click on the button below to verify your account:
                                                               </div>
 
-                                                              <div style="color:#f6f6f6;font-family:Arial,sans-serif;font-size:14px;line-height:20px;text-align:center;margin-top:50px;margin-bottom:50px">
+                                                              <div style="color:#b2b2b2;font-family:Arial,sans-serif;font-size:14px;line-height:20px;text-align:center;margin-top:50px;margin-bottom:50px">
                                                                 <em><a href="{verification_url}" style="font-size:20px;width:100%;padding:10px;background-color:#ffcc00;color:white;text-decoration: none;border-radius: 5px;" type="submit"><strong>Verify Account</span></strong></a>
                                                               </em></div>
 
-                                                              <div style="color:#f6f6f6;font-family:Arial,sans-serif;font-size:14px;line-height:20px;text-align:center"><em>If you have any questions, please feel free to reply to this email.
+                                                              <div style="color:#b2b2b2;font-family:Arial,sans-serif;font-size:14px;line-height:20px;text-align:center"><em>If you have any questions, please feel free to reply to this email.
                                                               </em></div>
-                                                              <div style="color:#f6f6f6;font-family:Arial,sans-serif;font-size: 17px;
+                                                              <div style="color:#b2b2b2;font-family:Arial,sans-serif;font-size: 17px;
                                                               line-height: 26px;
                                                               text-align: left;
                                                               margin-top: 50px;">

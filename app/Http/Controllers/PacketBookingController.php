@@ -652,6 +652,9 @@ class PacketBookingController extends Controller
                         $orderData['name']=$packetInfo['csr_consignor_person']?$packetInfo['csr_consignor_person']:$packetInfo['csr_consignor'];
                         $orderData['origin']=$packetInfo['csr_country_id']?getCountries($packetInfo['csr_country_id']):"";
                         $orderData['destination']=$packetInfo['csn_country_id']?getCountries($packetInfo['csn_country_id']):"";
+                        $orderData['shipper_name']=$orderData['name'];
+                        $orderData['receiver_name']=$packetInfo['csn_consignor_person']?$packetInfo['csn_consignor_person']:$packetInfo['csn_consignor'];
+                        $orderData['shipment_mode']=$packetInfo['courier_type']?ucwords($packetInfo['courier_type']):"";
                         $orderData['booking_date']=$packetInfo['booking_date']?date("Y-m-d",strtotime($packetInfo['booking_date'])):"";
                         $orderData['email']=$packetInfo['csr_email_id'];
                         $orderData['shipping_charge']=$packetInfo['shipping_charge']?$packetInfo['shipping_charge']:0;
@@ -661,7 +664,7 @@ class PacketBookingController extends Controller
                         $orderData['total_charges']=$packetInfo['total_charges']?$packetInfo['total_charges']:$totalCharges;
                         $orderData['chargeable_weight']=$packetInfo['chargeable_weight']?$packetInfo['chargeable_weight']:"";
                         $orderData['payment_link']=route("user.create.shipment.payment",encryptToBase64($packetInfo['id']));                        
-                        $orderData['subject']="Shipment payment link";
+                        $orderData['subject']="Your booking is now confirmed";
                         $orderData['email_template']="emails.shipments.payment_link_to_customer";
                         $emailContent=array(
                             "subject"=>$orderData['subject'],

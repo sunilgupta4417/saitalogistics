@@ -14,22 +14,7 @@
     padding: 0 0 5px 0;
     color: #000;
 }
-#shipments-pg .inter-form .cryptoPayments .form-group {
-    background: #eeeeee59;
-    padding: 7px 15px 5px;
-    border-radius: 6px;
-    border: 1px solid #eee;
-    font-size: 12px;
-    cursor: pointer;
-    width: 100%;
-    display: inline-block;
-    margin: 0px;
-    color: #000;
-    float: inherit;
-    border-bottom: 5px solid #eee;
-    position: relative;
-    overflow: hidden;
-}
+
 #shipments-pg .inter-form .cryptoPayments .form-group label {
     font-size: 14px;
     font-weight: 600;
@@ -40,13 +25,119 @@
     background: #ff5d210d;
     border-radius: 16px;
     padding: 20px;
-    margin-bottom: 20px;
-    padding-bottom: 50px;
+    margin-bottom: 0;
+    padding-bottom: 30px;
 }
 #shipments-pg .paymment-right-details tbody td {
     padding: 4px 0;
     border: none;
 }
+#shipments-pg .cryptoPayments .form-group {
+    width: 49%;
+    margin: 3px;
+}
+#shipments-pg .payment-gateway .form-group input {
+    height: 20px;
+    width: 20px;
+}
+
+
+/*----=========== Buttons Css Start Here ==========---*/
+
+#eth-btn {
+    background-image: linear-gradient(to right, #ffb937,#ff8100,#fd833c);
+    border-bottom: 2px solid #e3510b;
+}
+#eth-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#bnb-btn {
+    background-image: linear-gradient(to right, #111411,#212620,#000000);
+    border-bottom: 2px solid #000;
+}
+#bnb-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#usdtbep-btn {
+    background-image: linear-gradient(to right, #64b16d,#70c965,#3a835e);
+    border-bottom: 2px solid #33856d;
+}
+#usdtbep-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#usdterc-btn {
+    background-image: linear-gradient(to right, #767fe3,#428ad5,#6b7edb);
+    border-bottom: 2px solid #5b5ebd;
+}
+#usdterc-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#saitamaerc-btn {
+    background-image: linear-gradient(to right, #1825b5,#0559b1,#00157c);
+    border-bottom: 2px solid #5b5ebd;
+}
+#saitamaerc-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#mazi-btn {
+    background-image: linear-gradient(to right, #574cfd,#04baff,#04baff);
+    border-bottom: 2px solid #5b5ebd;
+}
+#mazi-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#ht-token-btn {
+    background-image: linear-gradient(to right, #4604af,#190646,#210968);
+    border-bottom: 2px solid #05074e;
+}
+#ht-token-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#credit-crd-btn {
+    background-image: linear-gradient(to right, #5e2e7c,#392b42,#141012);
+    border-bottom: 2px solid #00000059;
+}
+#credit-crd-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#paymentUpdateForm .modal-dialog {
+    z-index: 111111;
+    margin-top: 160px;
+}
+/*----=========== Buttons Css End Here ==========---*/
+
 </style>
 
 <section id="where-from-page">
@@ -170,31 +261,38 @@
                                             </div>  
                                             <div class="col-md-8">
                                                 <div class="cryptoPayments">
-                                                    <div class="form-group"> 
+                                                    <div class="form-group" id="eth-btn"> 
+                                                        <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon1.png" alt="" class="img-responsive">
                                                         <label>ETH - Launching Soon</label>
                                                         <input type="radio" name="payment_gateway" value="ETH" class="clickMeForPayInput" />
                                                     </div>
-                                                    <div class="form-group"> 
+                                                    <div class="form-group" id="bnb-btn"> 
+                                                        <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon2.png" alt="" class="img-responsive">
                                                         <label>BNB - Launching Soon</label>
                                                         <input type="radio" name="payment_gateway" value="BNB" class="clickMeForPayInput" />
                                                     </div>
-                                                    <div class="form-group">
+                                                    <div class="form-group" id="usdtbep-btn">
+                                                        <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon3.png" alt="" class="img-responsive">
                                                         <label>USDT (BEP 20) - Launching Soon</label>
                                                         <input type="radio" name="payment_gateway" value="USDT_BEP_20" class="clickMeForPayInput" />  
                                                     </div>
-                                                    <div class="form-group">
+                                                    <div class="form-group" id="usdterc-btn">
+                                                        <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon4.png" alt="" class="img-responsive">
                                                         <label>USDT (ERC 20) - Launching Soon</label>
                                                         <input type="radio" name="payment_gateway" value="USDT_ERC_20" class="clickMeForPayInput">
                                                     </div>
-                                                    <div class="form-group">
+                                                    <div class="form-group" id="saitamaerc-btn">
+                                                        <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon5.png" alt="" class="img-responsive">
                                                         <label>SAITAMA (ERC 20) - Launching Soon</label>
                                                         <input type="radio" name="payment_gateway" value="SAITAMA_ERC_20" class="clickMeForPayInput">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label>Mazimatic (Mazi BEP 20) - Launching Soon</label>
+                                                    <div class="form-group" id="mazi-btn">
+                                                        <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon6.png" alt="" class="img-responsive">
+                                                        <label>Mazimatic (Mazi BEP 20) - Coming Soon</label>
                                                         <input type="radio" name="payment_gateway" value="MAZI_BEP_20" class="clickMeForPayInput">
                                                     </div>
-                                                    <div class="form-group">
+                                                    <div class="form-group" id="ht-token-btn">
+                                                        <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon7.png" alt="" class="img-responsive">
                                                         <label>HT Token (TRC 20) - Launching Soon</label>
                                                         <input type="radio" name="payment_gateway" value="HUOBITOKEN_TRC_20" class="clickMeForPayInput">
                                                     </div>
@@ -202,7 +300,8 @@
                                                         <label>Mazimatic (Mazi ERC 20) - Launching Soon</label>
                                                         <input type="radio" name="payment_gateway" value="MAZI_ERC_20" class="clickMeForPayInput">
                                                     </div>-->
-                                                    <div class="form-group">
+                                                    <div class="form-group" id="credit-crd-btn">
+                                                        <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon8.png" alt="" class="img-responsive">
                                                         <label>Credit/Debit Card (Epay)</label>
                                                         <input type="radio" name="payment_gateway" value="epay" checked="checked" class="clickMeForPayInput" >  
                                                     </div>

@@ -76,7 +76,7 @@
                         </li> 
                         @endif
                         <li class="list-inline-item">
-                          <img src="{{asset('assets/images/saita-icon.svg')}}" alt="" class="img-responsive">
+                         <a href="https://saitamatoken.com" target="_blank"> <img src="{{asset('assets/images/saita-icon.svg')}}" alt="" class="img-responsive"> </a>
                         </li>
                     </ul>
                 </div> <!-- / .navbar-collapse -->

@@ -368,7 +368,7 @@
         x = document.getElementsByClassName("step");
         y = x[currentTab].getElementsByTagName("input");
         // A loop that checks every input field in the current tab:
-        const notRequired = ['csr_address3','S_other', 'S_pan', 'csr_gstin', 'csr_iec', 'S_aadhaar', 'csn_address3', 'R_other','csn_tan_number'];
+        const notRequired = ['csr_address3','S_other', 'csr_pan','csr_aadharno','csr_mobile_no','S_pan', 'csr_gstin', 'csr_iec', 'S_aadhaar', 'csn_address3', 'R_other','csn_tan_number'];
         for (i = 0; i < y.length; i++) {
         // If a field is empty...
         if (y[i].value == ""  && !notRequired.includes(y[i].name)) {

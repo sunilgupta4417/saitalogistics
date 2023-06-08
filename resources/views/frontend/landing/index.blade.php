@@ -8,7 +8,7 @@
                     <span class="trac-text">{{$cms->page_title}}</span>
                     <h1 class="mt-2">{!! $cms->page_content !!}</p>
                         <a href="{{$cms->page_link[1]}}" class="btn btn-main-2">Send Package </a>
-                        <a href="{{$cms->page_link[2]}}" class="btn btn-main-2 track-shipment-clr">Track Shipment </a>
+                        <!-- <a href="{{$cms->page_link[2]}}" class="btn btn-main-2 track-shipment-clr">Track Shipment </a> -->
                 </div>
             </div>
             <div class="col-lg-6 col-md-5">
@@ -176,16 +176,16 @@
                             <form method="POST" action="{{route('contactus.store')}}">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" class="form-control" id="phoneno" name="phoneno" placeholder="Mobile Number">
+                                    <input type="number" class="form-control" id="phoneno" name="phoneno" placeholder="Mobile Number" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                                 </div>
                                 <div class="form-group">
-                                    <textarea type="text" class="form-control" id="message" name="message" placeholder="Message"></textarea>
+                                    <textarea type="text" class="form-control" id="message" name="message" placeholder="Message" required></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-main-2">Submit</button>
                             </form>
@@ -221,7 +221,7 @@
                         <div class="blog-item mb-5 mb-lg-0">
                             <img src="{{asset('assets/images/cms/'.$ser->page_image.'')}}" alt="" class="img-fluid">
                             <div class="blog-item-content">
-                                <h3 class="mt-3 mb-2"><a href="{{$ser->page_link}}" style="text-decoration: underline;">{{$ser->page_title}}</a></h3>
+                                <h3 class="mt-3 mb-2"><a href="{{$ser->page_link}}" style="text-decoration: underline;" target="_blank">{{$ser->page_title}}</a></h3>
 
                             </div>
                         </div>
