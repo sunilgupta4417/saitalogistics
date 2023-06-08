@@ -433,7 +433,7 @@
         var popForm=$(this).parents("#update_from_address_modal");
         $('input[name=csr_address1]').val(popForm.find('input[name=csr_address1]').val())
         $('input[name=csr_address2]').val(popForm.find('input[name=csr_address2]').val())
-        $('input[name=csr_address3]').val($popForm.find('input[name=csr_address3]').val())
+        $('input[name=csr_address3]').val(popForm.find('input[name=csr_address3]').val())
         $('input[name=csr_pincode]').val(popForm.find('input[name=csr_pincode]').val())
         $('input[name=csr_city_id]').val(popForm.find('input[name=csr_city_id]').val())
         $('input[name=csr_state_id]').val(popForm.find('input[name=csr_state_id]').val())
