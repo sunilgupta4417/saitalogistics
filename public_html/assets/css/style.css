@@ -3236,8 +3236,8 @@ iframe#youtubevideo {
 .file-upload-wrapper:before {
   content: 'Upload';
   position: absolute;
-  top: 2px;
-  right: 2px;
+  top: 3px;
+  right: 4px;
   display: inline-block;
   background: #ff5d21;
   color: #fff;
@@ -4271,6 +4271,282 @@ iframe#youtubevideo {
       padding: 10px;
   }
 
+   .tab-content p {
+    margin: 10px 0 10px 10px;
+  }
+
+  .track-boxing h3 br {
+    display: none;
+  }
+
+  .track-boxing h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+
+  #login-page .login-box {
+    width: 100%;
+    padding: 40px 20px;
+  }
+
+  #login-page .login-box h2 {
+    font-size: 20px;
+  }
+
+  .enter-number {
+    font-size: 15px !important;
+    margin: 10px 0 25px !important;
+  }
+
+  #login-page form br {
+    display: none;
+  }
+
+  #login-page .social-buttons ul li {
+    width: 70%;
+    margin: 7px;
+  }
+
+  #login-page .facebook-btn a {
+    font-size: 18px;
+    height: auto;
+    line-height: initial;
+  }
+
+  .select-code select {
+    left: 15%;
+  }
+
+  .select-code #mobile {
+    padding-left: 140px !important;
+  }
+
+  .iner-number {
+    font-size: 20px !important;
+  }
+
+  #margin-btm {
+    margin: 10px 0px;
+  }
+
+  #margin-btm .about-item {
+    margin-left: 0px;
+  }
+
+  #margin-btm {
+    margin: 40px 0px;
+  }
+
+  #login-page .login-box p {
+    font-size: 14px;
+  }
+
+  #login-page .have-account a {
+    font-size: 15px;
+    margin-top: 15px;
+  }
+
+  #tracking-page .login-box {
+    width: 100%;
+    padding: 40px 20px;
+  }
+
+  #tracking-page .login-box h2 {
+    font-size: 20px;
+  }
+
+  #tracking-wdh form .form-group {
+    width: 100%;
+  }
+
+  .about-us h2 {
+    font-size: 23px;
+  }
+
+  #margin-btm {
+    margin: 20px 10px;
+  }
+
+  #support-page-start {
+    overflow: hidden;
+  }
+
+  .support-heading {
+    text-align: left !important;
+  }
+
+  .support-heading p {
+    width: 100%;
+  }
+
+  .support-heading p br {
+    display: none;
+  }
+
+  .contact-us-form button {
+    float: inherit;
+  }
+
+  #mainpopup .modal-dialog {
+    max-width: 95%;
+  }
+
+  .coming-text {
+    margin-top: 0px;
+  }
+
+  .popup-image img {
+    width: 100%;
+  }
+
+  .signUpForm .form-header {
+    display: inherit !important;
+    padding: 10px;
+  }
+
+  .signUpForm .form-header .stepIndicator {
+      padding: 5px;
+      width: 47%;
+      display: inline-block;
+      background: #eeeeee52;
+      margin: 2px;
+      border-radius: 5px;
+      font-size: 12px;
+  }
+
+  .signUpForm .form-header .stepIndicator::before {
+    display: none;
+  }
+
+  .signUpForm .form-header .stepIndicator.active {
+      color: #fff !important;
+      background: #ff5d21;
+  }
+
+  .shipment-heading {
+    font-size: 23px;
+  }
+
+  .maining-heading h3 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .inter-form .form-group {
+    width: 100%;
+  }
+
+  .signUpForm .form-footer button {
+    width: 80%;
+    margin: 10px;
+  }
+
+  .inter-form .form-group {
+    margin: 8px 10px 10px 0;
+  }
+
+  .file-upload-wrapper:after {
+    font-size: 8px;
+  }
+
+  .header-contact {
+      margin-left: 0px;
+      margin-top: 20px;
+  }
+
+  .center-icons {
+      right: 0px !important;
+  }
+
+  #head-icons {
+      right: 0;
+  }
+
+  .list-inline-item img.img-responsive {
+      width: 80%;
+  }
+
+  .navbar-nav.ml-auto {
+      border-left: none;
+  }
+
+  .navbar-expand-lg .navbar-nav .nav-link {
+      padding-left: 10px;
+      border-bottom: 1px solid #cbbfbf21;
+  }
+
+  .blog-item .blog-item-content {
+      text-align: center;
+  }
+
+  .footer-socials {
+      margin: 10px 0;
+  }
+
+  #about-page {
+      padding-bottom: 0 !important;
+  }
+
+  #about-page {
+      margin-top: 85px;
+  } 
+
+  #how-it-works-iner {
+      margin-top: 40px;
+  }
+
+  .shipment-details {
+      padding: 15px;
+  }
+
+  #calculate-form .sub-btns .btn {
+      padding: 15px 60px;
+  }
+
+  .shp-list {
+      margin: 30px 10px;
+  }
+
+  .create-right {
+      margin-top: 30px;
+      padding: 20px 20px 40px;
+      height: auto;
+  }
+
+  #tracking-page {
+      margin: 120px 0 40px;
+  }
+
+  #tracking-page form .form-group input {
+      padding: 0 12px 0 20px;
+  }
+
+  #login-page {
+      margin: 120px 0 50px;
+  }
+
+  #login-page .for-text {
+      text-align: center;
+  }
+
+  .profile-page-start {
+      margin: 100px 10px !important;
+  }
+
+  .profile-box {
+      width: 100%;
+  }
+
+  .profile-box-heading-img h2 {
+      font-size: 24px;
+  }
+
+  .sign-btns a {
+      width: 70%;
+      font-size: 18px;
+      padding: 10px;
+  }
+
   .sign-btns a img {
       width: 10%;
   }
@@ -4909,4 +5185,39 @@ iframe#youtubevideo {
   margin-top: 0;
   margin-bottom: 5px;
   font-size: 14px;
+}
+.preloader{
+  display:none;
+}
+.preloader-inner {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999999999999;
+  background-color: rgb(255 93 33 / 60%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.preloader-inner .spinner {
+  text-align: center;
+}
+@keyframes sk-rotate {
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes sk-bounce {
+  0% {
+    top: 0;
+  }
+  50% {
+    top: 63%;
+  }
+  100% {
+    top: 0;
+  }
 }

@@ -101,17 +101,18 @@ async function makePayment(amount,orderid,paymentUpdateUrl,payment_type){
   if(currentChain != 0x61){
     return alert("Please Select BNB Mainnet network before payment !!");
   }*/
-  this.isLoading = true;//add new loader
+  isLoader(true);
   return new Promise((resolve, reject) => {     
     if (getWalletProvider()) {
         makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl).then((res) => {
           if(res){
             if(amount){
+              isLoader(false);
               resolve(res)
             }
           }
         }).catch((err) => {
-          //this.isLoading = false;
+          isLoader(false);
           console.log(err);
           alert("Something went wrong ! If your amount is deducted then  please contact to admin !!");
       })
@@ -352,5 +353,13 @@ function getContractAddress(paymentType="USDT_BEP_20"){
     return "0xa99EaC779a8c754b89105132234A9b17C9B922D1";
   }else if(paymentType=="HUOBITOKEN_TRC_20"){
     return "TDyvndWuvX5xTBwHPYJi7J3Yq8pq8yh62h";
+  }
+}
+
+function isLoader(actionType=true){
+  if(actionType===true){
+    $("#preloader").show();
+  }else{
+    $("#preloader").hide();
   }
 }

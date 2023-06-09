@@ -69,6 +69,11 @@ class AuthController extends Controller
 
     public function store(Request $request)
     {
+        $user = User::select('email')->where('email', $request->email)->first();
+        if (isset($user->email)) {
+            $this->helper->one_time_message('danger', 'User with this email already exist');
+            return redirect()->route('user.login');
+        }
         $rules = array(
                     'name'            => 'required',
                     'email'                 => 'required|email|unique:users,email',

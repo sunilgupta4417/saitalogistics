@@ -263,41 +263,41 @@
                                                 <div class="cryptoPayments">
                                                     <div class="form-group" id="eth-btn"> 
                                                         <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon1.png" alt="" class="img-responsive">
-                                                        <label>ETH - Launching Soon</label>
+                                                        <label>ETH</label>
                                                         <input type="radio" name="payment_gateway" value="ETH" class="clickMeForPayInput" />
                                                     </div>
                                                     <div class="form-group" id="bnb-btn"> 
                                                         <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon2.png" alt="" class="img-responsive">
-                                                        <label>BNB - Launching Soon</label>
+                                                        <label>BNB</label>
                                                         <input type="radio" name="payment_gateway" value="BNB" class="clickMeForPayInput" />
                                                     </div>
                                                     <div class="form-group" id="usdtbep-btn">
                                                         <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon3.png" alt="" class="img-responsive">
-                                                        <label>USDT (BEP 20) - Launching Soon</label>
+                                                        <label>USDT (BEP 20)</label>
                                                         <input type="radio" name="payment_gateway" value="USDT_BEP_20" class="clickMeForPayInput" />  
                                                     </div>
                                                     <div class="form-group" id="usdterc-btn">
                                                         <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon4.png" alt="" class="img-responsive">
-                                                        <label>USDT (ERC 20) - Launching Soon</label>
+                                                        <label>USDT (ERC 20)</label>
                                                         <input type="radio" name="payment_gateway" value="USDT_ERC_20" class="clickMeForPayInput">
                                                     </div>
                                                     <div class="form-group" id="saitamaerc-btn">
                                                         <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon5.png" alt="" class="img-responsive">
-                                                        <label>SAITAMA (ERC 20) - Launching Soon</label>
+                                                        <label>SAITAMA (ERC 20)</label>
                                                         <input type="radio" name="payment_gateway" value="SAITAMA_ERC_20" class="clickMeForPayInput">
                                                     </div>
                                                     <div class="form-group" id="mazi-btn">
                                                         <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon6.png" alt="" class="img-responsive">
-                                                        <label>Mazimatic (Mazi BEP 20) - Coming Soon</label>
+                                                        <label>Mazimatic (Mazi BEP 20)</label>
                                                         <input type="radio" name="payment_gateway" value="MAZI_BEP_20" class="clickMeForPayInput">
                                                     </div>
-                                                    <div class="form-group" id="ht-token-btn">
+                                                    <!--<div class="form-group" id="ht-token-btn">
                                                         <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon7.png" alt="" class="img-responsive">
-                                                        <label>HT Token (TRC 20) - Launching Soon</label>
+                                                        <label>HT Token (TRC 20)</label>
                                                         <input type="radio" name="payment_gateway" value="HUOBITOKEN_TRC_20" class="clickMeForPayInput">
-                                                    </div>
+                                                    </div>-->
                                                     <!--<div class="form-group">
-                                                        <label>Mazimatic (Mazi ERC 20) - Launching Soon</label>
+                                                        <label>Mazimatic (Mazi ERC 20)</label>
                                                         <input type="radio" name="payment_gateway" value="MAZI_ERC_20" class="clickMeForPayInput">
                                                     </div>-->
                                                     <div class="form-group" id="credit-crd-btn">
@@ -398,6 +398,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.7.1/dist/umd/index.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="{{ asset('assets/js/crypto-payment.js') }}"></script>
+
     <script>
         $(document).ready(function(){
             $("input.clickMeForPayInput").on("click",function(e){
@@ -427,8 +428,7 @@
                 showCancelButton: true,
                 orderCurrency:orderCurrency,
                 successHandler: async function(response) {
-                    afterPaymentAction(response,true);  
-                    //$(".form-footer").hide();              
+                    afterPaymentAction(response,true);             
                 },
                 failedHandler: async function(response) {
                     afterPaymentAction(response,false);
@@ -438,6 +438,9 @@
             epay.open(options);
         }
         function afterPaymentAction(response,type=true){
+            setTimeout(() => {
+                isLoader(true);
+            }, 1000);
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -452,14 +455,14 @@
                 success: function (res) {
                     if((res.status=="ok") && (res.response.transt=="completed")){
                         $(".payment-successful b.successOrderNumber").html(res.response.orderid);
-                        window.location.href="{{ route('user.shipping.success',$encrypt_shipment_id) }}";
+                        window.location.href="{{ route('user.shipment.payment.success',$encrypt_shipment_id) }}";
                     }else{
 
                     }
-                    console.log(res);
+                    isLoader(false);
                 },
                 error: function (res) {
-                    /*console.log(res)*/
+                    console.log(res);
                 }
             });
         }
