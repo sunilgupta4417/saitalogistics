@@ -481,7 +481,7 @@ class DashboardController extends Controller
                 if(!empty($emailStatus)){
                     $packetObj=PacketBooking::find($packetInfo['id']);
                     $packetObj->booking_status=2;
-                    //$packetObj->save();
+                    $packetObj->save();
                     $message="Quotation accepted successfully";
                     return redirect(route('user.get_shipment'))->with('success',$message);
                 }else{
