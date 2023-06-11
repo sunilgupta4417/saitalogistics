@@ -28,7 +28,7 @@
                            <div class="row">
                                 <div class="form-group col-md-3 col-12">
                                    <label>Reference No*</label>
-                                   <input type="text" name="awb_no" required id="awb_no" class="form-control" placeholder="Enter Reference No">
+                                   <input type="text" name="reference_no" required id="reference_no" class="form-control" placeholder="Enter Reference No">
                                    <input type="hidden" name="id" id="id" value="0">
                                 </div>
                                 <div class="form-group col-md-3 col-12 hide">
@@ -390,14 +390,14 @@
 });
 
 $(document).ready(function() {
-    $("#awb_no").on("blur",function(){
-      var awb_no = $(this).val();
+    $("#reference_no").on("blur",function(){
+      var reference_no = $(this).val();
       $.ajax({
         url: "{{ url('admin/search-packet-booking') }}",
         dataType: "json",
         type: "Post",
         async: true,
-        data: {"awb_no":awb_no},
+        data: {"reference_no":reference_no},
         success: function (data) {
             if(data!=null){
                $("#id").val(data.id);

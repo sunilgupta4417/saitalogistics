@@ -105,7 +105,7 @@
                                         <tr>
                                             <th style="width:25%">Reference No</th>
                                             <th style="width:2%">:</th>
-                                            <td>{{$packet->awb_no}}</td>
+                                            <td>{{$packet->reference_no}}</td>
                                         </tr>
                                         
                                         <tr>

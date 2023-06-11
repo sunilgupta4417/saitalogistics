@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="form-group col-md-12 col-12">
                                      <label>Reference No.*</label>
-                                     <textarea type="text" name="awb_no" id="awb_no" class="form-control" placeholder="Accepts multiple Reference No. comma(,) seperated or enter seperated">{{ app('request')->input('awb_no') }}</textarea>
+                                     <textarea type="text" name="reference_no" id="reference_no" class="form-control" placeholder="Accepts multiple Reference No. comma(,) seperated or enter seperated">{{ app('request')->input('reference_no') }}</textarea>
                                 </div>
                                 <?php /*<div class="form-group col-md-4 col-12">
                                      <label>Client*</label>
@@ -151,7 +151,7 @@
                                                      <td><a class="btn btn-primary" href="{{route('packet.view',$row->id)}}"> <i class="fa fa-eye"></i></a></td>
                                                      <td>{{$row->booking_date}} </td>
                                                      <td>{{$row->csn_consignor}}</td>
-                                                     <td>{{$row->awb_no}}</td>
+                                                     <td>{{$row->reference_no}}</td>
                                                      <td>{{ucfirst($row->courier_type)}}</td>
                                                      <td>{{$row->csr_consignor}}</td>
                                                      <td>{{$row->csr_mobile_no}}</td>

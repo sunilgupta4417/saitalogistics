@@ -241,7 +241,8 @@ class DashboardController extends Controller
         $string = str_shuffle($pin);
 
         $shipment = new PacketBooking();
-        $shipment->awb_no = $string;
+        $shipment->awb_no ="";
+        $shipment->reference_no = $string;
         $shipment->booking_date = $request->date;
         $shipment->csr_pan = $request->S_pan;
         $shipment->csr_gstin = $request->S_gstin;
@@ -328,6 +329,7 @@ class DashboardController extends Controller
             $orderData['receipt_reference_no']=$packetInfo->id;
             $orderData['account_id']=$packetInfo->client_id;
             $orderData['awb_no']=$packetInfo->awb_no;
+            $orderData['reference_no']=$packetInfo->reference_no;
             $orderData['amount']=$packetInfo->shipping_charge;
             $orderData['payment_status']=($packetInfo->payment_status=="success"?"Success":"Rejected");
             $orderData['payment_date']=date("Y-m-d h:i:s", strtotime($packetInfo->created_at));
@@ -355,7 +357,8 @@ class DashboardController extends Controller
         $requestData=$request->all();
         $awbNumber=generateRandomString();
         $shipment = new PacketBooking();
-        $shipment->awb_no =$awbNumber;
+        $shipment->awb_no ="";
+        $shipment->reference_no =$awbNumber;
         $shipment->client_id = auth()->user()->id;
         $ignoreKeys=array("_token","cpickup","csr_address1_type","S_idFront","S_idBack","attach_package_list","term_conditions","weight");
         foreach($requestData as $key=>$requestValue){

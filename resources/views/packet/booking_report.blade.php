@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="form-group col-md-12 col-12">
                                      <label>Reference No.*</label>
-                                     <textarea type="text" name="awb_no" id="awb_no" class="form-control" placeholder="Accepts multiple Reference No. comma(,) seperated or enter seperated">{{ app('request')->input('awb_no') }}</textarea>
+                                     <textarea type="text" name="reference_no" id="reference_no" class="form-control" placeholder="Accepts multiple Reference No. comma(,) seperated or enter seperated">{{ app('request')->input('reference_no') }}</textarea>
                                 </div>
                                 <div class="form-group col-md-6 col-12">
                                      <label>Client*</label>
@@ -163,13 +163,13 @@
                                                     <td><a class="btn btn-primary" href="{{route('packet.view',$row->id)}}"> <i class="fa fa-eye"></i></a></td>
                                                     <td><form action="{{route('print.awb.doc.pdf')}}" method="post" target="_blank">
                                                         @csrf
-                                                            <input type="hidden" class="form-control" value="{{$row->awb_no}}" name="awb_no" placeholder="Awb No">
+                                                            <input type="hidden" class="form-control" value="{{$row->reference_no}}" name="reference_no" placeholder="Reference No">
                                                             <input type="hidden" class="form-control" value="invoice" name="print_type" id="print_type">
                                                             <button class="btn btn-primary" type="submit"><i class="fa fa-print"></i></button></form>
                                                         </td>
                                                      <td>{{$row->booking_date}} </td>
                                                      <td>{{$row->csn_consignor}}</td>
-                                                     <td>{{$row->awb_no}}</td>
+                                                     <td>{{$row->reference_no}}</td>
                                                      <td>{{$row->client_name}}</td>
                                                      <td>Pending</td>
                                                      <td>Vendor ??</td>

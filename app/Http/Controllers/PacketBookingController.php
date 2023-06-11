@@ -159,6 +159,7 @@ class PacketBookingController extends Controller
         $startdate =isset($request->startdate) ? date("Y-m-d",strtotime($request->startdate)) : NULL;
         $enddate =isset($request->enddate) ? date("Y-m-d",strtotime($request->enddate)) : NULL;
         $awb_no = isset($request->awb_no) ? $request->awb_no : NULL;
+        $reference_no = isset($request->reference_no) ? $request->reference_no : NULL;
         $booking_status = isset($request->booking_status) ? $request->booking_status : NULL;
         $destination = isset($request->destination) ? $request->destination : NULL;
         $consignor = isset($request->consignor) ? $request->consignor : NULL;
@@ -207,6 +208,12 @@ class PacketBookingController extends Controller
                 $sqlAdd->whereIn('awb_no',$array);
             }
         })
+        ->where(function ($sqlAdd) use ($reference_no){
+            if($reference_no!=NULL){
+                $array = explode(',', $reference_no);
+                $sqlAdd->whereIn('reference_no',$array);
+            }
+        })
         ->paginate(env('page_default_val'));
         return view('packet.packet_list',compact('vendor','client','packetBook'));
     }
@@ -226,6 +233,7 @@ class PacketBookingController extends Controller
         $startdate =isset($request->startdate) ? date("Y-m-d",strtotime($request->startdate)) : NULL;
         $enddate =isset($request->enddate) ? date("Y-m-d",strtotime($request->enddate)) : NULL;
         $awb_no = isset($request->awb_no) ? $request->awb_no : NULL;
+        $reference_no = isset($request->reference_no) ? $request->reference_no : NULL;
         $booking_status = isset($request->booking_status) ? $request->booking_status : NULL;
         $destination = isset($request->destination) ? $request->destination : NULL;
         $consignor = isset($request->consignor) ? $request->consignor : NULL;
@@ -288,6 +296,12 @@ class PacketBookingController extends Controller
             if($awb_no!=NULL){
                 $array = explode(',', $awb_no);
                 $sqlAdd->whereIn('awb_no',$array);
+            }
+        })
+        ->where(function ($sqlAdd) use ($reference_no){
+            if($reference_no!=NULL){
+                $array = explode(',', $reference_no);
+                $sqlAdd->whereIn('reference_no',$array);
             }
         })
         ->get();

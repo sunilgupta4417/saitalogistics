@@ -75,7 +75,7 @@ function getCountryBMCodes($key=""){
 
 function getBookingStatus($key=""){
 
-    $bookingStatus=array(0=>"Waiting Quotation",1=>"Quote Acceptance",2=>"Pay Now",3=>"Complete");
+    $bookingStatus=array(0=>"Waiting For Quotation",1=>"Quote Acceptance",2=>"Pay Now",3=>"Completed");
     if(isset($key)){
         return $bookingStatus[$key];
     }

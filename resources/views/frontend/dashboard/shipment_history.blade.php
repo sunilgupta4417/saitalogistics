@@ -31,7 +31,7 @@
                                     @foreach($shipments as $ship)
                                     <tr>
                                        <td>{{$i}}</td>
-                                       <td>{{$ship->awb_no}}</td>
+                                       <td>{{$ship->reference_no}}</td>
                                        <td>{{ \Carbon\Carbon::parse($ship->created_at)->isoFormat('Do MMM YYYY') }}</td>
                                        <td>{{$ship->packet_type}}</td>
                                        <td>{{$ship->csr_city_id}}</td>
@@ -49,29 +49,39 @@
                                           <a href="javascript:void(0);" class="clickMeForViewDetails">View Details</a>
                                           <div class="modal fade clickMeForViewBox" id="clickMeForViewDetails{{$i}}" role="dialog" >
                                              <div class="modal-dialog modal-lg vertical-align-center" style="margin-top: 80px;">
-                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                   <h4 class="modal-title">Shipment Details</h4>
-                                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                </div>
-                                                <div class="modal-body ">
-                                                   <div class="row">
+                                                <div class="modal-content">
+                                                   <div class="modal-header">
+                                                      <h4 class="modal-title">Shipment Details</h4>
+                                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                   </div>
+                                                   <div class="modal-body ">
+                                                      <div class="row">
                                                          <div class="inter-form signUpForm">
                                                             <?php 
-                                                               $shipData=$ship->toArray();
+                                                               $shipData=$ship->toArray(); 
+                                                               //mydd(array_keys($shipData));
+                                                               $ignoreFields=array("id","uuid","awb_no","client_id","S_idFront","S_idBack","dpDate","invoice_no","packet_description","attach_package_list","currency","invoice_doc","created_by","booking_status","payment_response","cdrop","cpickup","quatation_email_date","deleted_at","created_at","updated_at"); 
                                                             ?>
                                                             @foreach($shipData as $keyVal=>$shipValue)
-                                                            <div class="row mt-4">{{ucwords(str_replace("_"," ",$keyVal))}} : {{$shipValue}}</div>
+                                                               <?php 
+                                                                  if(!in_array($keyVal,$ignoreFields) && !empty($shipValue)){
+                                                                     $keyVal= str_replace("csr_","",$keyVal);
+                                                                     $keyVal= str_replace("csn_","",$keyVal);
+                                                                     $keyVal= str_replace("S_","",$keyVal);
+                                                                     $keyVal= str_replace("R_","",$keyVal);
+                                                               ?>
+                                                                     <div class="row mt-4">{{ucwords(str_replace("_"," ",$keyVal))}} : {{$shipValue}}</div>
+                                                               <?php } ?>
                                                             @endforeach
                                                          </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="modal-footer">
+                                                      <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
                                                    </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                   <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-                                                </div>
                                              </div>
-                                             </div>
-                                       </div>
+                                          </div>
                                        </td>
                                     </tr>
                                     @php($i++)
