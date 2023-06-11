@@ -36,9 +36,15 @@
                                        <td>{{$ship->packet_type}}</td>
                                        <td>{{$ship->csr_city_id}}</td>
                                        <td>{{$ship->csn_city_id}}</td>
-                                       <!-- <td class="view-btn"> 
-                                          <a href="#" class="clickMeForViewDetails">Quote Acceptance Pending</a> </td> -->
-                                       <td class="og-clr">{{ucfirst($ship->payment_status)}}</td> 
+                                       <td class="og-clr">
+                                          @if($ship->booking_status==1)
+                                             <a href="{{ route('user.create.shipment.acceptance',encryptToBase64($ship->id)) }}" class="view-btn btn-primary btn btn-sm">{{ getBookingStatus($ship->booking_status) }}</a>
+                                          @elseif($ship->booking_status==2)
+                                             <a href="{{ route('user.create.shipment.payment',encryptToBase64($ship->id)) }}" class="view-btn btn-primary btn btn-sm">{{ getBookingStatus($ship->booking_status) }}</a>
+                                          @else
+                                             {{ ucwords(getBookingStatus($ship->booking_status)) }}
+                                          @endif                                    
+                                       </td> 
                                        <td class="view-btn"> 
                                           <a href="javascript:void(0);" class="clickMeForViewDetails">View Details</a>
                                           <div class="modal fade clickMeForViewBox" id="clickMeForViewDetails{{$i}}" role="dialog" >

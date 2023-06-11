@@ -26,9 +26,9 @@
                 <div class="card">
                     <div class="col-md-12">  
                         <br>
-                        <?php if(in_array($packet->courier_type,getCourierTypes())){ ?>
+                        <?php if(in_array($packet->courier_type,getCourierTypes()) && isset($packet->booking_status) && ($packet->booking_status!=3)){ ?>
                             <div class="paymentUpdateForm">
-                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#paymentUpdateForm">Update Shipping Rates</button>
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#paymentUpdateForm">Update shipping rates</button>
                                 <!-- Modal -->
                                 <div id="paymentUpdateForm" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
@@ -78,8 +78,12 @@
                                     </div>
                                 </div>
                                 @if(!empty($packet->shipping_charge))
-                                    <a href="{{ route('packet.send.shipment.quotation.email.to.customer',$packet->id)}}" class="btn btn-info btn-sm" title="Send Quotation Email To Customer">Send Quotation Email To Customer</a>
-                                    <a href="{{ route('packet.send.shipment.payment.email.to.customer',$packet->id)}}" class="btn btn-info btn-sm" title="Send Payment Email To Customer">Send Payment Email To Customer</a>
+                                    @if(($packet->booking_status==0) || ($packet->booking_status==1))
+                                        <a href="{{ route('packet.send.shipment.quotation.email.to.customer',$packet->id)}}" class="btn btn-info btn-sm" title="Send {{ ($packet->booking_status!=0)?'again':'' }} quotation email to customer">Send {{ ($packet->booking_status!=0)?'again':'' }} quotation email to customer</a>
+                                    @endif
+                                    @if(!empty($packet->booking_status) && ($packet->booking_status==2))
+                                        <a href="{{ route('packet.send.shipment.payment.email.to.customer',$packet->id)}}" class="btn btn-info btn-sm" title="Send Payment Email To Customer">Send Payment Email To Customer</a>
+                                    @endif
                                 @endif
                             </div> 
                         <?php } ?> 

@@ -73,6 +73,17 @@ function getCountryBMCodes($key=""){
     return $countriesInfo;
 }
 
+function getBookingStatus($key=""){
+
+    $bookingStatus=array(0=>"Waiting Quotation",1=>"Quote Acceptance",2=>"Pay Now",3=>"Complete");
+    if(isset($key)){
+        return $bookingStatus[$key];
+    }
+    return $bookingStatus;
+}
+
+
+
 
 /**
  * Check Key Exixts With No Empty

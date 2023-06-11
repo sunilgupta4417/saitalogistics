@@ -629,9 +629,18 @@ class PacketBookingController extends Controller
                             "email_template"=>$orderData['email_template'],
                             "email_content"=>($orderData)
                         );
-                        sendMyEmail($orderData['email'],$emailContent);
+                        $emailStatus=sendMyEmail($orderData['email'],$emailContent);
+                        if(!empty($emailStatus)){
+                            $packetObj=PacketBooking::find($packetInfo['id']);
+                            $packetObj->booking_status=1;
+                            $packetObj->quatation_email_date=date("Y-m-d H:i:s");
+                            $packetObj->save();
+                            $message="Quotation email send successfully to customer";
+                        }else{
+                            $message="Quotation email not send to customer, please try again";
+                        }
+                        return redirect(route('packet.view',$id))->with('success',$message);
                     }
-                    $message="Quotation email send successfully to customer";
                     return redirect(route('packet.view',$id))->with('success',$message);
                 }
             }

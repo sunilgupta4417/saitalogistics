@@ -461,6 +461,39 @@ class DashboardController extends Controller
 
     }
     
+    public function acceptShipmentQuote($shipment_id="")
+    {
+        if(!empty($shipment_id)){
+            $shipment_id=decryptFromBase64($shipment_id);
+            $packetInfo = PacketBooking::where('id',$shipment_id)->get()->first();
+            if(!empty($packetInfo)){
+                $packetInfo=$packetInfo->toArray();
+                $orderData['name']=$packetInfo['csr_consignor_person']?$packetInfo['csr_consignor_person']:$packetInfo['csr_consignor'];
+                $orderData['email']=$packetInfo['csr_email_id'];
+                $orderData['subject']="Quotation accepted by customer";
+                $orderData['email_template']="emails.shipments.order_quotation_acceptance_to_customer";
+                $emailContent=array(
+                    "subject"=>$orderData['subject'],
+                    "email_template"=>$orderData['email_template'],
+                    "email_content"=>($orderData)
+                );
+                $emailStatus=sendMyEmail($orderData['email'],$emailContent);
+                if(!empty($emailStatus)){
+                    $packetObj=PacketBooking::find($packetInfo['id']);
+                    $packetObj->booking_status=2;
+                    //$packetObj->save();
+                    $message="Quotation accepted successfully";
+                    return redirect(route('user.get_shipment'))->with('success',$message);
+                }else{
+                    $message="Quotation not accepted, please contact our support";
+                    return redirect(route('user.get_shipment'))->with('error',$message);
+                }
+            }
+        }
+        $message="Quotation not accepted, please contact our support";
+        return redirect(route('user.get_shipment'))->with('error',$message);
+    }
+    
     public function getTransactions()
     {
         $data['transactions'] = PacketBooking::where(['client_id' => auth()->user()->id])->get();

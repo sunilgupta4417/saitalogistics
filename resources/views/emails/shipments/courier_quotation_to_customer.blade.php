@@ -10,6 +10,8 @@
     <p><strong>Ex Work Charges:</strong> USD{{ $emailContent['ex_work_charge'] }}</p>
     <p><strong>Total Charges:</strong> USD{{ $emailContent['total_charges'] }}</p>
     <hr/>
+    <p><strong>Acceptance Link:</strong> <a href="{{ route('user.get_shipment') }}" target="_blank">Click here to accept quotation</a></p>
+    <hr/>
     <p><strong>Terms:</strong> {{ route('terms_conditions') }}</p>
     <p><strong>Disclaimer:</strong></p>
     <ul>

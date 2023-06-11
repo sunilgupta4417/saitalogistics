@@ -68,6 +68,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['user']], function () {
     Route::get('/shipment/create/ocean', [DashboardController::class, 'create_ocean_shipment'])->name('user.create_ocean_shipment');
     Route::post('/shipment/store-new-shipment', [DashboardController::class, 'createNewShipment'])->name('user.store_new_shipment');
     Route::get('/shipment/payment/{shipment_id}', [DashboardController::class, 'createShipmentPayment'])->name('user.create.shipment.payment');
+    Route::get('/shipment/acceptance/{shipment_id}', [DashboardController::class, 'acceptShipmentQuote'])->name('user.create.shipment.acceptance');
 
 });
 Route::post('/shipping/get-rates', [ShippingController::class, 'getRates']);
@@ -92,6 +93,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::post('save-packet-booking', [PacketBookingController::class, 'savePacketBooking']);
     Route::post('search-packet-booking', [PacketBookingController::class, 'searchPacketBooking']);
     Route::post('update-shipping-charge',[PacketBookingController::class,'updateShippingRates'])->name('packet.update.shipping.charge');
+    Route::get('send-shipment-quotation-email-to-customer/{id}',[PacketBookingController::class,'sendShipmentQuotationEmailToCustomer'])->name('packet.send.shipment.quotation.email.to.customer');
     Route::get('send-shipment-payment-email-to-customer/{id}',[PacketBookingController::class,'sendShipmentPaymentEmailToCustomer'])->name('packet.send.shipment.payment.email.to.customer');
     Route::get('{courier_type}/packet-listing',[PacketBookingController::class,'packetListing'])->name('custom.packet.listing');
     Route::post('{courier_type}/packet-listing-expo',[PacketBookingController::class,'packetListingExpo'])->name('custom.packet.listing.expo');

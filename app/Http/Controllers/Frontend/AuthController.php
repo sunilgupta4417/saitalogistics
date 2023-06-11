@@ -188,7 +188,7 @@ class AuthController extends Controller
                                                               <table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-size:0pt;line-height:0pt;text-align:center;width:100%;min-width:100%"><tbody><tr><td height="20" style="font-size:0pt;line-height:0pt;text-align:center;width:100%;min-width:100%">&nbsp;</td></tr></tbody></table>
                                                               <div style="color:#b2b2b2;font-family: sans-serif;font-size: 18px;
                                                               line-height: 26px;
-                                                              text-align: center;">Thank you for choosing us and welcome to Saita Logistics! Your registered Email ID is: {email}. Password is:{password}:
+                                                              text-align: center;">Thank you for choosing us and welcome to Saita Logistics! Your registered Email ID is: {email}.
                                                               </div>
   
                                                               <div style="color:#b2b2b2;font-family: sans-serif;font-size: 18px;
