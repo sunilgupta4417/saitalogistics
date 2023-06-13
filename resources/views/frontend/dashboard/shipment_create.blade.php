@@ -730,8 +730,7 @@
             var inputValue=$(this).val();
             if(cryptoPayments.indexOf(inputValue) != -1) {
                 checkExtentions();
-                /*makePayment("","","",inputValue);*/
-            }
+            } 
         });
     });
 </script>
