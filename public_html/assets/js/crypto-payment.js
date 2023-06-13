@@ -344,7 +344,7 @@ function getContractAddress(paymentType="USDT_BEP_20"){
   if(paymentType=="USDT_BEP_20"){
     return "0x55d398326f99059fF775485246999027B3197955";
   }else if(paymentType=="MAZI_BEP_20"){
-    return "0x5B8650Cd999B23cF39Ab12e3213fbC8709c7f5CB";
+    return "0x5b8650cd999b23cf39ab12e3213fbc8709c7f5cb";
   }else if(paymentType=="USDT_ERC_20"){
     return "0xdAC17F958D2ee523a2206206994597C13D831ec7";
   }else if(paymentType=="MAZI_ERC_20"){
