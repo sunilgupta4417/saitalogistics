@@ -6,11 +6,11 @@
     <p><strong>Destination:</strong> {{ $emailContent['destination'] }}</p>
     <p><strong>Container Type:</strong> {{ $emailContent['container_type'] }}</p>
     <p><strong>Ocean Freight:</strong> USD{{ $emailContent['shipping_charge'] }}</p>
-    <p><strong>FCA Charges:</strong> USD{{ $emailContent['fca_charge'] }} /20ft or 40 Hq</p>
+    <p><strong>FCA Charges:</strong> USD{{ $emailContent['fca_charge'] }}</p>
     <p><strong>Ex Work Charges:</strong> USD{{ $emailContent['ex_work_charge'] }}</p>
     <p><strong>Total Charges:</strong> USD{{ $emailContent['total_charges'] }}</p>
     <hr/>
-    <p><strong>Acceptance Link:</strong> <a href="{{ route('user.get_shipment') }}" target="_blank">Click here to accept quotation</a></p>
+    <p><strong>Link:</strong> <a href="{{ route('user.get_shipment') }}" target="_blank">Please click here to accept the quote</a></p>
     <hr/>
     <p><strong>Terms:</strong> {{ route('terms_conditions') }}</p>
     <p><strong>Disclaimer:</strong></p>

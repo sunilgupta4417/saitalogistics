@@ -19,7 +19,7 @@
                                        <th>Sr. No.</th>
                                        <th>Reference No.</th>
                                        <th>Date</th>
-                                       <th>Shipment Type</th>
+                                       <th>Shipment Mode</th>
                                        <th>From</th>
                                        <th>To</th>
                                        <th>Status</th>
@@ -33,7 +33,7 @@
                                        <td>{{$i}}</td>
                                        <td>{{$ship->reference_no}}</td>
                                        <td>{{ \Carbon\Carbon::parse($ship->created_at)->isoFormat('Do MMM YYYY') }}</td>
-                                       <td>{{$ship->packet_type}}</td>
+                                       <td>{{ ucwords($ship->courier_type) }}</td>
                                        <td>{{$ship->csr_city_id}}</td>
                                        <td>{{$ship->csn_city_id}}</td>
                                        <td class="og-clr">

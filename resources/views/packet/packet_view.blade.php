@@ -329,7 +329,7 @@
                                         <tr>
                                             <th>Alternate Number</th>
                                             <th>:</th>
-                                            <td>{{$packet->csr_mobile_code?$packet->csr_mobile_code:""}}-{{$packet->csn_mobile_no}}</td>
+                                            <td>{{$packet->csn_mobile_code?$packet->csn_mobile_code:""}}-{{$packet->csn_mobile_no}}</td>
                                         </tr>
                                         
                                         <tr>

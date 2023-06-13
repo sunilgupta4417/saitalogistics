@@ -22,7 +22,8 @@ use App\Http\Controllers\ShipmentController;
 
 
 //WEBSITE ROUTES
-Route::get('/', [WebController::class, 'index'])->name('home');
+Route::get('/', [WebController::class, 'index'])->name('user.home');
+Route::get('/home', [WebController::class, 'index'])->name('homepage');
 Route::get('/about', [WebController::class, 'about'])->name('about');
 Route::get('/services', [WebController::class, 'services'])->name('services');
 Route::get('/tracking', [WebController::class, 'tracking'])->name('tracking');

@@ -6,7 +6,6 @@ use App\Models\User;
 use Carbon\Carbon;
 use App\Models\Country;
 use App\Models\ShippingZone;
-use Crypt;
 
 /**
  * Check array data
@@ -75,7 +74,7 @@ function getCountryBMCodes($key=""){
 
 function getBookingStatus($key=""){
 
-    $bookingStatus=array(0=>"Waiting For Quotation",1=>"Quote Acceptance",2=>"Waiting For Space",3=>"Pay Now",4=>"Completed");
+    $bookingStatus=array(0=>"Waiting For Quotation",1=>"Quote Acceptance",2=>"Quote accepted (Space Awaited)",3=>"Pay Now",4=>"Completed");
     if(isset($key)){
         return $bookingStatus[$key];
     }

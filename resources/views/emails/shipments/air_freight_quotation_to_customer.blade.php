@@ -6,7 +6,7 @@
     <p><strong>Destination:</strong> {{ $emailContent['destination'] }}</p>
     <p><strong>Chargeable Weight:</strong> {{ $emailContent['chargeable_weight'] }}</p>
     <p><strong>Air Freight:</strong> USD{{ $emailContent['shipping_charge'] }}</p>
-    <p><strong>FCA Charges:</strong> USD{{ $emailContent['fca_charge'] }} /Kg</p>
+    <p><strong>FCA Charges:</strong> USD{{ $emailContent['fca_charge'] }}</p>
     <p><strong>Ex Work Charges:</strong> USD{{ $emailContent['ex_work_charge'] }}</p>
     <p><strong>Total Charges:</strong> USD{{ $emailContent['total_charges'] }}</p>
     <hr/>
