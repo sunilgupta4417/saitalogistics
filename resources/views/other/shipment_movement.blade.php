@@ -117,7 +117,7 @@
                                                  @if(checkAccess('shipment-movement','delete_permission')) <th>Delete</th>@endif
                                                      <th>Booking Date</th>
                                                      <th>Consignee</th>
-                                                     <th>AWB No.</th>
+                                                     <th>Reference No.</th>
                                                      <th>Client</th>
                                                      <th>Status</th>
                                                      <th>Vendor</th>

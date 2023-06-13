@@ -37,8 +37,8 @@
                                    </div>
                                 </div>
                                 <div class="form-group col-md-5 col-12">
-                                     <label>AWB No*</label>
-                                     <input class="form-control" type="text" placeholder="AWB No">
+                                     <label>Reference No*</label>
+                                     <input class="form-control" type="text" placeholder="Reference No">
                                 </div>
                                 
                            </div>
@@ -83,7 +83,7 @@
                                                 @if(checkAccess('delivered-report','delete_permission'))<th>Delete</th>@endif
                                                     <th>Booking Date</th>
                                                     <th>Status</th>
-                                                    <th>AWB No.</th>
+                                                    <th>Reference No.</th>
                                                 </tr>
                                             </thead>
 

@@ -27,12 +27,12 @@
                          <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                            <div class="row">
                                 <div class="form-group col-md-3 col-12">
-                                   <label>AWB No*</label>
-                                   <input type="text" name="awb_no" required id="awb_no" class="form-control" placeholder="Enter AWB No">
+                                   <label>Reference No*</label>
+                                   <input type="text" name="reference_no" required id="reference_no" class="form-control" placeholder="Enter Reference No">
                                    <input type="hidden" name="id" id="id" value="0">
                                 </div>
-                                <div class="form-group col-md-3 col-12">
-                                   <label>Ref No*</label>
+                                <div class="form-group col-md-3 col-12 hide">
+                                   <label>AWB No*</label>
                                    <input type="text" required name="ref_no" id="ref_no" class="form-control" placeholder="Enter Ref No">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="form-group col-md-3 col-12">
                                    <label>Mobile No*</label>
-                                   <input type="text"  required name="consignor_mobile" id="consignor_mobile" class="form-control" placeholder="Enter Mobile No">
+                                   <input type="number"  required name="consignor_mobile" id="consignor_mobile" class="form-control" placeholder="Enter Mobile No">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
                                    <label>Email ID*</label>
@@ -174,7 +174,7 @@
                                 </div>
                                 <div class="form-group col-md-3 col-12">
                                    <label>Mobile No*</label>
-                                   <input type="text" required name="consignee_mobile" id="consignee_mobile" class="form-control" placeholder="Enter Mobile No">
+                                   <input type="number" required name="consignee_mobile" id="consignee_mobile" class="form-control" placeholder="Enter Mobile No">
                                 </div>
                                 <div class="form-group col-md-3 col-12">
                                    <label>Email ID*</label>
@@ -390,14 +390,14 @@
 });
 
 $(document).ready(function() {
-    $("#awb_no").on("blur",function(){
-      var awb_no = $(this).val();
+    $("#reference_no").on("blur",function(){
+      var reference_no = $(this).val();
       $.ajax({
         url: "{{ url('admin/search-packet-booking') }}",
         dataType: "json",
         type: "Post",
         async: true,
-        data: {"awb_no":awb_no},
+        data: {"reference_no":reference_no},
         success: function (data) {
             if(data!=null){
                $("#id").val(data.id);

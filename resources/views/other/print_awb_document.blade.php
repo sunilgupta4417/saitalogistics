@@ -32,7 +32,7 @@
                                </div>
                                 <div class="form-group col-md-12 col-12">
                                    <label>Awb No.*</label>
-                                   <input type="text" class="form-control" required name="awb_no" placeholder="Awb No">
+                                   <input type="text" class="form-control" required name="reference_no" placeholder="Reference No">
                                    <input type="hidden" class="form-control" name="print_type" id="print_type">
                                 </div>
                            </div>

@@ -22,7 +22,8 @@ use App\Http\Controllers\ShipmentController;
 
 
 //WEBSITE ROUTES
-Route::get('/', [WebController::class, 'index'])->name('home');
+Route::get('/', [WebController::class, 'index'])->name('user.home');
+Route::get('/home', [WebController::class, 'index'])->name('homepage');
 Route::get('/about', [WebController::class, 'about'])->name('about');
 Route::get('/services', [WebController::class, 'services'])->name('services');
 Route::get('/tracking', [WebController::class, 'tracking'])->name('tracking');
@@ -59,8 +60,17 @@ Route::group(['prefix' => 'user', 'middleware' => ['user']], function () {
     Route::get('/shipment/create', [DashboardController::class, 'create_shipment'])->name('user.create_shipment');
     Route::post('/shipment/store', [DashboardController::class, 'store_shipment'])->name('user.store_shipment');
     Route::get('/shipping/success', [DashboardController::class, 'shipping_success'])->name('user.shipping.success');
+    Route::get('/shipment/payment/success/{shipment_id}', [DashboardController::class, 'shipping_success'])->name('user.shipment.payment.success');
     Route::post('/shipment/payment', [DashboardController::class, 'store_shipment_payment'])->name('user.store_shipment_payment');
     Route::get('/shipment/transaction', [DashboardController::class, 'getTransactions'])->name('user.transactions');
+
+    Route::get('/shipment/create/courier', [DashboardController::class, 'create_courier_shipment'])->name('user.create_courier_shipment');
+    Route::get('/shipment/create/air', [DashboardController::class, 'create_air_shipment'])->name('user.create_air_shipment');
+    Route::get('/shipment/create/ocean', [DashboardController::class, 'create_ocean_shipment'])->name('user.create_ocean_shipment');
+    Route::post('/shipment/store-new-shipment', [DashboardController::class, 'createNewShipment'])->name('user.store_new_shipment');
+    Route::get('/shipment/payment/{shipment_id}', [DashboardController::class, 'createShipmentPayment'])->name('user.create.shipment.payment');
+    Route::get('/shipment/acceptance/{shipment_id}', [DashboardController::class, 'acceptShipmentQuote'])->name('user.create.shipment.acceptance');
+
 });
 Route::post('/shipping/get-rates', [ShippingController::class, 'getRates']);
 Route::get('/token', [ShippingController::class, 'getRates']);
@@ -83,6 +93,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::post('packet-listing-expo',[PacketBookingController::class,'packetListingExpo'])->name('packet.listing.expo');
     Route::post('save-packet-booking', [PacketBookingController::class, 'savePacketBooking']);
     Route::post('search-packet-booking', [PacketBookingController::class, 'searchPacketBooking']);
+    Route::post('update-shipping-charge',[PacketBookingController::class,'updateShippingRates'])->name('packet.update.shipping.charge');
+    Route::get('send-shipment-quotation-email-to-customer/{id}',[PacketBookingController::class,'sendShipmentQuotationEmailToCustomer'])->name('packet.send.shipment.quotation.email.to.customer');
+    Route::get('send-shipment-payment-email-to-customer/{id}',[PacketBookingController::class,'sendShipmentPaymentEmailToCustomer'])->name('packet.send.shipment.payment.email.to.customer');
+    Route::get('{courier_type}/packet-listing',[PacketBookingController::class,'packetListing'])->name('custom.packet.listing');
+    Route::post('{courier_type}/packet-listing-expo',[PacketBookingController::class,'packetListingExpo'])->name('custom.packet.listing.expo');
+    /*Route::get('courier-packet-listing',[PacketBookingController::class,'packetListing'])->name('courier.packet.listing');
+    Route::get('air-freight-packet-listing',[PacketBookingController::class,'courierPacketListing'])->name('air.freight.packet.listing');
+    Route::get('packet-listing',[PacketBookingController::class,'packetListing'])->name('packet.listing');*/
 
     Route::get('import-packet', [PacketBookingController::class, 'importPacket']);
     Route::post('import-packet-save', [PacketBookingController::class, 'importPacketSave'])->name('import.packet.save');

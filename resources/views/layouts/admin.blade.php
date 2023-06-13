@@ -28,11 +28,11 @@
           <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar">
             <i class="fas fa-bars" aria-hidden="true"></i>
           </a>
-          <a id="toggle_btn" class="float-left" href="javascript:void(0);">
+          <!-- <a id="toggle_btn" class="float-left" href="javascript:void(0);">
             <img src="{{ asset('admin/img/sidebar/icon-21.png') }}" alt="">
-          </a>
+          </a> -->
           <ul class="nav float-left">
-            <li>
+            <!-- <li>
               <div class="top-nav-search">
                 <a href="javascript:void(0);" class="responsive-search">
                   <i class="fa fa-search"></i>
@@ -44,15 +44,15 @@
                   </button>
                 </form>
               </div>
-            </li>
+            </li> -->
             <li>
               <a href="{{ url('/admin//') }}" class="mobile-logo d-md-block d-lg-none d-block">
-                <img src="{{ asset('admin/img/logo.png') }}" alt="" width="30" height="30">
+                <img src="{{ asset('admin/img/logo.png') }}" alt="" width="60%" >
               </a>
             </li>
           </ul>
           <ul class="nav user-menu float-right">
-            <li class="nav-item dropdown d-none d-sm-block">
+            <!-- <li class="nav-item dropdown d-none d-sm-block">
               <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-toggle="dropdown">
                 <img src="{{ asset('admin/img/sidebar/icon-22.png') }}" alt="">
               </a>
@@ -145,7 +145,7 @@
                   <a href="javascript:void(0);">View all Notifications</a>
                 </div>
               </div>
-            </li>
+            </li> -->
             <li class="nav-item dropdown d-none d-sm-block">
               <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link">
                 <img src="{{ asset('admin/img/sidebar/icon-23.png') }}" alt="">
@@ -183,10 +183,10 @@
               <i class="fas fa-ellipsis-v"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="{{ url('/admin//user-profile') }}">My Profile</a>
-                <a class="dropdown-item" href="{{ url('/admin//change-password') }}">Change Password</a>
-                {{-- <a class="dropdown-item" href="javascript:void(0);">Edit Profile</a> --}}
-                <a class="dropdown-item" href="{{ url('/admin//website-setting') }}">Settings</a>
+                <a class="dropdown-item" href="{{ url('/admin/user-profile') }}">My Profile</a>
+                <!-- <a class="dropdown-item" href="javascript:void(0);">Edit Profile</a>  -->
+                <a class="dropdown-item" href="{{ url('/admin/change-password') }}">Change Password</a>
+                <!-- <a class="dropdown-item" href="{{ url('/admin/website-setting') }}">Settings</a> -->
                 <a class="dropdown-item" href="javascript:void(0);">Logout</a>
             </div>
           </div>
@@ -224,31 +224,46 @@
                  </a>
                  <ul class="list-unstyled" style="{{ in_array(Request::segment(2), $operation_menu)?'':'display: none;' }}">
                     @if(in_array("packet-booking",$accessMenu))
-                      <li class="{{ Request::segment(2)=='packet-booking'?'active':'' }}">
+                      <!-- <li class="{{ Request::segment(2)=='packet-booking'?'active':'' }}">
                           <a href="{{ url('/admin/packet-booking') }}">
                               <span>Packet Booking</span>
                           </a>
-                      </li>
+                      </li> -->
                       <li class="{{ Request::segment(2)=='packet-listing'?'active':'' }}">
                           <a href="{{ url('/admin/packet-listing') }}">
-                              <span>Packet Listing</span>
+                              <span>Shipments Listing</span>
+                          </a>
+                      </li>
+                      <li class="{{ Request::segment(2)=='courier'?'active':'' }}">
+                          <a href="{{ url('/admin/courier/packet-listing/') }}">
+                              <span>Courier Listing</span>
+                          </a>
+                      </li>
+                      <li class="{{ Request::segment(2)=='air'?'active':'' }}">
+                          <a href="{{ url('/admin/air/packet-listing/') }}">
+                              <span>Air Freight Listing</span>
+                          </a>
+                      </li>
+                      <li class="{{ Request::segment(2)=='ocean'?'active':'' }}">
+                          <a href="{{ url('/admin/ocean/packet-listing/') }}">
+                              <span>Ocean Freight Listing</span>
                           </a>
                       </li>
                     @endif
-                    @if(in_array("import-packet",$accessMenu))
+                    <!-- @if(in_array("import-packet",$accessMenu))
                       <li class="{{ Request::segment(2)=='import-packet'?'active':'' }}">
                         <a href="{{ url('/admin/import-packet') }}">
                             <span>Import Packet</span>
                         </a>
                       </li>
-                    @endif
-                    @if(in_array("print-awb-document",$accessMenu))
+                    @endif -->
+                    <!-- @if(in_array("print-awb-document",$accessMenu))
                       <li class="{{ Request::segment(2)=='print-awb-document'?'active':'' }}">
                         <a href="{{ url('/admin/print-awb-document') }}">
                             <span>Print AWB Document</span>
                         </a>
                       </li>
-                    @endif
+                    @endif -->
                     <!-- @if(in_array("vendor-manifest",$accessMenu))
                       <li class="{{ Request::segment(2)=='vendor-manifest'?'active':'' }}">
                         <a href="{{ url('/admin/vendor-manifest') }}">
@@ -256,13 +271,13 @@
                         </a>
                       </li>
                     @endif -->
-                    @if(in_array("shipment-movement",$accessMenu))
+                   <!--  @if(in_array("shipment-movement",$accessMenu))
                       <li class="{{ Request::segment(2)=='shipment-movement'?'active':'' }}">
                         <a href="{{ url('/admin/shipment-movement') }}">
                             <span>Shipment Movement</span>
                         </a>
                       </li>
-                    @endif
+                    @endif -->
                     <!-- <li class="{{ Request::segment(2)=='pod-upload'?'active':'' }}">
                       <a href="{{ url('/admin/pod-upload') }}">
                           <span>POD Upload</span>
@@ -305,7 +320,7 @@
                         </a>
                       </li>
                     @endif -->
-                   <!--  @if(in_array("zone-master",$accessMenu))
+                    <!-- @if(in_array("zone-master",$accessMenu))
                       <li class="{{ Request::segment(2)=='zone-master'?'active':'' }}">
                         <a href="{{ url('/admin/zone-master') }}">
                             <span>Zone Master</span>
@@ -319,13 +334,13 @@
                         </a>
                       </li>
                     @endif
-                    @if(in_array("reason-master",$accessMenu))
+                    <!-- @if(in_array("reason-master",$accessMenu))
                       <li class="{{ Request::segment(2)=='reason-master'?'active':'' }}">
                         <a href="{{ url('/admin/reason-master') }}">
                             <span>Reason Master</span>
                         </a>
                       </li>
-                    @endif
+                    @endif -->
                  </ul>
                </li>
               @endif
@@ -333,7 +348,7 @@
               @php 
                 $report_menu = ['booking-report','manifest-report','delivered-report'];
               @endphp
-             <!--  @if(array_intersect($report_menu, $accessMenu))
+              @if(array_intersect($report_menu, $accessMenu))
                <li class="submenu">
                  <a href="javascript:void(0);" class="{{ in_array(Request::segment(2), $report_menu)?'subdrop':'' }}">
                   <i class="fa fa-retweet"></i>
@@ -355,16 +370,16 @@
                         </a>
                       </li>
                     @endif
-                    @if(in_array("delivered-report",$accessMenu))
+                    <!-- @if(in_array("delivered-report",$accessMenu))
                       <li class="{{ Request::segment(2)=='delivered-report'?'active':'' }}">
                         <a href="{{ url('/admin/delivered-report') }}">
                             <span>Delivered Report</span>
                         </a>
                       </li>
-                    @endif
+                    @endif -->
                  </ul>
                </li>
-              @endif -->
+              @endif
 
               @php 
                 $user_menu = ['change-password','manage-users','manage-frontend-users','role-manager'];
@@ -441,7 +456,7 @@
               @php 
                $setting_menu = ['website-setting','payment-history','user-profile','vendor-api-configuration'];
               @endphp
-             <!--  @if(array_intersect($setting_menu, $accessMenu))
+              @if(array_intersect($setting_menu, $accessMenu))
                <li class="submenu">
                  <a href="javascript:void(0);" class="{{ in_array(Request::segment(2), $setting_menu)?'subdrop':'' }}">
                   <i class="fa fa-cog"></i>
@@ -449,20 +464,20 @@
                    <span class="menu-arrow"></span>
                  </a>
                  <ul class="list-unstyled" style="{{ in_array(Request::segment(2), $setting_menu)?'':'display: none;' }}">
-                    @if(in_array("website-setting",$accessMenu))
+                   <!--  @if(in_array("website-setting",$accessMenu))
                       <li class="{{ Request::segment(2)=='website-setting'?'active':'' }}">
                           <a href="{{ url('/admin/website-setting') }}">
                               <span>Company Profile</span>
                           </a>
                       </li>
-                    @endif
-                    @if(in_array("payment-history",$accessMenu))
+                    @endif -->
+                    <!-- @if(in_array("payment-history",$accessMenu))
                       <li class="{{ Request::segment(2)=='payment-history'?'active':'' }}">
                         <a href="{{ url('/admin/payment-history') }}">
                             <span>Payment History</span>
                         </a>
                       </li>
-                    @endif
+                    @endif -->
                     @if(in_array("user-profile",$accessMenu))
                       <li class="{{ Request::segment(2)=='user-profile'?'active':'' }}">
                         <a href="{{ url('/admin/user-profile') }}">
@@ -479,7 +494,7 @@
                     @endif
                  </ul>
                </li>
-              @endif -->
+              @endif
               @php 
                $sipping_menu = ['shipment-rate','zone-rate', 'import-zone-rates', 'view-carrier-zone'];
               @endphp

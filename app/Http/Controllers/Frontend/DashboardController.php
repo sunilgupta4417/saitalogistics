@@ -123,12 +123,25 @@ class DashboardController extends Controller
 
     }
 
-    public function shipping_success()
-    {
-        $data['user'] = User::where(['id' => auth()->user()->id])->first();
-        return view('frontend.dashboard.shipment_success', $data);
+
+    public function create_courier_shipment(){
+        $data['user'] = auth()->user();
+        return view('frontend.dashboard.shipment_create_courier', $data);
 
     }
+    public function create_air_shipment()
+    {
+        $data['user'] = auth()->user();
+        return view('frontend.dashboard.shipment_create_air', $data);
+    }
+
+    public function create_ocean_shipment()
+    {
+        $data['user'] = auth()->user();
+        // $data['user'] = User::where(['id' => auth()->user()->id])->first();
+        return view('frontend.dashboard.shipment_create_ocean', $data);
+    }
+
     public function get_token()
     {
         $curl = curl_init();
@@ -158,6 +171,7 @@ class DashboardController extends Controller
     public function store_shipment(Request $request)
     {
         // return response()->json($request->all());
+    
         if ($request->S_address_type == 'Default') {
             $S_default = 1;
             $S_residential = 0;
@@ -227,7 +241,8 @@ class DashboardController extends Controller
         $string = str_shuffle($pin);
 
         $shipment = new PacketBooking();
-        $shipment->awb_no = $string;
+        $shipment->awb_no ="";
+        $shipment->reference_no = $string;
         $shipment->booking_date = $request->date;
         $shipment->csr_pan = $request->S_pan;
         $shipment->csr_gstin = $request->S_gstin;
@@ -246,13 +261,13 @@ class DashboardController extends Controller
         $shipment->S_default = $S_default;
         $shipment->S_residential = $S_residential;
         $shipment->csr_email_id = $request->S_email;
-        $shipment->csr_mobile_no = $request->s_mobile_t_code.$request->S_phone;
+        $shipment->csr_mobile_no = $request->csn_mobile_code.$request->S_phone;
         $shipment->S_idProof = $request->S_idProof;
         $shipment->S_idFront = $frontImg;
         $shipment->S_idBack = $backImg;
         $shipment->csn_country_id = $request->R_country;
         $shipment->csn_consignor = $request->R_name;
-        $shipment->csn_contact_person = $request->r_mobile_c_code.$request->R_contact;
+        $shipment->csn_contact_person = $request->csn_contact_person_code.$request->R_contact;
         $shipment->csn_address1 = $request->R_address;
         $shipment->csn_address2 = $request->R_appartment;
         $shipment->csn_address3 = $request->R_department;
@@ -261,7 +276,7 @@ class DashboardController extends Controller
         $shipment->csn_tan_number = $request->R_tan;
         $shipment->R_other = $request->R_other;
         $shipment->csn_email_id = $request->R_email;
-        $shipment->csn_mobile_no = $request->r_mobile_t_code.$request->R_phone;
+        $shipment->csn_mobile_no = $request->csr_mobile_code.$request->R_phone;
         $shipment->courier_type = $request->courier_type;
         $shipment->pcs_weight = $request->weight;
         $shipment->chargeable_weight = $request->chargeable_weight;
@@ -298,13 +313,12 @@ class DashboardController extends Controller
         return response()->json($responseData);
     }
 
-
     public function store_shipment_payment(Request $request)
     {
         $payment_gateway=isset($request->payment_gateway)?$request->payment_gateway:"Epay";
         $payment_type=isset($request->payment_type)?$request->payment_type:"online";
         if(($request->status=="ok") && ($request->response["transt"]=="completed")){
-            PacketBooking::where("id",$request->id)->update(["payment_gateway"=>$payment_gateway,"payment_status"=>"success","payment_type"=>$payment_type,"payment_response"=>$request->response]);
+            PacketBooking::where("id",$request->id)->update(["payment_gateway"=>$payment_gateway,"payment_status"=>"success","payment_type"=>$payment_type,"payment_response"=>$request->response,"booking_status"=>4]);
         }else{
             PacketBooking::where("id",$request->id)->update(["payment_gateway"=>$payment_gateway,"payment_status"=>"failed","payment_type"=>$payment_type,"payment_response"=>$request->response]);
         }
@@ -315,6 +329,7 @@ class DashboardController extends Controller
             $orderData['receipt_reference_no']=$packetInfo->id;
             $orderData['account_id']=$packetInfo->client_id;
             $orderData['awb_no']=$packetInfo->awb_no;
+            $orderData['reference_no']=$packetInfo->reference_no;
             $orderData['amount']=$packetInfo->shipping_charge;
             $orderData['payment_status']=($packetInfo->payment_status=="success"?"Success":"Rejected");
             $orderData['payment_date']=date("Y-m-d h:i:s", strtotime($packetInfo->created_at));
@@ -332,9 +347,154 @@ class DashboardController extends Controller
         $responseData = array(
             'id' => $request->id,
             'status' => $request->status,
-            'response' => $request->response
+            'response' => $request->response,
+            'redirect_url' => route('user.shipping.success',encryptToBase64($packetInfo->id))
         );
         return response()->json($responseData);
+    }
+    public function createNewShipment(Request $request){
+        // return response()->json($request->all());
+        $requestData=$request->all();
+        $awbNumber=generateRandomString();
+        $shipment = new PacketBooking();
+        $shipment->awb_no ="";
+        $shipment->reference_no =$awbNumber;
+        $shipment->client_id = auth()->user()->id;
+        $ignoreKeys=array("_token","cpickup","csr_address1_type","S_idFront","S_idBack","attach_package_list","term_conditions","weight");
+        foreach($requestData as $key=>$requestValue){
+            if(!in_array($key,$ignoreKeys)){
+                if(!empty($requestValue)){ 
+                    $shipment->$key=$requestValue;
+                }else{
+                    $shipment->$key="";
+                }
+            }
+            if($key=="booking_date"){
+                $shipment->dpDate=$requestValue;
+            }
+            if($key=="cpickup"){
+                $shipment->cpickup=($requestValue=="PICKUP")?1:0;
+                $shipment->cdrop=($requestValue=="DROPOFF")?1:0;
+            }
+            if($key=="csr_address1_type"){
+                $shipment->S_default=($requestValue=="Default")?1:0;
+                $shipment->S_residential=($requestValue=="Residential")?1:0;
+            }
+            if($key=="S_idFront"){
+                $imageName = "f".time().'.'.$requestValue->extension();
+                $requestValue->move(public_path('logistics/reference_files/'), $imageName);
+                $shipment->$key=$imageName;
+            }
+            if($key=="S_idBack"){
+                $imageName = "b".time().'.'.$requestValue->extension();
+                $requestValue->move(public_path('logistics/reference_files/'), $imageName);
+                $shipment->$key=$imageName;
+            }
+            if($key=="attach_package_list"){
+                $imageName = "pl".time().'.'.$requestValue->extension();
+                $requestValue->move(public_path('logistics/reference_files/'), $imageName);
+                $shipment->$key=$imageName;
+            }
+        }
+        $shipment->payment_gateway = 'none';
+        $shipment->payment_status = 'pending';
+        //mydd($shipment);
+        $shipment->save();
+        /**Send Email To Customer */
+        if(!empty($shipment)){
+            $orderData['name']=$shipment->csr_consignor_person?$shipment->csr_consignor_person:$shipment->csr_consignor;
+            $orderData['origin']=$shipment->csr_country_id?getCountries($shipment->csr_country_id):"";
+            $orderData['destination']=$shipment->csn_country_id?getCountries($shipment->csn_country_id):"";
+            $orderData['booking_date']=$shipment->booking_date?date("Y-m-d h:i:s",strtotime($shipment->booking_date)):"";
+            $orderData['email']=$shipment->csr_email_id;
+            if(!empty($shipment->courier_type) && ($shipment->courier_type=="courier")){
+                $orderData['subject']="Courier shipment created";
+                $orderData['email_template']="emails.shipments.couirer_order_to_customer";
+            }elseif(!empty($shipment->courier_type) && ($shipment->courier_type=="air")){
+                $orderData['subject']="Air freight shipment created";
+                $orderData['email_template']="emails.shipments.air_freight_order_to_customer";
+                $orderData['weight']=$shipment->pcs_weight?$shipment->pcs_weight:"";
+            }elseif(!empty($shipment->courier_type) && ($shipment->courier_type=="ocean")){
+                $orderData['subject']="Ocean freight shipment created";
+                $orderData['email_template']="emails.shipments.ocean_freight_order_to_customer";
+                $orderData['container_type']=$shipment->container_type?$shipment->container_type:"";
+            }
+            $emailContent=array(
+                "subject"=>$orderData['subject'],
+                "email_template"=>$orderData['email_template'],
+                "email_content"=>($orderData)
+            );
+            $emailStatus=sendMyEmail($orderData['email'],$emailContent);
+        }
+        $responseData = array(
+            'id' => $shipment->id,
+            'user_email' => $shipment->csr_email_id,
+            'client_id' => $shipment->client_id
+        );
+        return response()->json($responseData);  
+    }
+    
+    public function createShipmentPayment($shipment_id="")
+    {
+        if(!empty($shipment_id)){
+            $data['encrypt_shipment_id']=$shipment_id;
+            $shipment_id=decryptFromBase64($shipment_id);
+            $shipments = PacketBooking::find($shipment_id);
+            if(!empty($shipments)){
+                $shipments=$shipments->toArray();
+                $data['shipments']=$shipments;
+            }
+        }
+        $data['user'] =auth()->user();
+        return view('frontend.dashboard.shipment_payment', $data);
+    }
+    
+    public function shipping_success($shipment_id="")
+    {
+        if(!empty($shipment_id)){
+            $shipment_id=decryptFromBase64($shipment_id);
+            $shipments = PacketBooking::find($shipment_id);
+            if(!empty($shipments)){
+                $shipments=$shipments->toArray();
+                $data['shipments']=$shipments;
+            }
+        }
+        $data['user'] =auth()->user();
+        return view('frontend.dashboard.shipment_success', $data);
+
+    }
+    
+    public function acceptShipmentQuote($shipment_id="")
+    {
+        if(!empty($shipment_id)){
+            $shipment_id=decryptFromBase64($shipment_id);
+            $packetInfo = PacketBooking::where('id',$shipment_id)->get()->first();
+            if(!empty($packetInfo)){
+                $packetInfo=$packetInfo->toArray();
+                $orderData['name']=$packetInfo['csr_consignor_person']?$packetInfo['csr_consignor_person']:$packetInfo['csr_consignor'];
+                $orderData['email']=$packetInfo['csr_email_id'];
+                $orderData['subject']="Quotation accepted by customer";
+                $orderData['email_template']="emails.shipments.order_quotation_acceptance_to_customer";
+                $emailContent=array(
+                    "subject"=>$orderData['subject'],
+                    "email_template"=>$orderData['email_template'],
+                    "email_content"=>($orderData)
+                );
+                $emailStatus=sendMyEmail($orderData['email'],$emailContent);
+                if(!empty($emailStatus)){
+                    $packetObj=PacketBooking::find($packetInfo['id']);
+                    $packetObj->booking_status=2;
+                    $packetObj->save();
+                    $message="Quotation accepted successfully";
+                    return redirect(route('user.get_shipment'))->with('success',$message);
+                }else{
+                    $message="Quotation not accepted, please contact our support";
+                    return redirect(route('user.get_shipment'))->with('error',$message);
+                }
+            }
+        }
+        $message="Quotation not accepted, please contact our support";
+        return redirect(route('user.get_shipment'))->with('error',$message);
     }
     
     public function getTransactions()

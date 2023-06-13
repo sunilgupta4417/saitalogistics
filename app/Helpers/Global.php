@@ -7,7 +7,6 @@ use Carbon\Carbon;
 use App\Models\Country;
 use App\Models\ShippingZone;
 
-
 /**
  * Check array data
  * 
@@ -43,6 +42,14 @@ function getCountries($key=""){
 }
 
 /**
+ * get Countries
+ * 
+ * */
+function getCountriesByIds($countryIds=array()){
+    return ShippingZone::select("id","country")->whereIn('id',$countryIds)->get()->toArray();
+}
+
+/**
  * get Country form country table
  * 
  * */
@@ -64,6 +71,17 @@ function getCountryBMCodes($key=""){
     }
     return $countriesInfo;
 }
+
+function getBookingStatus($key=""){
+
+    $bookingStatus=array(0=>"Waiting For Quotation",1=>"Quote Acceptance",2=>"Quote accepted (Space Awaited)",3=>"Pay Now",4=>"Completed");
+    if(isset($key)){
+        return $bookingStatus[$key];
+    }
+    return $bookingStatus;
+}
+
+
 
 
 /**
@@ -134,6 +152,64 @@ function generateOtp(){
     $randomNumber = random_int(100000, 999999);
     return $randomNumber;
 }
+
+/**
+ * Generate Random Numbers
+ * */
+function generateRandomString(){
+    // Available alpha caracters
+    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    // generate a pin based on 2 * 7 digits + a random character
+    $pin = mt_rand(1000000, 9999999) . mt_rand(1000000, 9999999) . $characters[rand(0, strlen($characters) - 1)];
+    // shuffle the result
+    $string = str_shuffle($pin);
+    return $string;
+}
+function getLogisRefImagePath($imageName=""){
+    if(!empty($imageName)){
+        return "logistics/reference_files/".$imageName;
+    }else{
+        return "logistics/reference_files/";
+    }
+}
+function getCourierTypes(){
+    $shipments=array("air","ocean","courier");
+    return $shipments;
+}
+function getAlphabates($key="",$limit=25){
+    $alphabates=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+    $counter=0;
+    $startAlpha=0;
+    for($i=26; $i<=$limit;$i++){
+        $alphabates[]=$alphabates[$startAlpha].$alphabates[$counter];
+        $counter++;
+        if($counter==26){
+            $counter=0;
+        }
+        if($i==51){
+            $startAlpha=1;
+        }elseif($counter==77){
+            $startAlpha=2;
+        }
+    }
+    if(isset($key)){
+        return $alphabates[$key];
+    }
+    return $alphabates;
+}
+
+function encryptToBase64($key=""){
+    if(!empty($key)){
+        return "WA".base64_encode(base64_encode($key));
+    }
+}
+function decryptFromBase64($key=""){
+    if(!empty($key)){
+        $key=substr($key,2);
+        return base64_decode(base64_decode($key));
+    }
+}
+
 
 function sendMySMS($toMobile="",$messageContent=array()){
     try {

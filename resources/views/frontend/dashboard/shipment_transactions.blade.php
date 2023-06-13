@@ -30,7 +30,7 @@
                                     <tr>
                                        <td>{{$transaction->id}}</td>
                                        <td>{{ \Carbon\Carbon::parse($transaction->created_at)->isoFormat('Do MMM YYYY') }}</td>
-                                       <td>${{$transaction->shipping_charge}}</td>
+                                       <td>${{$transaction->total_charges}}</td>
                                        <td>{{$transaction->payment_gateway}}</td>
                                        <td class="og-clr">{{ucfirst($transaction->payment_status)}}</td>
                                        <td class="view-btn"> 
@@ -55,7 +55,7 @@
                                                                      </tr>
                                                                      <tr>
                                                                         <td>Paid Amt.</td>
-                                                                        <td>$<?php echo checkKeyExists("shipping_charge",$transactionData);?></td>
+                                                                        <td>$<?php echo checkKeyExists("total_charges",$transactionData);?></td>
                                                                      </tr>
                                                                      <tr>
                                                                         <td>Transaction ID</td>
