@@ -25,8 +25,50 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
                     <div class="col-md-12">  
+                        <div class="shipmentStepsFlow">
+                            <div class="process-wrap active-step{{($packet->booking_status+1)}}">
+                                <div class="process-main">
+                                    <div class="col-3 ">
+                                        <div class="process-step-cont">
+                                            <div class="process-step step-1"></div>
+                                            <span class="process-label">Shipment Request</span>
+                                            <?php /*<div class="process-dot-cont">
+                                                <div class="process-dots ship-process-dot-1"></div>
+                                                <div class="process-dots ship-process-dot-2"></div>
+                                                <div class="process-dots ship-process-dot-3"></div>
+                                                <div class="process-dots ship-process-dot-4"></div>
+                                            </div>*/?>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 ">
+                                        <div class="process-step-cont">
+                                            <div class="process-step step-2"></div>
+                                            <span class="process-label">Quotation Sended</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="process-step-cont">
+                                            <div class="process-step step-3"></div>
+                                            <span class="process-label">Quotation Accepted</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="process-step-cont">
+                                            <div class="process-step step-4"></div>
+                                            <span class="process-label">Space Arranged</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="process-step-cont">
+                                            <div class="process-step step-5"></div>
+                                            <span class="process-label">Completed</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <br>
-                        <?php if(in_array($packet->courier_type,getCourierTypes()) && isset($packet->booking_status) && ($packet->booking_status!=3)){ ?>
+                        <?php if(in_array($packet->courier_type,getCourierTypes()) && isset($packet->booking_status) && ($packet->booking_status!=4)){ ?>
                             <div class="paymentUpdateForm">
                                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#paymentUpdateForm">Update shipping rates</button>
                                 <!-- Modal -->
@@ -78,6 +120,7 @@
                                     </div>
                                 </div>
                                 @if(!empty($packet->shipping_charge))
+                                <?php //echo $packet->booking_status; exit;?>
                                     @if(($packet->booking_status==0) || ($packet->booking_status==1))
                                         <a href="{{ route('packet.send.shipment.quotation.email.to.customer',$packet->id)}}" class="btn btn-info btn-sm" title="Send {{ ($packet->booking_status!=0)?'again':'' }} quotation email to customer">Send {{ ($packet->booking_status!=0)?'again':'' }} quotation email to customer</a>
                                     @endif
@@ -114,24 +157,24 @@
                                             <td>{{$packet->booking_date}}</td>
                                         </tr>
                                         <tr>
-                                            <th colspan="3" class="height-light">Consignor Details</th>
+                                            <th colspan="3" class="height-light">Orgin Details</th>
                                         </tr>
                                         <tr>
-                                            <th>Consignor</th>
+                                            <th>Company Name</th>
                                             <th>:</th>
                                             <td>{{$packet->csr_consignor}}</td>
                                         </tr>
                                         @if(!empty($packet->csr_consignor_person))
                                         <tr>
-                                            <th>Consignor Person Name</th>
+                                            <th>Contact Person Name</th>
                                             <th>:</th>
-                                            <td>{{$packet->csr_consignor}}</td>
+                                            <td>{{$packet->csr_consignor_person }}</td>
                                         </tr>
                                         @endif
                                         <tr>
-                                            <th>CPerson</th>
+                                            <th>Contact Number</th>
                                             <th>:</th>
-                                            <td>{{$packet->csr_contact_person_code?$packet->csr_contact_person_code:""}}{{$packet->csr_contact_person}}</td>
+                                            <td>{{$packet->csr_contact_person_code?$packet->csr_contact_person_code:""}}-{{$packet->csr_contact_person}}</td>
                                         </tr>
                                         <tr>
                                             <th>Address1</th>
@@ -156,7 +199,7 @@
                                         <tr>
                                             <th>Country</th>
                                             <th>:</th>
-                                            <td>{{$packet->csr_country_id}}</td>
+                                            <td>{{getCountries($packet->csr_country_id)}}</td>
                                         </tr>
                                         <tr>
                                             <th>State</th>
@@ -169,9 +212,9 @@
                                             <td>{{$packet->csr_city_id}}</td>
                                         </tr>
                                         <tr>
-                                            <th>Mobile No</th>
+                                            <th>Alternate Number</th>
                                             <th>:</th>
-                                            <td>{{$packet->csr_mobile_code?$packet->csr_mobile_code:""}}{{$packet->csr_mobile_no}}</td>
+                                            <td>{{$packet->csr_mobile_code?$packet->csr_mobile_code:""}}-{{$packet->csr_mobile_no}}</td>
                                         </tr>
                                         <tr>
                                             <th>Email</th>
@@ -229,24 +272,24 @@
                                         </tr>
                                         @endif
                                         <tr>
-                                            <th colspan="3" class="height-light">Consignee Details</th>
+                                            <th colspan="3" class="height-light">Destination Details</th>
                                         </tr>
                                         <tr>
-                                            <th>Consignee</th>
+                                            <th>Company Name</th>
                                             <th>:</th>
                                             <td>{{$packet->csn_consignor}}</td>
                                         </tr>
                                         @if(!empty($packet->csn_consignor_person))
                                         <tr>
-                                            <th>Consignee Person Name</th>
+                                            <th>Contact Person Name</th>
                                             <th>:</th>
                                             <td>{{$packet->csn_consignor_person}}</td>
                                         </tr>
                                         @endif                                        
                                         <tr>
-                                            <th>CPerson</th>
+                                            <th>Contact Number</th>
                                             <th>:</th>
-                                            <td>{{ $packet->csn_contact_person_code?$packet->csn_contact_person_code:""}}{{$packet->csn_contact_person}}</td>
+                                            <td>{{ $packet->csn_contact_person_code?$packet->csn_contact_person_code:""}}-{{$packet->csn_contact_person}}</td>
                                         </tr>
                                         <tr>
                                             <th>Address1</th>
@@ -284,9 +327,9 @@
                                             <td>{{$packet->csn_city_id}}</td>
                                         </tr>
                                         <tr>
-                                            <th>Mobile No</th>
+                                            <th>Alternate Number</th>
                                             <th>:</th>
-                                            <td>{{$packet->csr_mobile_code?$packet->csr_mobile_code:""}}{{$packet->csn_mobile_no}}</td>
+                                            <td>{{$packet->csr_mobile_code?$packet->csr_mobile_code:""}}-{{$packet->csn_mobile_no}}</td>
                                         </tr>
                                         
                                         <tr>
@@ -340,11 +383,13 @@
                                             <td>{{ $packet->container_type }}</td>
                                         </tr>
                                         @endif
+                                        @if(!empty($packet->packet_type))
                                         <tr>
                                             <th>Packet Type</th>
                                             <th>:</th>
                                             <td>{{$packet->packet_type}}</td>
                                         </tr>
+                                        @endif
                                         @if(!empty($packet->pcs_weight))
                                         <tr>
                                             <th>Weight</th>
@@ -412,7 +457,18 @@
                                         <tr>
                                             <th>Attach Packing List</th>
                                             <th>:</th>
-                                            <td><img width="100" height="100" src="{{url(getLogisRefImagePath($packet->attach_package_list))}}" alt="Image"/></td>
+                                            <td>
+                                                <?php 
+                                                    $imagesExt=array("jpeg","jpg","png");
+                                                    $extName = pathinfo($packet->attach_package_list, PATHINFO_EXTENSION);
+                                                    if(in_array($extName,$imagesExt)){
+                                                ?>
+                                                        <img width="100" height="100" src="{{url(getLogisRefImagePath($packet->attach_package_list))}}" alt="Image"/>
+                                                <?php }else{ ?>
+                                                        <a href="{{url('logistics/reference_files/'.$packet->attach_package_list)}}" target="_blank">Download Document</a>
+                                                <?php }?>
+                                                
+                                            </td>
                                         </tr>
                                         @endif
                                         <tr>

@@ -17,7 +17,7 @@
                                  <thead>
                                     <tr>
                                        <th>Sr. No.</th>
-                                       <th>Waybill No.</th>
+                                       <th>Reference No.</th>
                                        <th>Date</th>
                                        <th>Shipment Type</th>
                                        <th>From</th>
@@ -39,7 +39,7 @@
                                        <td class="og-clr">
                                           @if($ship->booking_status==1)
                                              <a href="{{ route('user.create.shipment.acceptance',encryptToBase64($ship->id)) }}" class="view-btn btn-primary btn btn-sm">{{ getBookingStatus($ship->booking_status) }}</a>
-                                          @elseif($ship->booking_status==2)
+                                          @elseif($ship->booking_status==3)
                                              <a href="{{ route('user.create.shipment.payment',encryptToBase64($ship->id)) }}" class="view-btn btn-primary btn btn-sm">{{ getBookingStatus($ship->booking_status) }}</a>
                                           @else
                                              {{ ucwords(getBookingStatus($ship->booking_status)) }}

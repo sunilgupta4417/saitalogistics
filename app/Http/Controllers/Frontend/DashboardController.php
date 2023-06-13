@@ -318,7 +318,7 @@ class DashboardController extends Controller
         $payment_gateway=isset($request->payment_gateway)?$request->payment_gateway:"Epay";
         $payment_type=isset($request->payment_type)?$request->payment_type:"online";
         if(($request->status=="ok") && ($request->response["transt"]=="completed")){
-            PacketBooking::where("id",$request->id)->update(["payment_gateway"=>$payment_gateway,"payment_status"=>"success","payment_type"=>$payment_type,"payment_response"=>$request->response]);
+            PacketBooking::where("id",$request->id)->update(["payment_gateway"=>$payment_gateway,"payment_status"=>"success","payment_type"=>$payment_type,"payment_response"=>$request->response,"booking_status"=>4]);
         }else{
             PacketBooking::where("id",$request->id)->update(["payment_gateway"=>$payment_gateway,"payment_status"=>"failed","payment_type"=>$payment_type,"payment_response"=>$request->response]);
         }
@@ -403,7 +403,7 @@ class DashboardController extends Controller
         /**Send Email To Customer */
         if(!empty($shipment)){
             $orderData['name']=$shipment->csr_consignor_person?$shipment->csr_consignor_person:$shipment->csr_consignor;
-            $orderData['origin']=$shipment->csr_country_id?$shipment->csr_country_id:"";
+            $orderData['origin']=$shipment->csr_country_id?getCountries($shipment->csr_country_id):"";
             $orderData['destination']=$shipment->csn_country_id?getCountries($shipment->csn_country_id):"";
             $orderData['booking_date']=$shipment->booking_date?date("Y-m-d h:i:s",strtotime($shipment->booking_date)):"";
             $orderData['email']=$shipment->csr_email_id;

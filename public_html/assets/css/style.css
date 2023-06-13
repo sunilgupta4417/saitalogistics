@@ -423,7 +423,9 @@ a:hover {
   top: 100%;
   padding-bottom: 20px;
 }
-
+.nav-item.dropdown .dropdown-menu a:hover {
+    color: #ff5d21;
+}
 .header-bar.fixed-header .main-navigation {
   position: fixed;
   left: 0;

@@ -12,7 +12,7 @@
 </div>
 <div class="form-group">
     <label>Contact Person Name*</label>
-    <input type="text" name="csr_consignor_person" value="">
+    <input type="text" name="csr_consignor_person" value="{{ $user->name }}">
 </div>
 <div class="form-group">
     <label>Company Name*</label>
@@ -22,11 +22,11 @@
     <label>Contact Number*</label>
     <select name="csr_contact_person_code" class="select-code-packb">
          @foreach(getCountryBMDCodes() as $countries)
-            <option value="{{$countries['mobile_code']}}" >{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
+            <option value="{{$countries['mobile_code']}}" @if($user->phn_code==$countries['mobile_code']) selected @endif >{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
         @endforeach         
     </select>
     <i class="fa fa-mobile"></i>
-    <input type="text" id="csr_contact_person" name="csr_contact_person" value="">
+    <input type="text" id="csr_contact_person" name="csr_contact_person" value="{{ $user->mobile_no }}">
 </div>
 <div class="form-group">
     <label>Address*</label>
@@ -88,17 +88,17 @@
 <div class="form-group"></div>
 <div class="form-group">
     <label>Email Id*</label>
-    <input type="email" name="csr_email_id" value="">
+    <input type="email" name="csr_email_id" value="{{ $user->email }}">
 </div>
 <div class="form-group  select-code-packb">
     <label>Alternate Number</label>
     <select name="csr_mobile_code" class="select-code-packb">
          @foreach(getCountryBMDCodes() as $countries)
-            <option value="{{$countries['mobile_code']}}" >{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</otion>
+            <option value="{{$countries['mobile_code']}}" @if($user->phn_code==$countries['mobile_code']) selected @endif >{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</otion>
         @endforeach        
     </select>
     <i class="fa fa-mobile"></i>
-    <input type="text" id="csr_mobile_no" name="csr_mobile_no" value="">
+    <input type="text" id="csr_mobile_no" name="csr_mobile_no" value="{{ $user->mobile_no }}">
 </div>
 <div class="form-group">
     <label>KYC Document* (Please Select Any One)</label>

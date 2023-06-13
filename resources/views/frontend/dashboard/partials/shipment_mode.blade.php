@@ -18,7 +18,7 @@
 </div>
 <div class="form-group">
     <label>Appointment date and time</label>
-    <input  type="datetime-local" name="booking_date">
+    <input type="datetime-local" name="booking_date">
 </div>
 <div id="div1" class="">
     <div class="pickup-details">
@@ -29,9 +29,9 @@
                 <p id="pickup_from_name">xxxxx</p>
                 <p id="pickup_from_address">xxxxxxx</p>
                 <b id="pickup_from_number">+xxxxxx</b>
-                <div class="pickup-details-link">
+                <?php /*<div class="pickup-details-link">
                     <a href="javascript:void(0);" class="edit_frm_ad_btn">Edit</a>
-                </div>
+                </div>*/?>
             </div>
         </div>
     </div>

@@ -56,7 +56,7 @@ class AuthController extends Controller
         }
             if (Auth::guard('web')->attempt(['email' => trim($request['email']), 'password' => trim($request['password'])]))
             {
-                return redirect()->route('user.dashboard');
+                return redirect()->route('home');
             }
             else
             {

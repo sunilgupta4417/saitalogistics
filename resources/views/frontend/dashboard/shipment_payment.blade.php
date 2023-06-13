@@ -392,14 +392,48 @@
 @section('extra_body_scripts')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://epay.me/sdk/v2/stage-websdk.js"></script>
+    <script src="https://epay.me/sdk/v2/websdk.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.7.1/dist/umd/index.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="{{ asset('assets/js/crypto-payment.js') }}"></script>
-
     <script>
+        import { WalletConnectWallet, WalletConnectChainID } from '@tronweb3/walletconnect-tron';
+            const wallet = new WalletConnectWallet({
+            network: WalletConnectChainID.Mainnet,
+            options: {
+                relayUrl: 'wss://relay.walletconnect.com',
+                projectId: '....',
+                metadata: {
+                name: 'JustLend',
+                description: 'JustLend WalletConnect',
+                url: 'https://app.justlend.org/',
+                icons: ['https://app.justlend.org/mainLogo.svg']
+                }
+            },
+            web3ModalConfig: {
+                themeMode: 'dark',
+                themeVariables: {
+                '--w3m-z-index': 1000
+                },
+                /**
+                 * Recommended Wallets are fetched from WalletConnect explore api:
+                 * https://walletconnect.com/explorer?type=wallet&version=2.
+                 * You can copy these ids from the page.
+                 */ 
+                explorerRecommendedWalletIds: [
+                '1ae92b26df02f0abca6304df07debccd18262fdf5fe82daa81593582dac9a369',
+                '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0'
+                ]
+            }
+            });
+        return false;
+
+
+
+
+
         $(document).ready(function(){
             $("input.clickMeForPayInput").on("click",function(e){
                 var inputValue=$(this).val();

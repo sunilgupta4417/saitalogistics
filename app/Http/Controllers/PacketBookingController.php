@@ -594,6 +594,7 @@ class PacketBookingController extends Controller
             'fca_charge' => isset($request->fca_charge) ? $request->fca_charge :0,
             'ex_work_charge' => isset($request->ex_work_charge) ? $request->ex_work_charge :0,
             'total_charges' =>$total_charges,
+            'booking_status'=>0
         ];
         if(!empty($request->id)){
             $result = PacketBooking::where('id',$request->id)->update($data);
@@ -694,7 +695,16 @@ class PacketBookingController extends Controller
                             "email_template"=>$orderData['email_template'],
                             "email_content"=>($orderData)
                         );
-                        sendMyEmail($orderData['email'],$emailContent);
+                        $emailStatus=sendMyEmail($orderData['email'],$emailContent);
+                        if(!empty($emailStatus)){
+                            $packetObj=PacketBooking::find($packetInfo['id']);
+                            $packetObj->booking_status=3;
+                            $packetObj->save();
+                            $message="Payment link email send successfully to customer";
+                            return redirect(route('packet.view',$id))->with('success',$message);
+                        }else{
+                            $message="Payment link email not send to customer, please try again";
+                        }
                     }
                     $message="Paymnet link email send successfully to customer";
                     return redirect(route('packet.view',$id))->with('success',$message);
