@@ -60,7 +60,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Postcode*</label>
-                                        <input type="number" name="csr_pincode"  value="">
+                                        <input type="text" name="csr_pincode"  value="">
                                     </div>
                                     <div class="form-group">
                                         <label>City*</label>
@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Individual ID</label>
-                                        <input type="number" name="csr_aadharno" value="">
+                                        <input type="text" name="csr_aadharno" value="">
                                     </div>
                                     <div class="form-group">
                                         &nbsp;
@@ -190,7 +190,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Postcode*</label>
-                                        <input type="number" name="csn_pincode"  value="">
+                                        <input type="text" name="csn_pincode"  value="">
                                     </div>
                                     <div class="form-group">
                                         <label>City*</label>
@@ -258,31 +258,31 @@
 
                                         <div class="form-group">
                                             <label>Gross Weight KG</label>
-                                            <input type="number" name="pcs_weight" value="">
+                                            <input type="number" name="pcs_weight" placeholder="Please enter approximate value" value="">
                                         </div>
                                         <div class="form-group">
                                             <label>Chargeable Weight KG</label>
-                                            <input type="number" name="chargeable_weight" id="chargeableWeight" readonly>
+                                            <input type="number" placeholder="It will be automatically filled" name="chargeable_weight" id="chargeableWeight" readonly>
                                         </div>
                                         <div class="form-group">
                                             <label>Length CM</label>
-                                            <input type="number" name="length"  value="">
+                                            <input type="number" name="length" placeholder="Please enter approximate value"  value="">
                                         </div>
                                         <div class="form-group">
                                             <label>Width CM</label>
-                                            <input type="number" name="width"  value="">
+                                            <input type="number" name="width" placeholder="Please enter approximate value"  value="">
                                         </div>
                                         <div class="form-group">
                                             <label>Height CM</label>
-                                            <input type="number" name="height"  value="">
+                                            <input type="number" name="height" placeholder="Please enter approximate value"  value="">
                                         </div>
                                         <div class="form-group">
                                             <label>Declared Value $</label>
-                                            <input type="number" name="dvalue"  value="">
+                                            <input type="number" name="dvalue" placeholder="Please enter approximate value"  value="">
                                         </div>
                                         <div class="form-group">
                                             <label>Estimated Air Freight Cost $</label>
-                                            <input type="text" name="shipping_charge" readonly>
+                                            <input type="text" name="shipping_charge" placeholder="It will be automatically filled" readonly>
                                         </div>
                                         <div class="form-group">
                                             <button type="button" class="btn btn-main-2 track-shipment-clr" id="getCourierRates">Get Rates</button>

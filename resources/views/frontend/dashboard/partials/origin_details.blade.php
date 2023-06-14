@@ -42,7 +42,7 @@
 </div>
 <div class="form-group">
     <label>Postcode*</label>
-    <input type="number" name="csr_pincode"  value="">
+    <input type="text" name="csr_pincode"  value="">
 </div>
 <div class="form-group">
     <label>City*</label>
