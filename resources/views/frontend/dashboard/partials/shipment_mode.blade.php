@@ -36,3 +36,10 @@
         </div>
     </div>
 </div>
+@section('extra_body_scripts')
+    <script>
+        var today = new Date().toISOString().slice(0, 16);
+        document.getElementsByName("booking_date")[0].min = today;
+    </script>
+    @include('frontend.dashboard.partials.form_custom_js')
+@endsection

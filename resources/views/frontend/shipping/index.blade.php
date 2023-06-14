@@ -72,44 +72,44 @@
                         <div class="col-lg-6">
                            <div class="form-group">
                               <label>Gross Weight KG</label>
-                              <input type="number" id="grossWeight" name="gross_weight" required>
+                              <input type="number" id="grossWeight" name="gross_weight" placeholder="Please enter approximate value" required>
                            </div>
                         </div>
                         <div class="col-lg-6">
                            <div class="form-group">
                               <label>Chargeable Weight KG</label>
-                              <input type="number" id="chargeableWeight" name="chargeable_weight" required readonly>
+                              <input type="number" id="chargeableWeight" placeholder="It will be automatically filled" name="chargeable_weight" required readonly>
                            </div>
                         </div>
                         <div class="col-lg-6">
                            <div class="form-group">
                               <label>Length CM</label>
-                              <input type="number" id="length" name="length" required>
+                              <input type="number" id="length" placeholder="Please enter approximate value" name="length" required>
                            </div>
                         </div>
                         <div class="col-lg-6">
                            <div class="form-group">
                               <label>Width CM</label>
-                              <input type="number" id="width" name="width" required>
+                              <input type="number" id="width" placeholder="Please enter approximate value" name="width" required>
                            </div>
                         </div>
                         <div class="col-lg-6">
                            <div class="form-group">
                               <label>Height CM</label>
-                              <input type="number" id="height" name="height" required>
+                              <input type="number" id="height" placeholder="Please enter approximate value" name="height" required>
                            </div>
                         </div>
                         <div class="col-lg-6">
                            <div class="form-group">
                               <label>Declared Value $</label>
-                              <input type="number" id="dvalue" name="dvalue" required>
+                              <input type="number" id="dvalue" placeholder="Please enter approximate value" name="dvalue" required>
                            </div>
                         </div>
                         <div class="col-lg-6">
                            <label style="margin-bottom:0px; color: #000;">Estimated Air Freight Cost $</label>
                            <div class="shipmentEstimationDetails" id="showshippingestimation">
                               <div class="actualWeight"></div>
-                              <div class="actualShippingRates"></div>
+                              <div class="actualShippingRates"><span>It will be automatically filled</span></div>
                            </div>
                         </div>
 

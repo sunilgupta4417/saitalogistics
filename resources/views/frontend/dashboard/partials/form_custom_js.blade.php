@@ -100,7 +100,7 @@
         if(checkInputFieldKeys("csr_mobile_no")){
             csr_mobile_no=checkInputFieldKeys("csr_mobile_no");
         }
-       // $('#from_phone_number').html("Telephone: "+csr_mobile_code+csr_mobile_no);
+        $('#from_phone_number').html("Telephone: "+csr_mobile_code+csr_mobile_no);
         if(checkInputFieldKeys("csr_pan","from_pan_no")){
            $('#from_pan_no').html("Business Registration Number: "+checkInputFieldKeys("csr_pan"));
         }
@@ -433,15 +433,15 @@
         $('#update_going_address_modal').modal('show');
     });
 
-    $("#udt_frm_add").click(function(){
+    $("#udt_frm_add").click(function(){ 
         var popForm=$(this).parents("#update_from_address_modal");
-        $('input[name=csr_address1]').val(popForm.find('input[name=csr_address1]').val())
-        $('input[name=csr_address2]').val(popForm.find('input[name=csr_address2]').val())
-        $('input[name=csr_address3]').val(popForm.find('input[name=csr_address3]').val())
-        $('input[name=csr_pincode]').val(popForm.find('input[name=csr_pincode]').val())
-        $('input[name=csr_city_id]').val(popForm.find('input[name=csr_city_id]').val())
-        $('input[name=csr_state_id]').val(popForm.find('input[name=csr_state_id]').val())
-        $('input[name=S_other]').val(popForm.find('input[name=S_other]').val())
+        $('.inter-form input[name=csr_address1]').val(popForm.find('input[name=csr_address1]').val())
+        $('.inter-form input[name=csr_address2]').val(popForm.find('input[name=csr_address2]').val())
+        $('.inter-form input[name=csr_address3]').val(popForm.find('input[name=csr_address3]').val())
+        $('.inter-form input[name=csr_pincode]').val(popForm.find('input[name=csr_pincode]').val())
+        $('.inter-form input[name=csr_city_id]').val(popForm.find('input[name=csr_city_id]').val())
+        $('.inter-form input[name=csr_state_id]').val(popForm.find('input[name=csr_state_id]').val())
+        $('.inter-form input[name=S_other]').val(popForm.find('input[name=S_other]').val())
         //$('#from_name').html($("input[name=csr_consignor]").val());
         $('#from_address').html($('input[name=csr_address1]').val()+' , '+$('input[name=csr_address2]').val()+' , '+$('input[name=csr_address3]').val()+' , '+$('input[name=csr_pincode]').val()+' , '+$('input[name=csr_city_id]').val()+' , '+$('input[name=csr_state_id]').val()+' , '+$('input[name=S_other]').val());
         //$('#from_number').html($("input[name=csr_contact_person]").val());
