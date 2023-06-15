@@ -254,9 +254,9 @@
         $(this).addClass('active').siblings().removeClass('active');
         $('#tab-'+tabID).addClass('active').siblings().removeClass('active');
     });
-    $('#get-rates').click(function(){
+    /*$('#get-rates').click(function(){
         getRates();
-    });
+    });*/
     var currentTab = 0; // Current tab is set to be the first tab (0)
     showTab(currentTab); // Display the current tab
             
@@ -265,7 +265,7 @@
         if (n == 3) {
             // $('#nextBtn').prop('disabled', true);
         }else if (n == 5) {
-            isLoader(true);
+            isWebLoader(true);
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -286,12 +286,12 @@
                     },2000);
                     $(".form-footer button#prevBtn").remove();
                     $(".form-footer button#nextBtn").hide();
-                    isLoader(false);
+                    isWebLoader(false);
                 },
                 error: function (res) {
                     console.log(res)
                     $(".form-footer button#prevBtn").trigger('click');
-                    isLoader(false);
+                    isWebLoader(false);
                 }
             });              
         } else {
@@ -343,7 +343,7 @@
         showTab(currentTab);
     }
             
-    function getRates() {
+    /*function getRates() {
         $('#nextBtn').html('Loading');
         package_type = $("select[name=package_type]").find(":selected").val();
         csn_country_id = $("select[name=csn_country_id]").find(":selected").val();
@@ -365,7 +365,7 @@
         $('#chargeableWeight').val(pcs_weight);
         $('#actual_weight').val(pcs_weight);
         $('#nextBtn').html("Continue");
-    }
+    }*/
     function validateForm() {
         // This function deals with validation of the form fields
         var x, y, i, valid = true;
@@ -467,11 +467,83 @@
         
         $('#update_going_address_modal').modal('hide'); 
     });
-    function isLoader(actionType=true){
+    function isWebLoader(actionType=true){
         if(actionType===true){
             $("#preloader").show();
         }else{
             $("#preloader").hide();
         }
+    }
+    $('#pcs_weight').keypress(function(){
+        var packet_type=$("select[name=packet_type] option:selected").val();
+        if(packet_type=="Envelope"){
+            if($('#pcs_weight').val()>0.3){
+                alert("Please enter less then or equal 0.3");
+                $('#pcs_weight').val("");
+            }
+        }
+    });
+    $('#get_courier_rates').on("click",function(){
+        getCourierRates();
+    });     
+    function getCourierRates() {
+        $('#nextBtn').html('Loading');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        packet_type = $("select[name=packet_type] option:selected").val();
+        csn_country_id = $("select[name=csn_country_id]").find(":selected").val();
+        csr_country_id=$("select[name=csr_country_id] option:selected").val();
+        grossWeight = $("input[name=pcs_weight]").val();
+        length = $("input[name=length]").val();
+        width = $("input[name=width]").val();
+        height = $("input[name=height]").val();
+        
+        if (grossWeight == "" || length == "" || width == "" || height == "") {
+            alert('Please fill all field');
+            return;
+        }
+        /*const volumetricWeight = (length * width * height) / 6000;
+        const roundedWeight = Math.ceil(volumetricWeight);*/
+        const chargeableWeight = (length * width * height) / 5000;
+        var pcs_weight=chargeableWeight;
+        if(grossWeight>chargeableWeight){
+            pcs_weight=grossWeight;
+        }
+        /*console.log(pcs_weight);*/
+        /*const pcs_weight = Math.ceil(volumetricWeight);*/
+        $('#chargeableWeight').val(pcs_weight);
+        $('#actual_weight').val(pcs_weight);
+        var formData = {package_type:packet_type,from_country:csr_country_id,to_country:csn_country_id,weight:pcs_weight};
+        $.ajax({
+            type: 'post',
+            url: '/shipping/get-rates',
+            data: formData,
+            dataType: 'json',
+            success: function (res) {
+                if(res.error){
+                    $('#nextBtn').prop('disabled', true);
+                    currentTab = 3;
+                    $('input[name=shipping_charge]').val("");
+                    $('#nextBtn').html('Continue');
+                    alert(res.error);
+                    // return false;
+                }else {
+                    $('#nextBtn').prop('disabled', false);
+                    $('#nextBtn').html('Continue');
+                    $('input[name=shipping_charge]').val(res.rate);
+                    // return false
+                }
+            },
+            error: function (res) {
+                $('#nextBtn').prop('disabled', true);
+                $('input[name=shipping_charge]').val("");
+                $('#nextBtn').html('Continue');
+                /*alert(res.error);*/
+                // return false
+            }
+        });
     }
 </script>
