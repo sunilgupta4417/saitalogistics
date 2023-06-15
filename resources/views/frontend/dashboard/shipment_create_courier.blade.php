@@ -497,7 +497,7 @@
             /*const pcs_weight = Math.ceil(volumetricWeight);*/
             $('#chargeableWeight').val(pcs_weight);
             $('#actual_weight').val(pcs_weight);
-            var formData = {packet_type:packet_type,from_country:csr_country_id,to_country:csn_country_id,weight:pcs_weight};
+            var formData = {package_type:packet_type,from_country:csr_country_id,to_country:csn_country_id,weight:pcs_weight};
             $.ajax({
                 type: 'post',
                 url: '/shipping/get-rates',
