@@ -285,7 +285,7 @@
                                             <input type="text" name="shipping_charge" placeholder="It will be automatically filled" readonly>
                                         </div>
                                         <div class="form-group">
-                                            <button type="button" class="btn btn-main-2 track-shipment-clr" id="getCourierRates">Get Rates</button>
+                                            <button type="button" class="btn btn-main-2 track-shipment-clr" id="get_courier_rates">Get Rates</button>
                                         </div>
                                         <input type="hidden" name="actual_weight" id="actual_weight">
                                     </div>
@@ -311,14 +311,6 @@
                                                 <li>Oversize charges</li>
                                                 <li>Address Correction Charges</li>
                                             </ul>
-                                           <!--  <p style="margin-bottom:0px;"> <strong>TIME BOUND DELIVERIES (if service available for that particular destination) </strong> </p>
-                                            <p> 
-                                                <ul>
-                                                    <li>Premium 9:00: Zuschlag von 35.00 USD auf den Preis von DHL EXPRESS WORLDWIDE EXPORT </li>
-                                                    <li>Premium 10:30: Zuschlag von 25.00 USD auf den Preis von DHL EXPRESS WORLDWIDE EXPORT </li>
-                                                    <li>Premium 12:00: Zuschlag von 20.00 USD auf den Preis von DHL EXPRESS WORLDWIDE EXPORT</li>
-                                                </ul>
-                                            </p> -->
                                             <p>The above rates are estimated and the final rates will be confirmed on the confirmation from the Airlines are sharing the details</p>
                                             <p><strong>“WILL GET BACK TO YOU SOON”</strong></p>
                                         </div>
@@ -332,95 +324,6 @@
                            <div class="inter-form">
                                 <div class="row">
                                     @include('frontend.dashboard.partials.review_details')
-                                    <?php /*<div class="row">
-                                        <div class="col-md-6">
-                                            <div class="maining-heading">
-                                                <h3 class="mb-4">Origin/Pickup Details</h3>
-                                                <a href="javascript:void(0);" class="edit-clss edit_frm_ad_btn">Edit</a>
-                                            </div>
-                                            <div class="maing-address">
-                                                <h4 id="from_name">xxxxx</h4>
-                                                <p id="from_address">xxxxx</p>
-                                                <p id="from_number">xxxxx</p>
-                                                <p id="from_email">xxxxx</p>
-                                                <p id="from_phone_number">xxxxx</p>
-                                                <p id="from_pan_no">xxxxx</p>
-                                                <p id="from_gstin">xxxxx</p>
-                                                <p id="from_iec">xxxxx</p>
-                                                <p id="from_adhaar_no">xxxxx</p>
-                                                <p id="from_address_type">xxxxx</p> 
-                                                <p id="from_kyc_document">xxxxx</p>                                              
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="maining-heading">
-                                                <h3 class="mb-4">Destination details</h3>
-                                                <a href="javascript:void(0);" class="edit-clss edit_go_ad_btn">Edit</a>
-                                            </div>
-                                            <div class="maing-address">
-                                                <h4 id="to_name">xxxxx</h4>
-                                                <p id="to_address">xxxxxx</p>
-                                                <p id="to_number">xxxxx</p>
-                                                <p id="to_email">xxxxx</p>
-                                                <p id="to_phone_number">xxxxx</p>
-                                                <p id="to_tan_no">xxxxx</p> 
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="what-details">
-                                                <div class="what-detail-iner">
-                                                    <h3>Shipment details</h3>
-                                                    <table style="width: 50%;">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Packet Type</td>
-                                                                <td id="packetType">xxxx</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Weight</td>
-                                                                <td id="pcs_weight">xxxx</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Dimensions</td>
-                                                                <td id="dimensions">xxxx</td>
-                                                            </tr>
-                                                            <tr>
-                                                            <td>Total Chargeable Weight</td>
-                                                                <td id="total_shipment_weight">xxxx</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Declared Value</td>
-                                                                <td id="declaredvalue">xxxxx</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Estimated Air Freight Cost</td>
-                                                                <td id="shippingCharge">xxxxx</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="what-details">
-                                                <div class="what-detail-iner">
-                                                    <h3>Shipment Mode</h3>
-                                                    <table width="50%">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Type selected</td>
-                                                                <td id="ship_type">xxxxx</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Drop date</td>
-                                                                <td id="shipment_date">xx xx xxxx</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>*/?>
                                 </div>
                             </div>
                         </div>
@@ -454,79 +357,5 @@
 @endsection
 
 @section('extra_body_scripts')
-    <script>
-        $('#pcs_weight').keypress(function(){
-            var packet_type=$("select[name=packet_type] option:selected").val();
-            if(packet_type=="Envelope"){
-                if($('#pcs_weight').val()>0.3){
-                    alert("Please enter less then or equal 0.3");
-                    $('#pcs_weight').val("");
-                }
-            }
-        });
-        $('#getCourierRates').click(function(){
-            getCourierRates();
-        });     
-        function getCourierRates() {
-            $('#nextBtn').html('Loading');
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            packet_type = $("select[name=packet_type] option:selected").val();
-            csn_country_id = $("select[name=csn_country_id]").find(":selected").val();
-            csr_country_id=$("select[name=csr_country_id] option:selected").val();
-            grossWeight = $("input[name=pcs_weight]").val();
-            length = $("input[name=length]").val();
-            width = $("input[name=width]").val();
-            height = $("input[name=height]").val();
-            
-            if (grossWeight == "" || length == "" || width == "" || height == "") {
-                alert('Please fill all field');
-                return;
-            }
-            /*const volumetricWeight = (length * width * height) / 6000;
-            const roundedWeight = Math.ceil(volumetricWeight);*/
-            const chargeableWeight = (length * width * height) / 5000;
-            var pcs_weight=chargeableWeight;
-            if(grossWeight>chargeableWeight){
-                pcs_weight=grossWeight;
-            }
-            /*console.log(pcs_weight);*/
-            /*const pcs_weight = Math.ceil(volumetricWeight);*/
-            $('#chargeableWeight').val(pcs_weight);
-            $('#actual_weight').val(pcs_weight);
-            var formData = {package_type:packet_type,from_country:csr_country_id,to_country:csn_country_id,weight:pcs_weight};
-            $.ajax({
-                type: 'post',
-                url: '/shipping/get-rates',
-                data: formData,
-                dataType: 'json',
-                success: function (res) {
-                    if(res.error){
-                        $('#nextBtn').prop('disabled', true);
-                        currentTab = 3;
-                        $('input[name=shipping_charge]').val("");
-                        $('#nextBtn').html('Continue');
-                        alert(res.error);
-                        // return false;
-                    }else {
-                        $('#nextBtn').prop('disabled', false);
-                        $('#nextBtn').html('Continue');
-                        $('input[name=shipping_charge]').val(res.rate);
-                        // return false
-                    }
-                },
-                error: function (res) {
-                    $('#nextBtn').prop('disabled', true);
-                    $('input[name=shipping_charge]').val("");
-                    $('#nextBtn').html('Continue');
-                    /*alert(res.error);*/
-                    // return false
-                }
-            });
-        }
-    </script>
     @include('frontend.dashboard.partials.form_custom_js')
 @endsection
