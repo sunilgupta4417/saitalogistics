@@ -538,6 +538,7 @@ $('#pcs_weight').keypress(function(){
    });
    //dvalue
    function getRates() {
+      
       $('#getShippingEstimation').html('Loading');
       $.ajaxSetup({
          headers: {
