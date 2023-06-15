@@ -36,7 +36,7 @@ class ShippingController extends Controller
     public function getRates(Request $request)
     {
         $res = [];
-        $package_type=isset($request->packet_type)?trim($request->packet_type):"";
+        $package_type=isset($request->package_type)?trim($request->package_type):"";
         $requestedWeight=isset($request->weight)?floatval($request->weight):0;
         $to_country=isset($request->to_country)?intval($request->to_country):1;
         $from_country=isset($request->from_country)?intval($request->from_country):235;
