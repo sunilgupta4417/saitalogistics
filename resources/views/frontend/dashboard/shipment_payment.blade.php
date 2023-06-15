@@ -368,6 +368,13 @@
             </div>
         </div>
     </div>
+    <style>
+        #pp-btns button {
+            width: 49%;
+            font-size: 15px;
+            border-bottom: 5px solid #0d1664;
+        }
+    </style>
     <div class="paymentUpdateForm">
         <!-- Modal -->
         <div id="paymentUpdateForm" class="modal fade" role="dialog">
@@ -378,9 +385,8 @@
                         <h4 class="modal-title">Connect your wallet</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" id="pp-btns">
                         <button onclick="connectWC()" class="btn btn-info btn-sm">Connect Wallet Connect</button>
-                        <br><br>
                         <button onclick="connectMetamaskWC()" class="btn btn-info btn-sm">Connect Metamask</button>
                     </div>
                 </div>
