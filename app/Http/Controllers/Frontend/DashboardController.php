@@ -376,6 +376,9 @@ class DashboardController extends Controller
                 $shipment->cpickup=($requestValue=="PICKUP")?1:0;
                 $shipment->cdrop=($requestValue=="DROPOFF")?1:0;
             }
+            if($key=="shipping_charge"){
+                $shipment->total_charges=$shipment->shipping_charge;
+            }
             if($key=="csr_address1_type"){
                 $shipment->S_default=($requestValue=="Default")?1:0;
                 $shipment->S_residential=($requestValue=="Residential")?1:0;
