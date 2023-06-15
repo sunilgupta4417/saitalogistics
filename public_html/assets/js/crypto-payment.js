@@ -30,21 +30,24 @@ async function disconnectWC(){
 }
 
 async function connectMetamaskWC(){
-  if (window.ethereum) {
+  if (typeof window.ethereum !== 'undefined') {
     window.web3 = new Web3(window.ethereum);
   } else if (window.web3) {
     window.web3 = new Web3(window.web3.currentProvider);
   } else {
     alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
   }
-  window.ethereum.enable();
   var currentAddress=getAccount("metamask");
+  console.log(currentAddress);
   $('#paymentUpdateForm').modal('hide');
   if(currentAddress==null){
     return false;
   }else{
     return true;
   }
+}
+function isConnected(){
+  return window.ethereum.isConnected();
 }
 function getWalletProvider(){
   const getWalletProviderName=sessionStorage.getItem("walletProvider");
@@ -58,26 +61,30 @@ async function getAccount(walletType=""){
   var accountId=sessionStorage.getItem("walletToken");
   if (accountId == null) {
     if(walletType=="metamask"){
-      window.web3.eth.getAccounts((err, retAccount) => {
-        if (err != null) {
-          alert("transfer.service :: getAccount :: error retrieving account");
-          //reject("Error retrieving account");
-        }else if (retAccount.length > 0) {
-          accountId = retAccount[0];
-          sessionStorage.setItem("walletToken", accountId);
-          sessionStorage.setItem("walletProvider","metamask");
-          return accountId;
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' }).catch((err) => {
+        if (err.code === 4001) {
+          // EIP-1193 userRejectedRequest error
+          // If this happens, the user rejected the connection request.
+          alert("Please connect to MetaMask.");
         } else {
-          alert('No accounts found. Please make sure your wallet connected with your metamask');
-          return "";
+          console.error(err);
+          alert(err);
         }
       });
+      if (accounts.length > 0) {
+        accountId = accounts[0];
+        sessionStorage.setItem("walletToken", accountId);
+        sessionStorage.setItem("walletProvider","metamask");
+        return accountId;
+      } else {
+        alert('No accounts found. Please make sure your wallet connected with your metamask');
+        return "";
+      }
     }else if(walletType=="wallet_connect"){
       const web3 = new Web3(provider);
       window.w3 = web3;
       var accounts  = await web3.eth.getAccounts(); // get all connected accounts
       accountId = accounts[0];// get the primary account
-      alert(accountId);
       sessionStorage.setItem("walletToken", accountId);
       sessionStorage.setItem("walletProvider","wallet_connect");
       console.log(">>>>>>.Primary Account: ", accountId);
@@ -104,21 +111,22 @@ async function makePayment(amount,orderid,paymentUpdateUrl,payment_type){
   isLoader(true);
   return new Promise((resolve, reject) => {     
     if (getWalletProvider()) {
-        makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl).then((res) => {
-          if(res){
-            if(amount){
-              isLoader(false);
-              resolve(res)
-            }
+      makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl).then((res) => {
+        if(res){
+          if(amount){
+            isLoader(false);
+            resolve(res)
           }
-        }).catch((err) => {
-          isLoader(false);
-          console.log(err);
-          alert("Something went wrong ! If your amount is deducted then  please contact to admin !!");
+        }
+      }).catch((err) => {
+        isLoader(false);
+        console.log(err);
+        alert("Something went wrong ! If your amount is deducted then  please contact to admin !!");
       })
     }else {
-      alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
+      alert("Sorry! we did't find any wallet, so please try again");
     }
+    isLoader(false);
   });
 }
 
@@ -165,7 +173,7 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
           window.w3 = web3WC;
           const ethAmount=web3WC.utils.toWei(getUsdToConvertAmount(amount,payment_type).toString());
           console.log("ethAmount: "+ethAmount);
-          web3WC.eth.sendTransaction({to:receiverAddress,from:senderAddress,value:1})
+          web3WC.eth.sendTransaction({to:receiverAddress,from:senderAddress,value:ethAmount})
           .then((res) => {
             alert("Payment done successfully");
             console.log(res);
@@ -191,13 +199,14 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
           finalAmount=(parseFloat(finalAmount)+parseFloat(perAmount));
           finalAmount=finalAmount.toFixed(4);
         }
+        finalAmount=getUsdToConvertAmount(finalAmount,payment_type);
         if(walletProviderName=="metamask"){
           const contract = new window.web3.eth.Contract(
             CONTRACT_ABI,
             CONTRACT_ADDRESS
           );
           contract.methods
-            .transfer(receiverAddress, window.web3.utils.toWei((finalAmount).toString()))
+            .transfer(receiverAddress,window.web3.utils.toWei(finalAmount.toString(),'wei'))
             .send({
               from:senderAddress
             })
@@ -216,13 +225,12 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
             });
         }else if(walletProviderName=="wallet_connect"){
           const web3WC = new Web3(provider);
-          window.w3 = web3WC;
           const contract = new web3WC.eth.Contract(
             CONTRACT_ABI,
             CONTRACT_ADDRESS
           );
           contract.methods
-            .transfer(receiverAddress, web3WC.utils.toWei((finalAmount).toString()))
+            .transfer(receiverAddress, web3WC.utils.toWei(finalAmount.toString(),'wei'))
             .send({
               from:senderAddress
             })
@@ -289,26 +297,34 @@ function getContractAbi(paymentType="USDT_BEP_20"){
     return [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"_maxTxAmount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"excludeAccount","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"includeAccount","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"isExcluded","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tAmount","type":"uint256"}],"name":"reflect","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"tAmount","type":"uint256"},{"internalType":"bool","name":"deductTransferFee","type":"bool"}],"name":"reflectionFromToken","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"maxTxPercent","type":"uint256"}],"name":"setMaxTxPercent","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"rAmount","type":"uint256"}],"name":"tokenFromReflection","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalFees","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}];
   }
 }
-/*var amountConvt=getUsdToConvertAmount(1,"ETH");
+/*var amountConvt=getUsdToConvertAmount(1,"SAITAMA_ERC_20");
 console.log(amountConvt);*/
 function getUsdToConvertAmount(amount, paymentType="ETH"){
+  var covertUrl="";
+  var amountKey="";
   if(paymentType=="ETH"){
-    var covertUrl="https://api.coingecko.com/api/v3/simple/price?ids=Ethereum&vs_currencies=usd";
+    covertUrl="https://api.coingecko.com/api/v3/simple/price?ids=Ethereum&vs_currencies=usd";
+    amountKey="ethereum";
   }else if(paymentType=="BNB"){
-    var covertUrl="https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd";
+    covertUrl="https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd";
+    amountKey="binancecoin";
+  }else if(paymentType=="SAITAMA_ERC_20"){
+    covertUrl="https://api.coingecko.com/api/v3/simple/price?ids=saitama-inu&vs_currencies=usd";
+    amountKey="saitama-inu";
+  }else if(paymentType=="MAZI_BEP_20"){
+    covertUrl="https://api.coingecko.com/api/v3/simple/price?ids=mazimatic&vs_currencies=usd";
+    amountKey="mazimatic";
   }
-  var afterConvertAmount="";
+  var afterConvertAmount=0;
   $.ajax({
     type: 'get',
     url: covertUrl,
     async: false, 
     success: function (res) {
-      convertRate="";
-      if(paymentType=="ETH"){
-        convertRate=res.ethereum.usd;
-      }else if(paymentType=="BNB"){
-        convertRate=res.binancecoin.usd;
-      }
+      convertRate=0;
+      var dataString = JSON.stringify(res);
+      var dataJSON = JSON.parse(dataString);
+      convertRate=dataJSON[amountKey].usd;
       if(convertRate){
         afterConvertAmount=(amount/convertRate);
       }
@@ -319,6 +335,25 @@ function getUsdToConvertAmount(amount, paymentType="ETH"){
     }
   });
   return afterConvertAmount;
+}
+
+function noExponents(n){
+  var data = String(n).split(/[eE]/);
+  if (data.length == 1) return data[0];
+
+  var z = '',
+    sign = n < 0 ? '-' : '',
+    str = data[0].replace('.', ''),
+    mag = Number(data[1]) + 1;
+
+  if (mag < 0) {
+    z = sign + '0.';
+    while (mag++) z += '0';
+    return z + str.replace(/^\-/, '');
+  }
+  mag -= str.length;
+  while (mag--) z += '0';
+  return str + z;
 }
 
 function getReceiverAddress(paymentType="USDT_BEP_20"){
