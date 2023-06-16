@@ -134,7 +134,7 @@
                                                         <label>BNB</label>
                                                         <input type="radio" name="payment_gateway" value="BNB" class="clickMeForPayInput" />
                                                     </div>
-                                                    <div class="form-group" id="usdtbep-btn">
+                                                    <?php /*<div class="form-group" id="usdtbep-btn">
                                                         <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon3.png" alt="" class="img-responsive">
                                                         <label>USDT (BEP 20)</label>
                                                         <input type="radio" name="payment_gateway" value="USDT_BEP_20" class="clickMeForPayInput" />  
@@ -162,7 +162,7 @@
                                                     <!--<div class="form-group">
                                                         <label>Mazimatic (Mazi ERC 20)</label>
                                                         <input type="radio" name="payment_gateway" value="MAZI_ERC_20" class="clickMeForPayInput">
-                                                    </div>-->
+                                                    </div>-->*/?>
                                                     <div class="form-group" id="credit-crd-btn">
                                                         <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon8.png" alt="" class="img-responsive">
                                                         <label>Credit/Debit Card (Epay)</label>
@@ -256,7 +256,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://epay.me/sdk/v2/websdk.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.7.1/dist/umd/index.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.0.1/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
     <script src="{{ asset('assets/js/crypto-payment.js') }}"></script>
     <script>
         $(document).ready(function(){
