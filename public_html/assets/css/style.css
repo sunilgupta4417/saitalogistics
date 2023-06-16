@@ -3848,6 +3848,9 @@ iframe#youtubevideo {
   table.table.shipmentInformation td {
       white-space: nowrap;
   }
+  .footer-widget .footer-links li {
+      margin-bottom: 2px;
+  }
   #pp-btns button {
       width: 100% !important;
       font-size: 15px;
@@ -3897,13 +3900,17 @@ iframe#youtubevideo {
     width: 100%;
     margin: 5px 10px 5px 0;
   }
-
+  #head-icons .img-responsive {
+      width: auto;
+  }
   .inter-form {
-    width: 100%;
-    margin: 30px 10px;
+    width: 95%;
+    margin: 10px;
     padding: 15px;
   }
-
+  .payment-gateway {
+      margin: 20px 0;
+  }
   #signUpForm .form-footer button {
     padding: 7px 10px;
     font-size: 16px;
@@ -4029,8 +4036,9 @@ iframe#youtubevideo {
   }
 
   .pricing-item {
-    padding: 20px;
-    text-align: center;
+      padding: 20px;
+      text-align: center;
+      min-height: auto;
   }
 
   .pricing-item .price-header h2 {
@@ -4329,22 +4337,11 @@ iframe#youtubevideo {
     font-size: 8px;
   }
 
-  .header-contact {
-      margin-left: 0px;
-      margin-top: 20px;
-  }
-
+  
   .center-icons {
       right: 0px !important;
   }
 
-  #head-icons {
-      right: 0;
-  }
-
-  .list-inline-item img.img-responsive {
-      width: 80%;
-  }
 
   .navbar-nav.ml-auto {
       border-left: none;
@@ -4605,22 +4602,10 @@ iframe#youtubevideo {
     font-size: 8px;
   }
 
-  .header-contact {
-      margin-left: 0px;
-      margin-top: 20px;
-  }
-
   .center-icons {
       right: 0px !important;
   }
 
-  #head-icons {
-      right: 0;
-  }
-
-  .list-inline-item img.img-responsive {
-      width: 80%;
-  }
 
   .navbar-nav.ml-auto {
       border-left: none;
@@ -4872,22 +4857,11 @@ iframe#youtubevideo {
     font-size: 8px;
   }
 
-  .header-contact {
-      margin-left: 0px;
-      margin-top: 20px;
-  }
 
   .center-icons {
       right: 0px !important;
   }
 
-  #head-icons {
-      right: 0;
-  }
-
-  .list-inline-item img.img-responsive {
-      width: 80%;
-  }
 
   .navbar-nav.ml-auto {
       border-left: none;
@@ -5154,9 +5128,11 @@ iframe#youtubevideo {
   }
 
   .list-inline-item img.img-responsive {
-      width: 40%;
+      width: 100%;
   }
-
+  .footer-socials a {
+      margin-right: 0px;
+  }
   .navbar-nav.ml-auto {
       border-left: none;
   }
