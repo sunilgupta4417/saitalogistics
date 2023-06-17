@@ -339,7 +339,7 @@
                 if(selectPaymentType=="epay"){
                     paymentOptions(customerId,userEmail,orderID,orderAmount,orderCurrency,orderDescription);
                 }else if(cryptoPayments.indexOf(selectPaymentType) != -1){
-                    makePayment(orderAmount,orderID,'{{route("user.store_shipment_payment")}}',selectPaymentType);
+                    makePayment(orderAmount,orderID,"{{ route('user.shipment.payment.success',$encrypt_shipment_id) }}",selectPaymentType);
                 }
             });
         });
