@@ -116,9 +116,10 @@ async function makePayment(amount,orderid,paymentUpdateUrl,payment_type){
         alert("Something went wrong ! If your amount is deducted then  please contact to admin !!");
       })
     }else {
+      isLoader(false);
       alert("Sorry! we did't find any wallet, so please try again");
     }
-    isLoader(false);
+    //
   });
 }
 
@@ -182,7 +183,7 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
           });
           
         }
-        isLoader(false);
+        //isLoader(false);
       }else if(contarctPayments.indexOf(payment_type) != -1) {
         const CONTRACT_ABI=getContractAbi(payment_type);
         const CONTRACT_ADDRESS=getContractAddress(payment_type);
