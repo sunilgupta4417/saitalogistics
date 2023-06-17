@@ -135,6 +135,7 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
     } 
     return new Promise((resolve, reject) => {
       console.log(userAddress);
+      isLoader(true);
       var senderAddress = userAddress.toString();
       var receiverAddress=getReceiverAddress(payment_type);
       const coinPayments=["ETH","BNB"];
@@ -152,10 +153,11 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
             const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: ethAmount/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
             updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
             console.log(paymentResp);
+            isLoader(false);
             resolve(res);
           })
           .catch((err) => {
-            // this.toastr.error("Something went wrong");
+            isLoader(false);
             reject(err);
           });
         }else if(walletProviderName=="wallet_connect"){
@@ -172,10 +174,11 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
             const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: ethAmount/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
             updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
             console.log(paymentResp);
+            isLoader(false);
             resolve(res);
           })
           .catch((err) => {
-            // this.toastr.error("Something went wrong");
+            isLoader(false);
             reject(err);
           });
           
@@ -222,10 +225,11 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
               const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: res.events.Transfer.returnValues.value/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
               updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
               console.log(paymentResp);
+              isLoader(false);
               resolve(res);
             })
             .catch((err) => {
-              // this.toastr.error("Something went wrong");
+              isLoader(false);
               reject(err);
             });
         }else if(walletProviderName=="wallet_connect"){
@@ -247,10 +251,11 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
               const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: res.events.Transfer.returnValues.value/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type,transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
               updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
               console.log(paymentResp);
+              isLoader(false);
               resolve(res);
             })
             .catch((err) => {
-              // this.toastr.error("Something went wrong");
+              isLoader(false);
               reject(err);
             });
         }
