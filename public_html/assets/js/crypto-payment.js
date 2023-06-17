@@ -147,7 +147,7 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
           console.log("ethAmount: "+ethAmount);
           window.web3.eth.sendTransaction({to:receiverAddress,from:senderAddress,value:ethAmount})
           .then((res) => {
-            alert("Payment done successfully");
+            //alert("Payment done successfully");
             console.log(res);
             console.log(ethAmount);
             var payStatus=(res.status==true)?"completed":"failed";
