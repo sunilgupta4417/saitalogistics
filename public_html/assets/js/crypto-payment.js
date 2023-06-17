@@ -162,7 +162,6 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
           });
         }else if(walletProviderName=="wallet_connect"){
           const web3WC = new Web3(provider);
-          window.w3 = web3WC;
           const ethAmount=web3WC.utils.toWei(getUsdToConvertAmount(amount,payment_type).toString());
           console.log("ethAmount: "+ethAmount);
           web3WC.eth.sendTransaction({to:receiverAddress,from:senderAddress,value:ethAmount})
@@ -183,6 +182,7 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
           });
           
         }
+        isLoader(false);
       }else if(contarctPayments.indexOf(payment_type) != -1) {
         const CONTRACT_ABI=getContractAbi(payment_type);
         const CONTRACT_ADDRESS=getContractAddress(payment_type);
@@ -351,7 +351,7 @@ function getUsdToConvertAmount(amount, paymentType="ETH"){
       }
     });
     console.log(afterConvertAmount);
-    return afterConvertAmount;
+    return afterConvertAmount.toFixed(4);
   }
   return afterConvertAmount;
 }
