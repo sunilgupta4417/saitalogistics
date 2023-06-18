@@ -124,8 +124,38 @@ async function getAccount(walletType=""){
 async function makePayment(amount,orderid,paymentUpdateUrl,payment_type){
   if(getWalletProvider()=="metamask"){
     connectMetamaskWC();
+    let currentChain = await window.ethereum.request({ method: 'eth_chainId' });
+    if((payment_type=="ETH") && (currentChain!="0x1")){
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x1' }],
+      });
+    }else if((payment_type=="BNB") && (currentChain!="0x38")){
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x38' }],
+      });
+    }
   }else if(getWalletProvider()=="wallet_connect"){
     connectWC();
+    const web3WC = new Web3(provider);
+    let currentChain = await web3WC.eth.getChainId();
+    alert(currentChain);
+    if((payment_type=="ETH") && (currentChain!=1)){
+      var defaultChainId=1;
+      provider.on("chainChanged", (defaultChainId) => {
+        console.log(defaultChainId);
+      });
+      /*await provider.request({
+        method: 'chainChanged',
+        params: [{ chainId:1 }],
+      });*/
+    }else if((payment_type=="BNB") && (currentChain!=56)){
+      var defaultChainId=56;
+      provider.on("chainChanged", (defaultChainId) => {
+        console.log(defaultChainId);
+      });
+    }
     console.log("WC EMP: ");
   }
   isLoader(true);
@@ -150,6 +180,7 @@ async function makePayment(amount,orderid,paymentUpdateUrl,payment_type){
     //
   });
 }
+
 
 async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
   try {
