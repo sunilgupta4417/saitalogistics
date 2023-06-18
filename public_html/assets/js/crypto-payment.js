@@ -17,6 +17,7 @@ var connectWC = async () => {
   if(currentAddress==null){
     return false;
   }else{
+    //location.reload();
     return true;
   }
 }
@@ -26,6 +27,13 @@ async function disconnectWC(){
   sessionStorage.removeItem("walletProvider");
   sessionStorage.removeItem("walletToken");
   await provider.disconnect();
+  location.reload();
+}
+function isWalletConnectConnected(){
+  if((sessionStorage.getItem("walletProvider")=='wallet_connect') && (sessionStorage.getItem("walletToken")!=='')){
+    return true;
+  }
+  return false;
 }
 
 async function connectMetamaskWC(){
@@ -38,6 +46,7 @@ async function connectMetamaskWC(){
   }
   var currentAddress=getAccount("metamask");
   console.log(currentAddress);
+  checkWalletConnection();
   $('#paymentUpdateForm').modal('hide');
   if(currentAddress==null){
     return false;
@@ -45,15 +54,34 @@ async function connectMetamaskWC(){
     return true;
   }
 }
-function isConnected(){
-  return window.ethereum.isConnected();
+function isMetamaskConnected(){
+  if((sessionStorage.getItem("walletProvider")=='metamask') && (sessionStorage.getItem("walletToken")!=='')){
+    return true;
+  }
+  //return window.ethereum.isConnected();
+  return false;
 }
+async function disconnectMetamaskWC(){
+  // Close provider session
+  sessionStorage.removeItem("walletProvider");
+  sessionStorage.removeItem("walletToken");
+  location.reload();
+}
+
 function getWalletProvider(){
   const getWalletProviderName=sessionStorage.getItem("walletProvider");
   if(getWalletProviderName==null){
     return false;
   }
   return getWalletProviderName;
+}
+function checkWalletConnection(){
+  if(isMetamaskConnected()){
+    $('.walletConnected').html('<img src="https://staging.saitalogistics.com/assets/images/wallet-metamask.png" alt="Metamask"> (Metamask) wallet connected <button type="button" onclick="disconnectMetamaskWC()"> Disconnect</button>');
+  }
+  if(isWalletConnectConnected()){
+    $('.walletConnected').html('<img src="https://staging.saitalogistics.com/assets/images/wallet-connect.png" alt="Wallet Connect"> (Wallet Connect) wallet connected <button type="button" onclick="disconnectWC()">Disconnect</button>');
+  }
 }
 
 async function getAccount(walletType=""){
@@ -134,44 +162,104 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
         userAddress = await getAccount("wallet_connect");
       }
     } 
-    return new Promise((resolve, reject) => {
-      console.log(userAddress);
-      isLoader(true);
-      var senderAddress = userAddress.toString();
-      var receiverAddress=getReceiverAddress(payment_type);
-      const coinPayments=["ETH","BNB"];
-      const contarctPayments=["MAZI_BEP_20","USDT_BEP_20","USDT_ERC_20","MAZI_ERC_20","SAITAMA_ERC_20","HUOBITOKEN_TRC_20"];
-      if(coinPayments.indexOf(payment_type) != -1) {
-        if(walletProviderName=="metamask"){
-          const ethAmount=window.web3.utils.toWei(getUsdToConvertAmount(amount,payment_type).toString());
-          console.log("ethAmount: "+ethAmount);
-          window.web3.eth.sendTransaction({to:receiverAddress,from:senderAddress,value:ethAmount})
-          .then((res) => {
-            //alert("Payment done successfully");
-            console.log(res);
-            console.log(ethAmount);
-            var payStatus=(res.status==true)?"completed":"failed";
-            const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: ethAmount/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
-            updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
-            console.log(paymentResp);
-            isLoader(false);
-            resolve(res);
+    console.log(userAddress);
+    isLoader(true);
+    var senderAddress = userAddress.toString();
+    var receiverAddress=getReceiverAddress(payment_type);
+    const coinPayments=["ETH","BNB"];
+    const contarctPayments=["MAZI_BEP_20","USDT_BEP_20","USDT_ERC_20","MAZI_ERC_20","SAITAMA_ERC_20","HUOBITOKEN_TRC_20"];
+    if(coinPayments.indexOf(payment_type) != -1) {
+      if(walletProviderName=="metamask"){
+        const ethAmount=window.web3.utils.toWei(getUsdToConvertAmount(amount,payment_type).toString(),'ether');
+        console.log("ethAmount: "+ethAmount);
+        window.web3.eth.sendTransaction({to:receiverAddress,from:senderAddress,value:ethAmount,gas:21000})
+        .then((res) => {
+          //alert("Payment done successfully");
+          console.log(res);
+          console.log(ethAmount);
+          var payStatus=(res.status==true)?"completed":"failed";
+          const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: ethAmount/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
+          updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
+          console.log(paymentResp);
+          isLoader(false);
+        })
+        .catch((err) => {
+          isLoader(false);
+        });
+      }else if(walletProviderName=="wallet_connect"){
+        const web3WC = new Web3(provider);
+        const ethAmount=web3WC.utils.toWei(getUsdToConvertAmount(amount,payment_type),'ether');
+        console.log("ethAmount: "+ethAmount);
+        /*web3WC.eth.sendTransaction({to:receiverAddress,from:senderAddress,value:ethAmount}).on('transactionHash', (hash) => {
+          console.log('Received txHash: ', hash);
+        })
+        .then((res) => {
+          //alert("Payment done successfully");
+          console.log(res);
+          console.log(ethAmount);
+          var payStatus=(res.status==true)?"completed":"failed";
+          const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: ethAmount/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
+          updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
+          console.log(paymentResp);
+          isLoader(false);
+          resolve(res);
+        })
+        .catch((err) => {
+          isLoader(false);
+          reject(err);
+        });*/
+        var res=await web3WC.eth.sendTransaction({to:receiverAddress,from:senderAddress,value:ethAmount,gas:21000});
+        console.log(res);
+        console.log(ethAmount);
+        if(res){
+          var payStatus=(res.status==true)?"completed":"failed";
+          const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: ethAmount/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
+          updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
+          console.log(paymentResp);
+        }
+        isLoader(false);
+      }
+      //isLoader(false);
+    }else if(contarctPayments.indexOf(payment_type) != -1) {
+      const CONTRACT_ABI=getContractAbi(payment_type);
+      const CONTRACT_ADDRESS=getContractAddress(payment_type);
+      var finalAmount=amount;
+      if(payment_type=="SAITAMA_ERC_20"){
+        var perAmount=((amount*4)/100);
+        finalAmount=(parseFloat(finalAmount)+parseFloat(perAmount));
+        finalAmount=finalAmount.toFixed(4);
+      }
+      console.log(finalAmount);
+      finalAmount=getUsdToConvertAmount(finalAmount,payment_type);
+      console.log(payment_type);
+      console.log(finalAmount);
+      if(walletProviderName=="metamask"){
+        const contract = new window.web3.eth.Contract(
+          CONTRACT_ABI,
+          CONTRACT_ADDRESS
+        );
+        var conUnit='ether';
+        /*if(payment_type=='SAITAMA_ERC_20'){
+          conUnit='gwei';
+        }else if(payment_type=='USDT_ERC_20'){
+          conUnit='mwei';
+        }else if(payment_type=='USDT_BEP_20'){
+          conUnit='ether';
+        }else if(payment_type=='MAZI_ERC_20'){
+          conUnit='wei';
+        }*/
+        finalAmount=window.web3.utils.toWei(finalAmount.toString(),conUnit);
+        //console.log("UTLS finalAmount: "+finalAmount);
+        contract.methods
+          .transfer(receiverAddress,finalAmount)
+          .send({
+            from:senderAddress
           })
-          .catch((err) => {
-            isLoader(false);
-            reject(err);
-          });
-        }else if(walletProviderName=="wallet_connect"){
-          const web3WC = new Web3(provider);
-          const ethAmount=web3WC.utils.toWei(getUsdToConvertAmount(amount,payment_type).toString());
-          console.log("ethAmount: "+ethAmount);
-          web3WC.eth.sendTransaction({to:receiverAddress,from:senderAddress,value:ethAmount})
           .then((res) => {
             alert("Payment done successfully");
             console.log(res);
-            console.log(ethAmount);
             var payStatus=(res.status==true)?"completed":"failed";
-            const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: ethAmount/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
+            const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: res.events.Transfer.returnValues.value/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
             updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
             console.log(paymentResp);
             isLoader(false);
@@ -181,87 +269,34 @@ async function makeFinalPayment(amount,orderid,payment_type,paymentUpdateUrl){
             isLoader(false);
             reject(err);
           });
-          
-        }
-        //isLoader(false);
-      }else if(contarctPayments.indexOf(payment_type) != -1) {
-        const CONTRACT_ABI=getContractAbi(payment_type);
-        const CONTRACT_ADDRESS=getContractAddress(payment_type);
-        var finalAmount=amount;
-        if(payment_type=="SAITAMA_ERC_20"){
-          var perAmount=((amount*4)/100);
-          finalAmount=(parseFloat(finalAmount)+parseFloat(perAmount));
-          finalAmount=finalAmount.toFixed(4);
-        }
-        console.log(finalAmount);
-        finalAmount=getUsdToConvertAmount(finalAmount,payment_type);
-        console.log(payment_type);
-        console.log(finalAmount);
-        if(walletProviderName=="metamask"){
-          const contract = new window.web3.eth.Contract(
-            CONTRACT_ABI,
-            CONTRACT_ADDRESS
-          );
-          var conUnit='ether';
-          /*if(payment_type=='SAITAMA_ERC_20'){
-            conUnit='gwei';
-          }else if(payment_type=='USDT_ERC_20'){
-            conUnit='mwei';
-          }else if(payment_type=='USDT_BEP_20'){
-            conUnit='ether';
-          }else if(payment_type=='MAZI_ERC_20'){
-            conUnit='wei';
-          }*/
-          finalAmount=window.web3.utils.toWei(finalAmount.toString(),conUnit);
-          //console.log("UTLS finalAmount: "+finalAmount);
-          contract.methods
-            .transfer(receiverAddress,finalAmount)
-            .send({
-              from:senderAddress
-            })
-            .then((res) => {
-              alert("Payment done successfully");
-              console.log(res);
-              var payStatus=(res.status==true)?"completed":"failed";
-              const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: res.events.Transfer.returnValues.value/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
-              updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
-              console.log(paymentResp);
-              isLoader(false);
-              resolve(res);
-            })
-            .catch((err) => {
-              isLoader(false);
-              reject(err);
-            });
-        }else if(walletProviderName=="wallet_connect"){
-          const web3WC = new Web3(provider);
-          const contract = new web3WC.eth.Contract(
-            CONTRACT_ABI,
-            CONTRACT_ADDRESS
-          );
-          finalAmount=web3WC.utils.toBN(finalAmount*Math.pow(10,18));
-          contract.methods
-            .transfer(receiverAddress,finalAmount)
-            .send({
-              from:senderAddress
-            })
-            .then((res) => {
-              alert("Payment done successfully");
-              console.log(res);
-              var payStatus=(res.status==true)?"completed":"failed";
-              const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: res.events.Transfer.returnValues.value/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type,transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
-              updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
-              console.log(paymentResp);
-              isLoader(false);
-              resolve(res);
-            })
-            .catch((err) => {
-              isLoader(false);
-              reject(err);
-            });
-        }
+      }else if(walletProviderName=="wallet_connect"){
+        const web3WC = new Web3(provider);
+        const contract = new web3WC.eth.Contract(
+          CONTRACT_ABI,
+          CONTRACT_ADDRESS
+        );
+        finalAmount=web3WC.utils.toBN(finalAmount*Math.pow(10,18));
+        contract.methods
+          .transfer(receiverAddress,finalAmount)
+          .send({
+            from:senderAddress
+          })
+          .then((res) => {
+            alert("Payment done successfully");
+            console.log(res);
+            var payStatus=(res.status==true)?"completed":"failed";
+            const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: res.events.Transfer.returnValues.value/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type,transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};
+            updatePaymentResponse(paymentResp,orderid,payment_type,paymentUpdateUrl);
+            console.log(paymentResp);
+            isLoader(false);
+            resolve(res);
+          })
+          .catch((err) => {
+            isLoader(false);
+            reject(err);
+          });
       }
-    });
+    }
   } catch (error) {
     console.log(error);
   }

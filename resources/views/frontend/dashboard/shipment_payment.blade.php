@@ -121,6 +121,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <h4 class="mb-4">How Would You Like To Pay?</h4>
+                                                <div class="walletConnected">Please connect your wallet <button type="button" class="walletConnect">Connect</button></div>
                                             </div>  
                                             <div class="col-md-8">
                                                 <div class="cryptoPayments">
@@ -256,7 +257,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://epay.me/sdk/v2/websdk.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.7.1/dist/umd/index.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="{{ asset('assets/js/crypto-payment.js') }}"></script>
     <script>
         $(document).ready(function(){
@@ -270,8 +271,6 @@
                 }
             });
         });
-    </script>
-    <script>
         function paymentOptions(customerId,userEmail,orderID,orderAmount,orderCurrency,orderDescription){
             const options = {
                 channelId: "WEB",
@@ -342,6 +341,12 @@
                     makePayment(orderAmount,orderID,"{{ route('user.store_shipment_payment') }}",selectPaymentType);
                 }
             });
+        });  
+        $('.walletConnected button.walletConnect').on('click',function(){
+            if(!getWalletProvider()){
+                $('#paymentUpdateForm').modal('show');
+            }
         });
+        checkWalletConnection();
     </script>
 @endsection
