@@ -46,7 +46,11 @@ function getCountries($key=""){
  * 
  * */
 function getCountriesByIds($countryIds=array()){
-    return ShippingZone::select("id","country")->whereIn('id',$countryIds)->get()->toArray();
+    if(!empty($countryIds)){
+        return ShippingZone::select("id","country")->whereIn('id',$countryIds)->get()->toArray();
+    }else{
+        return ShippingZone::select("id","country")->get()->toArray();
+    }
 }
 
 /**

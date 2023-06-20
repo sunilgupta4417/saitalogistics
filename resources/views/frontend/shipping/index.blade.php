@@ -226,8 +226,8 @@
                <h3>Create Your Shipment</h3>
                <p>Start booking a new shipment and pay with crypto.</p>
                <img src="{{asset('assets/images/creat-image.png')}}" alt="" class="img-responsive">
-               <a href="{{route('user.create_shipment')}}" class="btn btn-main-2"> Get Started</a>
-            </div>
+               <a href="{{ route('user.create_courier_shipment') }}" class="btn btn-main-2"> Get Started</a>
+            </div> 
          </div>
          @endif
       </div>
