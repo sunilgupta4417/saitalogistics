@@ -20,7 +20,7 @@
                         </div>
                         <div class="form-group">
                             <i class="fa fa-flag"></i>
-                            <select name="country" id="country" class="form-control country-box-rounded selectpicker"  required>
+                            <select name="country" id="country" class="form-control country-box-rounded selectpicker single-select"  required>
                                 <option value="">Please Select Country</option>
                                 @foreach($country as $country_data)
                                 <option  value="{{$country_data->mobile_code}}">{{$country_data->country_name}}</option>

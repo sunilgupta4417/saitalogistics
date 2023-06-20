@@ -4,7 +4,7 @@
 <div class="form-group">
     <label>Country*</label>
     <select id="select-service" required name="csr_country_id">
-        @foreach(getCountriesByIds(array(71,33,72,268)) as $key=>$coun)
+        @foreach(getCountriesByIds() as $key=>$coun)
             <?php $selected=($coun['id']==71)?"selected='selected'":""; ?>
             <option value="{{$coun['id']}}" {{$selected}}>{{$coun['country']}}</option>
         @endforeach
