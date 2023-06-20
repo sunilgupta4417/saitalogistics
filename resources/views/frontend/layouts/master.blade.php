@@ -25,7 +25,7 @@
   <div class="preloader" id="preloader">
     <div class="preloader-inner">
       <div class="spinner">
-        <img src="https://staging.saitalogistics.com/assets/images/load.gif" alt="" style="width:40%; margin: 0 auto;">
+        <img src="{{ asset('assets/images/load.gif') }}" alt="" style="width:40%; margin: 0 auto;">
       </div>
     </div>
   </div>
