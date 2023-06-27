@@ -507,6 +507,19 @@ class DashboardController extends Controller
         return view('frontend.dashboard.shipment_transactions', $data);
     }
 
-
+    public function shippingPayements($shipmentId=""){
+        $responseData['shipments']=array();
+        if(!empty($shipmentId)){
+            $responseData['encrypt_shipment_id']=$shipmentId;
+            $shipmentId=decryptFromBase64($shipmentId);
+            $shipments = PacketBooking::find($shipmentId);
+            if(!empty($shipments)){
+                $shipments=$shipments->toArray();
+                $responseData['shipments']=$shipments;
+            }
+        }
+        $responseData['user']=auth()->user();
+        return response()->json($responseData);  
+    }
 
 }

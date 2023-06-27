@@ -70,6 +70,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['user']], function () {
     Route::post('/shipment/store-new-shipment', [DashboardController::class, 'createNewShipment'])->name('user.store_new_shipment');
     Route::get('/shipment/payment/{shipment_id}', [DashboardController::class, 'createShipmentPayment'])->name('user.create.shipment.payment');
     Route::get('/shipment/acceptance/{shipment_id}', [DashboardController::class, 'acceptShipmentQuote'])->name('user.create.shipment.acceptance');
+    Route::get('/shipment/payments/{shipment_id}', [DashboardController::class, 'shippingPayements'])->name('user.shipment.payment.success');
 
 });
 Route::post('/shipping/get-rates', [ShippingController::class, 'getRates']);
@@ -238,3 +239,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 });
 
 Route::get('/get_rate', [FedexController::class, 'get_rate']);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

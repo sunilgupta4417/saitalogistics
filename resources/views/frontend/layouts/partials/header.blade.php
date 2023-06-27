@@ -21,15 +21,15 @@
                         <li class="nav-item ">
                             <a href="{{ url('services') }}" class="nav-link js-scroll-trigger">Services</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="sep-dropdown">
                             <a href="{{ url('shipping') }}" class="nav-link dropdown-toggle">
                                 Shipping
-                                <ul class="dropdown-menu" style="color:#000;">
-                                    <li> <a href="{{ route('user.create_courier_shipment') }}" class="nav-link">Courier Shipment</a> </li>
-                                    <li><a href="{{ route('user.create_air_shipment') }}" class="nav-link">Air Freight Shipment</a> </li>
-                                    <li><a href="{{ route('user.create_ocean_shipment') }}" class="nav-link">Ocean Shipment</a> </li>
-                                </ul>
                             </a>
+                            <div class="dropdown-menu" aria-labelledby="navbar3">
+                                <a href="{{ route('user.create_courier_shipment') }}" class="nav-link">Courier Shipment</a>
+                                <a href="{{ route('user.create_air_shipment') }}" class="nav-link">Air Freight Shipment</a> 
+                                <a href="{{ route('user.create_ocean_shipment') }}" class="nav-link">Ocean Shipment</a> 
+                            </div>
                         </li>
                        <!--  <li class="nav-item ">
                             <a href="{{ url('tracking') }}" class="nav-link js-scroll-trigger">Tracking</a>
@@ -66,7 +66,7 @@
                                     Transaction
                                 </a> 
                                 <a class="dropdown-item" href="{{ url('user-logout') }}">
-                                    Sign Out
+                                    Logout
                                 </a> 
                             </div>
                         </li> 

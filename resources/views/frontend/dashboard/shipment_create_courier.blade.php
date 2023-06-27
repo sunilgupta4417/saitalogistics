@@ -1,5 +1,39 @@
 @extends('frontend.layouts.master')
+@section('head_style')
+<style>
+    #ocean-fld .select2.select2-container.select2-container--default {
+        margin-top: 0;
+        height: auto;
+        padding: 8px 12px;
+        color: #000 !important;
+    }
+
+    #ocean-fld .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: initial !important;
+    }
+
+    #ocean-fld .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 40px !important;
+        right: 20px !important;
+    }
+
+    #ocean-fld .select2-container--default .select2-selection--single .select2-selection__arrow b {
+        border-color: #000 transparent transparent transparent;
+    }
+
+    /* #join-divselect .select2.select2-container.select2-container--default {
+        position: absolute !important;
+        width: auto !important;
+        height: 47px !important;
+        margin-top: 0px !important;
+        padding: 0 12px 0 32px !important;
+        max-width: 126px !important;
+        selectpicker
+    } */
+</style>
+@endsection
 @section('page_content')
+
 <section id="where-from-page">
     <div class="container">
         <div class="row">
@@ -14,7 +48,7 @@
                         </div>
                         <!-- end step indicators -->
                         <div class="courier_type">
-                            <input type="hidden" name="courier_type" value="courier"/>
+                            <input type="hidden" name="courier_type" value="courier" />
                         </div>
                         <!-- Step1 Origin -->
                         <div class="step">
@@ -23,44 +57,44 @@
                                     <div class="maining-heading">
                                         <h3 class="mb-4">Origin Details</h3>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" id="ocean-fld">
                                         <label>Country*</label>
-                                        <select id="select-service" required name="csr_country_id">
+                                        <select id="select-service" required name="csr_country_id" class="selectpicker" style="width: 100% !important;">
                                             @foreach(getCountriesByIds(array(235,71)) as $key=>$coun)
-                                                <?php $selected=($coun['id']==235)?"selected='selected'":""; ?>
-                                                <option value="{{$coun['id']}}" {{$selected}}>{{$coun['country']}}</option>
+                                            <?php $selected = ($coun['id'] == 235) ? "selected='selected'" : ""; ?>
+                                            <option value="{{$coun['id']}}" {{$selected}}>{{$coun['country']}}</option>
                                             @endforeach
-                                        </select>                                                                           
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Company Or Name*</label>
                                         <input type="text" name="csr_consignor" value="">
                                     </div>
-                                    <div class="form-group select-code-packb">
+                                    <div class="form-group select-code-packb" id="join-divselect">
                                         <label>Contact Number*</label>
-                                        <select name="csr_contact_person_code" class="select-code-packb">
+                                        <select name="csr_contact_person_code" class="select-code-packb" id="courier_mc_1">
                                             @foreach(getCountryBMDCodes() as $countries)
-                                                <option value="{{$countries['mobile_code']}}" @if($user->phn_code==$countries['mobile_code']) selected @endif>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
-                                            @endforeach         
+                                            <option data-text="{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})" value="{{$countries['mobile_code']}}" @if($user->phn_code==$countries['mobile_code']) selected @endif>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
+                                            @endforeach
                                         </select>
                                         <i class="fa fa-mobile"></i>
                                         <input type="text" id="csr_contact_person" name="csr_contact_person" value="{{ $user->mobile_no }}">
                                     </div>
                                     <div class="form-group">
                                         <label>Address*</label>
-                                        <input type="text" name="csr_address1"  value="">
+                                        <input type="text" name="csr_address1" value="">
                                     </div>
                                     <div class="form-group">
                                         <label>Apartment / Suite / Unit / Building etc*</label>
-                                        <input type="text" name="csr_address2"  value="">
+                                        <input type="text" name="csr_address2" value="">
                                     </div>
                                     <div class="form-group">
                                         <label>Department, C/D etc</label>
-                                        <input type="text" name="csr_address3"  value="">
+                                        <input type="text" name="csr_address3" value="">
                                     </div>
                                     <div class="form-group">
                                         <label>Postcode*</label>
-                                        <input type="text" name="csr_pincode"  value="">
+                                        <input type="text" name="csr_pincode" value="">
                                     </div>
                                     <div class="form-group">
                                         <label>City*</label>
@@ -114,10 +148,10 @@
                                     </div>
                                     <div class="form-group  select-code-packb">
                                         <label>Alternate Number</label>
-                                        <select name="csr_mobile_code" class="select-code-packb">
+                                        <select name="csr_mobile_code" class="select-code-packb" id="courier_mc_2">
                                             @foreach(getCountryBMDCodes() as $countries)
-                                                <option value="{{$countries['mobile_code']}}" @if($user->phn_code==$countries['mobile_code']) selected @endif>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
-                                            @endforeach             
+                                            <option data-text="{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})" value="{{$countries['mobile_code']}}" @if($user->phn_code==$countries['mobile_code']) selected @endif>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
+                                            @endforeach
                                         </select>
                                         <i class="fa fa-mobile"></i>
                                         <input type="text" id="csr_mobile_no" name="csr_mobile_no" value="{{$user->mobile_no}}">
@@ -139,7 +173,7 @@
                                     <div class="form-group">
                                         <label>Upload KYC Id Image Back*</label>
                                         <div class="file-upload-wrapper">
-                                            <input name="S_idBack" type="file" class="file-upload-field" >
+                                            <input name="S_idBack" type="file" class="file-upload-field">
                                         </div>
                                     </div>
                                 </div>
@@ -156,71 +190,71 @@
                                     <div class="form-group">
                                         <label>Country*</label>
                                         <select id="select-service" required name="csn_country_id">
-                                            <option label="Select a country ... " selected="selected" disabled>Select a country ... </option> 
+                                            <option label="Select a country ... " selected="selected" disabled>Select a country ... </option>
                                             @foreach(getCountries() as $key=>$coun)
-                                                <option value="{{$key}}">{{$coun}}</option>
+                                            <option value="{{$key}}">{{$coun}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Company Or Name*</label>
-                                        <input type="text" name="csn_consignor"  value="">
+                                        <input type="text" name="csn_consignor" value="">
                                     </div>
                                     <div class="form-group select-code-packb">
                                         <label>Contact Number*</label>
-                                        <select name="csn_contact_person_code" class="select-code-packb">
+                                        <select name="csn_contact_person_code" class="select-code-packb" id="courier_mc_3">
                                             @foreach(getCountryBMDCodes() as $countries)
-                                                <option value="{{$countries['mobile_code']}}" <?php /*echo ($user->phn_code == $countries['mobile_code']) ? "selected='selected'" : "";*/ ?>>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
-                                            @endforeach 
+                                            <option data-text="{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})" value="{{$countries['mobile_code']}}" <?php /*echo ($user->phn_code == $countries['mobile_code']) ? "selected='selected'" : "";*/ ?>>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
+                                            @endforeach
                                         </select>
                                         <i class="fa fa-mobile"></i>
                                         <input type="text" id="csn_contact_person" name="csn_contact_person" value="">
                                     </div>
                                     <div class="form-group">
                                         <label>Address*</label>
-                                        <input type="text" name="csn_address1"  value="">
+                                        <input type="text" name="csn_address1" value="">
                                     </div>
                                     <div class="form-group">
                                         <label>Apartment / Suite / Unit / Building etc*</label>
-                                        <input type="text" name="csn_address2"  value="">
+                                        <input type="text" name="csn_address2" value="">
                                     </div>
                                     <div class="form-group">
                                         <label>Department, C/D etc</label>
-                                        <input type="text" name="csn_address3"  value="">
+                                        <input type="text" name="csn_address3" value="">
                                     </div>
                                     <div class="form-group">
                                         <label>Postcode*</label>
-                                        <input type="text" name="csn_pincode"  value="">
+                                        <input type="text" name="csn_pincode" value="">
                                     </div>
                                     <div class="form-group">
                                         <label>City*</label>
-                                            <input type="text" name="csn_city_id"   value="">
+                                        <input type="text" name="csn_city_id" value="">
                                     </div>
                                     <div class="form-group">
                                         <label>State*</label>
-                                            <input type="text" name="csn_state_id"  value="">
+                                        <input type="text" name="csn_state_id" value="">
                                     </div>
                                     <div class="form-group">
                                         <label>Landmark</label>
-                                        <input type="text" name="R_other"  value="">
+                                        <input type="text" name="R_other" value="">
                                     </div>
                                     <div class="form-group">
                                         <label>Email Id*</label>
-                                        <input type="email" name="csn_email_id"  value="">
+                                        <input type="email" name="csn_email_id" value="">
                                     </div>
                                     <div class="form-group  select-code-packb">
                                         <label>Alternate Number</label>
-                                        <select name="csn_mobile_code" class="select-code-packb">
+                                        <select name="csn_mobile_code" class="select-code-packb" id="courier_mc_4">
                                             @foreach(getCountryBMDCodes() as $countries)
-                                                <option value="{{$countries['mobile_code']}}" <?php /*echo ($user->phn_code == $countries['mobile_code']) ? "selected='selected'" : "";*/ ?>>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
-                                            @endforeach 
+                                            <option data-text="{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})" value="{{$countries['mobile_code']}}" <?php /*echo ($user->phn_code == $countries['mobile_code']) ? "selected='selected'" : "";*/ ?>>{{ $countries['country_name'] }} ({{ $countries['mobile_code'] }})</option>
+                                            @endforeach
                                         </select>
                                         <i class="fa fa-mobile"></i>
                                         <input type="text" id="csn_mobile_no" name="csn_mobile_no" value="">
                                     </div>
                                     <div class="form-group">
                                         <label>TAN Number</label>
-                                        <input type="text" name="csn_tan_number"  value="">
+                                        <input type="text" name="csn_tan_number" value="">
                                     </div>
                                 </div>
                             </div>
@@ -248,7 +282,7 @@
                                                 <option value="Documents">Documents</option>
                                                 <option value="Non-Documents">Non Documents</option>
                                             </select>
-                                        </div>       
+                                        </div>
                                         <div class="form-group">
                                             <label>Mode</label>
                                             <select id="select-service" readonly>
@@ -266,19 +300,19 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Length CM</label>
-                                            <input type="number" name="length" placeholder="Please enter approximate value"  value="">
+                                            <input type="number" name="length" placeholder="Please enter approximate value" value="">
                                         </div>
                                         <div class="form-group">
                                             <label>Width CM</label>
-                                            <input type="number" name="width" placeholder="Please enter approximate value"  value="">
+                                            <input type="number" name="width" placeholder="Please enter approximate value" value="">
                                         </div>
                                         <div class="form-group">
                                             <label>Height CM</label>
-                                            <input type="number" name="height" placeholder="Please enter approximate value"  value="">
+                                            <input type="number" name="height" placeholder="Please enter approximate value" value="">
                                         </div>
                                         <div class="form-group">
                                             <label>Declared Value $</label>
-                                            <input type="number" name="dvalue" placeholder="Please enter approximate value"  value="">
+                                            <input type="number" name="dvalue" placeholder="Please enter approximate value" value="">
                                         </div>
                                         <div class="form-group">
                                             <label>Estimated Air Freight Cost $</label>
@@ -296,16 +330,16 @@
                                         <div class="shp-list">
                                             <p style="margin-bottom:0px;"><strong style="font-size: 20px;">All prices given in USD Currency </strong> </p>
                                             <p style="margin-bottom:0px;"><strong>Peak surcharge to be added on above rates </strong></p>
-                                            <ul> 
+                                            <ul>
                                                 <li>Dynamic fuel surcharge to be added on above rates</li>
                                                 <li>Each package of a shipment is calculated according to the dimensional weight as soon as the dimensional weight exceeds the actual weight. </li>
                                                 <li>Final weight shall be chargeable as per Airlines </li>
                                             </ul>
-                                            <p style="margin-bottom:0px;"> <strong>Extra Charges as below may apply to  any shipment </strong> </p>
-                                            <ul> 
+                                            <p style="margin-bottom:0px;"> <strong>Extra Charges as below may apply to any shipment </strong> </p>
+                                            <ul>
                                                 <li>Residential Delivery Address</li>
                                                 <li>Direct Signature Delivery</li>
-                                                <li>DDP/DTP  charges</li>
+                                                <li>DDP/DTP charges</li>
                                                 <li>Remote Area charges</li>
                                                 <li>Overweight Charges</li>
                                                 <li>Oversize charges</li>
@@ -321,7 +355,7 @@
 
                         <!-- Step5 Review Packet -->
                         <div class="step">
-                           <div class="inter-form">
+                            <div class="inter-form">
                                 <div class="row">
                                     @include('frontend.dashboard.partials.review_details')
                                 </div>
@@ -344,10 +378,10 @@
                     </form>
                 </div>
 
-                <div class="modal fade" id="update_from_address_modal" role="dialog" >
+                <div class="modal fade" id="update_from_address_modal" role="dialog">
                     @include('frontend.dashboard.partials.update_from_address')
                 </div>
-                <div class="modal fade" id="update_going_address_modal" role="dialog" >
+                <div class="modal fade" id="update_going_address_modal" role="dialog">
                     @include('frontend.dashboard.partials.update_to_address')
                 </div>
             </div>
@@ -357,5 +391,5 @@
 @endsection
 
 @section('extra_body_scripts')
-    @include('frontend.dashboard.partials.form_custom_js')
+@include('frontend.dashboard.partials.form_custom_js')
 @endsection

@@ -1,11 +1,149 @@
 @extends('frontend.layouts.master')
 @section('page_content')
 <?php $userData=auth()->user();?>
+
+<style>
+#shipments-pg .inter-form {
+    padding: 30px;
+}
+#shipments-pg .inter-form table tr th, td {
+    border: 1px solid #eee;
+}
+#shipments-pg .inter-form table tr td p {
+    border-bottom: 1px dotted #eee;
+    padding: 0 0 5px 0;
+    color: #000;
+}
+
+#shipments-pg .inter-form .cryptoPayments .form-group label {
+    font-size: 14px;
+    font-weight: 600;
+}
+#shipments-pg .paymment-right-details {
+    width: 100%;
+    float: inherit;
+    background: #ff5d210d;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 0;
+    padding-bottom: 30px;
+}
+#shipments-pg .paymment-right-details tbody td {
+    padding: 4px 0;
+    border: none;
+}
+#shipments-pg .cryptoPayments .form-group {
+    width: 49%;
+    margin: 3px;
+}
+#shipments-pg .payment-gateway .form-group input {
+    height: 20px;
+    width: 20px;
+}
+
+
+/*----=========== Buttons Css Start Here ==========---*/
+
+#eth-btn {
+    background-image: linear-gradient(to right, #ffb937,#ff8100,#fd833c);
+    border-bottom: 2px solid #e3510b;
+}
+#eth-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#bnb-btn {
+    background-image: linear-gradient(to right, #111411,#212620,#000000);
+    border-bottom: 2px solid #000;
+}
+#bnb-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#usdtbep-btn {
+    background-image: linear-gradient(to right, #64b16d,#70c965,#3a835e);
+    border-bottom: 2px solid #33856d;
+}
+#usdtbep-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#usdterc-btn {
+    background-image: linear-gradient(to right, #767fe3,#428ad5,#6b7edb);
+    border-bottom: 2px solid #5b5ebd;
+}
+#usdterc-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#saitamaerc-btn {
+    background-image: linear-gradient(to right, #1825b5,#0559b1,#00157c);
+    border-bottom: 2px solid #5b5ebd;
+}
+#saitamaerc-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#mazi-btn {
+    background-image: linear-gradient(to right, #574cfd,#04baff,#04baff);
+    border-bottom: 2px solid #5b5ebd;
+}
+#mazi-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#ht-token-btn {
+    background-image: linear-gradient(to right, #4604af,#190646,#210968);
+    border-bottom: 2px solid #05074e;
+}
+#ht-token-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#credit-crd-btn {
+    background-image: linear-gradient(to right, #5e2e7c,#392b42,#141012);
+    border-bottom: 2px solid #00000059;
+}
+#credit-crd-btn label {
+    margin: 0;
+    color: #fff;
+    font-size: 14px !important;
+    font-style: italic;
+}
+
+#paymentUpdateForm .modal-dialog {
+    z-index: 111111;
+    margin-top: 160px;
+}
+/*----=========== Buttons Css End Here ==========---*/
+
+</style>
+
 <section id="where-from-page">
     <div class="container">
         <div class="row">
-            <div id="root"></div>
-            <?php /*<div class="col-md-12">
+            <div class="col-md-12">
                 <div class="where-from-design" id="shipments-pg">
                     <h3 class="shipment-heading">Shipment Payment</h3>
                     @if(!empty($shipments))
@@ -108,7 +246,7 @@
                                                         @if($shipments['total_charges'])
                                                             <p><strong>Total Charges: </strong>USD {{ $shipments['total_charges'] }}</p>
                                                         @endif
-                                                        *//*
+                                                        */
                                                         ?>
                                                     </td>
                                                 </tr>
@@ -120,7 +258,6 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <h4 class="mb-4">How Would You Like To Pay?</h4>
-                                                <div class="walletConnected">Please connect your wallet <button type="button" class="walletConnect">Connect</button></div>
                                             </div>  
                                             <div class="col-md-8">
                                                 <div class="cryptoPayments">
@@ -134,7 +271,7 @@
                                                         <label>BNB</label>
                                                         <input type="radio" name="payment_gateway" value="BNB" class="clickMeForPayInput" />
                                                     </div>
-                                                    <?php /*<div class="form-group" id="usdtbep-btn">
+                                                    <div class="form-group" id="usdtbep-btn">
                                                         <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon3.png" alt="" class="img-responsive">
                                                         <label>USDT (BEP 20)</label>
                                                         <input type="radio" name="payment_gateway" value="USDT_BEP_20" class="clickMeForPayInput" />  
@@ -162,7 +299,7 @@
                                                     <!--<div class="form-group">
                                                         <label>Mazimatic (Mazi ERC 20)</label>
                                                         <input type="radio" name="payment_gateway" value="MAZI_ERC_20" class="clickMeForPayInput">
-                                                    </div>-->*//*?>
+                                                    </div>-->
                                                     <div class="form-group" id="credit-crd-btn">
                                                         <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon8.png" alt="" class="img-responsive">
                                                         <label>Credit/Debit Card (Epay)</label>
@@ -228,10 +365,17 @@
                         <p>Sorry your link has beed expired</p>
                     @endif
                 </div>
-            </div>*/?>
+            </div>
         </div>
-    </div> 
-    <?php /*<div class="paymentUpdateForm">
+    </div>
+    <style>
+        #pp-btns button {
+            width: 49%;
+            font-size: 15px;
+            border-bottom: 5px solid #0d1664;
+        }
+    </style>
+    <div class="paymentUpdateForm">
         <!-- Modal -->
         <div id="paymentUpdateForm" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -242,32 +386,21 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body" id="pp-btns">
-                        <button onclick="connectWC()" class="btn btn-info btn-sm"><img src="https://staging.saitalogistics.com/assets/images/wallet-connect.png" alt=""> Connect Wallet Connect</button>
-                        <button onclick="connectMetamaskWC()" class="btn btn-info btn-sm"><img src="https://staging.saitalogistics.com/assets/images/wallet-metamask.png" alt=""> Connect Metamask</button>
+                        <button onclick="connectWC()" class="btn btn-info btn-sm">Connect Wallet Connect</button>
+                        <button onclick="connectMetamaskWC()" class="btn btn-info btn-sm">Connect Metamask</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div id="paymentConfirmationBox" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Alert</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body" id="pp-btns"></div>
-            </div>
-        </div>
-    </div>*/?>
 </section>
 @endsection
 @section('extra_body_scripts')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://epay.me/sdk/v2/websdk.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.7.1/dist/umd/index.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="{{ asset('assets/js/crypto-payment.js') }}"></script>
@@ -283,6 +416,8 @@
                 }
             });
         });
+    </script>
+    <script>
         function paymentOptions(customerId,userEmail,orderID,orderAmount,orderCurrency,orderDescription){
             const options = {
                 channelId: "WEB",
@@ -333,7 +468,6 @@
                 },
                 error: function (res) {
                     console.log(res);
-                    isLoader(false);
                 }
             });
         }
@@ -350,18 +484,9 @@
                 if(selectPaymentType=="epay"){
                     paymentOptions(customerId,userEmail,orderID,orderAmount,orderCurrency,orderDescription);
                 }else if(cryptoPayments.indexOf(selectPaymentType) != -1){
-                    makePayment(orderAmount,orderID,"{{ route('user.store_shipment_payment') }}",selectPaymentType);
+                    makePayment(orderAmount,orderID,'{{route("user.store_shipment_payment")}}',selectPaymentType);
                 }
             });
-        });  
-        $('.walletConnected button.walletConnect').on('click',function(){
-            if(!getWalletProvider()){
-                $('#paymentUpdateForm').modal('show');
-            }
         });
-        checkWalletConnection();
     </script>
-    <script src="{{ url('/js/manifest.js') }}"></script>
-    <script src="{{ url('/js/vendor.js') }}"></script>
-    <script src="{{ url('/js/app.js') }}"></script>
 @endsection
