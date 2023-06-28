@@ -518,6 +518,10 @@ class DashboardController extends Controller
                 $responseData['shipments']=$shipments;
             }
         }
+        $responseData['csrfToken'] = csrf_token();
+        $responseData['shipmentUpdateUrl'] =route('user.store_shipment_payment');
+
+        
         $responseData['user']=auth()->user();
         return response()->json($responseData);  
     }

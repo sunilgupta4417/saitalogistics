@@ -4,8 +4,17 @@ import axios from 'axios';
 
 function ShipmentPayment() {
     const [shipment, setShipment] = useState([]);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+    const [buttonText, setButtonText] = useState('Pay Now');
+    const [csrfToken, setCsrfToken] = useState('');
+    const [shipmentUpdateUrl, setShipmentUpdateUrl] = useState('');
+
+    const [formData, setFormData] = useState({
+        payment_gateway: 'epay',
+      // Add more form fields here if needed
+    });
+    const baseUrl = window.location.protocol + '//' + window.location.host;
     useEffect(() => {
-        const baseUrl = window.location.protocol + '//' + window.location.host;
         const uriSegments = window.location.pathname.split('/');
         const shipment_id = uriSegments[uriSegments.length - 1];
         // Fetch user data from the API
@@ -14,11 +23,111 @@ function ShipmentPayment() {
         .then(response => {
             // Update the state with the fetched data
             setShipment(response.data.shipments);
+            setCsrfToken(response.data.csrfToken);
+            setShipmentUpdateUrl(response.data.shipmentUpdateUrl);
         })
         .catch(error => {
             console.error(error);
         });
     }, []);
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        if (type === 'checkbox') {
+          setFormData({ ...formData, [name]: checked });
+        } else {
+          setFormData({ ...formData, [name]: value });
+        }
+    };
+
+    const handleButtonClick = (e) => {
+        e.preventDefault();
+        // Perform any desired actions with the form data
+        // Disable the button and change the text
+        setButtonDisabled(true);
+        setButtonText('Loading...');
+        isLoader(true);
+        if(formData.payment_gateway=="epay"){
+            const customerId=e.target.getAttribute("data-customerid");
+            const userEmail=e.target.getAttribute("data-user_email");
+            const orderID=e.target.getAttribute("data-orderid");
+            const orderAmount=e.target.getAttribute("data-total");
+            const orderCurrency="USD";
+            const orderDescription=customerId+','+userEmail+','+orderID+','+orderAmount+','+orderCurrency;
+            paymentOptions(customerId,userEmail,orderID,orderAmount,orderCurrency,orderDescription);
+        }else if(cryptoPayments.indexOf(selectPaymentType) != -1){
+            makePayment(orderAmount,orderID,shipmentUpdateUrl,selectPaymentType);
+        }
+        // Simulate an asynchronous operation
+        setTimeout(() => {
+            // Re-enable the button and change the text back
+            setButtonDisabled(false);
+            setButtonText('Pay Now');
+        },5000);
+    };
+
+    function paymentOptions(customerId,userEmail,orderID,orderAmount,orderCurrency,orderDescription){
+        const options = {
+            channelId: "WEB",
+            merchantType: "ECOMMS",
+            merchantId:"6447cf5a37cd07f8a9a59435",
+            customerId:customerId,
+            orderID:orderID,
+            orderDescription:orderDescription,
+            orderAmount:orderAmount,
+            userEmail:userEmail,
+            merchantLogo:"https://epay.me/assets/images/logo.png",
+            showSavedCardFeature:true,
+            showCancelButton: true,
+            orderCurrency:orderCurrency,
+            successHandler: async function(response) {
+                console.log(response);
+                afterPaymentAction(response,true);             
+            },
+            failedHandler: async function(response) {
+                afterPaymentAction(response,false);
+            },
+        };    
+        const epay=new Epay(options);
+        epay.open(options);
+    }
+    function afterPaymentAction(responseData,type=true){
+        setTimeout(() => {
+            isLoader(true);
+        },500);
+        // Set the CSRF token in the Axios headers
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+        // Make the POST request with form data
+        const requestedData={status:responseData.status, response:responseData.response,id:responseData.response.orderid}
+        axios.post(shipmentUpdateUrl, requestedData)
+        .then(res => {
+            // Handle the response as needed
+            var resp=res.data;
+            console.log(resp);
+            /*{
+                "id": "3",
+                "status": "ok",
+                "response": {
+                    "orderid": "3",
+                    "curtype": "USD",
+                    "description": "orderdescription",
+                    "tranamt": 1,
+                    "transactionid": "cf332a44-d364-4ea0-8293-c9c460fb4529",
+                    "transt": "completed"
+                },
+                "redirect_url": "https://staging.saitalogistics.com/user/shipment/payments/WATXc9PQ=="
+            }*/
+            if((resp.status=="ok") && (resp.response.transt=="completed")){
+                window.location.href=resp.redirect_url;
+            }else{
+
+            }
+            isLoader(false);
+        })
+        .catch(error => {
+            console.error(error);
+            isLoader(false);
+        });
+    }
     return (
         <div className="col-md-12">
             <div className="where-from-design signUpForm" id="shipments-pg">
@@ -123,46 +232,46 @@ function ShipmentPayment() {
                                         <div className="form-group" id="eth-btn">
                                             <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon1.png" alt="" className="img-responsive" />
                                             <label>ETH</label>
-                                            <input type="radio" name="payment_gateway" value="ETH" className="clickMeForPayInput" />
+                                            <input type="radio" name="payment_gateway" value="ETH" className="clickMeForPayInput" checked={formData.payment_gateway === 'ETH'} onChange={handleChange}/>
                                         </div>
                                         <div className="form-group" id="bnb-btn"> 
                                             <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon2.png" alt="" className="img-responsive" />
                                             <label>BNB</label>
-                                            <input type="radio" name="payment_gateway" value="BNB" className="clickMeForPayInput" />
+                                            <input type="radio" name="payment_gateway" value="BNB" className="clickMeForPayInput"  checked={formData.payment_gateway === 'BNB'} onChange={handleChange} />
                                         </div>
                                         <div className="form-group" id="usdtbep-btn">
                                             <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon3.png" alt="" className="img-responsive" />
                                             <label>USDT (BEP 20)</label>
-                                            <input type="radio" name="payment_gateway" value="USDT_BEP_20" className="clickMeForPayInput" />  
+                                            <input type="radio" name="payment_gateway" value="USDT_BEP_20" className="clickMeForPayInput"  checked={formData.payment_gateway === 'USDT_BEP_20'} onChange={handleChange} />  
                                         </div>
                                         <div className="form-group" id="usdterc-btn">
                                             <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon4.png" alt="" className="img-responsive" />
                                             <label>USDT (ERC 20)</label>
-                                            <input type="radio" name="payment_gateway" value="USDT_ERC_20" className="clickMeForPayInput" />
+                                            <input type="radio" name="payment_gateway" value="USDT_ERC_20" className="clickMeForPayInput"  checked={formData.payment_gateway === 'USDT_ERC_20'} onChange={handleChange} />
                                         </div>
                                         <div className="form-group" id="saitamaerc-btn">
                                             <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon5.png" alt="" className="img-responsive" />
                                             <label>SAITAMA (ERC 20)</label>
-                                            <input type="radio" name="payment_gateway" value="SAITAMA_ERC_20" className="clickMeForPayInput" />
+                                            <input type="radio" name="payment_gateway" value="SAITAMA_ERC_20" className="clickMeForPayInput"  checked={formData.payment_gateway === 'SAITAMA_ERC_20'} onChange={handleChange} />
                                         </div>
                                         <div className="form-group" id="mazi-btn">
                                             <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon6.png" alt="" className="img-responsive" />
                                             <label>Mazimatic (Mazi BEP 20)</label>
-                                            <input type="radio" name="payment_gateway" value="MAZI_BEP_20" className="clickMeForPayInput" />
+                                            <input type="radio" name="payment_gateway" value="MAZI_BEP_20" className="clickMeForPayInput"  checked={formData.payment_gateway === 'MAZI_BEP_20'} onChange={handleChange} />
                                         </div>
                                         <div className="form-group" id="ht-token-btn">
                                             <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon7.png" alt="" className="img-responsive" />
                                             <label>HT Token (TRC 20)</label>
-                                            <input type="radio" name="payment_gateway" value="HUOBITOKEN_TRC_20" className="clickMeForPayInput" />
+                                            <input type="radio" name="payment_gateway" value="HUOBITOKEN_TRC_20" className="clickMeForPayInput" checked={formData.payment_gateway === 'HUOBITOKEN_TRC_20'} onChange={handleChange} />
                                         </div>
                                         <div className="form-group">
                                             <label>Mazimatic (Mazi ERC 20)</label>
-                                            <input type="radio" name="payment_gateway" value="MAZI_ERC_20" className="clickMeForPayInput" />
+                                            <input type="radio" name="payment_gateway" value="MAZI_ERC_20" className="clickMeForPayInput" checked={formData.payment_gateway === 'MAZI_ERC_20'} onChange={handleChange}/>
                                         </div>
                                         <div className="form-group" id="credit-crd-btn">
                                             <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon8.png" alt="" className="img-responsive" />
                                             <label>Credit/Debit Card (Epay)</label>
-                                            <input type="radio" name="payment_gateway" value="epay" checked="checked" className="clickMeForPayInput" />  
+                                            <input type="radio" name="payment_gateway" value="epay" className="clickMeForPayInput" checked={formData.payment_gateway === 'epay'} onChange={handleChange}/>  
                                         </div>
                                     </div>
                                 </div>
@@ -214,7 +323,7 @@ function ShipmentPayment() {
                 </div>
                 <div className="form-footer">
                     {shipment.total_charges ? (
-                        <button type="button" className="clickMeForPay" data-orderid={shipment.id}  data-user_email={shipment.csr_email_id} data-customerid={shipment.client_id} data-total={shipment.total_charges}>Pay Now</button>
+                        <button type="button" className="clickMeForPay" data-orderid={shipment.id}  data-user_email={shipment.csr_email_id} data-customerid={shipment.client_id} data-total={shipment.total_charges} onClick={handleButtonClick} disabled={buttonDisabled}>{buttonText}</button>
                     ) : ('')}
                 </div>
             </div>

@@ -267,12 +267,12 @@
 @section('extra_body_scripts')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://epay.me/sdk/v2/websdk.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.7.1/dist/umd/index.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://epay.me/sdk/v2/stage-websdk.js"></script>
+    <?php /*<script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.7.1/dist/umd/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>*/?>
     <script src="{{ asset('assets/js/crypto-payment.js') }}"></script>
     <script>
-        $(document).ready(function(){
+        /*$(document).ready(function(){
             $("input.clickMeForPayInput").on("click",function(e){
                 var inputValue=$(this).val();
                 if(cryptoPayments.indexOf(inputValue) != -1) {
@@ -359,7 +359,7 @@
                 $('#paymentUpdateForm').modal('show');
             }
         });
-        checkWalletConnection();
+        checkWalletConnection();*/
     </script>
     <script src="{{ url('/js/manifest.js') }}"></script>
     <script src="{{ url('/js/vendor.js') }}"></script>
