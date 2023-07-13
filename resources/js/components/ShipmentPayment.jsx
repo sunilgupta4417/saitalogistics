@@ -1,14 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from "react-dom/client";
 import axios from 'axios';
+import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum';
+import { Web3Modal,Web3Button } from '@web3modal/react';
+import {bsc, mainnet, polygon,goerli,bscTestnet} from 'wagmi/chains';
+import { configureChains, createConfig, WagmiConfig} from "wagmi";
+import {useAccount} from "wagmi";
+import { useSendTransaction, usePrepareSendTransaction } from "wagmi";
+import { parseEther } from "viem";
+import * as constansts from './Constants';
+
 
 function ShipmentPayment() {
+    const chains = [bsc, mainnet, polygon,goerli,bscTestnet]
+    const projectId = 'bc73d7505fd406159d095af056d4f4d4'
+    const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
+    const wagmiConfig = createConfig({
+        autoConnect: true,
+        connectors: w3mConnectors({ projectId, chains }),
+        publicClient
+    })
+    const ethereumClient = new EthereumClient(wagmiConfig, chains);
+
     const [shipment, setShipment] = useState([]);
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [buttonText, setButtonText] = useState('Pay Now');
     const [csrfToken, setCsrfToken] = useState('');
     const [shipmentUpdateUrl, setShipmentUpdateUrl] = useState('');
-
     const [formData, setFormData] = useState({
         payment_gateway: 'epay',
       // Add more form fields here if needed
@@ -46,16 +64,16 @@ function ShipmentPayment() {
         setButtonDisabled(true);
         setButtonText('Loading...');
         isLoader(true);
+        const customerId=e.target.getAttribute("data-customerid");
+        const userEmail=e.target.getAttribute("data-user_email");
+        const orderID=e.target.getAttribute("data-orderid");
+        const orderAmount=e.target.getAttribute("data-total");
+        const orderCurrency="USD";
+        const orderDescription=customerId+','+userEmail+','+orderID+','+orderAmount+','+orderCurrency;
         if(formData.payment_gateway=="epay"){
-            const customerId=e.target.getAttribute("data-customerid");
-            const userEmail=e.target.getAttribute("data-user_email");
-            const orderID=e.target.getAttribute("data-orderid");
-            const orderAmount=e.target.getAttribute("data-total");
-            const orderCurrency="USD";
-            const orderDescription=customerId+','+userEmail+','+orderID+','+orderAmount+','+orderCurrency;
             paymentOptions(customerId,userEmail,orderID,orderAmount,orderCurrency,orderDescription);
-        }else if(cryptoPayments.indexOf(selectPaymentType) != -1){
-            makePayment(orderAmount,orderID,shipmentUpdateUrl,selectPaymentType);
+        }else if(cryptoPayments.indexOf(formData.payment_gateway) != -1){
+            makePaymentByCrypto(orderAmount,orderID,shipmentUpdateUrl,formData.payment_gateway);
         }
         // Simulate an asynchronous operation
         setTimeout(() => {
@@ -103,19 +121,6 @@ function ShipmentPayment() {
             // Handle the response as needed
             var resp=res.data;
             console.log(resp);
-            /*{
-                "id": "3",
-                "status": "ok",
-                "response": {
-                    "orderid": "3",
-                    "curtype": "USD",
-                    "description": "orderdescription",
-                    "tranamt": 1,
-                    "transactionid": "cf332a44-d364-4ea0-8293-c9c460fb4529",
-                    "transt": "completed"
-                },
-                "redirect_url": "https://staging.saitalogistics.com/user/shipment/payments/WATXc9PQ=="
-            }*/
             if((resp.status=="ok") && (resp.response.transt=="completed")){
                 window.location.href=resp.redirect_url;
             }else{
@@ -128,6 +133,23 @@ function ShipmentPayment() {
             isLoader(false);
         });
     }
+    /* use crypto setup */
+    async function makePaymentByCrypto(orderAmount,orderID,shipmentUpdateUrl,selectPaymentType){
+        console.log(orderAmount);
+        console.log(orderID);
+        console.log(shipmentUpdateUrl);
+        console.log(selectPaymentType);
+        /*const {config}= usePrepareSendTransaction({
+            to: constansts.getReceiverAddress(selectPaymentType),
+            value: parseEther(orderAmount)
+        });
+        console.log(config);
+        const { data, isLoading, isSuccess} =useSendTransaction(config);
+        console.log(data);
+        console.log(isLoading);
+        console.log(isSuccess);*/
+    }
+
     return (
         <div className="col-md-12">
             <div className="where-from-design signUpForm" id="shipments-pg">
@@ -225,7 +247,13 @@ function ShipmentPayment() {
                             <div className="row">
                                 <div className="col-md-12">
                                     <h4 className="mb-4">How Would You Like To Pay?</h4>
-                                    <div className="walletConnected">Please connect your wallet <button type="button" className="walletConnect">Connect</button></div>
+                                    <div className="walletConnected">
+                                        <WagmiConfig config={wagmiConfig}>
+                                            <ActionButton />
+                                            <Configuration />
+                                        </WagmiConfig>
+                                        <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
+                                    </div>
                                 </div>  
                                 <div className="col-md-8">
                                     <div className="cryptoPayments">
@@ -330,15 +358,53 @@ function ShipmentPayment() {
         </div>
     );
 }
-
 export default ShipmentPayment;
+export function ActionButton() {
+    return <Web3Button />
+}
+export const Configuration = () => {
+    const [address, setAddress] = useState("");
+    const [connector, setConnector] = useState({}); 
+    
+    const data1 = useAccount({
+        onConnect({ address, connector, isReconnected }) {
+            setAddress(address);
+            console.log(connector);
+            setConnector(connector);
+        },
+        onDisconnect() {
+            setAddress("");
+            console.log("Disconnected.");
+            setConnector({});
+        },
+    });
+  
+    /*const { config } = usePrepareSendTransaction({
+      to: "0x98dD76A9B39f05BfE6d9083D391eB74076Fd7560",
+      value: parseEther("0.01"),
+    });
+  
+    const { data, isLoading, isSuccess, sendTransaction } =
+      useSendTransaction(config);
+  
+    useEffect(() => {
+      setTxhash(data?.hash);
+    }, [data, isLoading, isSuccess]);*/
+  
+    return (
+        <div>
+            <span>Address: {address}</span> <br />
+            <span>Connected through: {connector?.name}</span><br />
+        </div>
+    );
+}
 
 if (document.getElementById('root')) {
     const rootElement = document.getElementById("root");
     const root = createRoot(rootElement);
     root.render(
-    <React.StrictMode>
-        <ShipmentPayment />
-    </React.StrictMode>
+        <React.StrictMode>
+            <ShipmentPayment />
+        </React.StrictMode>
     );
 }

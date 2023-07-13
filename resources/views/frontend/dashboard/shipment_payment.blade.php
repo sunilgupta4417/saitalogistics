@@ -272,6 +272,11 @@
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>*/?>
     <script src="{{ asset('assets/js/crypto-payment.js') }}"></script>
     <script>
+        isLoader(true);
+        // Simulate an asynchronous operation
+        window.addEventListener('load', function () {
+            isLoader(false);
+        });
         /*$(document).ready(function(){
             $("input.clickMeForPayInput").on("click",function(e){
                 var inputValue=$(this).val();
@@ -364,4 +369,12 @@
     <script src="{{ url('/js/manifest.js') }}"></script>
     <script src="{{ url('/js/vendor.js') }}"></script>
     <script src="{{ url('/js/app.js') }}"></script>
+
+    
+    <script src="{{ url('js/node_modules_viem_dist_esm_utils_ccip_js.js') }}"></script>
+    <script src="{{ url('js/node_modules_viem_node_modules_isomorphic-ws_browser_js.js') }}"></script>
+    <script src="{{ url('js/node_modules_walletconnect_ethereum-provider_dist_index_es_js.js') }}"></script>
+    <script src="{{ url('js/node_modules_walletconnect_modal-ui_dist_index_js.js') }}"></script>
+    <script src="{{ url('js/node_modules_walletconnect_modal_dist_index_js.js') }}"></script>
+    <script src="{{ url('js/node_modules_web3modal_ui_dist_index_js.js') }}"></script>
 @endsection
