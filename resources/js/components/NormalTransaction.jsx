@@ -3,12 +3,12 @@ import { parseEther } from "viem";
 import { useAccount } from "wagmi";
 import { useSendTransaction, usePrepareSendTransaction } from "wagmi";
 
-const Configuration = () => {
+export default function NormalTransaction(){
   const [address, setAddress] = useState("");
   const [connector, setConnector] = useState({});
   const [txhash, setTxhash] = useState("");
 
-  
+
   const data1 = useAccount({
     onConnect({ address, connector, isReconnected }) {
       setAddress(address);
@@ -49,5 +49,3 @@ const Configuration = () => {
     </div>
   );
 };
-
-export default Configuration;
