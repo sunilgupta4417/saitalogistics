@@ -1,10 +1,10 @@
 import React from "react";
 import { useState,useEffect } from "react";
 import { Modal, Button} from "react-bootstrap";
-import { usePrepareContractWrite,useContractWrite } from "wagmi";
+import { useContractWrite } from "wagmi";
 import { useContractRead} from "wagmi";
-/*import { parseEther } from "viem";
-import { ethers } from "ethers";*/
+import { parseEther } from "viem";
+import { useSendTransaction, usePrepareSendTransaction } from "wagmi";
 import * as constansts from './Constants';
 
 export default function CryptoTransaction(props){
@@ -15,43 +15,82 @@ export default function CryptoTransaction(props){
     functionName: "owner",
     chainId: 5,
   });*/
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    payment_gateway: 'epay',
+  });
   const [show, setShow] = useState(false);
-  const handleClose = () =>setShow(false);
-  const handleShow = () =>setShow(true);
-  const handleChange = (e) => {
+  const [receiverAddress, setReceiverAddress] = useState("");
+  const [contractAddress, setContractAddress] = useState("");
+  const [contractAbi, setContractAbi] = useState("");
+  const [paybleAmount, setPaybleAmount] = useState("");
+  const [coinPayment, setCoinPayment] = useState(false);
+  const [ethereumPayment, setEthereumPayment] = useState(false);
+  const handleClose = () =>{
+    setShow(false);
+    setFormData({ ...formData,payment_gateway: 'epay' });
+  }
+  const handleShow = () =>{
+    setShow(true);
+  }
+  const handleChange = async (e) => {
     const { name, value, type, checked } = e.target;
     if (type === 'checkbox') {
       setFormData({ ...formData, [name]: checked });
     }else if (type === 'radio') {
       setFormData({ ...formData, [name]: value });
+      console.log(value);
+      setReceiverAddress(constansts.getReceiverAddress(selectedAddressId));
+      setContractAddress(constansts.getContractAddress(selectedAddressId));
+      setContractAbi(constansts.getContractAbi(selectedAddressId));
+      /*var finalPaybleAmount=(props.shipmentData.total_charges*1000000000000000000);*/
+      const ethPayments=["ETH","BNB"];
+      if(ethPayments.indexOf(value) != -1) {
+        setEthereumPayment(true);
+        setCoinPayment(false);
+        var finalPaybleAmount=await constansts.getUsdToConvertAmount(10,value);
+        finalPaybleAmount=parseEther(finalPaybleAmount);
+      }else{
+        setEthereumPayment(false);
+        setCoinPayment(true);
+        var finalPaybleAmount=await constansts.getUsdToConvertAmount(10,value);
+      }
+      setPaybleAmount(finalPaybleAmount);
+      console.log(finalPaybleAmount);
       setShow(true);
     }else {
       setFormData({ ...formData, [name]: value });
     }
   };
-  const receiverAddress=constansts.getReceiverAddress(selectedAddressId);
-  const paybleAmount=(props.shipmentData.total_charges*1000000000000000000);
-  /*const config = usePrepareContractWrite({
-    address:constansts.getContractAddress(selectedAddressId),
-    abi:constansts.getContractAbi(selectedAddressId),
-    functionName: 'transfer',
-    chainId:5,
-    args: [
-      receiverAddress,
-      paybleAmount
-    ]
-  });
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);*/
-  const { data, isLoading, isSuccess, write } = useContractWrite({
-    address:constansts.getContractAddress(selectedAddressId),
-    abi:constansts.getContractAbi(selectedAddressId),
+  
+  const {
+    data: contractWriteData,
+    isLoading: contractWriteIsLoading,
+    isSuccess: contractWriteIsSuccess,
+    write: contractWrite
+  } = useContractWrite({
+    address:contractAddress,
+    abi:contractAbi,
     functionName: 'transfer',
     chainId: 5,    
   })
-  if(isSuccess){
-    console.log(data);
-  } 
+  if(contractWriteIsSuccess){
+    console.log(contractWriteData);
+    /*const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: ethAmount/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};*/
+  }
+  const {
+    data: transactionData,
+    isLoading: transactionIsLoading,
+    isSuccess: transactionIsSuccess,
+    sendTransaction
+  }=useSendTransaction({
+    to:receiverAddress,
+    value:paybleAmount,
+    chainId:5,    
+  });  
+  if(transactionIsSuccess){
+    console.log(transactionData);
+    /*const paymentResp = { transactionid : res.blockHash,blockHash : res.blockHash, blockNumber: res.blockNumber, from: res.from, to: res.to, amount: ethAmount/1000000000000000000, paymentType: "Deposit", paymentMethod: "Crypto", paymentCoin:payment_type+" Coin",transt:payStatus,orderid:orderid,transactionHash:res.transactionHash};*/
+  }
 
   return (
     <div className="cryptoPaymentList">
@@ -108,14 +147,26 @@ export default function CryptoTransaction(props){
             <p>Ex Work Amount: USD {props.shipmentData.fca_charge}</p>
             <p>Total Amount: USD {props.shipmentData.total_charges}</p>
           </div>
-          <button className="clickMeForPay" disabled={!write} onClick={() =>write({
-            args: [
-              receiverAddress,
-              paybleAmount
-            ]
-          })} >Pay Now </button>
-          {isLoading && <div>Check Wallet</div>}
-          {isSuccess && <div>Transaction: {JSON.stringify(data)}</div>}
+          { coinPayment && (
+            <div className="coinPayment">
+              <button className="clickMeForPay" disabled={!contractWrite} onClick={() =>contractWrite({
+                args: [
+                  receiverAddress,
+                  paybleAmount
+                ]
+              })} >Pay Now </button>
+              {contractWriteIsLoading && <div>Check Wallet</div>}
+              {contractWriteIsSuccess && <div>Transaction: {JSON.stringify(contractWriteData)}</div>}
+            </div>
+          )}
+          { ethereumPayment && (
+            <div className="etheriumPayment">
+              <button className="clickMeForPay" onClick={() => sendTransaction()}
+              >Pay Now </button><br />
+              {transactionIsLoading && <div>Check Wallet</div>}
+              {transactionIsSuccess && <div>Transaction: {JSON.stringify(transactionData)}</div>}
+            </div>
+          )}
         </Modal.Body>
       </Modal>
     </div>

@@ -5,7 +5,7 @@ import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/react';
 import {bsc, mainnet, polygon,goerli,bscTestnet} from 'wagmi/chains';
 import { configureChains, createConfig, WagmiConfig} from "wagmi";
-import NormalTransaction from './NormalTransaction';
+import AccountConnection from './AccountConnection';
 import CryptoTransaction from './CryptoTransaction';
 import ActionButton from './ActionButton';
 
@@ -148,13 +148,6 @@ function ShipmentPayment() {
         const {data} =  useContractWrite(config);
         console.log(data);*/
     }
-    
-    /*function prepareContract(){
-        return
-    }
-    function writeContract(configData){
-        return useContractWrite(configData);
-    }*/
     return (
         <div className="col-md-12">
             <div className="where-from-design signUpForm" id="shipments-pg">
@@ -255,7 +248,7 @@ function ShipmentPayment() {
                                         <h4 className="mb-4">How Would You Like To Pay?</h4>
                                         <div className="walletConnected">
                                             <ActionButton />
-                                            <NormalTransaction />
+                                            <AccountConnection />
                                         </div>
                                     </div>  
                                     <div className="col-md-8">
