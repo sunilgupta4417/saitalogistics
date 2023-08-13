@@ -131,23 +131,6 @@ function ShipmentPayment() {
             isLoader(false);
         });
     }
-    /* use crypto setup */
-    async function makePaymentByCrypto(orderAmount,orderID,shipmentUpdateUrl,selectPaymentType){
-        console.log(orderID);
-        console.log(shipmentUpdateUrl);
-        console.log(orderAmount);
-        /*const {config}=  usePrepareContractWrite({
-            address:constansts.getContractAddress("USDT_ERC_20"),
-            abi: constansts.getContractAbi("USDT_ERC_20"),
-            functionName: 'transfer',
-            args: [
-                constansts.getReceiverAddress("USDT_ERC_20"),
-                10000000000000000000
-            ]
-        });
-        const {data} =  useContractWrite(config);
-        console.log(data);*/
-    }
     return (
         <div className="col-md-12">
             <div className="where-from-design signUpForm" id="shipments-pg">
@@ -253,7 +236,7 @@ function ShipmentPayment() {
                                     </div>  
                                     <div className="col-md-8">
                                         <div className="cryptoPayments">
-                                            <CryptoTransaction shipmentData={shipment}/>
+                                            <CryptoTransaction shipmentData={shipment} shipmentUpdateUrl={shipmentUpdateUrl} csrfToken={csrfToken}/>
                                             <div className="form-group" id="credit-crd-btn">
                                                 <img src="https://staging.saitalogistics.com/assets/images/btn-icons/icon8.png" alt="" className="img-responsive" />
                                                 <label>Credit/Debit Card (Epay)</label>

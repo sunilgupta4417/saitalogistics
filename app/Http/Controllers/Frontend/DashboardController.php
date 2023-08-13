@@ -317,8 +317,10 @@ class DashboardController extends Controller
     {
         $payment_gateway=isset($request->payment_gateway)?$request->payment_gateway:"Epay";
         $payment_type=isset($request->payment_type)?$request->payment_type:"online";
-        if(($request->status=="ok") && ($request->response["transt"]=="completed")){
-            PacketBooking::where("id",$request->id)->update(["payment_gateway"=>$payment_gateway,"payment_status"=>"success","payment_type"=>$payment_type,"payment_response"=>$request->response,"booking_status"=>4]);
+        $transtStatus=$request->response["transt"];
+        if(($request->status=="ok") && ($transtStatus=="completed" || $transtStatus=="waiting")){
+            $transtStatus=($transtStatus=="completed")?"success":"waiting";
+            PacketBooking::where("id",$request->id)->update(["payment_gateway"=>$payment_gateway,"payment_status"=>$transtStatus,"payment_type"=>$payment_type,"payment_response"=>$request->response,"booking_status"=>4]);
         }else{
             PacketBooking::where("id",$request->id)->update(["payment_gateway"=>$payment_gateway,"payment_status"=>"failed","payment_type"=>$payment_type,"payment_response"=>$request->response]);
         }
@@ -331,7 +333,7 @@ class DashboardController extends Controller
             $orderData['awb_no']=$packetInfo->awb_no;
             $orderData['reference_no']=$packetInfo->reference_no;
             $orderData['amount']=$packetInfo->shipping_charge;
-            $orderData['payment_status']=($packetInfo->payment_status=="success"?"Success":"Rejected");
+            $orderData['payment_status']=(($packetInfo->payment_status=="success")?"Success":(($packetInfo->payment_status=="waiting")?"Waiting":"Rejected"));
             $orderData['payment_date']=date("Y-m-d h:i:s", strtotime($packetInfo->created_at));
             $orderData['payment_mode']=$packetInfo->payment_gateway;
             $orderData['customer_name']=$packetInfo->csr_consignor;
