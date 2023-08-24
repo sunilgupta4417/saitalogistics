@@ -7,6 +7,7 @@ import { useSendTransaction } from "wagmi";
 import * as constants from './Constants';
 import { fetchTransaction } from '@wagmi/core';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
 export default function CryptoTransaction(props){
   const selectedAddressId="Test";
@@ -27,12 +28,15 @@ export default function CryptoTransaction(props){
   const [paybleAmount, setPaybleAmount] = useState("");
   const [coinPayment, setCoinPayment] = useState(false);
   const [ethereumPayment, setEthereumPayment] = useState(false);
+  const [payNowButton, setPayNowButton] = useState(true);
   const handleClose = () =>{
     setShow(false);
+    setPayNowButton(true);
     setFormData({ ...formData,payment_gateway: 'epay' });
   }
   const handleShow = () =>{
     setShow(true);
+    setPayNowButton(false);
   }
   const handleChange = async (e) => {
     const { name, value, type, checked } = e.target;
@@ -60,6 +64,7 @@ export default function CryptoTransaction(props){
       }
       setPaybleAmount(finalPaybleAmount);
       setShow(true);
+      setPayNowButton(false);
     }else {
       setFormData({ ...formData, [name]: value });
     }
@@ -164,7 +169,7 @@ export default function CryptoTransaction(props){
         console.error(error);
         isLoader(false);
     });
-}
+  }
   return (
     <div className="cryptoPaymentList">
       <div className="cryptoPaymentsList">
@@ -208,13 +213,12 @@ export default function CryptoTransaction(props){
           <input type="radio" name="payment_gateway" value="HUOBITOKEN_TRC_20" className="clickMeForPayInput" checked={formData.payment_gateway === 'HUOBITOKEN_TRC_20'} onChange={handleChange} />
         </div>*/}
       </div>
-      <Modal show={show} onHide={handleClose} className="cryptoPaymentConfirmationBox">
+      <Modal show={show} onHide={handleClose} backdrop="static" className="cryptoPaymentConfirmationBox">
         <Modal.Header closeButton>
-          <p>Payment</p>
+          <p>Booking Date: {props.shipmentData.booking_date} Payment</p>
         </Modal.Header>
         <Modal.Body>
           <div>
-            <p>Booking Date: {props.shipmentData.booking_date}</p>
             <p>Shipping Amount: USD {props.shipmentData.shipping_charge}</p>
             <p>FCA Amount: USD {props.shipmentData.fca_charge}</p>
             <p>Ex Work Amount: USD {props.shipmentData.fca_charge}</p>

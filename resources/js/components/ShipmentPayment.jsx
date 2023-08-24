@@ -23,6 +23,7 @@ function ShipmentPayment() {
     const [shipment, setShipment] = useState([]);
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [buttonText, setButtonText] = useState('Pay Now');
+    const [payNowButton, setPayNowButton] = useState(true);
     const [csrfToken, setCsrfToken] = useState('');
     const [shipmentUpdateUrl, setShipmentUpdateUrl] = useState('');
     const [formData, setFormData] = useState({
@@ -290,11 +291,11 @@ function ShipmentPayment() {
                             </div>
                         </div>
                     </div>
-                    <div className="form-footer">
+                    { payNowButton ? <div className="form-footer">
                         {shipment.total_charges ? (
                             <button type="button" className="clickMeForPay" data-orderid={shipment.id}  data-user_email={shipment.csr_email_id} data-customerid={shipment.client_id} data-total={shipment.total_charges} onClick={handleButtonClick} disabled={buttonDisabled}>{buttonText}</button>
                         ) : ('')}
-                    </div>
+                    </div>:""}
                 </WagmiConfig>
                 <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
             </div>
