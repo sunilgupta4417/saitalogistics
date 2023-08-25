@@ -29,6 +29,9 @@ export default function CryptoTransaction(props){
   const [coinPayment, setCoinPayment] = useState(false);
   const [ethereumPayment, setEthereumPayment] = useState(false);
   const [payNowButton, setPayNowButton] = useState(true);
+  const [failedPaymentErrorMessage, setFailedPaymentErrorMessage] = useState("");
+  const [failedPaymentErrorStatus, setFailedPaymentErrorStatus] = useState(false);
+
   const handleClose = () =>{
     setShow(false);
     setPayNowButton(true);
@@ -69,12 +72,12 @@ export default function CryptoTransaction(props){
       setFormData({ ...formData, [name]: value });
     }
   };
-  
   const {
     data: contractWriteData,
     isLoading: contractWriteIsLoading,
     isSuccess: contractWriteIsSuccess,
-    write: contractWrite
+    write: contractWrite,
+    error:contractWriteError
   } = useContractWrite({
     address:contractAddress,
     abi:contractAbi,
@@ -82,38 +85,58 @@ export default function CryptoTransaction(props){
     chainId:constants.getChainId(formData.payment_gateway),    
   })
   if(contractWriteIsLoading){
-    console.log("Chain ID: "+constants.getChainId(formData.payment_gateway));
+    /*console.log("Chain ID: "+constants.getChainId(formData.payment_gateway));
     console.log("receiverAddress: "+receiverAddress);
-    console.log("contractAddress: "+contractAddress);
+    console.log("contractAddress: "+contractAddress);*/
     isLoader(true);
   }
+  if(contractWriteError){
+    isLoader(false);   
+    /*console.log(contractWriteError.getDetails());
+    let contWriteErrorMessage=JSON.stringify(contractWriteError);
+    let contractWriteErrorMessage=JSON.parse(contWriteErrorMessage);
+    if(contractWriteErrorMessage.details=="User rejected the transaction") {
+      setContractTransactionErrorMessage("Transaction rejected from your wallet, please check and try again ");
+    } else {
+      setContractTransactionErrorMessage("An error occurred:", contractWriteErrorMessage.details);
+    }*/
+  } 
   if(contractWriteIsSuccess){
     setTimeout(() => {
       getTransaction(contractWriteData);
     },5000);
-  }else if(!contractWriteIsLoading){
-    isLoader(false);
   }
   const {
     data: transactionData,
     isLoading: transactionIsLoading,
     isSuccess: transactionIsSuccess,
-    sendTransaction
+    sendTransaction,
+    error:sendTransactionError
   }=useSendTransaction({
     to:receiverAddress,
     value:paybleAmount,
     chainId:constants.getChainId(formData.payment_gateway),    
   }); 
   if(transactionIsLoading){
-    console.log("Chain ID E: "+constants.getChainId(formData.payment_gateway));
+    /*console.log("Chain ID E: "+constants.getChainId(formData.payment_gateway));*/
     isLoader(true);
-  } 
+  }
+  if(sendTransactionError){
+    isLoader(false);
+    /*let sendTransErrorMessages=JSON.stringify(sendTransactionError);
+    let sendTransErrorMessage=JSON.parse(sendTransErrorMessages);
+    if (sendTransErrorMessage.details="User rejected the transaction") {
+      setSendTransactionErrorMessage("Transaction rejected from your wallet, please check and try again");
+    } else {
+      setSendTransactionErrorMessage("An error occurred:", sendTransErrorMessage.details);
+    }*/
+  }
   if(transactionIsSuccess){
     setTimeout(() => {
       getTransaction(transactionData);
     },5000);
   }else if(!transactionIsLoading){
-    isLoader(false);
+    //isLoader(false);
   }
   
   /*const transactionObj=fetchTransaction({
@@ -140,7 +163,7 @@ export default function CryptoTransaction(props){
         setEnabled(true);
       }
     }
-    isLoader(false);
+    //isLoader(false);
   }
   async function afterPaymentAction(responseData,type=true){
     setTimeout(() => {
@@ -232,16 +255,18 @@ export default function CryptoTransaction(props){
                   paybleAmount
                 ]
               })} >Pay Now </button>
-              {contractWriteIsLoading && <div>Check Wallet</div>}
+              {contractWriteIsLoading && <div className="message">Please check your wallet, we have sent a payment request. If you have not received any payment requests in your wallet, please refresh your page and try again.</div>}
               {contractWriteIsSuccess && <div>Transaction: {JSON.stringify(contractWriteData)}</div>}
+              {contractWriteError && (<div className="error">Transaction failed from your wallet, please check your wallet and try again.</div>)}
             </div>
           )}
           { ethereumPayment && (
             <div className="etheriumPayment">
               <button className="clickMeForPay" onClick={() => sendTransaction()}
               >Pay Now </button><br />
-              {transactionIsLoading && <div>Check Wallet</div>}
+              {transactionIsLoading && <div className="message">Please check your wallet, we have sent a payment request. If you have not received any payment requests in your wallet, please refresh your page and try again.</div>}
               {transactionIsSuccess && <div>Transaction: {JSON.stringify(transactionData)}</div>}
+              {sendTransactionError && (<div className="error">Transaction failed from your wallet, please check your wallet and try again.</div>)}
             </div>
           )}
         </Modal.Body>
